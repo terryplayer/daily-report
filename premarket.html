@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 盘前简报 | 2026.05.19 周二</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 800px; margin: 0 auto; }
+.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #58a6ff; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 10px 0 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-green { background: rgba(63,185,80,0.15); color: #3fb950; }
+.tag-red { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-yellow { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.stock-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #21262d; }
+.stock-row:last-child { border-bottom: none; }
+.stock-name { font-weight: 600; font-size: 14px; }
+.stock-code { color: #8b949e; font-size: 12px; }
+.stock-price { font-size: 14px; font-weight: 600; }
+.stock-meta { color: #8b949e; font-size: 12px; }
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.level-bar { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+.level-strong { background: rgba(63,185,80,0.2); color: #3fb950; }
+.level-weak { background: rgba(248,81,73,0.2); color: #f85149; }
+.level-mid { background: rgba(210,153,34,0.2); color: #d9a52e; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>📋 盘前简报 | 2026.05.19 周二</h1>
+<div class="date">生成时间：09:15 CST | 前日数据截止 2026-05-18 收盘</div>
+</div>
+
+<!-- 隔夜外围 -->
+<div class="section">
+<h2>🌍 隔夜外围</h2>
+<table>
+<tr><th>指数</th><th>收盘</th><th>涨跌幅</th><th>对A股影响</th></tr>
+<tr><td>道琼斯</td><td>49,526.17</td><td class="down">-1.07%</td><td>偏空</td></tr>
+<tr><td>标普500</td><td>~7,408.50</td><td class="down">-1.24%</td><td>偏空</td></tr>
+<tr><td>纳斯达克</td><td>~22,715</td><td class="down">-1.54%</td><td>偏空</td></tr>
+<tr><td>💀 费城半导体</td><td>—</td><td class="down">-4.20%</td><td><span class="tag tag-red">科技承压</span></td></tr>
+</table>
+<p style="font-size:12px;color:#8b949e;margin-top:8px;">全球债市抛售，美债收益率飙升。英伟达财报周三盘后。费城半导体-4.2%将对A股科技板块形成压力。</p>
+</div>
+
+<!-- 大盘技术位 -->
+<div class="section">
+<h2>📈 大盘技术位</h2>
+<table>
+<tr><th>指数</th><th>昨收</th><th>支撑位</th><th>压力位</th><th>关键点位</th></tr>
+<tr><td><b>上证指数</b></td><td>4,131.53</td><td>4,100</td><td>4,150</td><td>4,130 多空分界</td></tr>
+<tr><td><b>创业板指</b></td><td>3,914.88</td><td>3,850</td><td>3,950</td><td>3,900 整数关口</td></tr>
+</table>
+</div>
+
+<!-- 今日关键事件 -->
+<div class="section">
+<h2>📌 今日关键事件</h2>
+
+<h3 style="color:#8b949e;">宏观/政策</h3>
+<div class="event-item">• 无重大宏观数据发布</div>
+<div class="event-item">• 月底结账效应，6月初资金面收紧预期</div>
+
+<h3 style="color:#8b949e;margin-top:10px;">题材催化</h3>
+<div class="event-item"><span class="tag tag-green">重磅</span> <b>普京访华</b>（5/19-20）— 中俄合作（能源/基建/农业）</div>
+<div class="event-item"><span class="tag tag-green">重磅</span> <b>华为首款鸿蒙PC发布</b> — 鸿蒙生态催化</div>
+<div class="event-item"><span class="tag tag-green">关注</span> 茅台提价（出厂价+零售价同步上调）</div>
+<div class="event-item"><span class="tag tag-green">关注</span> Token工厂（弘信电子昨+20%涨停）— AI算力</div>
+<div class="event-item"><span class="tag tag-yellow">观察</span> 可控核聚变（"人造太阳"完成电磁心脏）</div>
+<div class="event-item"><span class="tag tag-yellow">观察</span> 英伟达财报前瞻（周三盘后）— 全球AI情绪锚点</div>
+
+<h3 style="color:#8b949e;margin-top:10px;">🏷️ 持仓关联催化</h3>
+<div class="event-item"><span class="tag tag-green">✅利好</span> 中科创达 — 鸿蒙PC发布直接受益（AIOS+鸿蒙生态）</div>
+<div class="event-item"><span class="tag tag-green">✅利好</span> 中国能建 — 普京访华（中俄能源/基建合作预期）</div>
+<div class="event-item"><span class="tag tag-red">⚠️承压</span> 长电科技 / 天孚通信 — 费城半导体-4.2%拖累</div>
+<div class="event-item"><span class="tag tag-red">⚠️承压</span> 蓝思科技 — 昨+13.12%触发减半仓纪律</div>
+</div>
+
+<!-- 板块风向标 -->
+<div class="section">
+<h2>🧭 板块风向标</h2>
+<div class="grid-2">
+<div>
+<h3 style="color:#f85149;">🔴 资金可能流入</h3>
+<div class="event-item">• 鸿蒙生态（中科创达等）</div>
+<div class="event-item">• AI算力/IDC（弘信电子）</div>
+<div class="event-item">• 中俄合作（基建/能源）</div>
+<div class="event-item">• 白酒（茅台提价传导）</div>
+</div>
+<div>
+<h3 style="color:#3fb950;">🟢 资金可能流出</h3>
+<div class="event-item">• 光通信/CPO（费城半导体拖累）</div>
+<div class="event-item">• 半导体设备（隔夜压力）</div>
+<div class="event-item">• 消费电子（蓝思恐高）</div>
+</div>
+</div>
+
+<h3 style="color:#8b949e;margin-top:10px;">题材强度排名</h3>
+<div class="event-item"><span class="level-bar level-strong">🟢Strong</span> 半导体（国产替代/繁荣期）</div>
+<div class="event-item"><span class="level-bar level-strong">🟢Strong</span> AI硬件（Token工厂/光通信景气）</div>
+<div class="event-item"><span class="level-bar level-mid">🟡Weak</span> 鸿蒙生态（华为PC发布）</div>
+<div class="event-item"><span class="level-bar level-mid">🟡Weak</span> 低空经济（政策解读）</div>
+<div class="event-item"><span class="level-bar level-weak">🔴Weak</span> 机器人（仅个别催化）</div>
+</div>
+
+<!-- 持仓盘前观察 -->
+<div class="section">
+<h2>📋 持仓盘前观察</h2>
+
+<h3 style="color:#f85149;">🔥 强势预判</h3>
+<div class="stock-row">
+<div><span class="stock-name">中科创达</span> <span class="stock-code">300496</span></div>
+<div><span class="stock-price up">67.56</span> <span class="stock-meta">鸿蒙利好 | 压力70</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">蓝思科技</span> <span class="stock-code">300433</span></div>
+<div><span class="stock-price up">38.70</span> <span class="stock-meta">昨+13% | 关注冲高回落</span></div>
+</div>
+
+<h3 style="color:#d9a52e;">➡️ 震荡预判</h3>
+<div class="stock-row">
+<div><span class="stock-name">中科曙光</span> <span class="stock-code">603019</span></div>
+<div><span class="stock-price up">98.70</span> <span class="stock-meta">支撑95 | 压力100</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">东山精密</span> <span class="stock-code">002384</span></div>
+<div><span class="stock-price up">211.25</span> <span class="stock-meta">支撑200 | 压力220</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">帝奥微</span> <span class="stock-code">688381</span></div>
+<div><span class="stock-price up">37.57</span> <span class="stock-meta">支撑36 | 压力39</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">欧莱新材</span> <span class="stock-code">688530</span></div>
+<div><span class="stock-price up">54.95</span> <span class="stock-meta">支撑53 | 压力57</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">易点天下</span> <span class="stock-code">301171</span></div>
+<div><span class="stock-price up">45.94</span> <span class="stock-meta">支撑44 | 压力48</span></div>
+</div>
+
+<h3 style="color:#3fb950;">⚠️ 弱势/风险</h3>
+<div class="stock-row">
+<div><span class="stock-name">长电科技</span> <span class="stock-code">600584</span></div>
+<div><span class="stock-price up">58.33</span> <span class="stock-meta">费城半导体-4.2%承压</span></div>
+</div>
+<div class="stock-row">
+<div><span class="stock-name">天孚通信</span> <span class="stock-code">300394</span></div>
+<div><span class="stock-price down">384.95</span> <span class="stock-meta">光通信/CPO跟跌风险</span></div>
+</div>
+</div>
+
+<!-- 机构情绪 -->
+<div class="section">
+<h2>🏛️ 机构情绪参考</h2>
+<table>
+<tr><th>合约</th><th>机构净变化</th><th>中信期货</th><th>解读</th></tr>
+<tr><td>IH（上证50）</td><td class="up">+171手</td><td class="down">-813手（加空）</td><td>大票承压</td></tr>
+<tr><td>IF（沪深300）</td><td class="down">-1,370手</td><td class="up">+564手（减空）</td><td>中性偏好</td></tr>
+<tr><td>IC（中证500）</td><td class="up">+762手</td><td class="down">-312手（加空）</td><td>中小票承压</td></tr>
+<tr><td>IM（中证1000）</td><td class="up">+503手</td><td class="down">-1手</td><td>中性</td></tr>
+<tr><td colspan="4" style="color:#f85149;font-size:12px;">机构合计净空 -123,552手 | 中信期货净空 -61,618手，全面加空，态度偏谨慎</td></tr>
+</table>
+</div>
+
+<!-- 今日操作方向 -->
+<div class="section">
+<h2>🎯 今日操作方向</h2>
+<div style="margin-bottom:10px;">
+<h3 style="color:#f85149;">关注</h3>
+<div class="event-item">• 中科创达 — 鸿蒙PC发布核心受益</div>
+<div class="event-item">• 中国能建 — 普京访华催化</div>
+<div class="event-item">• 弘信电子 Token工厂 — 题材强度验证</div>
+</div>
+<div style="margin-bottom:10px;">
+<h3 style="color:#3fb950;">回避</h3>
+<div class="event-item">• 光通信/CPO — 费城半导体拖累</div>
+<div class="event-item">• 蓝思科技追高 — +13%后需防回落</div>
+</div>
+<div>
+<h3 style="color:#d9a52e;">📏 纪律提醒</h3>
+<div class="event-item">• 蓝思科技昨+13.12% → 今日关注冲高回落，严格执行减半仓</div>
+<div class="event-item">• 天孚通信连续调整 → 关注MA位置支撑</div>
+<div class="event-item">• 费城半导体-4.2% → 观察今日A股科技板块承接力度</div>
+</div>
+</div>
+
+<div class="footer">
+🌀 小十三 · 盘前简报 | 数据来源：腾讯证券 + 公开市场数据 | 仅供参考，不构成投资建议
+</div>
+
+</div>
+</body>
+</html>
