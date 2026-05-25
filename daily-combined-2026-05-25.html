@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合并收盘简报 2026-05-25</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 { color: #58a6ff; font-size: 24px; margin-bottom: 6px; }
+  .date { color: #8b949e; font-size: 14px; margin-bottom: 20px; }
+  h2 { 
+    color: #f0f6fc; font-size: 18px; margin: 20px 0 12px; 
+    border-left: 3px solid #58a6ff; padding-left: 10px;
+  }
+  .section { 
+    background: #161b22; border-radius: 8px; padding: 16px; 
+    margin-bottom: 16px; border: 1px solid #21262d;
+  }
+  .index-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .index-item {
+    background: #0d1117; border-radius: 6px; padding: 10px;
+    border: 1px solid #21262d;
+  }
+  .index-name { font-size: 13px; color: #8b949e; }
+  .index-price { font-size: 20px; font-weight: bold; margin: 4px 0; }
+  .index-change { font-size: 14px; }
+  .up { color: #f85149 !important; }
+  .down { color: #3fb950 !important; }
+  .flat { color: #c9d1d9; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  th {
+    text-align: left; padding: 8px 6px; 
+    border-bottom: 1px solid #30363d; color: #8b949e;
+    font-weight: 500; font-size: 12px;
+  }
+  td { padding: 7px 6px; border-bottom: 1px solid #21262d; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #1c2128; }
+  .sector-header {
+    background: #1c2128; font-weight: 600; color: #58a6ff;
+  }
+  .rs-Aplus { color: #f85149; font-weight: bold; }
+  .rs-A { color: #ff7b72; }
+  .rs-B { color: #d2a8ff; }
+  .rs-C { color: #8b949e; }
+  .rs-D { color: #3fb950; }
+  .badge {
+    display: inline-block; padding: 1px 6px; border-radius: 10px;
+    font-size: 11px; font-weight: 600;
+  }
+  .badge-up { background: rgba(248,81,73,0.15); color: #f85149; }
+  .badge-down { background: rgba(63,185,80,0.15); color: #3fb950; }
+  .news-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .news-item:last-child { border: none; }
+  .score-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+  .risk-box {
+    background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3);
+    border-radius: 6px; padding: 10px; font-size: 13px; color: #f85149;
+  }
+  .outlook-box {
+    background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 6px; padding: 10px; font-size: 13px;
+  }
+  .status-ok { color: #3fb950; font-size: 13px; }
+  @media (max-width: 600px) {
+    .index-grid { grid-template-columns: 1fr 1fr; }
+    body { padding: 10px; }
+    table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🌀 合并收盘简报</h1>
+<div class="date">2026年5月25日（周一）</div>
+
+<!-- 市场概览 -->
+<h2>📊 市场概览</h2>
+<div class="section">
+  <div class="index-grid">
+    <div class="index-item">
+      <div class="index-name">上证指数</div>
+      <div class="index-price">4152.57</div>
+      <div class="index-change up">🔴 +0.96%</div>
+    </div>
+    <div class="index-item">
+      <div class="index-name">深证成指</div>
+      <div class="index-price">15856.61</div>
+      <div class="index-change up">🔴 +1.66%</div>
+    </div>
+    <div class="index-item">
+      <div class="index-name">创业板指</div>
+      <div class="index-price">4021.16</div>
+      <div class="index-change up">🔴 +2.10%</div>
+    </div>
+    <div class="index-item">
+      <div class="index-name">科创50</div>
+      <div class="index-price">1896.04</div>
+      <div class="index-change up">🔴 +5.88%</div>
+    </div>
+  </div>
+  <p style="margin-top:12px;font-size:13px;color:#8b949e;">
+    今日A股全面上涨，科创50以+5.88%领涨全场。半导体产业链集体爆发，多只科创板/创业板个股涨停（+20%），市场风格明显偏向科技成长。
+  </p>
+</div>
+
+<!-- 板块轮动 -->
+<h2>📈 板块轮动</h2>
+<div class="section">
+  <p style="font-size:13px;font-weight:600;color:#f85149;margin-bottom:6px;">涨幅居前：</p>
+  <table>
+    <tr><th>板块</th><th>涨幅</th></tr>
+    <tr><td>集成电路制造</td><td class="up">🔴 +11.01%</td></tr>
+    <tr><td>集成电路封测</td><td class="up">🔴 +9.42%</td></tr>
+    <tr><td>分立器件</td><td class="up">🔴 +5.99%</td></tr>
+    <tr><td>玻璃玻纤</td><td class="up">🔴 +5.92%</td></tr>
+    <tr><td>焦煤</td><td class="up">🔴 +5.45%</td></tr>
+    <tr><td>半导体</td><td class="up">🔴 +4.69%</td></tr>
+  </table>
+  <p style="font-size:13px;font-weight:600;color:#3fb950;margin:12px 0 6px;">跌幅居前：</p>
+  <table>
+    <tr><th>板块</th><th>跌幅</th></tr>
+    <tr><td>油气及炼化工程</td><td class="down">🟢 -6.44%</td></tr>
+    <tr><td>油服工程</td><td class="down">🟢 -5.07%</td></tr>
+    <tr><td>体育</td><td class="down">🟢 -4.56%</td></tr>
+    <tr><td>氟化工</td><td class="down">🟢 -3.60%</td></tr>
+    <tr><td>硅料硅片</td><td class="down">🟢 -3.48%</td></tr>
+    <tr><td>油气开采</td><td class="down">🟢 -3.39%</td></tr>
+  </table>
+</div>
+
+<!-- 持仓股票 -->
+<h2>📋 持仓股票</h2>
+<div class="section">
+<table>
+  <tr>
+    <th>股票</th><th>收盘价</th><th>涨跌幅</th><th>RS等级</th>
+  </tr>
+  
+  <tr class="sector-header"><td colspan="4">科技/半导体</td></tr>
+  <tr>
+    <td>中巨芯-U(688549)</td><td>15.99</td><td class="down">🟢 -1.90%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>电科蓝天(603019)</td><td>96.45</td><td class="up">🔴 +1.74%</td><td class="rs-C">C</td>
+  </tr>
+  <tr>
+    <td>帝奥微(688381)</td><td>47.35</td><td class="up">🔴 +7.74%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>瑞华泰(688323)</td><td>39.80</td><td class="down">🟢 -1.97%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>欧莱新材(688530)</td><td>51.07</td><td class="down">🟢 -1.33%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>华特气体(688268)</td><td>157.93</td><td class="down">🟢 -3.63%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>隆扬电子(301389)</td><td>84.60</td><td class="up">🔴 +9.13%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>领益智造(002600)</td><td>16.09</td><td class="down">🟢 -1.35%</td><td class="rs-A">A</td>
+  </tr>
+  <tr>
+    <td>利通电子(603629)</td><td>202.00</td><td class="up">🔴 +3.25%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>宏景科技(301396)</td><td>287.06</td><td class="down">🟢 -8.17%</td><td class="rs-C">C</td>
+  </tr>
+
+  <tr class="sector-header"><td colspan="4">通信/电子</td></tr>
+  <tr>
+    <td>汇源通信(000586)</td><td>17.99</td><td class="up">🔴 +2.10%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>东山精密(002384)</td><td>226.24</td><td class="up">🔴 +2.58%</td><td class="rs-B">B</td>
+  </tr>
+  <tr>
+    <td>蓝思科技(300433)</td><td>39.52</td><td class="up">🔴 +2.92%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>珂玛科技(301611)</td><td>112.46</td><td class="down">🟢 -3.91%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>淳中科技(603516)</td><td>120.90</td><td class="down">🟢 -0.36%</td><td class="rs-C">C</td>
+  </tr>
+
+  <tr class="sector-header"><td colspan="4">AI/数字经济</td></tr>
+  <tr>
+    <td>中科创达(300496)</td><td>71.86</td><td class="up">🔴 +0.29%</td><td class="rs-Aplus">A+</td>
+  </tr>
+  <tr>
+    <td>易点天下(301171)</td><td>41.40</td><td class="up">🔴 +0.24%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>蓝色光标(300058)</td><td>16.78</td><td class="down">🟢 -1.93%</td><td class="rs-C">C</td>
+  </tr>
+  <tr>
+    <td>荣科科技(300290)</td><td>14.68</td><td class="up">🔴 +1.31%</td><td class="rs-C">C</td>
+  </tr>
+
+  <tr class="sector-header"><td colspan="4">化工/材料</td></tr>
+  <tr>
+    <td>天通股份(600330)</td><td>31.31</td><td class="up">🔴 +7.01%</td><td class="rs-A">A</td>
+  </tr>
+  <tr>
+    <td>多氟多(002407)</td><td>38.43</td><td class="down">🟢 -10.00%</td><td class="rs-Aplus">A+</td>
+  </tr>
+
+  <tr class="sector-header"><td colspan="4">能源/公用事业</td></tr>
+  <tr>
+    <td>水发燃气(603318)</td><td>9.68</td><td class="down">🟢 -2.91%</td><td class="rs-D">D</td>
+  </tr>
+  <tr>
+    <td>华电辽能(600396)</td><td>16.02</td><td class="up">🔴 +10.03%</td><td class="rs-A">A</td>
+  </tr>
+  <tr>
+    <td>康盛股份(002418)</td><td>5.27</td><td class="down">🟢 -5.89%</td><td class="rs-D">D</td>
+  </tr>
+
+  <tr class="sector-header"><td colspan="4">其他</td></tr>
+  <tr>
+    <td>山子高科(000981)</td><td>3.85</td><td class="down">🟢 -1.53%</td><td class="rs-B">B</td>
+  </tr>
+  <tr>
+    <td>京城股份(600860)</td><td>10.01</td><td class="down">🟢 -2.72%</td><td class="rs-B">B</td>
+  </tr>
+</table>
+</div>
+
+<!-- 今日要闻 -->
+<h2>📰 今日要闻</h2>
+<div class="section">
+  <div class="news-item">• <strong>半导体产业链全面爆发</strong> — 在国家集成电路产业政策利好及AI算力需求推动下，半导体板块全线大涨，集成电路制造、封测板块分别涨超11%和9%，科创50大涨5.88%。</div>
+  <div class="news-item">• <strong>多只科创板个股涨停</strong> — 华兴源创、东芯股份、甬矽电子、华虹公司等多股20%涨停，市场资金加速涌入科技板块。</div>
+  <div class="news-item">• <strong>油气板块领跌</strong> — 国际油价走弱拖累油气及炼化工程板块大跌-6.44%，油服、油田服务板块同步下挫。</div>
+  <div class="news-item">• <strong>多氟多跌停</strong> — 氟化工板块整体走弱，多氟多跌停（-10%），天通股份则逆势大涨+7%。</div>
+  <div class="news-item">• <strong>华电辽能涨停</strong> — 火力发电板块走强，华电辽能涨停（+10.03%），水发燃气、康盛股份走弱。</div>
+</div>
+
+<!-- 波动预警 -->
+<h2>⚠️ 波动预警</h2>
+<div class="section">
+  <div class="status-ok">✅ 今日无波动异常（所有持仓均在正常波动范围内）</div>
+</div>
+
+<!-- 多因子评分 -->
+<h2>📊 多因子评分</h2>
+<div class="section">
+  <p style="font-size:13px;font-weight:600;color:#58a6ff;margin-bottom:8px;">🏆 TOP5</p>
+  <div class="score-row"><span>帝奥微(688381)</span><span>⭐ 6.9 [B 关注]</span></div>
+  <div class="score-row"><span>瑞华泰(688323)</span><span>⭐ 6.7 [B 关注]</span></div>
+  <div class="score-row"><span>多氟多(002407)</span><span>⭐ 6.5 [B 关注]</span></div>
+  <div class="score-row"><span>蓝思科技(300433)</span><span>⭐ 6.4 [B 关注]</span></div>
+  <div class="score-row"><span>中科创达(300496)</span><span>⭐ 6.4 [B 关注]</span></div>
+  
+  <p style="font-size:13px;font-weight:600;color:#3fb950;margin:12px 0 8px;">🚫 BOTTOM5</p>
+  <div class="score-row"><span>欧莱新材(688530)</span><span>⭐ 4.1 [C 观望]</span></div>
+  <div class="score-row"><span>华特气体(688268)</span><span>⭐ 4.1 [C 观望]</span></div>
+  <div class="score-row"><span>易点天下(301171)</span><span>⭐ 3.9 [D 回避]</span></div>
+  <div class="score-row"><span>水发燃气(603318)</span><span>⭐ 3.6 [D 回避]</span></div>
+  <div class="score-row"><span>汇源通信(000586)</span><span>⭐ 3.0 [D 回避]</span></div>
+  
+  <p style="font-size:12px;color:#8b949e;margin-top:8px;">评分因子：动量25%+趋势20%+波动15%+资金20%+估值20%</p>
+</div>
+
+<!-- 风险提示 -->
+<h2>⚠️ 风险提示</h2>
+<div class="section">
+  <div class="risk-box">
+    • 半导体板块短期涨幅巨大（多只个股日涨幅超10%），追高风险显著<br>
+    • 多氟多跌停，氟化工板块持续弱势，注意化工/材料板块下行风险<br>
+    • 能源/公用事业板块分化严重，华电辽能涨停但水发燃气、康盛股份大跌<br>
+    • 汇源通信RS最低（-10.6），弱势趋势明显，关注止损机会<br>
+    • 宏景科技单日跌超-8%，高估值个股波动风险加大
+  </div>
+</div>
+
+<!-- 明日展望 -->
+<h2>🔮 明日展望</h2>
+<div class="section">
+  <div class="outlook-box">
+    今日市场呈现明显"科技牛"特征，科创50大涨近6%带动全市场情绪。半导体产业链从制造、封测到设备全线爆发，资金集中度较高。短期来看：<br><br>
+    <strong>乐观因素：</strong>政策面持续支持集成电路产业，AI算力需求增长确定性强，科创50放量突破前期阻力位。<br><br>
+    <strong>谨慎因素：</strong>板块短期超买严重，今日多只个股涨幅超20%，获利回吐压力增大。传统板块（油气、化工）持续走弱，市场分化加剧。<br><br>
+    <strong>操作建议：</strong>持有强势半导体个股可继续观察，但建议设置止盈位；弱势个股（汇源通信、水发燃气等）关注技术性反弹减仓机会；多氟多跌停后关注次日是否会继续下杀，暂不抄底。
+  </div>
+</div>
+
+<div class="date" style="margin-top:20px;text-align:center;border-top:1px solid #21262d;padding-top:12px;">
+  数据来源：东方财富 | 生成时间：2026-05-25 16:00<br>
+  本报告仅供参考，不构成投资建议。投资有风险，入市需谨慎。
+</div>
+
+</body>
+</html>
