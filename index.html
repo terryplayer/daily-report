@@ -72,15 +72,20 @@ body {
   box-shadow: 0 4px 24px rgba(88,166,255,0.08);
 }
 
-.card h2 {
+.section-title {
   font-size: 15px;
   font-weight: 600;
-  color: #f0f6fc;
   margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
+.section-title.weekly { background: linear-gradient(135deg, #bc8cff, #79c0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.section-title.today { background: linear-gradient(135deg, #58a6ff, #79c0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.section-title.date { color: #d29922; }
+.section-title.date2 { color: #3fb950; }
+.section-title.date3 { color: #f0883e; }
+.section-title.date4 { color: #8b949e; }
 
 /* ===== WEEKLY REVIEW ===== */
 .weekly-list { list-style: none; }
@@ -121,13 +126,14 @@ body {
   justify-content: space-between;
   margin-bottom: 14px;
 }
+.date-header .title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .date-header .title {
   font-size: 15px;
   font-weight: 600;
-  color: #f0f6fc;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 .date-header .day { font-weight: 400; color: #8b949e; }
 .tag {
@@ -222,12 +228,12 @@ body {
 
 <!-- 周复盘 -->
 <div class="card">
-  <h2>📋 周复盘</h2>
+  <div class="section-title weekly">📋 周复盘</div>
   <ul class="weekly-list">
     <li>
       <a href="weekly-review-2026-05-24.html">
         <span class="label">
-          第 21 周
+          第 21 周 (5.18 - 5.24)
           <span class="badge badge-primary">完整版</span>
         </span>
         <span class="arrow">→</span>
@@ -236,7 +242,7 @@ body {
     <li>
       <a href="weekly-review-2026-05-22.html">
         <span class="label">
-          第 21 周
+          第 21 周 (5.18 - 5.22)
           <span class="badge badge-secondary">周五版</span>
         </span>
         <span class="arrow">→</span>
@@ -248,7 +254,7 @@ body {
 <!-- 5.25 报告 -->
 <div class="card highlight">
   <div class="date-header">
-    <span class="title">5.25 报告</span>
+    <span class="title-wrap"><span class="title section-title today">5.25 报告</span></span>
     <span class="tag tag-today">今日</span>
   </div>
   <div class="report-links">
@@ -259,7 +265,7 @@ body {
 <!-- 5.22 报告 -->
 <div class="card">
   <div class="date-header">
-    <span class="title">5.22 报告 <span class="day">· 周五</span></span>
+    <span class="title-wrap"><span class="title section-title date">5.22 报告</span><span class="day"> · 周五</span></span>
   </div>
   <div class="report-links">
     <a href="premarket-2026-05-22.html" class="pm">📋 盘前简报</a>
@@ -270,7 +276,7 @@ body {
 <!-- 5.21 报告 -->
 <div class="card">
   <div class="date-header">
-    <span class="title">5.21 报告 <span class="day">· 周四</span></span>
+    <span class="title-wrap"><span class="title section-title date2">5.21 报告</span><span class="day"> · 周四</span></span>
   </div>
   <div class="report-links">
     <a href="premarket-2026-05-21.html" class="pm">📋 盘前简报</a>
@@ -281,7 +287,7 @@ body {
 <!-- 5.20 报告 -->
 <div class="card">
   <div class="date-header">
-    <span class="title">5.20 报告 <span class="day">· 周三</span></span>
+    <span class="title-wrap"><span class="title section-title date3">5.20 报告</span><span class="day"> · 周三</span></span>
   </div>
   <div class="report-links">
     <a href="daily-combined-2026-05-20.html" class="dc">📊 收盘汇总</a>
