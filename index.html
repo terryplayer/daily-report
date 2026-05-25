@@ -6,302 +6,114 @@
 <title>🌀 小十三 · 每日简报</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#0d1117; color:#e6edf3; padding:40px 20px; }
+.container { max-width:600px; margin:0 auto; }
 
-body {
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: #0d1117;
-  color: #e6edf3;
-  padding: 48px 20px;
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(191,143,246,0.04) 0%, transparent 50%);
-}
+/* header */
+h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
+.subtitle { color:#8b949e; font-size:13px; margin-bottom:28px; }
 
-.container { max-width: 580px; margin: 0 auto; }
+/* cards */
+.card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:16px 20px; margin-bottom:12px; }
+.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
 
-/* ===== HEADER ===== */
-.header {
-  text-align: center;
-  margin-bottom: 36px;
-}
-.header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #58a6ff, #bc8cff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 1px;
-}
-.header .subtitle {
-  color: #8b949e;
-  font-size: 13px;
-  margin-top: 6px;
-  letter-spacing: 2px;
-}
-.header .divider {
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(90deg, #58a6ff, #bc8cff);
-  border-radius: 2px;
-  margin: 14px auto 0;
-}
+/* date row */
+.date-group { border-bottom:1px solid #21262d; padding:10px 0; }
+.date-group:last-child { border-bottom:none; }
+.date-label { font-size:14px; color:#f0f6fc; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.date-label .tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; }
+.tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
+.tag-new { background:#3fb95022; color:#3fb950; border:1px solid #3fb95044; }
+.report-links { display:flex; gap:8px; flex-wrap:wrap; }
+.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:4px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
+.report-links a:hover { color:#f0f6fc; background:#21262d; border-color:#30363d; }
+.report-links a.pm { color:#d29922; }
+.report-links a.pm:hover { background:#d2992211; border-color:#d2992244; }
+.report-links a.dc { color:#3fb950; }
+.report-links a.dc:hover { background:#3fb95011; border-color:#3fb95044; }
+.report-links a.wr { color:#bc8cff; }
+.report-links a.wr:hover { background:#bc8cff11; border-color:#bc8cff44; }
+.latest-label { font-size:12px; color:#8b949e; margin-left:8px; }
 
-/* ===== CARDS ===== */
-.card {
-  background: linear-gradient(135deg, #161b22 0%, #1a1f2a 100%);
-  border: 1px solid #21262d;
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 14px;
-  transition: border-color .3s, transform .2s, box-shadow .3s;
-}
-.card:hover {
-  border-color: #30363d;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-}
+/* weekly special row */
+.weekly-row { padding:8px 0; border-bottom:1px solid #21262d; }
+.weekly-row:last-child { border-bottom:none; }
+.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:background .2s; }
+.weekly-row a:hover { background:#21262d; }
+.weekly-row .version { font-size:12px; color:#8b949e; }
 
-.card.highlight {
-  border-color: rgba(88,166,255,0.3);
-  background: linear-gradient(135deg, #161b22 0%, #1a2035 100%);
-  box-shadow: 0 0 24px rgba(88,166,255,0.05);
-}
-.card.highlight:hover {
-  border-color: rgba(88,166,255,0.5);
-  box-shadow: 0 4px 24px rgba(88,166,255,0.08);
-}
-
-.section-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-title.weekly { background: linear-gradient(135deg, #bc8cff, #79c0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.section-title.today { background: linear-gradient(135deg, #58a6ff, #79c0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.section-title.date { color: #d29922; }
-.section-title.date2 { color: #3fb950; }
-.section-title.date3 { color: #f0883e; }
-.section-title.date4 { color: #8b949e; }
-
-/* ===== WEEKLY REVIEW ===== */
-.weekly-list { list-style: none; }
-.weekly-list li { border-bottom: 1px solid #21262d; }
-.weekly-list li:last-child { border-bottom: none; }
-.weekly-list li a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 8px;
-  color: #e6edf3;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background .2s;
-}
-.weekly-list li a:hover { background: rgba(255,255,255,0.04); }
-.weekly-list .label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-.weekly-list .badge {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-weight: 500;
-}
-.badge-primary { background: rgba(88,166,255,0.12); color: #58a6ff; border: 1px solid rgba(88,166,255,0.2); }
-.badge-secondary { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.15); }
-.weekly-list .arrow { font-size: 13px; color: #484f58; transition: color .2s; }
-.weekly-list li a:hover .arrow { color: #8b949e; }
-
-/* ===== DATE CARDS ===== */
-.date-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-.date-header .title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.date-header .title {
-  font-size: 15px;
-  font-weight: 600;
-}
-.date-header .day { font-weight: 400; color: #8b949e; }
-.tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-.tag-today {
-  background: rgba(88,166,255,0.12);
-  color: #58a6ff;
-  border: 1px solid rgba(88,166,255,0.25);
-}
-.tag-weekend {
-  background: rgba(247,153,57,0.1);
-  color: #f79939;
-  border: 1px solid rgba(247,153,57,0.2);
-}
-
-/* report buttons */
-.report-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.report-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  transition: all .25s;
-  border: 1px solid #21262d;
-  background: rgba(255,255,255,0.02);
-}
-.report-links a:hover {
-  transform: translateY(-1px);
-}
-.report-links a.pm {
-  color: #d29922;
-  border-color: rgba(210,153,34,0.2);
-  background: rgba(210,153,34,0.04);
-}
-.report-links a.pm:hover {
-  background: rgba(210,153,34,0.1);
-  border-color: rgba(210,153,34,0.35);
-  box-shadow: 0 2px 12px rgba(210,153,34,0.08);
-}
-.report-links a.dc {
-  color: #3fb950;
-  border-color: rgba(63,185,80,0.2);
-  background: rgba(63,185,80,0.04);
-}
-.report-links a.dc:hover {
-  background: rgba(63,185,80,0.1);
-  border-color: rgba(63,185,80,0.35);
-  box-shadow: 0 2px 12px rgba(63,185,80,0.08);
-}
-.report-links a.wr {
-  color: #bc8cff;
-  border-color: rgba(188,140,255,0.2);
-  background: rgba(188,140,255,0.04);
-}
-.report-links a.wr:hover {
-  background: rgba(188,140,255,0.1);
-  border-color: rgba(188,140,255,0.35);
-  box-shadow: 0 2px 12px rgba(188,140,255,0.08);
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  text-align: center;
-  color: #484f58;
-  font-size: 12px;
-  margin-top: 32px;
-  padding-top: 16px;
-  border-top: 1px solid #21262d;
-  line-height: 1.8;
-}
-.footer a { color: #484f58; text-decoration: none; transition: color .2s; }
-.footer a:hover { color: #8b949e; }
-.footer .dot { margin: 0 6px; }
+.footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:1.8; }
 </style>
 </head>
 <body>
 <div class="container">
 
-<div class="header">
-  <h1>🌀 每日简报</h1>
-  <p class="subtitle">持仓分析 · 盘前 &amp; 收盘 · 周复盘</p>
-  <div class="divider"></div>
-</div>
+<h1>🌀 小十三 · 每日简报</h1>
+<p class="subtitle">A股持仓分析 · 盘前 & 收盘 · 周复盘</p>
 
 <!-- 周复盘 -->
 <div class="card">
-  <div class="section-title weekly">📋 每周复盘</div>
-  <ul class="weekly-list">
-    <li>
-      <a href="weekly-review-2026-05-24.html">
-        <span class="label">
-          第 21 周 (5.18 - 5.24)
-          <span class="badge badge-primary">完整版</span>
-        </span>
-        <span class="arrow">→</span>
-      </a>
-    </li>
-    <li>
-      <a href="weekly-review-2026-05-22.html">
-        <span class="label">
-          第 21 周 (5.18 - 5.22)
-          <span class="badge badge-secondary">周五版</span>
-        </span>
-        <span class="arrow">→</span>
-      </a>
-    </li>
-  </ul>
+<h2>📋 周复盘</h2>
+<div class="weekly-row">
+  <a href="weekly-review-2026-05-24.html">
+    <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span class="version">完整版 →</span>
+  </a>
+</div>
+<div class="weekly-row">
+  <a href="weekly-review-2026-05-22.html">
+    <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">周五版</span></span>
+    <span class="version">周五版 →</span>
+  </a>
+</div>
 </div>
 
-<!-- 5.25 报告 -->
-<div class="card highlight">
-  <div class="date-header">
-    <span class="title-wrap"><span class="title section-title today">2026/5/25 日报</span></span>
-    <span class="tag tag-today">今日</span>
-  </div>
+<!-- 日期分类 -->
+<div class="card">
+<h2>📅 按日期 <span class="badge">最新在前</span></h2>
+
+<div class="date-group">
+  <div class="date-label">2026.05.25 周一 <span class="tag tag-today">今日</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-25.html" class="pm">📋 盘前简报</a>
   </div>
 </div>
 
-<!-- 5.22 报告 -->
-<div class="card">
-  <div class="date-header">
-    <span class="title-wrap"><span class="title section-title date">2026/5/22 日报</span><span class="day"> · 周五</span></span>
-  </div>
+<div class="date-group">
+  <div class="date-label">2026.05.22 周五</div>
   <div class="report-links">
     <a href="premarket-2026-05-22.html" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-22.html" class="dc">📊 收盘汇总</a>
   </div>
 </div>
 
-<!-- 5.21 报告 -->
-<div class="card">
-  <div class="date-header">
-    <span class="title-wrap"><span class="title section-title date2">2026/5/21 日报</span><span class="day"> · 周四</span></span>
-  </div>
+<div class="date-group">
+  <div class="date-label">2026.05.21 周四</div>
   <div class="report-links">
     <a href="premarket-2026-05-21.html" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-21.html" class="dc">📊 收盘汇总</a>
   </div>
 </div>
 
-<!-- 5.20 报告 -->
-<div class="card">
-  <div class="date-header">
-    <span class="title-wrap"><span class="title section-title date3">2026/5/20 日报</span><span class="day"> · 周三</span></span>
-  </div>
+<div class="date-group">
+  <div class="date-label">2026.05.20 周三</div>
   <div class="report-links">
     <a href="daily-combined-2026-05-20.html" class="dc">📊 收盘汇总</a>
   </div>
 </div>
 
-<div class="footer">
-  小十三 · 自动生成 · 盘前 9:15 · 收盘 16:00
-  <span class="dot">·</span>
-  <a href="https://github.com/terryplayer/daily-report" target="_blank">GitHub</a>
-  <br>
-  <span style="color:#21262d;">不构成投资建议</span>
 </div>
 
+<!-- 说明 -->
+<div class="card" style="background:#0d1117;border-color:#21262d;">
+<p style="font-size:13px;color:#8b949e;line-height:1.8;">
+简报每日自动生成 · 盘前 9:15 · 收盘 16:00<br>
+数据仅供参考，不构成投资建议
+</p>
+</div>
+
+<p class="footer">🌀 小十三 · 每日自动更新 · <a href="https://github.com/terryplayer/daily-report" style="color:#8b949e;">GitHub</a></p>
 </div>
 </body>
 </html>
