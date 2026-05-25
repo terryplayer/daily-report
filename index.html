@@ -10,40 +10,35 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
 .container { max-width:600px; margin:0 auto; }
 
 /* header */
-h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
+h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; }
 .subtitle { color:#8b949e; font-size:13px; margin-bottom:28px; }
 
 /* cards */
 .card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:16px 20px; margin-bottom:12px; }
-.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-.card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
+.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
 
-/* date row */
-.date-group { border-bottom:1px solid #21262d; padding:10px 0; }
-.date-group:last-child { border-bottom:none; }
-.date-label { font-size:14px; color:#f0f6fc; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
-.date-label .tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; }
-.tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
-.tag-new { background:#3fb95022; color:#3fb950; border:1px solid #3fb95044; }
+/* report links */
 .report-links { display:flex; gap:8px; flex-wrap:wrap; }
-.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:4px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
+.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:6px 12px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
 .report-links a:hover { color:#f0f6fc; background:#21262d; border-color:#30363d; }
 .report-links a.pm { color:#d29922; }
 .report-links a.pm:hover { background:#d2992211; border-color:#d2992244; }
 .report-links a.dc { color:#3fb950; }
 .report-links a.dc:hover { background:#3fb95011; border-color:#3fb95044; }
-.report-links a.wr { color:#bc8cff; }
-.report-links a.wr:hover { background:#bc8cff11; border-color:#bc8cff44; }
-.latest-label { font-size:12px; color:#8b949e; margin-left:8px; }
 
-/* weekly special row */
+/* weekly rows */
 .weekly-row { padding:8px 0; border-bottom:1px solid #21262d; }
 .weekly-row:last-child { border-bottom:none; }
 .weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:background .2s; }
 .weekly-row a:hover { background:#21262d; }
 .weekly-row .version { font-size:12px; color:#8b949e; }
 
+/* badges */
+.tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; margin-left:6px; }
+.tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
+
 .footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:1.8; }
+.footer a { color:#8b949e; }
 </style>
 </head>
 <body>
@@ -58,51 +53,49 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 <div class="weekly-row">
   <a href="weekly-review-2026-05-24.html">
     <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
-    <span class="version">完整版 →</span>
+    <span class="version">→</span>
   </a>
 </div>
 <div class="weekly-row">
   <a href="weekly-review-2026-05-22.html">
     <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">周五版</span></span>
-    <span class="version">周五版 →</span>
+    <span class="version">→</span>
   </a>
 </div>
 </div>
 
-<!-- 日期分类 -->
+<!-- 5.25 报告 -->
 <div class="card">
-<h2>📅 按日期 <span class="badge">最新在前</span></h2>
-
-<div class="date-group">
-  <div class="date-label">2026.05.25 周一 <span class="tag tag-today">今日</span></div>
-  <div class="report-links">
-    <a href="premarket-2026-05-25.html" class="pm">📋 盘前简报</a>
-  </div>
+<h2>5.25 报告 <span class="tag tag-today">今日</span></h2>
+<div class="report-links">
+  <a href="premarket-2026-05-25.html" class="pm">📋 盘前简报</a>
+</div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.22 周五</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-22.html" class="pm">📋 盘前简报</a>
-    <a href="daily-combined-2026-05-22.html" class="dc">📊 收盘汇总</a>
-  </div>
+<!-- 5.22 报告 -->
+<div class="card">
+<h2>5.22 报告</h2>
+<div class="report-links">
+  <a href="premarket-2026-05-22.html" class="pm">📋 盘前简报</a>
+  <a href="daily-combined-2026-05-22.html" class="dc">📊 收盘汇总</a>
+</div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.21 周四</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-21.html" class="pm">📋 盘前简报</a>
-    <a href="daily-combined-2026-05-21.html" class="dc">📊 收盘汇总</a>
-  </div>
+<!-- 5.21 报告 -->
+<div class="card">
+<h2>5.21 报告</h2>
+<div class="report-links">
+  <a href="premarket-2026-05-21.html" class="pm">📋 盘前简报</a>
+  <a href="daily-combined-2026-05-21.html" class="dc">📊 收盘汇总</a>
+</div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.20 周三</div>
-  <div class="report-links">
-    <a href="daily-combined-2026-05-20.html" class="dc">📊 收盘汇总</a>
-  </div>
+<!-- 5.20 报告 -->
+<div class="card">
+<h2>5.20 报告</h2>
+<div class="report-links">
+  <a href="daily-combined-2026-05-20.html" class="dc">📊 收盘汇总</a>
 </div>
-
 </div>
 
 <!-- 说明 -->
@@ -113,7 +106,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 </p>
 </div>
 
-<p class="footer">🌀 小十三 · 每日自动更新 · <a href="https://github.com/terryplayer/daily-report" style="color:#8b949e;">GitHub</a></p>
+<p class="footer">🌀 小十三 · 每日自动更新 · <a href="https://github.com/terryplayer/daily-report">GitHub</a></p>
 </div>
 </body>
 </html>
