@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 盘前简报 | 2026.05.27 周三</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #58a6ff; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 10px 0 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
+.tag-score-b { background: rgba(88,166,255,0.18); color: #58a6ff; }
+.tag-score-c { background: rgba(139,148,158,0.18); color: #8b949e; }
+.tag-score-d { background: rgba(63,185,80,0.18); color: #3fb950; }
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.stock-card { padding: 10px 12px; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; }
+.stock-name { font-size: 14px; font-weight: 600; }
+.stock-code { color: #8b949e; font-size: 11px; }
+.stock-price { font-size: 16px; font-weight: 700; margin: 4px 0; }
+.stock-range { font-size: 12px; }
+.stock-range .up { color: #f85149; }
+.stock-range .down { color: #3fb950; }
+.stock-detail { color: #8b949e; font-size: 12px; margin-top: 2px; }
+.sector-title { font-size: 14px; font-weight: 600; color: #58a6ff; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+.badge { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
+.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
+.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
+.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
+.badge-silver { background: rgba(139,148,158,0.12); color: #8b949e; }
+.score-bar { height: 4px; border-radius: 2px; margin-top: 4px; }
+.score-bar-bg { background: #21262d; border-radius: 2px; height: 4px; width: 100%; margin-top: 4px; }
+.score-bar-fill { height: 4px; border-radius: 2px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+.pos { color: #f85149; }
+.neg { color: #3fb950; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>📋 盘前简报 | 2026.05.27 周三</h1>
+<div class="date">生成时间：09:15 CST | 基于 2026-05-26（周二）收盘数据 | 🎯 今日交易中</div>
+</div>
+
+<!-- 隔夜外围市场 -->
+<div class="section">
+<h2>🌍 隔夜外围市场（美东 05/26 收盘）</h2>
+<table>
+<tr><th>指数</th><th>收盘</th><th>涨跌幅</th></tr>
+<tr><td>道琼斯</td><td>约 50,590</td><td class="flat">🟡 近持平</td></tr>
+<tr><td>标普500</td><td>约 7,530</td><td class="up">🔴 +0.76%</td></tr>
+<tr><td>纳斯达克</td><td>约 26,650</td><td class="up">🔴 +1.16%</td></tr>
+</table>
+<p style="margin-top:8px;font-size:12px;color:#8b949e;">标普500盘中最高7,539点，纳指最高26,725点，均创52周新高。科技股领涨，受Memorial Day假期后补涨情绪带动。</p>
+</div>
+
+<!-- A股大盘 -->
+<div class="section">
+<h2>📊 A股大盘预判</h2>
+<div style="font-size: 13px;">
+<p>📌 <strong>昨日（05/26）行情：</strong>持仓组合整体回调，平均跌幅🟢-2.74%，21/26只标的下行。市场情绪偏弱。</p>
+<p style="margin-top: 8px;">📐 <strong>支撑/压力位参考：</strong></p>
+<p style="margin-left: 12px; margin-top: 4px;">🔑 <strong>强支撑：</strong>4,050（前期密集成交区）</p>
+<p style="margin-left: 12px;">🔑 <strong>近期支撑：</strong>4,080-4,100</p>
+<p style="margin-left: 12px;">🔑 <strong>压力位：</strong>4,130-4,150（缺口区域）</p>
+<p style="margin-top: 8px;">💡 <strong>短期研判：</strong>昨日市场缩量回调，但隔夜美股标普/纳指双双创历史新高，为今日A股带来情绪提振。关注4,080附近支撑力度，若能企稳反弹有望回补4,130缺口。量能仍是关键，缩量则延续弱势震荡。</p>
+</div>
+</div>
+
+<!-- 今日关注 -->
+<div class="section">
+<h2>📅 今日关注</h2>
+<div class="event-item">📌 <strong>外围提振：</strong>美股标普500、纳指双双创历史新高，科技股强势或带动A股科技板块情绪修复</div>
+<div class="event-item">📌 <strong>经济数据：</strong>4月CPI同比+1.2%，PPI同比+2.8%；4月制造业PMI 50.3（前值50.4）</div>
+<div class="event-item">📌 <strong>资金面：</strong>关注北向资金今日流向</div>
+<div class="event-item">📌 <strong>政策关注：</strong>科技/半导体产业政策持续推进，AI板块政策利好预期升温</div>
+</div>
+
+<!-- 板块提示 -->
+<div class="section">
+<h2>🧭 板块提示与行业轮动</h2>
+<div style="font-size: 13px;">
+<p><strong>行业评分排名（多因子综合）：</strong></p>
+<table style="margin-top: 8px;">
+<tr><th>板块</th><th>均分</th><th>个股数</th><th>最优评级</th></tr>
+<tr><td>🧪 化工/材料</td><td>5.6</td><td>2</td><td><span class="tag tag-b">C 观望</span></td></tr>
+<tr><td>💻 科技/半导体</td><td>5.4</td><td>10</td><td><span class="tag tag-b">C 观望</span></td></tr>
+<tr><td>📡 通信/电子</td><td>5.1</td><td>5</td><td><span class="tag tag-c">D 回避</span></td></tr>
+<tr><td>🤖 AI/数字经济</td><td>4.9</td><td>4</td><td><span class="tag tag-b">C 观望</span></td></tr>
+<tr><td>⚡ 能源/公用事业</td><td>4.5</td><td>3</td><td><span class="tag tag-c">D 回避</span></td></tr>
+<tr><td>📦 其他</td><td>4.5</td><td>2</td><td><span class="tag tag-b">C 观望</span></td></tr>
+</table>
+<p style="margin-top: 8px;">💡 <strong>轮动方向：</strong>化工/材料板块评分领先，科技/半导体紧随其后。隔夜美股科技走强，今日关注科技板块修复机会。通信电子、AI板块偏弱，注意风险。新能源/公用事业评分最低，暂时回避。</p>
+</div>
+</div>
+
+<!-- 持仓股票盘前观察 -->
+<div class="section">
+<h2>📋 持仓股票盘前观察</h2>
+
+<div class="sector-title">💻 科技/半导体</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中巨芯-U</span> <span class="stock-code">688549</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">15.12 <span class="stock-range down">🟢 -5.44%</span></div>
+<div class="stock-detail">RS:-9.59 | 评分4.5 [C] | 弱势 关注风险</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">电科蓝天(中科曙光)</span> <span class="stock-code">603019</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">94.33 <span class="stock-range down">🟢 -2.20%</span></div>
+<div class="stock-detail">RS:-0.78 | 评分5.8 [C] | 中性 观察</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">帝奥微</span> <span class="stock-code">688381</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">44.80 <span class="stock-range down">🟢 -5.39%</span></div>
+<div class="stock-detail">RS:+13.18 | 评分7.3 [B] ⭐TOP1 | 强势 持有/加仓</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">瑞华泰</span> <span class="stock-code">688323</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">37.37 <span class="stock-range down">🟢 -6.11%</span></div>
+<div class="stock-detail">RS:+7.83 | 评分6.1 [B] ⭐TOP4 | 强势 持有（高波动⚠️）</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">欧莱新材</span> <span class="stock-code">688530</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">48.82 <span class="stock-range down">🟢 -4.41%</span></div>
+<div class="stock-detail">RS:-6.52 | 评分4.3 [C] | 弱势 建议减仓/止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华特气体</span> <span class="stock-code">688268</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">158.00 <span class="stock-range up">🔴 +0.04%</span></div>
+<div class="stock-detail">RS:-12.52 | 评分4.3 [C] | 弱势 建议减仓/止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">隆扬电子</span> <span class="stock-code">301389</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">82.42 <span class="stock-range down">🟢 -2.58%</span></div>
+<div class="stock-detail">RS:+16.36 | 评分6.6 [B] ⭐TOP2 | 强势 持有</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">领益智造</span> <span class="stock-code">002600</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">15.82 <span class="stock-range down">🟢 -1.68%</span></div>
+<div class="stock-detail">RS:+0.32 | 评分4.9 [C] | 中性 观察</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">利通电子</span> <span class="stock-code">603629</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">211.94 <span class="stock-range up">🔴 +4.92%</span></div>
+<div class="stock-detail">RS:+12.52 | 评分6.1 [B] ⭐TOP5 | 强势 持有（注意高估风险）</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">宏景科技</span> <span class="stock-code">301396</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">271.30 <span class="stock-range down">🟢 -5.49%</span></div>
+<div class="stock-detail">RS:-9.66 | 评分4.3 [C] | 弱势 关注风险</div>
+</div>
+</div>
+
+<div class="sector-title">📡 通信/电子</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">汇源通信</span> <span class="stock-code">000586</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">17.74 <span class="stock-range down">🟢 -1.39%</span></div>
+<div class="stock-detail">RS:-8.78 | 评分3.5 [D] | 弱势 建议减仓/止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">东山精密</span> <span class="stock-code">002384</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price">221.20 <span class="stock-range down">🟢 -2.23%</span></div>
+<div class="stock-detail">RS:+2.64 | 评分5.7 [C] | 偏强 持有</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝思科技</span> <span class="stock-code">300433</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">38.48 <span class="stock-range down">🟢 -2.63%</span></div>
+<div class="stock-detail">RS:+10.02 | 评分6.4 [B] ⭐TOP3 | 强势 持有</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">珂玛科技</span> <span class="stock-code">301611</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">103.55 <span class="stock-range down">🟢 -7.92%</span></div>
+<div class="stock-detail">RS:-8.56 | 评分4.9 [C] | 弱势 建议减仓/止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">淳中科技</span> <span class="stock-code">603516</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">119.00 <span class="stock-range down">🟢 -1.57%</span></div>
+<div class="stock-detail">RS:数据不足 | 评分4.8 [C] | 观望</div>
+</div>
+</div>
+
+<div class="sector-title">🤖 AI/数字经济</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中科创达</span> <span class="stock-code">300496</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">74.30 <span class="stock-range up">🔴 +3.40%</span></div>
+<div class="stock-detail">RS:+6.55 | 评分6.1 [B] | 强势 持有</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">易点天下</span> <span class="stock-code">301171</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">39.80 <span class="stock-range down">🟢 -3.86%</span></div>
+<div class="stock-detail">RS:-4.79 | 评分4.1 [C] | 偏弱 关注风险</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝色光标</span> <span class="stock-code">300058</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">16.25 <span class="stock-range down">🟢 -3.16%</span></div>
+<div class="stock-detail">RS:-3.96 | 评分4.2 [C] | 偏弱 关注风险</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">荣科科技</span> <span class="stock-code">300290</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">13.73 <span class="stock-range down">🟢 -6.47%</span></div>
+<div class="stock-detail">RS:-1.79 | 评分5.2 [C] | 偏弱 关注风险</div>
+</div>
+</div>
+
+<div class="sector-title">🧪 化工/材料</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">天通股份</span> <span class="stock-code">600330</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">28.86 <span class="stock-range down">🟢 -7.82%</span></div>
+<div class="stock-detail">RS:+10.24 | 评分5.7 [C] | 强势 但大幅回调 注意风险</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">多氟多</span> <span class="stock-code">002407</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">36.28 <span class="stock-range down">🟢 -5.59%</span></div>
+<div class="stock-detail">RS:-4.37 | 评分5.5 [C] | 偏弱 关注风险</div>
+</div>
+</div>
+
+<div class="sector-title">⚡ 能源/公用事业</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">水发燃气</span> <span class="stock-code">603318</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">9.39 <span class="stock-range down">🟢 -3.00%</span></div>
+<div class="stock-detail">RS:-7.92 | 评分3.7 [D] | 弱势 建议减仓/止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华电辽能</span> <span class="stock-code">600396</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">16.88 <span class="stock-range up">🔴 +5.37%</span></div>
+<div class="stock-detail">RS:+11.36 | 评分5.9 [C] | 强势 持有</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">康盛股份</span> <span class="stock-code">002418</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">5.02 <span class="stock-range down">🟢 -4.74%</span></div>
+<div class="stock-detail">RS:-10.84 | 评分4.0 [C] | 弱势 关注风险</div>
+</div>
+</div>
+
+<div class="sector-title">📦 其他</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">山子高科</span> <span class="stock-code">000981</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">3.88 <span class="stock-range up">🔴 +0.78%</span></div>
+<div class="stock-detail">RS:-1.10 | 评分4.9 [C] | 中性 观察</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">京城股份</span> <span class="stock-code">600860</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">9.81 <span class="stock-range down">🟢 -2.00%</span></div>
+<div class="stock-detail">RS:-2.93 | 评分4.1 [C] | 偏弱 关注风险</div>
+</div>
+</div>
+
+</div>
+
+<!-- 多因子评分 TOP5/BOTTOM5 -->
+<div class="section">
+<h2>🏆 多因子评分 TOP5</h2>
+<table>
+<tr><th>股票</th><th>代码</th><th>评分</th><th>评级</th><th>板块</th></tr>
+<tr><td>帝奥微</td><td>688381</td><td style="color:#f85149;font-weight:700;">7.3</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+<tr><td>隆扬电子</td><td>301389</td><td style="color:#f85149;font-weight:700;">6.6</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+<tr><td>蓝思科技</td><td>300433</td><td style="color:#f85149;font-weight:700;">6.4</td><td><span class="tag tag-score-b">B 关注</span></td><td>📡 通信/电子</td></tr>
+<tr><td>瑞华泰</td><td>688323</td><td style="color:#f85149;font-weight:700;">6.1</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+<tr><td>利通电子</td><td>603629</td><td style="color:#f85149;font-weight:700;">6.1</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>⚠️ 多因子评分 BOTTOM5</h2>
+<table>
+<tr><th>股票</th><th>代码</th><th>评分</th><th>评级</th><th>板块</th></tr>
+<tr><td>易点天下</td><td>301171</td><td style="color:#3fb950;font-weight:700;">4.1</td><td><span class="tag tag-score-c">C 观望</span></td><td>🤖 AI/数字经济</td></tr>
+<tr><td>京城股份</td><td>600860</td><td style="color:#3fb950;font-weight:700;">4.1</td><td><span class="tag tag-score-c">C 观望</span></td><td>📦 其他</td></tr>
+<tr><td>康盛股份</td><td>002418</td><td style="color:#3fb950;font-weight:700;">4.0</td><td><span class="tag tag-score-c">C 观望</span></td><td>⚡ 能源/公用事业</td></tr>
+<tr><td>水发燃气</td><td>603318</td><td style="color:#3fb950;font-weight:700;">3.7</td><td><span class="tag tag-score-d">D 回避</span></td><td>⚡ 能源/公用事业</td></tr>
+<tr><td>汇源通信</td><td>000586</td><td style="color:#3fb950;font-weight:700;">3.5</td><td><span class="tag tag-score-d">D 回避</span></td><td>📡 通信/电子</td></tr>
+</table>
+</div>
+
+<div class="footer">
+小十三 🌀 · 盘前简报 · 2026.05.27 周三<br>
+数据来源：Tushare + 多因子模型 | 仅供参考，不构成投资建议 · 市场有风险，投资需谨慎
+</div>
+
+</div>
+</body>
+</html>
