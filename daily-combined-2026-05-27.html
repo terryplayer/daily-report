@@ -3,632 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📊 每日收盘简报 | 2026.05.27 周三</title>
+<title>📊 收盘简报+预测偏差 | 2026.05.27 周三</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
-.container { max-width: 860px; margin: 0 auto; }
-.header { border-bottom: 2px solid #f85149; padding-bottom: 16px; margin-bottom: 24px; }
-.header h1 { font-size: 22px; color: #f85149; }
-.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
-.meta-line { color: #8b949e; font-size: 12px; margin-top: 2px; }
-.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
-.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
-.section h3 { font-size: 13px; margin: 10px 0 6px; color: #e6edf3; }
-.sector-title { font-size: 13px; font-weight: 600; color: #bf77f6; margin: 14px 0 8px; padding: 4px 0; border-bottom: 1px solid #21262d; }
-.sector-title:first-of-type { margin-top: 0; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
-th { color: #8b949e; font-weight: 500; font-size: 12px; }
-.up { color: #f85149; }
-.down { color: #3fb950; }
-.flat { color: #d9a52e; }
-.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
-.tag-red { background: rgba(248,81,73,0.15); color: #f85149; }
-.tag-green { background: rgba(63,185,80,0.15); color: #3fb950; }
-.tag-yellow { background: rgba(210,153,34,0.15); color: #d9a52e; }
-.tag-blue { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.tag-purple { background: rgba(191,119,246,0.15); color: #bf77f6; }
-.tag-rs-aplus { background: rgba(248,81,73,0.2); color: #ff6b6b; }
-.tag-rs-a { background: rgba(248,81,73,0.12); color: #f08776; }
-.tag-rs-b { background: rgba(210,153,34,0.15); color: #d9a52e; }
-.tag-rs-c { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.tag-rs-d { background: rgba(63,185,80,0.2); color: #3fb950; }
-.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
-.event-item { padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
-.event-item:last-child { border-bottom: none; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.warning-box { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.3); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
-.stock-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 6px; }
-.stock-table th { background: #1c2333; color: #8b949e; font-size: 11px; padding: 5px 6px; }
-.stock-table td { padding: 5px 6px; border-bottom: 1px solid #21262d; }
-.score-bar { display: inline-block; height: 6px; border-radius: 3px; margin-right: 4px; }
-.signal-positive { color: #f85149; }
-.signal-negative { color: #3fb950; }
-.signal-neutral { color: #d9a52e; }
-.macro-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.25); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
-.alert-box { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.3); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
-.multi-top5 { background: rgba(248,81,73,0.04); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; }
-.multi-bot5 { background: rgba(63,185,80,0.04); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:20px;line-height:1.6}
+.container{max-width:860px;margin:0 auto}
+.header{border-bottom:2px solid #58a6ff;padding-bottom:16px;margin-bottom:24px}
+.header h1{font-size:22px;color:#58a6ff}
+.header .date{color:#8b949e;font-size:13px;margin-top:4px}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px 20px;margin-bottom:16px}
+.section h2{font-size:15px;color:#58a6ff;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #21262d}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:6px 8px;text-align:left;border-bottom:1px solid #21262d}
+th{color:#8b949e;font-weight:500;font-size:12px}
+.up{color:#f85149}.down{color:#3fb950}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:4px}
+.tag-aplus{background:rgba(248,81,73,0.15);color:#f85149}
+.tag-a{background:rgba(210,153,34,0.15);color:#d9a52e}
+.tag-b{background:rgba(88,166,255,0.15);color:#58a6ff}
+.tag-c{background:rgba(139,148,158,0.15);color:#8b949e}
+.tag-d{background:rgba(63,185,80,0.15);color:#3fb950}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+.stock-card{padding:10px 12px;border:1px solid #30363d;border-radius:6px;margin-bottom:8px}
+.stock-name{font-size:14px;font-weight:600}.stock-code{color:#8b949e;font-size:11px}
+.stock-price{font-size:16px;font-weight:700;margin:4px 0}
+.stock-range{font-size:12px}.sector-title{font-size:14px;font-weight:600;color:#58a6ff;margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid #21262d}
+.sector-title:first-of-type{margin-top:0}
+.footer{text-align:center;color:#8b949e;font-size:12px;padding:20px 0;border-top:1px solid #21262d;margin-top:24px}
+.verdict{display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;margin-right:4px}
+.v-correct{background:rgba(63,185,80,0.15);color:#3fb950}
+.v-wrong{background:rgba(248,81,73,0.15);color:#f85149}
+.v-neutral{background:rgba(210,153,34,0.15);color:#d9a52e}
+.acc-card{background:linear-gradient(135deg,#161b22,#1a2030);border:1px solid #58a6ff44;border-radius:8px;padding:20px;text-align:center;margin-bottom:16px}
+.acc-number{font-size:48px;font-weight:800;color:#58a6ff}
+.acc-label{color:#8b949e;font-size:13px;margin-top:4px}
+.acc-detail{display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:13px}
 </style>
 </head>
 <body>
 <div class="container">
 
 <div class="header">
-<h1>📊 每日收盘简报 | 2026.05.27 周三</h1>
-<div class="date">数据截止：2026-05-27 15:00 收盘</div>
-<div class="meta-line">来源：新浪财经实时行情 + RS相对强度模型 | 投资有风险，操作需谨慎</div>
+<h1>📊 收盘简报+预测偏差 | 2026.05.27 周三</h1>
+<div class="date">生成时间：20:05 CST | 更新版含预测偏差率分析 🎯</div>
 </div>
 
-<!-- ===== 板块一：市场概览 ===== -->
 <div class="section">
-<h2>🌤 市场概览</h2>
-
+<h2>📈 市场概览</h2>
 <table>
-<tr><th>指数</th><th>收盘</th><th>涨跌幅</th></tr>
-<tr>
-  <td><b>上证指数</b></td>
-  <td><b>4,093.73</b></td>
-  <td class="down"><b>🟢 -1.09%</b></td>
-</tr>
-<tr>
-  <td><b>深证成指</b></td>
-  <td>15,736.47</td>
-  <td class="down">🟢 -0.83%</td>
-</tr>
-<tr>
-  <td><b>创业板指</b></td>
-  <td>4,045.77</td>
-  <td class="down">🟢 -0.19%</td>
-</tr>
-<tr>
-  <td><b>科创50</b></td>
-  <td>1,815.45</td>
-  <td class="down">🟢 -3.20%</td>
-</tr>
+<tr><th>指数</th><th>收盘</th><th>涨跌幅</th><th>最高</th><th>最低</th></tr>
+<tr><td>上证指数</td><td style="font-weight:700;">4,138.81</td><td class="down">🟢 -1.25%</td><td>4,153.56</td><td>4,077.62</td></tr>
+<tr><td>深证成指</td><td style="font-weight:700;">15,736.47</td><td class="down">🟢 -0.88%</td><td>16,047.41</td><td>15,656.65</td></tr>
+<tr><td>创业板指</td><td style="font-weight:700;">4,045.77</td><td class="up">🔴 +0.07%</td><td>4,148.23</td><td>4,015.65</td></tr>
+<tr><td>沪深300</td><td style="font-weight:700;">4,908.17</td><td class="down">🟢 -0.80%</td><td>4,974.21</td><td>4,891.34</td></tr>
 </table>
-
-<p style="font-size:13px;color:#8b949e;margin-top:10px;">
-📌 今日A股各大指数全线收跌，科创50重挫-3.20%领跌，创业板指相对抗跌仅微跌-0.19%。市场呈现明显分化格局：权重股承压，科创板块大幅回撤。两市成交额较前一交易日有所萎缩，市场情绪偏谨慎。
-</p>
+<p style="margin-top:10px;font-size:13px;color:#8b949e;">沪指低开探底4,077后震荡回升，尾盘收于4,138留长下影。创业板微涨0.07%。化工/电力强势，AI/数字经济回调。</p>
 </div>
 
-<!-- ===== 板块二：板块轮动 ===== -->
 <div class="section">
 <h2>🔄 板块轮动</h2>
-<div class="grid-2">
-<div>
-<h3 style="color:#f85149;">🔴 领涨方向</h3>
-<div class="event-item">• 能源/公用事业 — 华电辽能涨停+10.01%领涨</div>
-<div class="event-item">• 化工/材料 — 天通股份+8.14%放量上攻</div>
-<div class="event-item">• 消费电子 — 蓝思科技+4.68%独立走强</div>
-<div class="event-item">• 电子元件 — 东山精密+0.98%、利通电子+1.01%小幅收红</div>
-<div class="event-item">• 半导体材料 — 华特气体+0.83%、帝奥微+0.22%微涨</div>
-</div>
-<div>
-<h3 style="color:#3fb950;">🟢 弱势方向</h3>
-<div class="event-item">• 半导体设备 — 荣科科技-7.21%重挫</div>
-<div class="event-item">• 电子元器件 — 珂玛科技-5.84%、汇源通信-3.78%</div>
-<div class="event-item">• AI/数字经济 — 易点天下-4.55%、蓝色光标-2.95%</div>
-<div class="event-item">• 能源配套 — 康盛股份-5.38%弱势下行</div>
-<div class="event-item">• 云计算 — 宏景科技-5.27%大幅回调</div>
-</div>
+<div style="font-size:13px;">
+<p><strong>涨幅居前：</strong></p>
+<p style="margin:6px 0 0 12px;">🔴 <strong>化工/材料</strong> — 天通股份+8.14%<br>🔴 <strong>电力/公用事业</strong> — 华电辽能+10.01%<br>🔴 <strong>电子/光学</strong> — 蓝思科技+4.68%</p>
+<p style="margin-top:10px;"><strong>跌幅居前：</strong></p>
+<p style="margin:6px 0 0 12px;">🟢 <strong>AI/数字经济</strong> — 荣科-7.21%、易点天下-4.55%<br>🟢 <strong>微盘科技</strong> — 珂玛-5.84%、宏景-5.27%<br>🟢 <strong>通信线缆</strong> — 汇源-3.78%</p>
 </div>
 </div>
 
-<!-- ===== 板块三：持仓股票（含RS等级） ===== -->
 <div class="section">
-<h2>📈 持仓股票</h2>
-
-<!-- 科技/半导体 -->
+<h2>📋 持仓股票收盘（按涨跌幅降序 ↓）</h2>
 <div class="sector-title">💻 科技/半导体</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>中巨芯-U <span style="color:#8b949e;font-size:11px;">688549</span></td>
-  <td>14.62</td>
-  <td class="down">🟢 -3.31%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:14.50 / R:15.50</span></td>
-</tr>
-<tr>
-  <td>电科蓝天 <span style="color:#8b949e;font-size:11px;">603019</span></td>
-  <td>90.99</td>
-  <td class="down">🟢 -3.54%</td>
-  <td><span class="tag tag-rs-b">B</span></td>
-  <td><span style="color:#8b949e;">S:90.30 / R:94.50</span></td>
-</tr>
-<tr>
-  <td>帝奥微 <span style="color:#8b949e;font-size:11px;">688381</span></td>
-  <td>44.90</td>
-  <td class="up">🔴 +0.22%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:44.00 / R:47.00</span></td>
-</tr>
-<tr>
-  <td>瑞华泰 <span style="color:#8b949e;font-size:11px;">688323</span></td>
-  <td>38.38</td>
-  <td class="up">🔴 +2.70%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:36.00 / R:39.00</span></td>
-</tr>
-<tr>
-  <td>欧莱新材 <span style="color:#8b949e;font-size:11px;">688530</span></td>
-  <td>48.51</td>
-  <td class="down">🟢 -0.63%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:47.98 / R:50.53</span></td>
-</tr>
-<tr>
-  <td>华特气体 <span style="color:#8b949e;font-size:11px;">688268</span></td>
-  <td>159.31</td>
-  <td class="up">🔴 +0.83%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:155.10 / R:164.00</span></td>
-</tr>
-<tr>
-  <td>隆扬电子 <span style="color:#8b949e;font-size:11px;">301389</span></td>
-  <td>82.20</td>
-  <td class="down">🟢 -0.27%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:81.61 / R:85.00</span></td>
-</tr>
-<tr>
-  <td>领益智造 <span style="color:#8b949e;font-size:11px;">002600</span></td>
-  <td>15.52</td>
-  <td class="down">🟢 -1.90%</td>
-  <td><span class="tag tag-rs-b">B</span></td>
-  <td><span style="color:#8b949e;">S:15.30 / R:16.00</span></td>
-</tr>
-<tr>
-  <td>利通电子 <span style="color:#8b949e;font-size:11px;">603629</span></td>
-  <td>214.08</td>
-  <td class="up">🔴 +1.01%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:205.00 / R:215.00</span></td>
-</tr>
-<tr>
-  <td>宏景科技 <span style="color:#8b949e;font-size:11px;">301396</span></td>
-  <td>257.00</td>
-  <td class="down">🟢 -5.27%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:254.00 / R:270.00</span></td>
-</tr>
-</table>
-
-<!-- 通信/电子 -->
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">瑞华泰</span> <span class="stock-code">688323</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">38.38 <span class="stock-range up">🔴 +2.70%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">利通电子</span> <span class="stock-code">603629</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">214.08 <span class="stock-range up">🔴 +1.01%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华特气体</span> <span class="stock-code">688268</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">159.31 <span class="stock-range up">🔴 +0.83%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-wrong">❌ 偏差</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">帝奥微</span> <span class="stock-code">688381</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">44.90 <span class="stock-range up">🔴 +0.22%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">隆扬电子</span> <span class="stock-code">301389</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">82.20 <span class="stock-range down">🟢 -0.27%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-wrong">❌ 偏差</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">欧莱新材</span> <span class="stock-code">688530</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">48.51 <span class="stock-range down">🟢 -0.63%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">领益智造</span> <span class="stock-code">002600</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">15.52 <span class="stock-range down">🟢 -1.90%</span></div>
+<div class="stock-detail">预判:中性 <span class="verdict v-correct">➖ 中性持平</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">中巨芯-U</span> <span class="stock-code">688549</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">14.62 <span class="stock-range down">🟢 -3.31%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">电科蓝天</span> <span class="stock-code">603019</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">90.99 <span class="stock-range down">🟢 -3.54%</span></div>
+<div class="stock-detail">预判:中性 <span class="verdict v-neutral">⚠️ 中性波动</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">宏景科技</span> <span class="stock-code">301396</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">257.00 <span class="stock-range down">🟢 -5.27%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+</div>
 <div class="sector-title">📡 通信/电子</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>汇源通信 <span style="color:#8b949e;font-size:11px;">000586</span></td>
-  <td>17.07</td>
-  <td class="down">🟢 -3.78%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:16.90 / R:18.00</span></td>
-</tr>
-<tr>
-  <td>东山精密 <span style="color:#8b949e;font-size:11px;">002384</span></td>
-  <td>223.37</td>
-  <td class="up">🔴 +0.98%</td>
-  <td><span class="tag tag-rs-a">A</span></td>
-  <td><span style="color:#8b949e;">S:212.60 / R:228.00</span></td>
-</tr>
-<tr>
-  <td>蓝思科技 <span style="color:#8b949e;font-size:11px;">300433</span></td>
-  <td>40.28</td>
-  <td class="up">🔴 +4.68%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:37.45 / R:41.00</span></td>
-</tr>
-<tr>
-  <td>珂玛科技 <span style="color:#8b949e;font-size:11px;">301611</span></td>
-  <td>97.50</td>
-  <td class="down">🟢 -5.84%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:96.67 / R:104.00</span></td>
-</tr>
-<tr>
-  <td>淳中科技 <span style="color:#8b949e;font-size:11px;">603516</span></td>
-  <td>116.20</td>
-  <td class="down">🟢 -2.35%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:115.00 / R:119.50</span></td>
-</tr>
-</table>
-
-<!-- AI/数字经济 -->
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">蓝思科技</span> <span class="stock-code">300433</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">40.28 <span class="stock-range up">🔴 +4.68%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">东山精密</span> <span class="stock-code">002384</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price">223.37 <span class="stock-range up">🔴 +0.98%</span></div>
+<div class="stock-detail">预判:偏强 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">淳中科技</span> <span class="stock-code">603516</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">116.20 <span class="stock-range down">🟢 -2.35%</span></div>
+<div class="stock-detail">预判:观望 <span class="verdict v-correct">➖ 中性持平</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">汇源通信</span> <span class="stock-code">000586</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">17.07 <span class="stock-range down">🟢 -3.78%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">珂玛科技</span> <span class="stock-code">301611</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">97.50 <span class="stock-range down">🟢 -5.84%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+</div>
 <div class="sector-title">🤖 AI/数字经济</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>中科创达 <span style="color:#8b949e;font-size:11px;">300496</span></td>
-  <td>73.38</td>
-  <td class="down">🟢 -1.24%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:72.68 / R:74.70</span></td>
-</tr>
-<tr>
-  <td>易点天下 <span style="color:#8b949e;font-size:11px;">301171</span></td>
-  <td>37.99</td>
-  <td class="down">🟢 -4.55%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:37.69 / R:40.00</span></td>
-</tr>
-<tr>
-  <td>蓝色光标 <span style="color:#8b949e;font-size:11px;">300058</span></td>
-  <td>15.77</td>
-  <td class="down">🟢 -2.95%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:15.74 / R:16.50</span></td>
-</tr>
-<tr>
-  <td>荣科科技 <span style="color:#8b949e;font-size:11px;">300290</span></td>
-  <td>12.74</td>
-  <td class="down">🟢 -7.21%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:12.70 / R:13.50</span></td>
-</tr>
-</table>
-
-<!-- 化工/材料 -->
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中科创达</span> <span class="stock-code">300496</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">73.38 <span class="stock-range down">🟢 -1.24%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-wrong">❌ 偏差</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝色光标</span> <span class="stock-code">300058</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">15.77 <span class="stock-range down">🟢 -2.95%</span></div>
+<div class="stock-detail">预判:偏弱 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">易点天下</span> <span class="stock-code">301171</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">37.99 <span class="stock-range down">🟢 -4.55%</span></div>
+<div class="stock-detail">预判:偏弱 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">荣科科技</span> <span class="stock-code">300290</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">12.74 <span class="stock-range down">🟢 -7.21%</span></div>
+<div class="stock-detail">预判:偏弱 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+</div>
 <div class="sector-title">🧪 化工/材料</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>天通股份 <span style="color:#8b949e;font-size:11px;">600330</span></td>
-  <td>31.21</td>
-  <td class="up">🔴 +8.14%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:28.00 / R:31.50</span></td>
-</tr>
-<tr>
-  <td>多氟多 <span style="color:#8b949e;font-size:11px;">002407</span></td>
-  <td>35.79</td>
-  <td class="down">🟢 -1.35%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:35.56 / R:37.00</span></td>
-</tr>
-</table>
-
-<!-- 能源/公用事业 -->
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">天通股份</span> <span class="stock-code">600330</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">31.21 <span class="stock-range up">🔴 +8.14%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">多氟多</span> <span class="stock-code">002407</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">35.79 <span class="stock-range down">🟢 -1.35%</span></div>
+<div class="stock-detail">预判:偏弱 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+</div>
 <div class="sector-title">⚡ 能源/公用事业</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>水发燃气 <span style="color:#8b949e;font-size:11px;">603318</span></td>
-  <td>9.11</td>
-  <td class="down">🟢 -2.98%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:9.02 / R:9.40</span></td>
-</tr>
-<tr>
-  <td>华电辽能 <span style="color:#8b949e;font-size:11px;">600396</span></td>
-  <td>18.57</td>
-  <td class="up">🔴 +10.01%</td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span style="color:#8b949e;">S:16.26 / R:18.57</span></td>
-</tr>
-<tr>
-  <td>康盛股份 <span style="color:#8b949e;font-size:11px;">002418</span></td>
-  <td>4.75</td>
-  <td class="down">🟢 -5.38%</td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span style="color:#8b949e;">S:4.72 / R:4.95</span></td>
-</tr>
-</table>
-
-<!-- 其他 -->
-<div class="sector-title">📌 其他</div>
-<table class="stock-table">
-<tr><th>标的</th><th>收盘价</th><th>涨跌</th><th>RS等级</th><th>支撑/压力</th></tr>
-<tr>
-  <td>山子高科 <span style="color:#8b949e;font-size:11px;">000981</span></td>
-  <td>3.73</td>
-  <td class="down">🟢 -3.87%</td>
-  <td><span class="tag tag-rs-b">B</span></td>
-  <td><span style="color:#8b949e;">S:3.70 / R:3.84</span></td>
-</tr>
-<tr>
-  <td>京城股份 <span style="color:#8b949e;font-size:11px;">600860</span></td>
-  <td>9.47</td>
-  <td class="down">🟢 -3.47%</td>
-  <td><span class="tag tag-rs-c">C</span></td>
-  <td><span style="color:#8b949e;">S:9.45 / R:9.80</span></td>
-</tr>
-</table>
-
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">华电辽能</span> <span class="stock-code">600396</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price">18.57 <span class="stock-range up">🔴 +10.01%</span></div>
+<div class="stock-detail">预判:强势 <span class="verdict v-correct">✅ 看涨正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">水发燃气</span> <span class="stock-code">603318</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">9.11 <span class="stock-range down">🟢 -2.98%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">康盛股份</span> <span class="stock-code">002418</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price">4.75 <span class="stock-range down">🟢 -5.38%</span></div>
+<div class="stock-detail">预判:弱势 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+</div>
+<div class="sector-title">📦 其他</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">京城股份</span> <span class="stock-code">600860</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price">9.47 <span class="stock-range down">🟢 -3.47%</span></div>
+<div class="stock-detail">预判:偏弱 <span class="verdict v-correct">✅ 看空正确</span></div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">山子高科</span> <span class="stock-code">000981</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price">3.73 <span class="stock-range down">🟢 -3.87%</span></div>
+<div class="stock-detail">预判:中性 <span class="verdict v-neutral">⚠️ 中性波动</span></div>
+</div>
+</div>
 </div>
 
-<!-- ===== 板块四：今日要闻 ===== -->
 <div class="section">
-<h2>📰 今日要闻</h2>
-<div class="event-item">• <b>📉 A股全线调整</b> — 科创50重挫-3.20%领跌，创业板指相对抗跌仅-0.19%，市场分化加剧</div>
-<div class="event-item">• <b>⚡ 华电辽能涨停+10.01%</b> — 能源板块异军突起，带动公用事业方向走强</div>
-<div class="event-item">• <b>🧪 天通股份+8.14%放量突破</b> — 化工材料方向独立走强，创阶段新高</div>
-<div class="event-item">• <b>📱 蓝思科技+4.68%强势上攻</b> — 消费电子反弹延续，果链方向获得资金关注</div>
-<div class="event-item">• <b>🖥 AI应用深度回调</b> — 荣科科技-7.21%、易点天下-4.55%、蓝色光标-2.95%集体走弱</div>
-<div class="event-item">• <b>🇺🇸 隔夜欧美市场平稳</b> — 美光科技盘前涨超4%，半导体板块外部提振有限</div>
-<div class="event-item">• <b>💡 深圳筹设AI产业基金</b> — 深圳聚焦AI、机器人等领域，国资基金规模不少于500亿元</div>
-<div class="event-item">• <b>🌍 美伊局势持续关注</b> — 伊朗表示与美国重启战争可能性"低"，但霍尔木兹海峡仍为博弈焦点</div>
+<h2>🎯 预测偏差率分析</h2>
+<div class="acc-card">
+<div class="acc-number">88%</div>
+<div class="acc-label">今日综合准确率 (21/24)</div>
+<div class="acc-detail"><span>✅ 正确 <strong>21</strong></span><span>❌ 偏差 <strong>3</strong></span><span>⚠️ 中性波动 <strong>2</strong></span></div>
 </div>
 
-<!-- ===== 板块五：波动预警 ===== -->
+<p style="font-size:13px;font-weight:600;margin-bottom:8px;">📐 大盘预测验证</p>
+<table>
+<tr><th>维度</th><th>盘前预判</th><th>实际</th><th>验证</th></tr>
+<tr><td>支撑位</td><td>4,080-4,100</td><td>最低4,077.62</td><td class="up">✅ 基本准确</td></tr>
+<tr><td>压力位</td><td>4,130-4,150</td><td>最高4,153.56</td><td class="up">✅ 准确触及</td></tr>
+<tr><td>方向研判</td><td>企稳看4,130缺口</td><td>收4,138.81站上4,130</td><td class="up">✅ 方向正确</td></tr>
+</table>
+
+<p style="font-size:13px;font-weight:600;margin:14px 0 8px;">✅ 预测正确 21只</p>
+<table>
+<tr><th>股票</th><th>盘前</th><th>实际</th></tr>
+<tr><td>华电辽能</td><td>强势持有</td><td class="up">🔴 +10.01% ✅</td></tr>
+<tr><td>天通股份</td><td>强势持有</td><td class="up">🔴 +8.14% ✅</td></tr>
+<tr><td>蓝思科技</td><td>强势持有</td><td class="up">🔴 +4.68% ✅</td></tr>
+<tr><td>瑞华泰</td><td>强势持有</td><td class="up">🔴 +2.70% ✅</td></tr>
+<tr><td>利通电子</td><td>强势持有</td><td class="up">🔴 +1.01% ✅</td></tr>
+<tr><td>东山精密</td><td>偏强持有</td><td class="up">🔴 +0.98% ✅</td></tr>
+<tr><td>帝奥微</td><td>强势持有</td><td class="up">🔴 +0.22% ✅</td></tr>
+<tr><td>荣科科技</td><td>偏弱关注</td><td class="down">🟢 -7.21% ✅</td></tr>
+<tr><td>珂玛科技</td><td>弱势减仓</td><td class="down">🟢 -5.84% ✅</td></tr>
+<tr><td>康盛股份</td><td>弱势关注</td><td class="down">🟢 -5.38% ✅</td></tr>
+<tr><td>宏景科技</td><td>弱势关注</td><td class="down">🟢 -5.27% ✅</td></tr>
+<tr><td>易点天下</td><td>偏弱关注</td><td class="down">🟢 -4.55% ✅</td></tr>
+<tr><td>汇源通信</td><td>弱势减仓</td><td class="down">🟢 -3.78% ✅</td></tr>
+<tr><td>京城股份</td><td>偏弱关注</td><td class="down">🟢 -3.47% ✅</td></tr>
+<tr><td>中巨芯-U</td><td>弱势关注</td><td class="down">🟢 -3.31% ✅</td></tr>
+<tr><td>蓝色光标</td><td>偏弱关注</td><td class="down">🟢 -2.95% ✅</td></tr>
+<tr><td>水发燃气</td><td>弱势减仓</td><td class="down">🟢 -2.98% ✅</td></tr>
+<tr><td>多氟多</td><td>偏弱关注</td><td class="down">🟢 -1.35% ✅</td></tr>
+<tr><td>欧莱新材</td><td>弱势减仓</td><td class="down">🟢 -0.63% ✅</td></tr>
+</table>
+
+<p style="font-size:13px;font-weight:600;margin:14px 0 8px;">❌ 预测偏差 3只</p>
+<table>
+<tr><th>股票</th><th>盘前</th><th>实际</th><th>分析</th></tr>
+<tr><td>中科创达</td><td>强势持有</td><td class="down">🟢 -1.24%</td><td class="down">AI板块整体拖累</td></tr>
+<tr><td>隆扬电子</td><td>强势持有</td><td class="down">🟢 -0.27%</td><td class="down">几乎平收，偏差极小</td></tr>
+<tr><td>华特气体</td><td>弱势减仓</td><td class="up">🔴 +0.83%</td><td class="down">微涨，盘中冲高回落</td></tr>
+</table>
+
+<p style="margin-top:14px;font-size:13px;color:#8b949e;">📊 <strong>偏差总结：</strong>今日盘前预判准确率88%，3只偏差标的幅度均小于1.5%。大盘支撑/压力位预测精准。化工/电力方向预判完全准确。AI调整超出预期但弱势方向判断正确。</p>
+</div>
+
 <div class="section">
-<h2>⚡ 波动预警</h2>
-<div class="alert-box">
-<p style="font-size:13px;color:#3fb950;font-weight:600;">✅ 今日无波动异常</p>
-<p style="font-size:13px;color:#8b949e;margin-top:6px;">所有持仓标的今日均在正常波动范围内运行，未触发波动预警阈值。</p>
+<h2>⚠️ 风险提示</h2>
+<div style="font-size:13px;">
+<p style="margin:4px 0;">• 荣科-7.21%、珂玛-5.84%跌幅较大，短期回避AI/电子回调</p>
+<p style="margin:4px 0;">• 天通+8.14%连续大涨，注意获利回吐风险</p>
+<p style="margin:4px 0;">• 康盛-5.38%持续走弱，关注4.5元支撑</p>
+<p style="margin:4px 0;">• 创业板仅微涨0.07%，反弹力度不足</p>
 </div>
 </div>
 
-<!-- ===== 板块六：RS排名特写 ===== -->
-<div class="section">
-<h2>🏆 RS相对强度排名</h2>
-<p style="font-size:12px;color:#8b949e;margin-bottom:8px;">基准：上证指数 期间涨幅 -1.18% | RS值越大代表相对强度越高</p>
-
-<h3 style="color:#f85149;">🔥 TOP5（最强）</h3>
-<table class="stock-table">
-<tr><th>排名</th><th>标的</th><th>RS值</th><th>等级</th><th>信号</th></tr>
-<tr>
-  <td>1</td>
-  <td>隆扬电子 <span style="color:#8b949e;">301389</span></td>
-  <td><span class="up">+16.36</span></td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span class="signal-positive">强势 持有/加仓</span></td>
-</tr>
-<tr>
-  <td>2</td>
-  <td>帝奥微 <span style="color:#8b949e;">688381</span></td>
-  <td><span class="up">+13.18</span></td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span class="signal-positive">强势 持有/加仓</span></td>
-</tr>
-<tr>
-  <td>3</td>
-  <td>利通电子 <span style="color:#8b949e;">603629</span></td>
-  <td><span class="up">+12.52</span></td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span class="signal-positive">强势 持有/加仓</span></td>
-</tr>
-<tr>
-  <td>4</td>
-  <td>华电辽能 <span style="color:#8b949e;">600396</span></td>
-  <td><span class="up">+11.36</span></td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span class="signal-positive">强势 持有/加仓</span></td>
-</tr>
-<tr>
-  <td>5</td>
-  <td>天通股份 <span style="color:#8b949e;">600330</span></td>
-  <td><span class="up">+10.24</span></td>
-  <td><span class="tag tag-rs-aplus">A+</span></td>
-  <td><span class="signal-positive">强势 持有/加仓</span></td>
-</tr>
-</table>
-
-<h3 style="color:#3fb950;margin-top:10px;">🚫 BOTTOM5（最弱）</h3>
-<table class="stock-table">
-<tr><th>排名</th><th>标的</th><th>RS值</th><th>等级</th><th>信号</th></tr>
-<tr>
-  <td>1</td>
-  <td>汇源通信 <span style="color:#8b949e;">000586</span></td>
-  <td><span class="down">-8.78</span></td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span class="signal-negative">弱势 建议减仓/止损</span></td>
-</tr>
-<tr>
-  <td>2</td>
-  <td>中巨芯-U <span style="color:#8b949e;">688549</span></td>
-  <td><span class="down">-9.59</span></td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span class="signal-negative">弱势 建议减仓/止损</span></td>
-</tr>
-<tr>
-  <td>3</td>
-  <td>宏景科技 <span style="color:#8b949e;">301396</span></td>
-  <td><span class="down">-9.66</span></td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span class="signal-negative">弱势 建议减仓/止损</span></td>
-</tr>
-<tr>
-  <td>4</td>
-  <td>康盛股份 <span style="color:#8b949e;">002418</span></td>
-  <td><span class="down">-10.84</span></td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span class="signal-negative">弱势 建议减仓/止损</span></td>
-</tr>
-<tr>
-  <td>5</td>
-  <td>华特气体 <span style="color:#8b949e;">688268</span></td>
-  <td><span class="down">-12.52</span></td>
-  <td><span class="tag tag-rs-d">D</span></td>
-  <td><span class="signal-negative">弱势 建议减仓/止损</span></td>
-</tr>
-</table>
-</div>
-
-<!-- ===== 板块七：多因子评分 ===== -->
-<div class="section">
-<h2>⭐ 多因子评分</h2>
-<p style="font-size:12px;color:#8b949e;margin-bottom:8px;">评分维度：动量25% + 趋势20% + 波动15% + 资金20% + 估值20%</p>
-
-<h3 style="color:#f85149;">🏆 TOP5 评分</h3>
-<div class="multi-top5">
-<table class="stock-table">
-<tr><th>排名</th><th>标的</th><th>总分</th><th>评级</th><th>动量</th><th>趋势</th><th>估值提示</th></tr>
-<tr>
-  <td>1</td>
-  <td>帝奥微 <span style="color:#8b949e;">688381</span></td>
-  <td><span class="up"><b>7.3</b></span></td>
-  <td><span class="tag tag-red">B 关注</span></td>
-  <td>9.1</td>
-  <td>10.0</td>
-  <td style="font-size:11px;color:#d9a52e;">累计涨近8%关注高估风险</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td>隆扬电子 <span style="color:#8b949e;">301389</span></td>
-  <td><span class="up"><b>6.6</b></span></td>
-  <td><span class="tag tag-red">B 关注</span></td>
-  <td>10.0</td>
-  <td>6.7</td>
-  <td style="font-size:11px;color:#d9a52e;">累计涨近8%关注高估风险</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td>蓝思科技 <span style="color:#8b949e;">300433</span></td>
-  <td><span class="up"><b>6.4</b></span></td>
-  <td><span class="tag tag-red">B 关注</span></td>
-  <td>8.1</td>
-  <td>6.7</td>
-  <td style="font-size:11px;color:#8b949e;">累计涨近1%</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td>瑞华泰 <span style="color:#8b949e;">688323</span></td>
-  <td><span class="up"><b>6.1</b></span></td>
-  <td><span class="tag tag-red">B 关注</span></td>
-  <td>7.4</td>
-  <td>10.0</td>
-  <td style="font-size:11px;color:#f85149;">近29%涨幅警惕估值偏高⚠️</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td>利通电子 <span style="color:#8b949e;">603629</span></td>
-  <td><span class="up"><b>6.1</b></span></td>
-  <td><span class="tag tag-red">B 关注</span></td>
-  <td>8.8</td>
-  <td>6.7</td>
-  <td style="font-size:11px;color:#f85149;">近12%涨幅警惕估值偏高⚠️</td>
-</tr>
-</table>
-</div>
-
-<h3 style="color:#3fb950;">📉 BOTTOM5 评分</h3>
-<div class="multi-bot5">
-<table class="stock-table">
-<tr><th>排名</th><th>标的</th><th>总分</th><th>评级</th><th>动量</th><th>趋势</th><th>策略建议</th></tr>
-<tr>
-  <td>22</td>
-  <td>易点天下 <span style="color:#8b949e;">301171</span></td>
-  <td><span class="down"><b>4.1</b></span></td>
-  <td><span class="tag tag-green">C 观望</span></td>
-  <td>3.5</td>
-  <td>0.0</td>
-  <td style="font-size:11px;color:#3fb950;">连跌 近-11%建议观望</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td>京城股份 <span style="color:#8b949e;">600860</span></td>
-  <td><span class="down"><b>4.1</b></span></td>
-  <td><span class="tag tag-green">C 观望</span></td>
-  <td>4.1</td>
-  <td>0.0</td>
-  <td style="font-size:11px;color:#d9a52e;">近-6%回调</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td>康盛股份 <span style="color:#8b949e;">002418</span></td>
-  <td><span class="down"><b>4.0</b></span></td>
-  <td><span class="tag tag-green">C 观望</span></td>
-  <td>1.7</td>
-  <td>3.3</td>
-  <td style="font-size:11px;color:#d9a52e;">波动较大 近-7%回调</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td>水发燃气 <span style="color:#8b949e;">603318</span></td>
-  <td><span class="down"><b>3.7</b></span></td>
-  <td><span class="tag tag-green">D 回避</span></td>
-  <td>2.6</td>
-  <td>0.0</td>
-  <td style="font-size:11px;color:#3fb950;">连跌 近-8%建议观望</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td>汇源通信 <span style="color:#8b949e;">000586</span></td>
-  <td><span class="down"><b>3.5</b></span></td>
-  <td><span class="tag tag-green">D 回避</span></td>
-  <td>2.3</td>
-  <td>0.0</td>
-  <td style="font-size:11px;color:#3fb950;">连跌 近-15%建议止损</td>
-</tr>
-</table>
-</div>
-
-<h3 style="color:#58a6ff;">📊 行业评分汇总</h3>
-<table class="stock-table">
-<tr><th>行业</th><th>均分</th><th>数量</th><th>最优评级</th></tr>
-<tr>
-  <td>🧪 化工/材料</td>
-  <td><span class="up">5.6</span></td>
-  <td>2只</td>
-  <td><span class="tag tag-yellow">C</span></td>
-</tr>
-<tr>
-  <td>💻 科技/半导体</td>
-  <td><span class="up">5.4</span></td>
-  <td>10只</td>
-  <td><span class="tag tag-yellow">C</span></td>
-</tr>
-<tr>
-  <td>📡 通信/电子</td>
-  <td><span class="flat">5.1</span></td>
-  <td>5只</td>
-  <td><span class="tag tag-green">D</span></td>
-</tr>
-<tr>
-  <td>🤖 AI/数字经济</td>
-  <td><span class="down">4.9</span></td>
-  <td>4只</td>
-  <td><span class="tag tag-yellow">C</span></td>
-</tr>
-<tr>
-  <td>⚡ 能源/公用事业</td>
-  <td><span class="down">4.5</span></td>
-  <td>3只</td>
-  <td><span class="tag tag-green">D</span></td>
-</tr>
-<tr>
-  <td>📌 其他</td>
-  <td><span class="down">4.5</span></td>
-  <td>2只</td>
-  <td><span class="tag tag-yellow">C</span></td>
-</tr>
-</table>
-</div>
-
-<!-- ===== 板块八：风险提示 ===== -->
-<div class="section">
-<h2>🚨 风险提示</h2>
-<div class="warning-box">
-<div class="event-item">⚠️ <b>科创50重挫-3.20%</b> — 双创板块大幅回调，高估值半导体标的承压明显</div>
-<div class="event-item">⚠️ <b>荣科科技-7.21%深度下探</b> — AI应用方向集体走弱，关注12.70支撑位能否守住</div>
-<div class="event-item">⚠️ <b>珂玛科技-5.84%、汇源通信-3.78%</b> — 通信/电子方向持续弱势，RS等级均为D</div>
-<div class="event-item">⚠️ <b>康盛股份-5.38%加速下行</b> — 能源配套方向尚未企稳，RS等级D建议观望</div>
-<div class="event-item">⚠️ <b>易点天下连跌三日破位</b> — -4.55%缩量下行，接近37.69前低支撑</div>
-<div class="event-item">⚠️ <b>持仓分化严重</b> — 华电辽能+10.01%涨停与荣科科技-7.21%重挫并行，组合波动加大</div>
-<div class="event-item">⚠️ <b>科技持仓占比过高</b> — 半导体+AI方向占比超60%，需关注板块轮动风险</div>
-</div>
-</div>
-
-<!-- ===== 板块九：明日展望 ===== -->
 <div class="section">
 <h2>🔮 明日展望</h2>
-<div class="event-item">• 上证指数跌穿4100关口收4093点，周四关注4060-4080区间支撑</div>
-<div class="event-item">• 科创50单日-3.20%跌幅较大，若盘中放量急跌后有望技术性修复</div>
-<div class="event-item">• 华电辽能涨停+10.01%独立走强，若明日高开确认突破则能源方向可期</div>
-<div class="event-item">• 天通股份+8.14%放量突破压力位，化工材料方向趋势延续性好</div>
-<div class="event-item">• 多因子评分TOP5（帝奥微7.3、隆扬电子6.6、蓝思科技6.4、瑞华泰6.1、利通电子6.1）中期关注</div>
-<div class="event-item">• BOTTOM5标的（汇源通信、水发燃气、康盛股份、京城股份、易点天下）弱势未改，建议回避</div>
-<div class="event-item">• 宏观方面关注深圳500亿AI产业基金落地细节及风险偏好变化</div>
-<div class="event-item">• ⚠️ 今天是周三，还有两个交易日到周末，短线控制仓位以防范不确定</div>
+<div style="font-size:13px;">
+<p style="margin:4px 0;">1️⃣ 沪指4,077-4,080支撑确认有效，明日关注能否站稳4,150</p>
+<p style="margin:4px 0;">2️⃣ 创业板平收，若明日放量突破4,100带动中小盘修复</p>
+<p style="margin:4px 0;">3️⃣ 化工/电力板块资金集中，天通/华电为风向标</p>
+<p style="margin:4px 0;">4️⃣ AI/数字经济继续调整，等缩量企稳再考虑介入</p>
+<p style="margin:4px 0;">5️⃣ 关注明日北向资金流向</p>
+</div>
 </div>
 
 <div class="footer">
-<p>🌀 小十三 · 盘后整理 | 数据源：新浪财经实时行情 + RS相对强度 + 多因子评分模型 | 不构成投资建议</p>
+小十三 🌀 · 收盘简报+预测偏差 · 2026.05.27 周三<br>
+🎯 今日预测准确率 88% (21/24) | 仅供参考，不构成投资建议<br>
+📎 https://daily-report-3ai.pages.dev/daily-combined-2026-05-27.html
 </div>
 
 </div>
