@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘前简报 | 2026-05-29</title>
+<style>
+body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; color: #333; line-height: 1.6; }
+h1 { color: #1a1a1a; border-bottom: 3px solid #dc3545; padding-bottom: 8px; }
+h2 { color: #2c3e50; margin-top: 28px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+h3 { color: #34495e; margin: 16px 0 8px; }
+.section { background: #fff; border-radius: 8px; padding: 16px; margin: 12px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.stock-item { padding: 8px 10px; margin: 4px 0; border-left: 3px solid #ddd; border-radius: 3px; display: flex; flex-wrap: wrap; align-items: baseline; }
+.stock-item.strong-buy { border-left-color: #dc3545; background: #fff5f5; }
+.stock-item.buy { border-left-color: #e74c3c; background: #fff8f8; }
+.stock-item.neutral { border-left-color: #95a5a6; background: #f9f9f9; }
+.stock-item.weak { border-left-color: #27ae60; background: #f5fff5; }
+.stock-item.strong-sell { border-left-color: #1a7a2e; background: #e8f5e9; }
+.stock-name { font-weight: 600; margin-right: 8px; }
+.stock-price { color: #555; margin-right: 8px; }
+.stock-change { margin-right: 8px; font-weight: 500; }
+.stock-change.up { color: #dc3545; }
+.stock-change.down { color: #27ae60; }
+.stock-rating { margin-right: 8px; }
+.stock-detail { font-size: 0.9em; color: #777; flex-basis: 100%; margin-top: 4px; }
+.stock-flag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 4px; }
+.flag-strong { background: #dc3545; color: white; }
+.flag-weak { background: #27ae60; color: white; }
+.flag-star { background: #f39c12; color: white; }
+.sector-header { font-weight: 600; font-size: 1.1em; margin: 12px 0 6px; color: #2c3e50; padding-left: 8px; }
+.key-point { background: #fff; padding: 12px 16px; margin: 8px 0; border-radius: 8px; border-left: 4px solid #3498db; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.key-point.risk { border-left-color: #e74c3c; }
+.key-point.opportunity { border-left-color: #27ae60; }
+.key-point.watch { border-left-color: #f39c12; }
+.market-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.metric-card { background: #fff; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.metric-value { font-size: 1.4em; font-weight: 700; color: #2c3e50; }
+.metric-label { font-size: 0.85em; color: #777; margin-top: 4px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+.footer { text-align: center; color: #999; font-size: 0.85em; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd; }
+.strategy-list { padding-left: 20px; }
+.strategy-list li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<h1>📊 盘前简报 | 2026-05-29 <span style="font-size:0.6em;color:#999;">周五</span></h1>
+
+<div class="section">
+  <h2>📈 大盘回顾（5/28 周四）</h2>
+  <div class="market-overview">
+    <div class="metric-card">
+      <div class="metric-value" style="color:#dc3545;">+0.52%</div>
+      <div class="metric-label">上证基准涨幅</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">3,018</div>
+      <div class="metric-label">上涨家数</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">2,365</div>
+      <div class="metric-label">下跌家数</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">29.87亿</div>
+      <div class="metric-label">两市总成交</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🏆 板块评分排名</h2>
+  <div class="stats-grid">
+    <div>
+      <div style="font-weight:600;color:#dc3545;">TOP 板块</div>
+      <div>🥇 科技/半导体 — 5.3分</div>
+      <div>🥈 化工/材料 — 5.2分</div>
+      <div>🥉 通信/电子 — 5.0分</div>
+    </div>
+    <div>
+      <div style="font-weight:600;color:#27ae60;">BOTTOM 板块</div>
+      <div>能源/公用事业 — 4.9分</div>
+      <div>AI/数字经济 — 4.5分</div>
+      <div>其他 — 4.3分</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📋 按板块持仓评级</h2>
+  <div style="font-size:0.85em;color:#666;margin-bottom:12px;">
+    评级标准：<span style="color:#dc3545;">🔴🔴 强势持有</span> |
+    <span style="color:#e74c3c;">🔴 偏强持有</span> |
+    <span style="color:#95a5a6;">⚪ 中性观察</span> |
+    <span style="color:#27ae60;">🟢 偏弱关注</span> |
+    <span style="color:#1a7a2e;">🟢🟢 弱势减仓</span>
+    <span style="background:#f39c12;color:white;padding:1px 6px;border-radius:3px;font-size:0.9em;">★ 板块共振</span>
+  </div>
+
+  <div class="sector-header">🔬 科技/半导体</div>
+  <div class="stock-item strong-buy"><span class="stock-name">隆扬电子(301389)</span><span class="stock-price">90.88</span><span class="stock-change up">+10.56%</span><span class="stock-rating">🔴🔴</span><span class="stock-detail">RS:A+ 评分6.0 TOP5 | 强势上攻斜率+3.86%，贴近压力位(100%)追高风险</span></div>
+  <div class="stock-item strong-buy"><span class="stock-name">利通电子(603629)</span><span class="stock-price">220.03</span><span class="stock-change up">+2.78%</span><span class="stock-rating">🔴🔴</span><span class="stock-detail">RS:A+ 评分靠前 | 强势上攻斜率+4.38%，已至压力位注意回调</span></div>
+  <div class="stock-item buy"><span class="stock-name">帝奥微(688381)</span><span class="stock-price">46.63</span><span class="stock-change up">+3.85%</span><span class="stock-rating">🔴</span><span class="stock-detail">RS:A 评分6.3 TOP1 | 横盘震荡靠近压力，短线偏强</span></div>
+  <div class="stock-item buy"><span class="stock-name">欧莱新材(688530)</span><span class="stock-price">52.00</span><span class="stock-change up">+7.19%</span><span class="stock-rating">🔴</span><span class="stock-detail">RS:A | 震荡偏强区间中段(51.2%)，仍有上涨空间</span></div>
+  <div class="stock-item neutral"><span class="stock-name">中巨芯-U(688549)</span><span class="stock-price">15.50</span><span class="stock-change up">+6.02%</span><span class="stock-rating">⚪</span><span class="stock-detail">RS:B | 震荡偏弱区间中段，板块带动中性关注</span></div>
+  <div class="stock-item neutral"><span class="stock-name">领益智造(002600)</span><span class="stock-price">15.95</span><span class="stock-change up">+2.77%</span><span class="stock-rating">⚪</span><span class="stock-detail">RS:B | 横盘震荡区间中段，方向不明</span></div>
+  <div class="stock-item neutral"><span class="stock-name">长电科技(600584)</span><span class="stock-price">—</span><span class="stock-change">—</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，中性观察</span></div>
+  <div class="stock-item neutral"><span class="stock-name">长川科技(300604)</span><span class="stock-price">—</span><span class="stock-change">—</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，中性观察</span></div>
+  <div class="stock-item weak"><span class="stock-name">电科蓝天(603019)</span><span class="stock-price">91.25</span><span class="stock-change up">+0.29%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:B | 弱势下行靠近支撑(3.5%)，关注支撑有效性</span></div>
+  <div class="stock-item weak"><span class="stock-name">华特气体(688268)</span><span class="stock-price">152.30</span><span class="stock-change down">-4.40%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 震荡偏弱触及支撑，等待企稳信号</span></div>
+  <div class="stock-item strong-sell"><span class="stock-name">瑞华泰(688323)</span><span class="stock-price">33.00</span><span class="stock-change down">-14.02%</span><span class="stock-rating">🟢🟢</span><span class="stock-detail">RS:D | 弱势下行斜率-8.79%，触及布林下轨，谨防继续下探</span></div>
+  <div class="stock-item strong-sell"><span class="stock-name">宏景科技(301396)</span><span class="stock-price">255.63</span><span class="stock-change down">-0.53%</span><span class="stock-rating">🟢🟢</span><span class="stock-detail">RS:D | 弱势下行斜率-5.5%，靠近支撑</span></div>
+
+  <div class="sector-header">📡 通信/电子</div>
+  <div class="stock-item buy"><span class="stock-name">蓝思科技(300433)</span><span class="stock-price">40.23</span><span class="stock-change down">-0.12%</span><span class="stock-rating">🔴</span><span class="stock-detail">RS:A 评分6.3 TOP5 | 震荡偏强贴近压力(98.7%)，注意冲高回落</span></div>
+  <div class="stock-item buy"><span class="stock-name">东山精密(002384)</span><span class="stock-price">219.00</span><span class="stock-change down">-1.96%</span><span class="stock-rating">🔴</span><span class="stock-detail">RS:A | 震荡偏弱区间中段(62.4%)，短期承压</span></div>
+  <div class="stock-item neutral"><span class="stock-name">淳中科技(603516)</span><span class="stock-price">—</span><span class="stock-change">—</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，中性观察</span></div>
+  <div class="stock-item neutral"><span class="stock-name">商络电子(300975)</span><span class="stock-price">—</span><span class="stock-change">—</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，中性观察</span></div>
+  <div class="stock-item neutral"><span class="stock-name">江海股份(002484)</span><span class="stock-price">74.07</span><span class="stock-change up">+9.99%</span><span class="stock-flag flag-strong">涨停</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足（涨停+9.99%），关注今日延续性</span></div>
+  <div class="stock-item weak"><span class="stock-name">汇源通信(000586)</span><span class="stock-price">17.38</span><span class="stock-change up">+1.82%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 震荡偏弱靠近支撑，RS偏弱</span></div>
+  <div class="stock-item strong-sell"><span class="stock-name">珂玛科技(301611)</span><span class="stock-price">99.03</span><span class="stock-change up">+1.57%</span><span class="stock-rating">🟢🟢</span><span class="stock-detail">RS:D | 弱势下行斜率-5.87%，靠近支撑(5.6%)，弱势延续</span></div>
+
+  <div class="sector-header">🤖 AI/数字经济</div>
+  <div class="stock-item buy"><span class="stock-name">中科创达(300496)</span><span class="stock-price">69.91</span><span class="stock-change down">-4.73%</span><span class="stock-rating">⚪<span class="stock-flag flag-star">★</span></span><span class="stock-detail">RS:B 评分6.0 TOP5 | 震荡偏弱中段，板块BOTTOM2向下修正</span></div>
+  <div class="stock-item weak"><span class="stock-name">易点天下(301171)</span><span class="stock-price">38.82</span><span class="stock-change up">+2.18%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 弱势下行斜率-3.03%，靠近支撑</span></div>
+  <div class="stock-item weak"><span class="stock-name">蓝色光标(300058)</span><span class="stock-price">16.16</span><span class="stock-change up">+2.47%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 震荡偏弱区间中段，RS与评分均偏弱</span></div>
+  <div class="stock-item strong-sell"><span class="stock-name">荣科科技(300290)</span><span class="stock-price">11.48</span><span class="stock-change down">-9.89%</span><span class="stock-rating">🟢🟢<span class="stock-flag flag-star">★</span></span><span class="stock-detail">RS:D | 弱势下行斜率-11.55%，板块BOTTOM2确认弱势</span></div>
+
+  <div class="sector-header">🧪 化工/材料</div>
+  <div class="stock-item strong-buy"><span class="stock-name">天通股份(600330)</span><span class="stock-price">34.33</span><span class="stock-change up">+10.00%</span><span class="stock-flag flag-strong">涨停</span><span class="stock-rating">🔴🔴<span class="stock-flag flag-star">★</span></span><span class="stock-detail">RS:A+ | TOP2板块共振确认，强势上攻斜率+4.84%，已至压力位追高风险</span></div>
+  <div class="stock-item neutral"><span class="stock-name">长海股份(300196)</span><span class="stock-price">—</span><span class="stock-change">—</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，中性观察</span></div>
+  <div class="stock-item neutral"><span class="stock-name">山东玻纤(605006)</span><span class="stock-price">20.20</span><span class="stock-change up">+8.89%</span><span class="stock-rating">⚪</span><span class="stock-detail">数据不足，关注突破延续性</span></div>
+  <div class="stock-item strong-sell"><span class="stock-name">多氟多(002407)</span><span class="stock-price">35.12</span><span class="stock-change down">-1.87%</span><span class="stock-rating">🟢🟢</span><span class="stock-detail">RS:D | 弱势下行斜率-4.37%，触及支撑，弱势确认</span></div>
+
+  <div class="sector-header">⚡ 能源/公用事业</div>
+  <div class="stock-item strong-buy"><span class="stock-name">华电辽能(600396)</span><span class="stock-price">19.26</span><span class="stock-change up">+3.72%</span><span class="stock-rating">🔴🔴<span class="stock-flag flag-star">★</span></span><span class="stock-detail">RS:A+ TOP1 | 评分6.2 TOP5 | 强势上攻斜率+9.82%，已至压力位</span></div>
+  <div class="stock-item weak"><span class="stock-name">康盛股份(002418)</span><span class="stock-price">4.89</span><span class="stock-change up">+2.95%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 弱势下行靠近支撑(11.3%)</span></div>
+  <div class="stock-item weak"><span class="stock-name">水发燃气(603318)</span><span class="stock-price">9.08</span><span class="stock-change down">-0.33%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 弱势下行触及支撑(0%)</span></div>
+
+  <div class="sector-header">📦 其他</div>
+  <div class="stock-item weak"><span class="stock-name">山子高科(000981)</span><span class="stock-price">3.75</span><span class="stock-change up">+0.54%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 震荡偏弱靠近支撑(8.3%)</span></div>
+  <div class="stock-item weak"><span class="stock-name">京城股份(600860)</span><span class="stock-price">9.62</span><span class="stock-change up">+1.58%</span><span class="stock-rating">🟢</span><span class="stock-detail">RS:C | 震荡偏弱靠近支撑(15.5%)</span></div>
+</div>
+
+<div class="section">
+  <h2>⚡ 盘前判断要点</h2>
+
+  <div class="key-point opportunity">
+    <strong>🔴 强势方向（注意压力位）</strong><br>
+    • 华电辽能(600396) — 综合评分第一，强势突破中<br>
+    • 隆扬电子(301389) — 连续强势+10.56%，追高需谨慎<br>
+    • 天通股份(600330) — 涨停封板，板块共振加持<br>
+    • 利通电子(603629) — 趋势完好，已到压力位
+  </div>
+
+  <div class="key-point risk">
+    <strong>🟢 风险方向（控制仓位）</strong><br>
+    • 荣科科技(300290) — 暴跌-9.89%，弱势确认<br>
+    • 瑞华泰(688323) — 暴跌-14.02%，趋势极弱<br>
+    • 多氟多(002407) — 持续弱势<br>
+    • 珂玛科技(301611) — 弱势下行<br>
+    • 宏景科技(301396) — 弱势下行
+  </div>
+
+  <div class="key-point watch">
+    <strong>⚪ 关注方向</strong><br>
+    • 中科创达(300496) — 评分高但板块拖累，看反弹<br>
+    • 长电科技/长川科技 — 盘口关注<br>
+    • 江海股份(002484) — 涨停+9.99%，关注今日延续性
+  </div>
+</div>
+
+<div class="section">
+  <h2>📝 今日策略</h2>
+  <ol class="strategy-list">
+    <li><strong>强势股注意周末前回调压力</strong> — 已到压力位的不追涨</li>
+    <li><strong>弱势股控制仓位</strong> — 特别是RS D级且趋势下行斜率较大者</li>
+    <li><strong>关注江海股份(涨停)延续性</strong> — 通信/电子板块能否持续活跃</li>
+    <li><strong>化工材料天通股份</strong> — 封涨停后今日能否持续</li>
+    <li><strong>周五效应</strong> — 今日收周线，谨慎应对周末不确定性</li>
+  </ol>
+</div>
+
+<div class="footer">
+  数据来源：Tushare API / stock_analysis.py | 生成时间：2026-05-29 09:16<br>
+  本简报仅供参考，不构成投资建议
+</div>
+</body>
+</html>
