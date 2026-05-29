@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 收盘简报 | 2026.05.29 周五</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { border-bottom: 2px solid #f85149; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #f85149; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 15px; color: #f85149; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 10px 0 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
+.signal { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px 2px 0 0; }
+.signal-add { background: rgba(248,81,73,0.18); color: #f85149; }
+.signal-hold { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.signal-cut { background: rgba(63,185,80,0.15); color: #3fb950; }
+.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
+.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
+.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.sector-title { font-size: 14px; font-weight: 600; color: #f85149; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+.pos { color: #f85149; }
+.neg { color: #3fb950; }
+.index-card { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.index-item { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px 14px; text-align: center; }
+.index-name { font-size: 12px; color: #8b949e; }
+.index-value { font-size: 18px; font-weight: 700; margin: 4px 0; }
+.index-change { font-size: 12px; }
+.stock-row { display: flex; align-items: center; padding: 6px 10px; border-bottom: 1px solid #21262d; font-size: 13px; }
+.stock-row:last-child { border-bottom: none; }
+.stock-row .name { flex: 2; font-weight: 600; }
+.stock-row .code { flex: 1; color: #8b949e; font-size: 11px; }
+.stock-row .price { flex: 1; text-align: right; font-weight: 600; }
+.stock-row .change { flex: 1; text-align: right; font-weight: 600; }
+.stock-row .analysis { flex: 2; text-align: right; font-size: 11px; color: #8b949e; }
+.summary-row { display: flex; gap: 12px; margin-bottom: 8px; }
+.summary-card { flex: 1; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px 14px; text-align: center; }
+.summary-num { font-size: 22px; font-weight: 700; }
+.summary-label { font-size: 11px; color: #8b949e; margin-top: 2px; }
+.deviation-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.deviation-item:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>📋 收盘简报 | 2026.05.29 周五</h1>
+<div class="date">生成时间：15:45 CST | 基于 2026-05-29 收盘数据 | 小十三 🌀</div>
+</div>
+
+<!-- 大盘指数 -->
+<div class="section">
+<h2>📊 大盘指数收盘</h2>
+<div class="index-card">
+<div class="index-item">
+<div class="index-name">上证指数</div>
+<div class="index-value">4,068.57</div>
+<div class="index-change"><span class="neg">▼ -0.73%</span></div>
+</div>
+<div class="index-item">
+<div class="index-name">深证成指</div>
+<div class="index-value">15,575.13</div>
+<div class="index-change"><span class="neg">▼ -1.81%</span></div>
+</div>
+<div class="index-item">
+<div class="index-name">创业板指</div>
+<div class="index-value">4,037.95</div>
+<div class="index-change"><span class="neg">▼ -2.11%</span></div>
+</div>
+<div class="index-item">
+<div class="index-name">科创50</div>
+<div class="index-value">1,751.32</div>
+<div class="index-change"><span class="neg">▼ -5.04%</span></div>
+</div>
+</div>
+</div>
+
+<!-- 盘前预判偏差分析 -->
+<div class="section">
+<h2>🎯 盘前预判 vs 实际收盘</h2>
+<div class="deviation-item">📌 <strong>大盘：</strong>预判上证4,100上方企稳 → <span class="neg">实际4,068.57 (-0.73%)，跌破4,080支撑，弱于预期</span></div>
+<div class="deviation-item">📌 <strong>科创50：</strong>预判科技半导体板块分化 → <span class="neg">实际暴跌-5.04%，整体大幅走弱超预期</span></div>
+<div class="deviation-item">📌 <strong>周末效应：</strong>预判周五+月末注意回调 → <span class="pos">✅判断正确，市场整体偏弱</span></div>
+<div class="deviation-item">📌 <strong>科技内部分化：</strong>预判去弱留强 → 利通电子<span class="pos">🔺+9.41%</span> vs 领益智造<span class="neg">▼-8.78%</span>，分化加剧</div>
+<div class="deviation-item">📌 <strong>强势股回调：</strong>预判已至压力位个股注意回调 → 天通股份<span class="neg">▼-4.66%</span>、隆扬电子<span class="neg">▼-3.88%</span> ✅正确</div>
+<div class="deviation-item">📌 <strong>AI/数字经济：</strong>预判板块偏弱控制仓位 → 中科创达<span class="neg">▼-9.63%</span>，板块进一步恶化</div>
+<div class="deviation-item">📌 <strong>江海股份延续性：</strong>预判关注涨停后延续 → <span class="pos">✅+5.10%延续强势</span></div>
+</div>
+
+<!-- 持仓明细 -->
+<div class="section">
+<h2>📋 持仓收盘明细</h2>
+<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+<span class="badge-green">🟢 涨 7 只</span>
+<span class="badge-red">🔴 跌 24 只</span>
+<span class="badge-yellow">⚪ 平/无数据 1 只</span>
+</div>
+
+<div class="sector-title">💻 科技/半导体 (12只)</div>
+
+<div class="stock-row">
+<span class="name">利通电子</span>
+<span class="code">603629</span>
+<span class="price">240.73</span>
+<span class="change"><span class="pos">+9.41%</span></span>
+<span class="analysis"><span class="signal signal-add">🔺超预期</span> 突破压力·强势上攻</span>
+</div>
+<div class="stock-row">
+<span class="name">隆扬电子</span>
+<span class="code">301389</span>
+<span class="price">87.35</span>
+<span class="change"><span class="neg">-3.88%</span></span>
+<span class="analysis"><span class="signal signal-hold">✅回调符合</span> 压力位遇阻回落</span>
+</div>
+<div class="stock-row">
+<span class="name">帝奥微</span>
+<span class="code">688381</span>
+<span class="price">44.92</span>
+<span class="change"><span class="neg">-3.67%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span> 强势股回落</span>
+</div>
+<div class="stock-row">
+<span class="name">欧莱新材</span>
+<span class="code">688530</span>
+<span class="price">49.61</span>
+<span class="change"><span class="neg">-4.60%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span> 冲高回落</span>
+</div>
+<div class="stock-row">
+<span class="name">领益智造</span>
+<span class="code">002600</span>
+<span class="price">14.55</span>
+<span class="change"><span class="neg">-8.78%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠大幅弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">中巨芯-U</span>
+<span class="code">688549</span>
+<span class="price">14.35</span>
+<span class="change"><span class="neg">-7.42%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠大幅弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">瑞华泰</span>
+<span class="code">688323</span>
+<span class="price">30.66</span>
+<span class="change"><span class="neg">-7.09%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span> 触及布林下轨</span>
+</div>
+<div class="stock-row">
+<span class="name">华特气体</span>
+<span class="code">688268</span>
+<span class="price">143.10</span>
+<span class="change"><span class="neg">-6.04%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠跌破支撑</span></span>
+</div>
+<div class="stock-row">
+<span class="name">宏景科技</span>
+<span class="code">301396</span>
+<span class="price">175.80</span>
+<span class="change"><span class="neg">-3.64%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span></span>
+</div>
+<div class="stock-row">
+<span class="name">中科曙光</span>
+<span class="code">603019</span>
+<span class="price">88.22</span>
+<span class="change"><span class="neg">-3.32%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠跌破支撑</span></span>
+</div>
+<div class="stock-row">
+<span class="name">长川科技</span>
+<span class="code">300604</span>
+<span class="price">210.79</span>
+<span class="change"><span class="neg">-3.76%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">长电科技</span>
+<span class="code">600584</span>
+<span class="price">82.05</span>
+<span class="change"><span class="neg">-3.17%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span></span>
+</div>
+
+<div class="sector-title">📡 通信/电子 (7只)</div>
+
+<div class="stock-row">
+<span class="name">江海股份</span>
+<span class="code">002484</span>
+<span class="price">77.85</span>
+<span class="change"><span class="pos">+5.10%</span></span>
+<span class="analysis"><span class="signal signal-add">✅延续强势</span> 涨停后继续上攻</span>
+</div>
+<div class="stock-row">
+<span class="name">蓝思科技</span>
+<span class="code">300433</span>
+<span class="price">40.50</span>
+<span class="change"><span class="pos">+0.67%</span></span>
+<span class="analysis"><span class="signal signal-hold">✅符合预期</span> 震荡偏强</span>
+</div>
+<div class="stock-row">
+<span class="name">汇源通信</span>
+<span class="code">000586</span>
+<span class="price">16.91</span>
+<span class="change"><span class="neg">-2.70%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠冲高回落</span></span>
+</div>
+<div class="stock-row">
+<span class="name">东山精密</span>
+<span class="code">002384</span>
+<span class="price">213.05</span>
+<span class="change"><span class="neg">-2.72%</span></span>
+<span class="analysis"><span class="signal signal-hold">✅小幅回调</span> 符合预期</span>
+</div>
+<div class="stock-row">
+<span class="name">珂玛科技</span>
+<span class="code">301611</span>
+<span class="price">92.54</span>
+<span class="change"><span class="neg">-6.55%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span></span>
+</div>
+<div class="stock-row">
+<span class="name">淳中科技</span>
+<span class="code">603516</span>
+<span class="price">112.01</span>
+<span class="change"><span class="neg">-4.10%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">商络电子</span>
+<span class="code">300975</span>
+<span class="price">35.88</span>
+<span class="change"><span class="neg">-4.45%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚠弱于预期</span></span>
+</div>
+
+<div class="sector-title">🤖 AI/数字经济 (4只)</div>
+
+<div class="stock-row">
+<span class="name">易点天下</span>
+<span class="code">301171</span>
+<span class="price">42.31</span>
+<span class="change"><span class="pos">+8.99%</span></span>
+<span class="analysis"><span class="signal signal-add">🔺超预期反转</span> 逆势大涨</span>
+</div>
+<div class="stock-row">
+<span class="name">蓝色光标</span>
+<span class="code">300058</span>
+<span class="price">16.70</span>
+<span class="change"><span class="pos">+3.34%</span></span>
+<span class="analysis"><span class="signal signal-add">🔺超预期</span> 逆势上涨</span>
+</div>
+<div class="stock-row">
+<span class="name">荣科科技</span>
+<span class="code">300290</span>
+<span class="price">11.16</span>
+<span class="change"><span class="neg">-2.79%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span></span>
+</div>
+<div class="stock-row">
+<span class="name">中科创达</span>
+<span class="code">300496</span>
+<span class="price">63.18</span>
+<span class="change"><span class="neg">-9.63%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠大幅弱于预期</span> 板块拖累</span>
+</div>
+
+<div class="sector-title">🧪 化工/材料 (4只)</div>
+
+<div class="stock-row">
+<span class="name">长海股份</span>
+<span class="code">300196</span>
+<span class="price">24.51</span>
+<span class="change"><span class="neg">-4.82%</span></span>
+<span class="analysis"><span class="signal signal-hold">⚪数据不足·无法对比</span></span>
+</div>
+<div class="stock-row">
+<span class="name">天通股份</span>
+<span class="code">600330</span>
+<span class="price">32.73</span>
+<span class="change"><span class="neg">-4.66%</span></span>
+<span class="analysis"><span class="signal signal-hold">✅涨停后回调·符合预判</span></span>
+</div>
+<div class="stock-row">
+<span class="name">山东玻纤</span>
+<span class="code">605006</span>
+<span class="price">18.32</span>
+<span class="change"><span class="neg">-9.31%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠大幅弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">多氟多</span>
+<span class="code">002407</span>
+<span class="price">33.70</span>
+<span class="change"><span class="neg">-4.04%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span></span>
+</div>
+
+<div class="sector-title">⚡ 能源/公用事业 (3只)</div>
+
+<div class="stock-row">
+<span class="name">华电辽能</span>
+<span class="code">600396</span>
+<span class="price">20.03</span>
+<span class="change"><span class="pos">+4.00%</span></span>
+<span class="analysis"><span class="signal signal-add">🔺继续强势</span> RS全榜第一</span>
+</div>
+<div class="stock-row">
+<span class="name">康盛股份</span>
+<span class="code">002418</span>
+<span class="price">4.63</span>
+<span class="change"><span class="neg">-5.32%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠弱于预期</span></span>
+</div>
+<div class="stock-row">
+<span class="name">水发燃气</span>
+<span class="code">603318</span>
+<span class="price">8.90</span>
+<span class="change"><span class="neg">-1.98%</span></span>
+<span class="analysis"><span class="signal signal-cut">✅弱势延续</span></span>
+</div>
+
+<div class="sector-title">📦 其他 (2只)</div>
+
+<div class="stock-row">
+<span class="name">山子高科</span>
+<span class="code">000981</span>
+<span class="price">3.59</span>
+<span class="change"><span class="neg">-4.27%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠破位下行</span></span>
+</div>
+<div class="stock-row">
+<span class="name">京城股份</span>
+<span class="code">600860</span>
+<span class="price">9.22</span>
+<span class="change"><span class="neg">-4.16%</span></span>
+<span class="analysis"><span class="signal signal-cut">⚠弱于预期</span></span>
+</div>
+
+</div>
+
+<!-- 今日总结 -->
+<div class="section">
+<h2>📊 今日总结</h2>
+<div class="summary-row">
+<div class="summary-card">
+<div class="summary-num" style="color:#f85149;">7</div>
+<div class="summary-label">🟢 上涨</div>
+</div>
+<div class="summary-card">
+<div class="summary-num" style="color:#3fb950;">24</div>
+<div class="summary-label">🔴 下跌</div>
+</div>
+<div class="summary-card">
+<div class="summary-num" style="color:#8b949e;">1</div>
+<div class="summary-label">⚪ 缺失</div>
+</div>
+</div>
+
+<h3>🏆 本周强势亮点</h3>
+<div class="deviation-item">🟢 <strong>利通电子</strong> +9.41% — 突破压力位，科技板块唯一亮色</div>
+<div class="deviation-item">🟢 <strong>易点天下</strong> +8.99% — AI数字经济板块逆势反转，超预期</div>
+<div class="deviation-item">🟢 <strong>江海股份</strong> +5.10% — 涨停次日延续强势</div>
+<div class="deviation-item">🟢 <strong>华电辽能</strong> +4.00% — RS全榜第一，能源板块中流砥柱</div>
+<div class="deviation-item">🟢 <strong>蓝色光标</strong> +3.34% — 逆势上涨，AI板块中难得亮点</div>
+
+<h3>⚠️ 弱势关注</h3>
+<div class="deviation-item">🔴 <strong>中科创达</strong> -9.63% — 板块BOTTOM2拖累，加速下跌</div>
+<div class="deviation-item">🔴 <strong>山东玻纤</strong> -9.31% — 化工材料板块重灾区</div>
+<div class="deviation-item">🔴 <strong>领益智造</strong> -8.78% — 科技/半导体大幅走弱</div>
+<div class="deviation-item">🔴 <strong>中巨芯-U</strong> -7.42% — 触及布林下轨</div>
+<div class="deviation-item">🔴 <strong>瑞华泰</strong> -7.09% — 继续弱势，盘前建议减仓</div>
+
+<h3>💡 综合复盘</h3>
+<div class="deviation-item">📌 大盘整体大跌，科创50暴跌-5.04%为跌幅之最，科技股全面退潮</div>
+<div class="deviation-item">📌 持仓涨跌比7:24，仅约22%持仓实现上涨，亏钱效应显著</div>
+<div class="deviation-item">📌 盘前预判整体准确：提示周末效应、强势股回调风险均验证</div>
+<div class="deviation-item">📌 但科技板块整体走弱程度超预期，AI/数字经济板块进一步恶化</div>
+<div class="deviation-item">📌 华电辽能、利通电子、江海股份三大强势标的逆势扛住</div>
+<div class="deviation-item">📌 下周关注：上证能否在4,080附近企稳，科创50是否超跌反弹</div>
+</div>
+
+<div class="footer">
+小十三 🌀 · 收盘简报 · 2026.05.29 周五<br>
+数据来源：腾讯财经API | 盘前预判：多因子评估系统<br>
+数据仅供参考，不构成投资建议 · 市场有风险，投资需谨慎
+</div>
+
+</div>
+</body>
+</html>
