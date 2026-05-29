@@ -1,0 +1,4 @@
+{
+  "enabled": true,
+  "plugins": ["dataview", "calendar", "templater-obsidian", "obsidian-git"]
+}

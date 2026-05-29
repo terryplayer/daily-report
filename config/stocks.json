@@ -1,0 +1,63 @@
+{
+  "version": "2026-05-28",
+  "watchlist": [
+    {"code": "688549", "name": "中巨芯-U", "sector": "科技/半导体"},
+    {"code": "603019", "name": "电科蓝天", "sector": "科技/半导体"},
+    {"code": "688381", "name": "帝奥微", "sector": "科技/半导体"},
+    {"code": "688323", "name": "瑞华泰", "sector": "科技/半导体"},
+    {"code": "688530", "name": "欧莱新材", "sector": "科技/半导体"},
+    {"code": "688268", "name": "华特气体", "sector": "科技/半导体"},
+    {"code": "301389", "name": "隆扬电子", "sector": "科技/半导体"},
+    {"code": "002600", "name": "领益智造", "sector": "科技/半导体"},
+    {"code": "603629", "name": "利通电子", "sector": "科技/半导体"},
+    {"code": "301396", "name": "宏景科技", "sector": "科技/半导体"},
+    {"code": "600584", "name": "长电科技", "sector": "科技/半导体"},
+    {"code": "300604", "name": "长川科技", "sector": "科技/半导体"},
+    {"code": "000586", "name": "汇源通信", "sector": "通信/电子"},
+    {"code": "002384", "name": "东山精密", "sector": "通信/电子"},
+    {"code": "300433", "name": "蓝思科技", "sector": "通信/电子"},
+    {"code": "301611", "name": "珂玛科技", "sector": "通信/电子"},
+    {"code": "603516", "name": "淳中科技", "sector": "通信/电子"},
+    {"code": "300975", "name": "商络电子", "sector": "通信/电子"},
+    {"code": "002484", "name": "江海股份", "sector": "通信/电子"},
+    {"code": "300496", "name": "中科创达", "sector": "AI/数字经济"},
+    {"code": "301171", "name": "易点天下", "sector": "AI/数字经济"},
+    {"code": "300058", "name": "蓝色光标", "sector": "AI/数字经济"},
+    {"code": "300290", "name": "荣科科技", "sector": "AI/数字经济"},
+    {"code": "600330", "name": "天通股份", "sector": "化工/材料"},
+    {"code": "002407", "name": "多氟多", "sector": "化工/材料"},
+    {"code": "300196", "name": "长海股份", "sector": "化工/材料"},
+    {"code": "605006", "name": "山东玻纤", "sector": "化工/材料"},
+    {"code": "603318", "name": "水发燃气", "sector": "能源/公用事业"},
+    {"code": "600396", "name": "华电辽能", "sector": "能源/公用事业"},
+    {"code": "002418", "name": "康盛股份", "sector": "能源/公用事业"},
+    {"code": "000981", "name": "山子高科", "sector": "其他"},
+    {"code": "600860", "name": "京城股份", "sector": "其他"}
+  ],
+  "sectors": {
+    "科技/半导体": ["688549","603019","688381","688323","688530","688268","301389","002600","603629","301396","600584","300604"],
+    "通信/电子": ["000586","002384","300433","301611","603516","300975","002484"],
+    "AI/数字经济": ["300496","301171","300058","300290"],
+    "化工/材料": ["600330","002407","300196","605006"],
+    "能源/公用事业": ["603318","600396","002418"],
+    "其他": ["000981","600860"]
+  },
+  "deploy": {
+    "cloudflare_url": "https://daily-report-3ai.pages.dev",
+    "github_repo": "terryplayer/daily-report",
+    "production_branch": "main"
+  },
+  "scripts": {
+    "tushare_fetch": "scripts/tushare_fetch.py",
+    "stock_analysis": "scripts/stock_analysis.py",
+    "macro_fetch": "scripts/macro_fetch.py",
+    "parse_html": "scripts/parse_html.py",
+    "gh_pages_sync": "scripts/gh-pages-sync.sh",
+    "obsidian_sync": "scripts/obsidian-sync.sh"
+  },
+  "data_sources": {
+    "primary": "Tushare daily API",
+    "fallback_1": "东方财富 API",
+    "fallback_2": "腾讯财经 API"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "folder": "memory",
+  "template": "_templates/日记模板.md",
+  "format": "YYYY-MM-DD",
+  "autorun": false
+}
