@@ -7,50 +7,117 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
-.container { max-width: 900px; margin: 0 auto; }
-.header { border-bottom: 2px solid #f85149; padding-bottom: 16px; margin-bottom: 24px; }
-.header h1 { font-size: 24px; color: #f85149; }
+.container { max-width: 920px; margin: 0 auto; }
+
+/* 头部 */
+.header { border-bottom: 2px solid #bf77f6; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 24px; color: #bf77f6; }
 .header .subtitle { color: #8b949e; font-size: 13px; margin-top: 4px; }
-.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.header .meta { color: #8b949e; font-size: 12px; margin-top: 2px; }
+
+/* 板块卡片 */
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 18px 22px; margin-bottom: 18px; }
 .section h2 { font-size: 16px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
-.section h3 { font-size: 14px; margin: 12px 0 8px; color: #e6edf3; }
-.sector-title { font-size: 13px; font-weight: 600; color: #bf77f6; margin: 14px 0 8px; padding: 4px 0; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 14px; margin: 14px 0 8px; color: #e6edf3; }
+.section h4 { font-size: 13px; margin: 10px 0 6px; color: #e6edf3; font-weight: 600; }
+
+/* 板块内标题 */
+.sector-title { font-size: 13px; font-weight: 600; margin: 18px 0 10px; padding: 6px 0 4px 10px; border-left: 3px solid #bf77f6; border-bottom: 1px solid #21262d; color: #bf77f6; }
+.sector-title:first-of-type { margin-top: 0; }
+
+/* 表格 */
 table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 8px; }
 th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
-th { color: #8b949e; font-weight: 500; font-size: 12px; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; background: #1c2333; }
 .up { color: #f85149; }
 .down { color: #3fb950; }
+.flat { color: #d9a52e; }
+
+/* 标签 */
 .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
 .tag-red { background: rgba(248,81,73,0.15); color: #f85149; }
 .tag-green { background: rgba(63,185,80,0.15); color: #3fb950; }
 .tag-yellow { background: rgba(210,153,34,0.15); color: #d9a52e; }
 .tag-blue { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.tag-aplus { background: rgba(248,81,73,0.2); color: #ff6b6b; }
-.tag-a { background: rgba(248,81,73,0.12); color: #f08776; }
-.tag-b { background: rgba(210,153,34,0.15); color: #d9a52e; }
-.tag-c { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.tag-d { background: rgba(63,185,80,0.2); color: #3fb950; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.event-item { padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
-.event-item:last-child { border-bottom: none; }
-.warning-box { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.3); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
-.macro-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.25); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
-.info-box { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.25); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
+.tag-purple { background: rgba(191,119,246,0.15); color: #bf77f6; }
+.tag-aplus { background: rgba(191,119,246,0.2); color: #d2a8ff; }
+.tag-a { background: rgba(88,166,255,0.2); color: #79c0ff; }
+.tag-b { background: rgba(210,153,34,0.2); color: #d9a52e; }
+.tag-c { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-d { background: rgba(248,81,73,0.3); color: #ff7b72; }
+
+/* 数据卡片 */
 .stats-row { display: flex; gap: 16px; margin: 10px 0; flex-wrap: wrap; }
-.stat-card { background: #1c2333; border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 120px; text-align: center; }
+.stat-card { background: #1c2333; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 120px; text-align: center; }
 .stat-card .num { font-size: 22px; font-weight: 700; }
 .stat-card .label { font-size: 11px; color: #8b949e; margin-top: 4px; }
-.rating-short { color: #f85149; }
-.rating-long { color: #58a6ff; }
-.rating-sell { color: #3fb950; }
-.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.stat-card .sub { font-size: 11px; color: #8b949e; }
+
+/* 评分卡片 */
+.score-box { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px 16px; margin-top: 10px; }
+.score-row { display: flex; gap: 16px; margin: 6px 0; flex-wrap: wrap; }
+.score-item { flex: 1; min-width: 120px; background: #161b22; border-radius: 6px; padding: 10px; text-align: center; border: 1px solid #21262d; }
+.score-item .label { font-size: 11px; color: #8b949e; }
+.score-item .value { font-size: 22px; margin: 4px 0; font-weight: 700; }
+.score-item .desc { font-size: 11px; color: #8b949e; }
+
+/* 网格布局 */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+
+/* 信息框 */
+.warning-box { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.info-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.success-box { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.macro-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.25); border-radius: 6px; padding: 12px 14px; margin-top: 8px; }
+
+/* 列表条目 */
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.event-item .date-tag { display: inline-block; background: #1c2333; color: #8b949e; font-size: 11px; padding: 1px 6px; border-radius: 3px; margin-right: 6px; }
+.news-item { padding: 8px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.news-item:last-child { border-bottom: none; }
+
+/* 验证标签 */
 .verdict { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; }
 .verdict-correct { background: rgba(63,185,80,0.15); color: #3fb950; }
 .verdict-wrong { background: rgba(248,81,73,0.15); color: #f85149; }
-.news-item { padding: 8px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
-.news-item:last-child { border-bottom: none; }
-@media (max-width: 600px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+.verdict-partial { background: rgba(210,153,34,0.15); color: #d9a52e; }
+
+/* 评级标签 */
+.rating-short { color: #f85149; }
+.rating-long { color: #58a6ff; }
+.rating-sell { color: #3fb950; }
+
+/* 评级条目布局（板块七用） */
+.rating-group { margin-bottom: 18px; }
+.rating-group:last-child { margin-bottom: 0; }
+.rating-group h3 { display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid #21262d; margin-bottom: 10px; }
+.rating-group .sector-block { margin: 8px 0 6px 4px; }
+.rating-group .sector-block .sector-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; padding: 2px 0 2px 8px; border-left: 3px solid; }
+.rating-group .sector-block .sector-label.tech { color: #bf77f6; border-left-color: #bf77f6; }
+.rating-group .sector-block .sector-label.comms { color: #58a6ff; border-left-color: #58a6ff; }
+.rating-group .sector-block .sector-label.ai { color: #f08776; border-left-color: #f08776; }
+.rating-group .sector-block .sector-label.chem { color: #d9a52e; border-left-color: #d9a52e; }
+.rating-group .sector-block .sector-label.energy { color: #3fb950; border-left-color: #3fb950; }
+.rating-group .sector-block .sector-label.other { color: #8b949e; border-left-color: #8b949e; }
+.rating-item { padding: 4px 8px; font-size: 13px; color: #e6edf3; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.rating-item .detail { font-size: 12px; color: #8b949e; font-weight: 400; }
+.rating-item .sep { color: #30363d; margin: 0 2px; }
+
+/* 底部 */
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+
+/* 响应式 */
+@media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+/* 兼容类 */
+.stock-validation { width: 100%; font-size: 12px; }
+.stock-validation th { background: #1c2333; }
+.stock-validation .correct { color: #3fb950; }
+.stock-validation .wrong { color: #f85149; }
+.stock-validation .partial { color: #d9a52e; }
 </style>
 </head>
 <body>
@@ -314,62 +381,136 @@ th { color: #8b949e; font-weight: 500; font-size: 12px; }
 </table>
 </div>
 
-<!-- ===== 板块七：综合评级与操作建议 ===== -->
+<!-- ===== 板块七：综合评级与操作建议（按评级→板块分类） ===== -->
 <div class="section">
 <h2>🏆 七、综合评级与操作建议</h2>
 
-<h3>🔥 短期持有（持有观察，设好止盈止损）</h3>
-<div class="event-item">• <span class="tag tag-aplus">A+</span> <strong>华电辽能 600396</strong> (+37.57%) — 最强RS，夏季电力缺口催化，设止盈位</div>
-<div class="event-item">• <span class="tag tag-aplus">A+</span> <strong>利通电子 603629</strong> (+23.04%) — 算力方向强势，压力位260</div>
-<div class="event-item">• <span class="tag tag-aplus">A+</span> <strong>隆扬电子 301389</strong> (+12.68%) — 电磁屏蔽细分，关注90关口</div>
-<div class="event-item">• <span class="tag tag-aplus">A+</span> <strong>天通股份 600330</strong> (+11.86%) — 涨停后回调但RS仍强，支撑30</div>
-<div class="event-item">• <span class="tag tag-a">A</span> <strong>蓝思科技 300433</strong> (+5.47%) — 消费电子稳健，支撑39</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>江海股份 002484</strong> (+5.10%) — 超级电容方向，涨停后强势延续</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>易点天下 301171</strong> (+2.45%) — AI出海概念，逆势走强</div>
+<p style="font-size:12px; color:#8b949e; margin-bottom:12px;">
+基于本报告全部指标（RS相对强度、多因子评分、波动预警、技术面信号、行业轮动方向）的综合评级，按持有建议分组，每组内按行业板块细化。<br>
+评级说明：<span class="tag tag-red">🔥 短期持有</span> <span class="tag tag-blue">💎 长期持有</span> <span class="tag tag-green">🚫 建议卖出</span>
+</p>
 
-<h3>💎 长期持有（核心持仓，阶段性关注）</h3>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>帝奥微 688381</strong> (+2.21%) — 半导体模拟芯片方向，震荡偏强</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>蓝色光标 300058</strong> (-2.4%) — AI营销方向，震荡偏强</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>东山精密 002384</strong> (-3.4%) — 苹果产业链，支撑208</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>汇源通信 000586</strong> (-4.03%) — 通信线缆中性偏弱</div>
-<div class="event-item">• <span class="tag tag-b">B</span> <strong>欧莱新材 688530</strong> (-4.15%) — 中性观望</div>
+<!-- 🔥 短期持有 -->
+<div class="rating-group">
+<h3 style="color:#f85149;font-size:14px;">🔥 短期持有（持有观察，设好止盈止损）</h3>
 
-<h3>🚫 建议卖出/减仓（去弱留强）</h3>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>宏景科技 301396</strong> (-43.76%) — 连续暴跌，建议止损</div>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>瑞华泰 688323</strong> (-24.48%) — 半导体材料持续走弱，反弹减仓</div>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>荣科科技 300290</strong> (-22.98%) — AI应用弱势，减仓</div>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>多氟多 002407</strong> (-21.08%) — 氟化工弱势，减仓</div>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>珂玛科技 301611</strong> (-20.93%) — 半导体设备弱势，减仓</div>
-<div class="event-item">• <span class="tag tag-d">D</span> <strong>康盛股份 002418</strong> (-17.32%) — 弱于预期，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>华特气体 688268</strong> (-12.68%) — 持续走弱，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>中巨芯-U 688549</strong> (-11.96%) — 连续下跌，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>中科创达 300496</strong> (-11.82%) — AI软件大幅回调，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>领益智造 002600</strong> (-10.79%) — 苹果链调整，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>水发燃气 603318</strong> (-9.92%) — 弱势延续，观望</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>京城股份 600860</strong> (-9.87%) — 弱势，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>山子高科 000981</strong> (-8.18%) — 弱势，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>电科蓝天 603019</strong> (-6.94%) — 跌破支撑，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>长电科技 600584</strong> (-3.17%) — 弱于预期，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>长川科技 300604</strong> (-3.76%) — 弱于预期，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>淳中科技 603516</strong> (-4.10%) — 弱于预期，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>山东玻纤 605006</strong> (-9.31%) — 破位，减仓</div>
-<div class="event-item">• <span class="tag tag-c">C</span> <strong>长海股份 300196</strong> (-4.82%) — 调整中，减仓观望</div>
+<div class="sector-block">
+<div class="sector-label tech">💻 科技/半导体</div>
+<div class="rating-item">• <strong>利通电子 603629</strong> <span class="detail">+23.04%</span> <span class="sep">|</span> <span class="tag tag-aplus">A+</span> 算力方向强势 <span class="sep">|</span> <span class="detail">压力位260</span></div>
+<div class="rating-item">• <strong>隆扬电子 301389</strong> <span class="detail">+12.68%</span> <span class="sep">|</span> <span class="tag tag-aplus">A+</span> 电磁屏蔽细分 <span class="sep">|</span> <span class="detail">关注90关口</span></div>
+</div>
 
-<h3>📌 其他待定</h3>
-<div class="event-item">• <strong>铜冠铜箔 301217</strong> — 新加入，待观察</div>
+<div class="sector-block">
+<div class="sector-label energy">⚡ 能源/公用事业</div>
+<div class="rating-item">• <strong>华电辽能 600396</strong> <span class="detail">+37.57%</span> <span class="sep">|</span> <span class="tag tag-aplus">A+</span> 最强RS，夏季电力缺口催化 <span class="sep">|</span> <span class="detail">设止盈位</span></div>
+</div>
 
+<div class="sector-block">
+<div class="sector-label chem">🧪 化工/材料</div>
+<div class="rating-item">• <strong>天通股份 600330</strong> <span class="detail">+11.86%</span> <span class="sep">|</span> <span class="tag tag-aplus">A+</span> 涨停后回调但RS仍强 <span class="sep">|</span> <span class="detail">支撑30</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label comms">📡 通信/电子</div>
+<div class="rating-item">• <strong>蓝思科技 300433</strong> <span class="detail">+5.47%</span> <span class="sep">|</span> <span class="tag tag-a">A</span> 消费电子稳健 <span class="sep">|</span> <span class="detail">支撑39</span></div>
+<div class="rating-item">• <strong>江海股份 002484</strong> <span class="detail">+5.10%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> 超级电容方向，涨停后强势延续 <span class="sep">|</span> <span class="detail">支撑75</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label ai">🤖 AI/数字经济</div>
+<div class="rating-item">• <strong>易点天下 301171</strong> <span class="detail">+2.45%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> AI出海概念，逆势走强 <span class="sep">|</span> <span class="detail">关注44压力</span></div>
+</div>
+</div>
+
+<!-- 💎 长期持有 -->
+<div class="rating-group">
+<h3 style="color:#58a6ff;font-size:14px;">💎 长期持有（核心持仓，阶段性关注）</h3>
+
+<div class="sector-block">
+<div class="sector-label tech">💻 科技/半导体</div>
+<div class="rating-item">• <strong>帝奥微 688381</strong> <span class="detail">+2.21%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> 半导体模拟芯片方向，震荡偏强 <span class="sep">|</span> <span class="detail">支撑43</span></div>
+<div class="rating-item">• <strong>欧莱新材 688530</strong> <span class="detail">-4.15%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> 中性观望 <span class="sep">|</span> <span class="detail">支撑47</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label comms">📡 通信/电子</div>
+<div class="rating-item">• <strong>东山精密 002384</strong> <span class="detail">-3.4%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> 苹果产业链 <span class="sep">|</span> <span class="detail">支撑208</span></div>
+<div class="rating-item">• <strong>汇源通信 000586</strong> <span class="detail">-4.03%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> 通信线缆中性偏弱 <span class="sep">|</span> <span class="detail">支撑16.5</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label ai">🤖 AI/数字经济</div>
+<div class="rating-item">• <strong>蓝色光标 300058</strong> <span class="detail">-2.4%</span> <span class="sep">|</span> <span class="tag tag-b">B</span> AI营销方向，震荡偏强 <span class="sep">|</span> <span class="detail">支撑16</span></div>
+</div>
+</div>
+
+<!-- 🚫 建议卖出/减仓 -->
+<div class="rating-group">
+<h3 style="color:#3fb950;font-size:14px;">🚫 建议卖出/减仓（去弱留强）</h3>
+
+<div class="sector-block">
+<div class="sector-label tech">💻 科技/半导体</div>
+<div class="rating-item">• <strong>宏景科技 301396</strong> <span class="detail">-43.76%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> 连续暴跌 <span class="sep">|</span> <span class="detail">建议止损</span></div>
+<div class="rating-item">• <strong>瑞华泰 688323</strong> <span class="detail">-24.48%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> 半导体材料持续走弱 <span class="sep">|</span> <span class="detail">反弹减仓</span></div>
+<div class="rating-item">• <strong>华特气体 688268</strong> <span class="detail">-12.68%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 持续走弱 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>中巨芯-U 688549</strong> <span class="detail">-11.96%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 连续下跌 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>领益智造 002600</strong> <span class="detail">-10.79%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 苹果链调整 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>电科蓝天 603019</strong> <span class="detail">-6.94%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 跌破支撑 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>长电科技 600584</strong> <span class="detail">-3.17%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱于预期 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>长川科技 300604</strong> <span class="detail">-3.76%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱于预期 <span class="sep">|</span> <span class="detail">减仓</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label chem">🧪 化工/材料</div>
+<div class="rating-item">• <strong>多氟多 002407</strong> <span class="detail">-21.08%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> 氟化工弱势 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>山东玻纤 605006</strong> <span class="detail">-9.31%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 破位 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>长海股份 300196</strong> <span class="detail">-4.82%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 调整中 <span class="sep">|</span> <span class="detail">减仓观望</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label comms">📡 通信/电子</div>
+<div class="rating-item">• <strong>珂玛科技 301611</strong> <span class="detail">-20.93%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> 电子设备弱势 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>淳中科技 603516</strong> <span class="detail">-4.10%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱于预期 <span class="sep">|</span> <span class="detail">减仓</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label energy">⚡ 能源/公用事业</div>
+<div class="rating-item">• <strong>康盛股份 002418</strong> <span class="detail">-17.32%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> 弱于预期 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>水发燃气 603318</strong> <span class="detail">-9.92%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱势延续 <span class="sep">|</span> <span class="detail">观望</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label ai">🤖 AI/数字经济</div>
+<div class="rating-item">• <strong>荣科科技 300290</strong> <span class="detail">-22.98%</span> <span class="sep">|</span> <span class="tag tag-d">D</span> AI应用弱势 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>中科创达 300496</strong> <span class="detail">-11.82%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> AI软件大幅回调 <span class="sep">|</span> <span class="detail">减仓</span></div>
+</div>
+
+<div class="sector-block">
+<div class="sector-label other">📌 其他</div>
+<div class="rating-item">• <strong>山子高科 000981</strong> <span class="detail">-8.18%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱势 <span class="sep">|</span> <span class="detail">减仓</span></div>
+<div class="rating-item">• <strong>京城股份 600860</strong> <span class="detail">-9.87%</span> <span class="sep">|</span> <span class="tag tag-c">C</span> 弱势 <span class="sep">|</span> <span class="detail">减仓</span></div>
+</div>
+</div>
+
+<!-- 📌 待定 -->
+<div class="rating-group">
+<h3 style="color:#8b949e;font-size:14px;">📌 其他待定</h3>
+<div class="rating-item" style="padding:4px 8px;">• <strong>铜冠铜箔 301217</strong> — 新加入，待观察</div>
+</div>
+
+<!-- 评级汇总统计 -->
 <div style="background: #1c2333; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin-top: 16px; text-align: center;">
-<h3 style="margin-bottom: 12px;">📊 持仓评级分布</h3>
+<h4 style="margin-bottom: 12px; color:#e6edf3; font-size:14px;">📊 持仓评级分布</h4>
 <div class="stats-row">
-<div class="stat-card">
+<div class="stat-card" style="border-color:rgba(248,81,73,0.3);">
 <div class="num rating-short">7</div>
 <div class="label">🔥 短期持有</div>
 </div>
-<div class="stat-card">
+<div class="stat-card" style="border-color:rgba(88,166,255,0.3);">
 <div class="num rating-long">5</div>
 <div class="label">💎 长期持有</div>
 </div>
-<div class="stat-card">
+<div class="stat-card" style="border-color:rgba(63,185,80,0.3);">
 <div class="num rating-sell">19</div>
 <div class="label">🚫 建议卖出/减仓</div>
 </div>

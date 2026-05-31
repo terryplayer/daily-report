@@ -32,11 +32,27 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .report-links a.mid:hover { background:#58a6ff11; border-color:#58a6ff44; }
 .report-links a.we { color:#bf77f6; }
 .report-links a.we:hover { background:#bf77f611; border-color:#bf77f644; }
-.weekly-row { padding:8px 0; border-bottom:1px solid #21262d; }
+.weekly-row { padding:6px 0; border-bottom:1px solid #21262d; }
 .weekly-row:last-child { border-bottom:none; }
-.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:background .2s; }
+.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:all .2s; border-left:3px solid transparent; }
 .weekly-row a:hover { background:#21262d; }
 .weekly-row .version { font-size:12px; color:#8b949e; }
+
+/* 每周不同颜色 - 最新在前 */
+.weekly-w1 a { border-left-color:#f85149; }
+.weekly-w1 a .date-text { color:#f85149; font-weight:600; }
+.weekly-w1 a:hover { background:rgba(248,81,73,0.08); }
+
+.weekly-w2 a { border-left-color:#d9a52e; }
+.weekly-w2 a .date-text { color:#d9a52e; font-weight:500; }
+.weekly-w2 a:hover { background:rgba(210,153,34,0.08); }
+
+.weekly-w3 a { border-left-color:#58a6ff; }
+.weekly-w3 a .date-text { color:#58a6ff; font-weight:400; }
+.weekly-w3 a:hover { background:rgba(88,166,255,0.08); }
+
+.weekly-w4 a { border-left-color:#8b949e; }
+.weekly-w4 a .date-text { color:#8b949e; }
 .footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:1.8; }
 </style>
 </head>
@@ -47,21 +63,21 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 <p class="subtitle">A股持仓分析 · 盘前 & 收盘 · 周复盘 · 周末资讯</p>
 <div class="card">
 <h2>📋 周复盘</h2>
-<div class="weekly-row">
+<div class="weekly-row weekly-w1">
   <a href="weekly-review-2026-05-31">
-    <span>2026-05-31  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-31</span>  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
     <span class="version">完整版 →</span>
   </a>
 </div>
-<div class="weekly-row">
+<div class="weekly-row weekly-w2">
   <a href="weekly-review-2026-05-24">
-    <span>2026-05-24  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-24</span>  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
     <span class="version">完整版 →</span>
   </a>
 </div>
-<div class="weekly-row">
+<div class="weekly-row weekly-w3">
   <a href="weekly-review-2026-05-22">
-    <span>2026-05-22  周五 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-22</span>  周五 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
     <span class="version">完整版 →</span>
   </a>
 </div>
