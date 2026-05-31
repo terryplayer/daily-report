@@ -15,9 +15,19 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
 
 /* ═══ 周分组头 ═══ */
-.week-header { font-size:16px; color:#f0f6fc; font-weight:700; padding:14px 0 6px 10px; margin:8px 0 0 0; display:flex; align-items:center; gap:8px; border-bottom:1px solid #30363d; border-left:3px solid #58a6ff; letter-spacing:0.5px; }
+.week-header { font-size:16px; color:#f0f6fc; font-weight:700; padding:14px 0 6px 10px; margin:8px 0 0 0; display:flex; align-items:center; gap:8px; border-bottom:1px solid #30363d; letter-spacing:0.5px; }
 .week-header:first-of-type { padding-top:0; margin-top:0; }
-.week-header .week-tag { font-size:10px; background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; padding:1px 8px; border-radius:4px; font-weight:600; }
+.week-header .week-tag { font-size:10px; border:1px solid; padding:1px 8px; border-radius:4px; font-weight:600; }
+
+/* 每周不同颜色的周标题 */
+.week-hdr-w1 { border-left:3px solid #f85149; }
+.week-hdr-w1 .week-tag { background:rgba(248,81,73,0.12); color:#f85149; border-color:rgba(248,81,73,0.3); }
+
+.week-hdr-w2 { border-left:3px solid #d9a52e; }
+.week-hdr-w2 .week-tag { background:rgba(210,153,34,0.12); color:#d9a52e; border-color:rgba(210,153,34,0.3); }
+
+.week-hdr-w3 { border-left:3px solid #58a6ff; }
+.week-hdr-w3 .week-tag { background:rgba(88,166,255,0.12); color:#58a6ff; border-color:rgba(88,166,255,0.3); }
 
 /* ═══ 日期分组（缩进于周标题下） ═══ */
 .date-group { padding:6px 0 6px 24px; border-bottom:1px solid #21262d; border-left:1px solid transparent; }
@@ -97,7 +107,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 <div class="card">
 <h2>📅 按日期 <span class="badge" style="background:#bf77f6;">按自然周</span></h2>
 
-<div class="week-header">Week 22 · 05.25 周一 — 05.29 周五 <span class="week-tag">本周</span></div>
+<div class="week-header week-hdr-w1">Week 22 · 05.25 周一 — 05.29 周五 <span class="week-tag">本周</span></div>
 
 <div class="date-group">
   <div class="date-label">05.29 <span class="day-tag">周五</span></div>
@@ -138,7 +148,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
   </div>
 </div>
 
-<div class="week-header">Week 21 · 05.20 周三 — 05.22 周五</div>
+<div class="week-header week-hdr-w2">Week 21 · 05.20 周三 — 05.22 周五</div>
 
 <div class="date-group">
   <div class="date-label">05.22 <span class="day-tag">周五</span></div>
