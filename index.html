@@ -32,11 +32,10 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .week-hdr-w3 .week-tag { background:rgba(88,166,255,0.12); color:#58a6ff; border-color:rgba(88,166,255,0.3); }
 
 /* ═══ 日期分组（缩进于周标题下） ═══ */
-.date-group { padding:6px 0 6px 16px; border-bottom:1px solid #21262d; border-left:3px solid transparent; margin-bottom:2px; }
-.date-group:last-child { border-bottom:none; }
-.date-group:first-of-type { padding-top:6px; }
-
-/* 每周七天不同颜色左边框 */
+.date-group { padding:8px 10px; border-bottom:1px solid #21262d; border-left:3px solid transparent; border-radius:6px; transition:all .2s; margin-bottom:4px; }
+.date-group:last-child { border-bottom:none; margin-bottom:0; }
+.date-group:first-of-type { padding-top:8px; }
+.date-group:hover { background:#21262d; }
 .day-mon { border-left-color:#f85149; }
 .day-tue { border-left-color:#d29922; }
 .day-wed { border-left-color:#d9a52e; }
