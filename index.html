@@ -14,13 +14,18 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .card h2 { font-size:15px; color:#f0f6fc; margin-bottom:12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #21262d; padding-bottom:8px; }
 .card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
 
-/* ═══ 日期分组（按日期板块） ═══ */
-.date-group { border-bottom:1px solid #21262d; padding:12px 0; }
+/* ═══ 周分组头 ═══ */
+.week-header { font-size:12px; color:#8b949e; font-weight:500; padding:10px 0 4px 0; display:flex; align-items:center; gap:6px; border-bottom:1px solid #21262d; margin-bottom:0; }
+.week-header:first-of-type { padding-top:0; }
+.week-header .week-tag { font-size:10px; background:#1c2333; color:#8b949e; padding:1px 6px; border-radius:4px; }
+
+/* ═══ 日期分组 ═══ */
+.date-group { padding:8px 0 8px 0; border-bottom:1px solid #21262d; }
 .date-group:last-child { border-bottom:none; }
-.date-label { font-size:14px; color:#e6edf3; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-.date-label .tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; }
-.tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
-.tag-weekend { background:#bf77f622; color:#bf77f6; border:1px solid #bf77f644; }
+.date-group:first-of-type { padding-top:4px; }
+.date-label { font-size:14px; color:#e6edf3; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.date-label .day-tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; color:#8b949e; background:#1c2333; }
+.tag-today { background:#1f6feb22 !important; color:#58a6ff !important; border:1px solid #1f6feb44; }
 .report-links { display:flex; gap:8px; flex-wrap:wrap; }
 .report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:5px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
 .report-links a:hover { color:#f0f6fc; background:#21262d; border-color:#30363d; }
@@ -40,6 +45,9 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .weekly-row a:hover { background:#21262d; }
 .weekly-row .version { font-size:12px; color:#8b949e; font-weight:400; }
 .weekly-row .date-text { font-weight:600; }
+
+/* 周报链接中日期 + 星期 tag */
+.weekly-row .day-tag-sm { font-size:11px; color:#8b949e; font-weight:400; }
 
 /* 每周不同颜色 - 最新在前 */
 .weekly-w1 a { border-left-color:#f85149; }
@@ -68,39 +76,30 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 <h2>📋 周复盘</h2>
 <div class="weekly-row weekly-w1">
   <a href="weekly-review-2026-05-31">
-    <span><span class="date-text">2026-05-31</span>  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-31</span> <span class="day-tag-sm">周日</span> 完整版</span>
     <span class="version">完整版 →</span>
   </a>
 </div>
 <div class="weekly-row weekly-w2">
   <a href="weekly-review-2026-05-24">
-    <span><span class="date-text">2026-05-24</span>  周日 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-24</span> <span class="day-tag-sm">周日</span> 完整版</span>
     <span class="version">完整版 →</span>
   </a>
 </div>
 <div class="weekly-row weekly-w3">
   <a href="weekly-review-2026-05-22">
-    <span><span class="date-text">2026-05-22</span>  周五 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
+    <span><span class="date-text">2026-05-22</span> <span class="day-tag-sm">周五</span> 完整版</span>
     <span class="version">完整版 →</span>
   </a>
 </div>
 </div>
 <div class="card">
-<h2>📅 按日期 <span class="badge">最新在前</span></h2>
+<h2>📅 按日期 <span class="badge" style="background:#bf77f6;">按自然周</span></h2>
+
+<div class="week-header">Week 22 · 05.25 周一 — 05.29 周五 <span class="week-tag">本周</span></div>
+
 <div class="date-group">
-  <div class="date-label">2026.05.31  周日 <span class="tag tag-weekend">周复盘</span></div>
-  <div class="report-links">
-    <a href="weekly-review-2026-05-31" class="wr">📑 周复盘</a>
-  </div>
-</div>
-<div class="date-group">
-  <div class="date-label">2026.05.30  周六</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-30" class="pm">📋 盘前简报</a>
-  </div>
-</div>
-<div class="date-group">
-  <div class="date-label">2026.05.29  周五</div>
+  <div class="date-label">05.29 <span class="day-tag">周五</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-29" class="pm">📋 盘前简报</a>
     <a href="midday-2026-05-29" class="mid">🌤 午间监测</a>
@@ -108,7 +107,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.28  周四</div>
+  <div class="date-label">05.28 <span class="day-tag">周四</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-28" class="pm">📋 盘前简报</a>
     <a href="midday-2026-05-28" class="mid">🌤 午间监测</a>
@@ -116,7 +115,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.27  周三</div>
+  <div class="date-label">05.27 <span class="day-tag">周三</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-27" class="pm">📋 盘前简报</a>
     <a href="midday-2026-05-27" class="mid">🌤 午间监测</a>
@@ -124,21 +123,24 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.26  周二</div>
+  <div class="date-label">05.26 <span class="day-tag">周二</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-26" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-26" class="dc">📊 收盘汇总</a>
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.25  周一</div>
+  <div class="date-label">05.25 <span class="day-tag">周一</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-25" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-25" class="dc">📊 收盘汇总</a>
   </div>
 </div>
+
+<div class="week-header">Week 21 · 05.20 周三 — 05.22 周五</div>
+
 <div class="date-group">
-  <div class="date-label">2026.05.22  周五</div>
+  <div class="date-label">05.22 <span class="day-tag">周五</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-22" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-22" class="dc">📊 收盘汇总</a>
@@ -146,14 +148,14 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.21  周四</div>
+  <div class="date-label">05.21 <span class="day-tag">周四</span></div>
   <div class="report-links">
     <a href="premarket-2026-05-21" class="pm">📋 盘前简报</a>
     <a href="daily-combined-2026-05-21" class="dc">📊 收盘汇总</a>
   </div>
 </div>
 <div class="date-group">
-  <div class="date-label">2026.05.20  周三</div>
+  <div class="date-label">05.20 <span class="day-tag">周三</span></div>
   <div class="report-links">
     <a href="daily-combined-2026-05-20" class="dc">📊 收盘汇总</a>
   </div>
@@ -161,8 +163,8 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 </div>
 <div class="card" style="background:#0d1117;border-color:#21262d;">
 <p style="font-size:13px;color:#8b949e;line-height:1.8;">
-简报每日自动生成 · 盘前 9:15 · 收盘 16:00<br>
-周末提供市场资讯简报 · 周日 12:00 周复盘<br>
+简报交易日自动生成 · 盘前 9:15 · 午间 12:00 · 收盘 16:00<br>
+周日 12:00 周复盘 · 周末休市无报告<br>
 数据仅供参考，不构成投资建议
 </p>
 </div>
