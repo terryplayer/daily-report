@@ -11,16 +11,18 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
 h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
 .subtitle { color:#8b949e; font-size:13px; margin-bottom:28px; }
 .card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:16px 20px; margin-bottom:12px; }
-.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #21262d; padding-bottom:8px; }
 .card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
-.date-group { border-bottom:1px solid #21262d; padding:10px 0; }
+
+/* ═══ 日期分组（按日期板块） ═══ */
+.date-group { border-bottom:1px solid #21262d; padding:12px 0; }
 .date-group:last-child { border-bottom:none; }
-.date-label { font-size:14px; color:#f0f6fc; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.date-label { font-size:14px; color:#e6edf3; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
 .date-label .tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; }
 .tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
 .tag-weekend { background:#bf77f622; color:#bf77f6; border:1px solid #bf77f644; }
 .report-links { display:flex; gap:8px; flex-wrap:wrap; }
-.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:4px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
+.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:5px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
 .report-links a:hover { color:#f0f6fc; background:#21262d; border-color:#30363d; }
 .report-links a.pm { color:#d29922; }
 .report-links a.pm:hover { background:#d2992211; border-color:#d2992244; }
@@ -32,11 +34,12 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .report-links a.mid:hover { background:#58a6ff11; border-color:#58a6ff44; }
 .report-links a.we { color:#bf77f6; }
 .report-links a.we:hover { background:#bf77f611; border-color:#bf77f644; }
-.weekly-row { padding:6px 0; border-bottom:1px solid #21262d; }
+.weekly-row { padding:0; border-bottom:1px solid #21262d; }
 .weekly-row:last-child { border-bottom:none; }
-.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:all .2s; border-left:3px solid transparent; }
+.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:10px 10px; font-size:14px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:all .2s; border-left:3px solid transparent; margin:4px 0; }
 .weekly-row a:hover { background:#21262d; }
-.weekly-row .version { font-size:12px; color:#8b949e; }
+.weekly-row .version { font-size:12px; color:#8b949e; font-weight:400; }
+.weekly-row .date-text { font-weight:600; }
 
 /* 每周不同颜色 - 最新在前 */
 .weekly-w1 a { border-left-color:#f85149; }
@@ -53,7 +56,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 
 .weekly-w4 a { border-left-color:#8b949e; }
 .weekly-w4 a .date-text { color:#8b949e; }
-.footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:1.8; }
+.footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:2; }
 </style>
 </head>
 <body>
