@@ -15,14 +15,15 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
 
 /* ═══ 周分组头 ═══ */
-.week-header { font-size:12px; color:#8b949e; font-weight:500; padding:10px 0 4px 0; display:flex; align-items:center; gap:6px; border-bottom:1px solid #21262d; margin-bottom:0; }
+.week-header { font-size:14px; color:#f0f6fc; font-weight:700; padding:12px 0 4px 0; display:flex; align-items:center; gap:6px; border-bottom:1px solid #30363d; margin:0; letter-spacing:0.3px; }
 .week-header:first-of-type { padding-top:0; }
-.week-header .week-tag { font-size:10px; background:#1c2333; color:#8b949e; padding:1px 6px; border-radius:4px; }
+.week-header .week-tag { font-size:10px; background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; padding:1px 6px; border-radius:4px; font-weight:500; }
 
-/* ═══ 日期分组 ═══ */
-.date-group { padding:8px 0 8px 0; border-bottom:1px solid #21262d; }
+/* ═══ 日期分组（缩进于周标题下） ═══ */
+.date-group { padding:6px 0 6px 14px; border-bottom:1px solid #21262d; border-left:2px solid transparent; }
 .date-group:last-child { border-bottom:none; }
-.date-group:first-of-type { padding-top:4px; }
+.date-group:first-of-type { padding-top:6px; }
+.date-group:hover { border-left-color:#30363d; }
 .date-label { font-size:14px; color:#e6edf3; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
 .date-label .day-tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; color:#8b949e; background:#1c2333; }
 .tag-today { background:#1f6feb22 !important; color:#58a6ff !important; border:1px solid #1f6feb44; }
