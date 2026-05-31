@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌀 小十三 · 每日简报</title>
+<title>🌀 小十三 · 股市简报</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#0d1117; color:#e6edf3; padding:40px 20px; }
@@ -28,9 +28,6 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .week-hdr-w2 { color:#8b949e; }
 .week-hdr-w2 .week-tag { background:rgba(139,148,158,0.12); color:#8b949e; border-color:rgba(139,148,158,0.3); }
 
-.week-hdr-w3 { border-left:3px solid #58a6ff; color:#58a6ff; }
-.week-hdr-w3 .week-tag { background:rgba(88,166,255,0.12); color:#58a6ff; border-color:rgba(88,166,255,0.3); }
-
 /* ═══ 日期分组（缩进于周标题下） ═══ */
 .date-group { padding:8px 10px; border-bottom:1px solid #21262d; border-left:3px solid transparent; border-radius:6px; transition:all .2s; margin-bottom:4px; }
 .date-group:last-child { border-bottom:none; margin-bottom:0; }
@@ -50,6 +47,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .day-thu .date-label { color:#3fb950; }
 .day-fri .date-label { color:#bf77f6; }
 .date-label .day-tag { font-size:11px; font-weight:500; padding:1px 6px; border-radius:4px; background:#1c2333; }
+.day-empty .date-label::after { content:"当日暂无数据"; font-size:12px; color:#30363d; font-weight:400; margin-left:8px; }
 .day-mon .day-tag { color:#f85149; }
 .day-tue .day-tag { color:#f0883e; }
 .day-wed .day-tag { color:#58a6ff; }
@@ -87,13 +85,6 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 .weekly-w2 a { border-left-color:#d9a52e; }
 .weekly-w2 a .date-text { color:#d9a52e; font-weight:500; }
 .weekly-w2 a:hover { background:rgba(210,153,34,0.08); }
-
-.weekly-w3 a { border-left-color:#58a6ff; }
-.weekly-w3 a .date-text { color:#58a6ff; font-weight:400; }
-.weekly-w3 a:hover { background:rgba(88,166,255,0.08); }
-
-.weekly-w4 a { border-left-color:#8b949e; }
-.weekly-w4 a .date-text { color:#8b949e; }
 .footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:2; }
 </style>
 </head>
@@ -101,7 +92,7 @@ h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items
 <div class="container">
 
 <h1>🌀 小十三 · 股市简报</h1>
-<p class="subtitle">A股持仓分析 · 盘前 & 收盘 · 周复盘 · 周末资讯</p>
+<p class="subtitle">A股 · 盘前 | 午间 | 收盘日报 · 每周复盘</p>
 <div class="card">
 <h2 class="card-hdr-weekly">🐱 每周简报</h2>
 <div class="weekly-row weekly-w1">
