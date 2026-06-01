@@ -83,6 +83,8 @@ def gen_cards(reports):
                     ap(f'    <a href="{r["daily-combined"]}" class="dc">📊 收盘汇总</a>')
                 if 'weekend' in r:
                     ap(f'    <a href="{r["weekend"]}" class="we">🌙 周末简报</a>')
+                if 'market_overview' in r:
+                    ap(f'    <a href="{r["market_overview"]}" class="mo">🌐 市场全景</a>')
 
                 ap(f'  </div></div>')
 
@@ -102,6 +104,13 @@ def main():
         m = re.match(r'(premarket|midday|daily-combined|weekend|weekly-review)-(\d{4}-\d{2}-\d{2})\.html', f)
         if m:
             reports.setdefault(m.group(2), {})[m.group(1)] = f.replace('.html', '')
+    # 市场全景（selestock 子目录）
+    sel_dir = os.path.join(HTML_DIR, 'selestock')
+    if os.path.exists(sel_dir):
+        for f in os.listdir(sel_dir):
+            m = re.match(r'(\d{4}-\d{2}-\d{2})\.html', f)
+            if m:
+                reports.setdefault(m.group(1), {})['market_overview'] = f'selestock/{m.group(1)}'
 
     if not reports:
         print("❌ 没有找到任何报告文件")
