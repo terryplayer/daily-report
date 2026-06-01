@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Generate index.html matching confirmed template structure (fb9685e)."""
+"""Generate index.html: shell + dynamic report links + footer.
+Shell and footer are locked copies of the confirmed template."""
 import os, re
 from datetime import datetime
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HTML_DIR = os.path.join(WORKSPACE, "daily-report-html")
-TEMPLATE = os.path.join(WORKSPACE, "scripts", "index-template.html")
+SHELL = os.path.join(WORKSPACE, "scripts", "index-shell.html")
+FOOTER = os.path.join(WORKSPACE, "scripts", "index-footer.html")
 
 DOW_CN = {"Monday":"周一","Tuesday":"周二","Wednesday":"周三","Thursday":"周四","Friday":"周五","Saturday":"周六","Sunday":"周日"}
 DOW_CLS = {0:"day-mon",1:"day-tue",2:"day-wed",3:"day-thu",4:"day-fri"}
@@ -13,36 +15,14 @@ DOW_CLS = {0:"day-mon",1:"day-tue",2:"day-wed",3:"day-thu",4:"day-fri"}
 def get_week_number(d):
     return d.isocalendar()[1]
 
-def main():
-    # Read all report files
-    reports = {}
-    for f in os.listdir(HTML_DIR):
-        m = re.match(r'(premarket|midday|daily-combined|weekend|weekly-review)-(\d{4}-\d{2}-\d{2})\.html', f)
-        if m:
-            reports.setdefault(m.group(2), {})[m.group(1)] = f.replace('.html', '')
-
-    if not reports:
-        print("❌ 没有找到任何报告文件")
-        return 1
-
-    # Read template CSS
-    with open(TEMPLATE) as f:
-        tmpl = f.read()
-    css_m = re.search(r'<style>(.*?)</style>', tmpl, re.DOTALL)
-    css = css_m.group(1).strip() if css_m else ""
-
+def gen_cards(reports):
+    """Generate the two card divs (weekly review + daily reports)."""
     today_str = datetime.now().strftime("%Y-%m-%d")
     sorted_dates = sorted(reports.keys(), reverse=True)
-
     L = []
     ap = L.append
 
-    ap('<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">')
-    ap(f'<title>🌀 小十三 · 股市简报</title><style>{css}</style></head><body><div class="container">')
-    ap('<h1>🌀 小十三 · 股市简报</h1>')
-    ap('<p class="subtitle">A股 · 盘前 | 午间 | 收盘日报 · 每周复盘</p>')
-
-    # ═══ 每周简报 ═══
+    # ═══ 每周简报卡片 ═══
     wk_reviews = {d:r for d,r in reports.items() if 'weekly-review' in r}
     if wk_reviews:
         ap('<div class="card"><h2 class="card-hdr-weekly">🐱 每周简报</h2>')
@@ -57,7 +37,7 @@ def main():
             ap(f'  </a></div>')
         ap('</div>')
 
-    # ═══ 每日简报 ═══
+    # ═══ 每日简报卡片 ═══
     daily_dates = [d for d in sorted_dates if any(t in reports[d] for t in ('premarket','midday','daily-combined','weekend'))]
     if daily_dates:
         ap('<div class="card"><h2 class="card-hdr-daily">🐶 每日简报 <span class="badge" style="background:#bf77f6;">按自然周</span></h2>')
@@ -72,7 +52,6 @@ def main():
         for wk in sorted(week_groups, reverse=True):
             wk_idx += 1
             dates = week_groups[wk]
-            # Week header
             first = datetime.strptime(dates[-1], "%Y-%m-%d")
             last = datetime.strptime(dates[0], "%Y-%m-%d")
             fs = f'{first.month:02d}.{first.day:02d}'
@@ -109,19 +88,37 @@ def main():
 
         ap('</div>')
 
-    # ═══ 底部 ═══
-    ap('<div class="card" style="background:#0d1117;border-color:#21262d;">')
-    ap('<p style="font-size:13px;color:#8b949e;line-height:1.8;">')
-    ap('简报交易日自动生成 · 盘前 9:15 · 午间 12:00 · 收盘 16:00<br>')
-    ap('周日 12:00 周复盘 · 周末休市无报告<br>')
-    ap('数据仅供参考，不构成投资建议')
-    ap('</p></div>')
-    ap('<p class="footer">🌀 小十三 · 每日自动更新 · <a href="https://daily-report-3ai.pages.dev" style="color:#8b949e;">访问主页</a> · <a href="https://github.com/terryplayer/daily-report" style="color:#8b949e;">GitHub</a></p>')
-    ap('</div></body></html>')
+    return "\n".join(L)
 
-    with open(os.path.join(HTML_DIR, "index.html"), "w") as f:
-        f.write("\n".join(L))
-    print(f"✅ index.html 已生成（{len(reports)} 天）")
+def main():
+    for f in [SHELL, FOOTER]:
+        if not os.path.exists(f):
+            print(f"❌ 缺少模板文件: {f}")
+            return 1
+
+    # Read all report files
+    reports = {}
+    for f in os.listdir(HTML_DIR):
+        m = re.match(r'(premarket|midday|daily-combined|weekend|weekly-review)-(\d{4}-\d{2}-\d{2})\.html', f)
+        if m:
+            reports.setdefault(m.group(2), {})[m.group(1)] = f.replace('.html', '')
+
+    if not reports:
+        print("❌ 没有找到任何报告文件")
+        return 1
+
+    with open(SHELL) as f:
+        shell = f.read()
+    with open(FOOTER) as f:
+        footer = f.read()
+
+    cards = gen_cards(reports)
+    idx_path = os.path.join(HTML_DIR, "index.html")
+
+    with open(idx_path, "w") as f:
+        f.write(shell + cards + footer)
+
+    print(f"✅ index.html 已生成（{len(reports)} 天, 外壳固定）")
     return 0
 
 if __name__ == "__main__":
