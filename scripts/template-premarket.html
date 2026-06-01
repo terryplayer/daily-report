@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 盘前简报 | 2026.05.29 周五</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #58a6ff; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 10px 0 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
+.tag-score-b { background: rgba(88,166,255,0.18); color: #58a6ff; }
+.tag-score-c { background: rgba(139,148,158,0.18); color: #8b949e; }
+.tag-score-d { background: rgba(63,185,80,0.18); color: #3fb950; }
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.stock-card { padding: 10px 12px; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; }
+.stock-name { font-size: 14px; font-weight: 600; }
+.stock-code { color: #8b949e; font-size: 11px; }
+.stock-price { font-size: 16px; font-weight: 700; margin: 4px 0; }
+.stock-range { font-size: 12px; }
+.stock-detail { color: #8b949e; font-size: 12px; margin-top: 2px; }
+.sector-title { font-size: 14px; font-weight: 600; color: #58a6ff; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+.badge { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
+.signal { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px 2px 0 0; }
+.signal-add { background: rgba(248,81,73,0.18); color: #f85149; }
+.signal-hold { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.signal-cut { background: rgba(63,185,80,0.15); color: #3fb950; }
+.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
+.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
+.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
+.badge-silver { background: rgba(139,148,158,0.12); color: #8b949e; }
+.score-bar { height: 4px; border-radius: 2px; margin-top: 4px; }
+.score-bar-bg { background: #21262d; border-radius: 2px; height: 4px; width: 100%; margin-top: 4px; }
+.score-bar-fill { height: 4px; border-radius: 2px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+.pos { color: #f85149; }
+.neg { color: #3fb950; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>📋 盘前简报 | 2026.05.29 周五</h1>
+<div class="date">生成时间：09:19 CST | 基于 2026-05-28（周四）收盘数据 | ⚡ 今日交易中</div>
+</div>
+
+<!-- 隔夜外围市场 -->
+<div class="section">
+<h2>🌍 隔夜外围市场</h2>
+<p style="font-size:13px;color:#8b949e;">数据源暂不可用，未能获取美股昨夜（5/28）收盘数据。参考前日——科技股普遍走强，市场风险偏好回升。</p>
+</div>
+
+<!-- A股大盘 -->
+<div class="section">
+<h2>📊 A股大盘预判</h2>
+<div style="font-size: 13px;">
+<p>📌 <strong>昨日（5/28）市场概况：</strong>上证基准涨幅 +0.52%，<span class="up">上涨 3,018 家</span> · <span class="down">下跌 2,365 家</span> · 平盘 123 家，两市成交29.87亿。</p>
+<p style="margin-top: 8px;">📐 <strong>支撑/压力位参考：</strong></p>
+<p style="margin-left: 12px; margin-top: 4px;">🔑 <strong>强支撑：</strong>4,080-4,100 区域（近期整理平台）</p>
+<p style="margin-left: 12px;">🔑 <strong>近期压力：</strong>4,150-4,180 区间（前高附近）</p>
+<p style="margin-left: 12px;">🔑 <strong>关键阻力：</strong>4,200（前期平台区域）</p>
+<p style="margin-top: 8px;">💡 <strong>短期研判：</strong>昨日大盘小幅收涨，成交平稳。科技半导体板块活跃，化工材料强势突破。今日周五+月末，注意周末效应。关注上证能否在4,100上方企稳，权重板块表现将决定方向。成交量能否放大是关键观察指标。</p>
+</div>
+</div>
+
+<!-- 今日关注 -->
+<div class="section">
+<h2>📅 今日关注</h2>
+<div class="event-item">📌 <strong>北向资金：</strong>昨日沪股通208.2亿/深股通175.3亿，关注今日流向</div>
+<div class="event-item">📌 <strong>资金面：</strong>月末+周五时点，关注央行公开市场操作</div>
+<div class="event-item">📌 <strong>板块分化加剧：</strong>科技半导体板块内隆扬+10.56%vs瑞华泰-14.02%分化严重，去弱留强</div>
+<div class="event-item">📌 <strong>涨停股延续性：</strong>江海股份(+9.99%)、天通股份(涨停)今日能否延续强势</div>
+</div>
+
+<!-- 板块轮动 -->
+<div class="section">
+<h2>🧭 板块提示与行业轮动</h2>
+<div style="font-size: 13px;">
+<p><strong>行业评分排名（多因子综合）：</strong></p>
+<table style="margin-top: 8px;">
+<tr><th>板块</th><th>均分</th><th>个股数</th><th>最优评级</th><th>动量方向</th></tr>
+<tr><td>💻 科技/半导体</td><td>5.3</td><td>12</td><td><span class="tag tag-b">C 观望</span></td><td><span class="up">↑ TOP2</span></td></tr>
+<tr><td>🧪 化工/材料</td><td>5.2</td><td>4</td><td><span class="tag tag-b">C 观望</span></td><td><span class="up">↑ TOP2</span></td></tr>
+<tr><td>📡 通信/电子</td><td>5.0</td><td>7</td><td><span class="tag tag-b">C 观望</span></td><td><span class="flat">— 中性</span></td></tr>
+<tr><td>⚡ 能源/公用事业</td><td>4.9</td><td>3</td><td><span class="tag tag-c">D 回避</span></td><td><span class="flat">— 中性</span></td></tr>
+<tr><td>🤖 AI/数字经济</td><td>4.5</td><td>4</td><td><span class="tag tag-c">D 回避</span></td><td><span class="down">↓ BOTTOM2</span></td></tr>
+<tr><td>📦 其他</td><td>4.3</td><td>2</td><td><span class="tag tag-c">D 回避</span></td><td><span class="down">↓ BOTTOM2</span></td></tr>
+</table>
+<p style="margin-top: 8px;">💡 <strong>轮动方向：</strong>科技/半导体、化工/材料板块评分领先且动量向上。通信电子中性偏低。AI/数字经济和其他板块垫底且动量向下，整体偏弱。个股层面分化极大——科技板块内隆扬电子+10.56% vs 瑞华泰-14.02%，关注强势龙头。</p>
+</div>
+</div>
+
+<!-- 持仓股票盘前观察 -->
+<div class="section">
+<h2>📋 持仓股票盘前观察</h2>
+
+<div class="sector-title">💻 科技/半导体</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">隆扬电子</span> <span class="stock-code">301389</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">90.88</span> <span style="font-size:12px;font-weight:400;" class="up">+10.56%</span></div>
+<div class="stock-detail">评分6.0[B] | ⭐TOP5 | 🔴🔴 强势持有 · 强势上攻斜率+3.86% · 贴近压力位(100%)<br><span class="signal signal-cut">▼ 减仓</span> 压力遇阻·注意回调 · 板块共振加持</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">利通电子</span> <span class="stock-code">603629</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">220.03</span> <span style="font-size:12px;font-weight:400;" class="up">+2.78%</span></div>
+<div class="stock-detail">评分靠前 | 🔴🔴 强势持有 · 强势上攻斜率+4.38% · 已至压力位<br><span class="signal signal-cut">▼ 减仓</span> 压力遇阻·注意回调</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">帝奥微</span> <span class="stock-code">688381</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">46.63</span> <span style="font-size:12px;font-weight:400;" class="up">+3.85%</span></div>
+<div class="stock-detail">评分6.3[B] | ⭐TOP1 | 🔴 偏强持有 · 横盘震荡靠近压力<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">欧莱新材</span> <span class="stock-code">688530</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">52.00</span> <span style="font-size:12px;font-weight:400;" class="up">+7.19%</span></div>
+<div class="stock-detail">🔴 偏强持有 · 震荡偏强区间中段(51.2%)<br><span class="signal signal-hold">➡ 持有</span> 趋势温和·持有观察</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">领益智造</span> <span class="stock-code">002600</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">15.95</span> <span style="font-size:12px;font-weight:400;" class="up">+2.77%</span></div>
+<div class="stock-detail">⚪ 中性观察 · 横盘震荡区间中段<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">中巨芯-U</span> <span class="stock-code">688549</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">15.50</span> <span style="font-size:12px;font-weight:400;" class="up">+6.02%</span></div>
+<div class="stock-detail">⚪ 中性观察 · 震荡偏弱<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">电科蓝天</span> <span class="stock-code">603019</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">91.25</span> <span style="font-size:12px;font-weight:400;" class="up">+0.29%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 弱势下行靠近支撑(3.5%)<br><span class="signal signal-hold">➡ 持有</span> 弱势放缓·关注支撑</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华特气体</span> <span class="stock-code">688268</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">152.30 -4.40%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 震荡偏弱触及支撑<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">宏景科技</span> <span class="stock-code">301396</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">255.63 -0.53%</span></div>
+<div class="stock-detail">🟢🟢 弱势减仓 · 弱势下行斜率-5.5% · 靠近支撑<br><span class="signal signal-cut">▼ 减仓</span> 加速下行·及时止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">瑞华泰</span> <span class="stock-code">688323</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">33.00 -14.02%</span></div>
+<div class="stock-detail">🟢🟢 弱势减仓 · 弱势下行斜率-8.79% · 触及布林下轨<br><span class="signal signal-cut">▼ 减仓</span> 加速下行·及时止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长电科技</span> <span class="stock-code">600584</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span style="color:#8b949e;">数据不足</span></div>
+<div class="stock-detail">⚪ 中性观察 · 数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长川科技</span> <span class="stock-code">300604</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span style="color:#8b949e;">数据不足</span></div>
+<div class="stock-detail">⚪ 中性观察 · 数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+</div>
+
+<div class="sector-title">📡 通信/电子</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">蓝思科技</span> <span class="stock-code">300433</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">40.23 -0.12%</span></div>
+<div class="stock-detail">评分6.3[B] | ⭐TOP5 | 🔴 偏强持有 · 震荡偏强贴近压力(98.7%)<br><span class="signal signal-hold">➡ 持有</span> 趋势温和·持有观察</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">东山精密</span> <span class="stock-code">002384</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">219.00 -1.96%</span></div>
+<div class="stock-detail">🔴 偏强持有 · 震荡偏弱区间中段<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">汇源通信</span> <span class="stock-code">000586</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">17.38</span> <span style="font-size:12px;font-weight:400;" class="up">+1.82%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 震荡偏弱靠近支撑<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">珂玛科技</span> <span class="stock-code">301611</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span class="up">99.03</span> <span style="font-size:12px;font-weight:400;" class="up">+1.57%</span></div>
+<div class="stock-detail">🟢🟢 弱势减仓 · 弱势下行斜率-5.87% · 靠近支撑(5.6%)<br><span class="signal signal-cut">▼ 减仓</span> 加速下行·及时止损</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">淳中科技</span> <span class="stock-code">603516</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span style="color:#8b949e;">数据不足</span></div>
+<div class="stock-detail">⚪ 中性观察 · 数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">商络电子</span> <span class="stock-code">300975</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span style="color:#8b949e;">数据不足</span></div>
+<div class="stock-detail">⚪ 中性观察 · 数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">江海股份</span> <span class="stock-code">002484</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">74.07</span> <span class="badge badge-red" style="margin-left:4px;">涨停</span></div>
+<div class="stock-detail">⚪ 中性观察 · 涨停+9.99%<br><span class="signal signal-hold">➡ 持有</span> 关注今日延续性</div>
+</div>
+</div>
+
+<div class="sector-title">🤖 AI/数字经济</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中科创达</span> <span class="stock-code">300496</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">69.91 -4.73%</span></div>
+<div class="stock-detail">评分6.0[B] | ⭐TOP5 | ⚠️板块拖累(BOTTOM2) | ⚪ 中性观察 ★<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">易点天下</span> <span class="stock-code">301171</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">38.82</span> <span style="font-size:12px;font-weight:400;" class="up">+2.18%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 弱势下行斜率-3.03% · 靠近支撑<br><span class="signal signal-cut">▼ 减仓</span> 破位下行·控制仓位</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝色光标</span> <span class="stock-code">300058</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">16.16</span> <span style="font-size:12px;font-weight:400;" class="up">+2.47%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 震荡偏弱区间中段<br><span class="signal signal-cut">▼ 减仓</span> 板块拖累·弱势叠加</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">荣科科技</span> <span class="stock-code">300290</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">11.48 -9.89%</span></div>
+<div class="stock-detail">🟢🟢 弱势减仓 ★ · 弱势下行斜率-11.55% · 板块BOTTOM2确认弱势<br><span class="signal signal-cut">▼ 减仓</span> 加速下行·及时止损 · 板块拖累叠加</div>
+</div>
+</div>
+
+<div class="sector-title">🧪 化工/材料</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">天通股份</span> <span class="stock-code">600330</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">34.33</span> <span class="badge badge-red" style="margin-left:4px;">涨停</span></div>
+<div class="stock-detail">评分靠前 | 🔴🔴 强势持有 ★ · 板块TOP2共振 · 强势上攻斜率+4.84% · 已至压力位<br><span class="signal signal-cut">▼ 减仓</span> 压力遇阻·不追涨</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">多氟多</span> <span class="stock-code">002407</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">35.12 -1.87%</span></div>
+<div class="stock-detail">🟢🟢 弱势减仓 · 弱势下行斜率-4.37% · 触及支撑<br><span class="signal signal-cut">▼ 减仓</span> 破位下行·控制仓位</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">山东玻纤</span> <span class="stock-code">605006</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">20.20</span> <span style="font-size:12px;font-weight:400;" class="up">+8.89%</span></div>
+<div class="stock-detail">⚪ 中性观察 · 大幅上涨，数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长海股份</span> <span class="stock-code">300196</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span style="color:#8b949e;">数据不足</span></div>
+<div class="stock-detail">⚪ 中性观察 · 数据不足<br><span class="signal signal-hold">➡ 持有</span> 观望等待</div>
+</div>
+</div>
+
+<div class="sector-title">⚡ 能源/公用事业</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">华电辽能</span> <span class="stock-code">600396</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">19.26</span> <span style="font-size:12px;font-weight:400;" class="up">+3.72%</span></div>
+<div class="stock-detail">评分6.2[B] | ⭐TOP5 | RS+34.8全榜第一 | 🔴🔴 强势持有 ★ · 强势上攻斜率+9.82% · 已至压力位<br><span class="signal signal-cut">▼ 减仓</span> 压力遇阻·注意回调</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">水发燃气</span> <span class="stock-code">603318</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span style="font-size:12px;font-weight:400;" class="down">9.08 -0.33%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 弱势下行触及支撑(0%)<br><span class="signal signal-cut">▼ 减仓</span> 破位下行·控制仓位</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">康盛股份</span> <span class="stock-code">002418</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">4.89</span> <span style="font-size:12px;font-weight:400;" class="up">+2.95%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 弱势下行靠近支撑(11.3%)<br><span class="signal signal-cut">▼ 减仓</span> 破位下行·控制仓位</div>
+</div>
+</div>
+
+<div class="sector-title">📦 其他</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">山子高科</span> <span class="stock-code">000981</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">3.75</span> <span style="font-size:12px;font-weight:400;" class="up">+0.54%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 震荡偏弱靠近支撑(8.3%)<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">京城股份</span> <span class="stock-code">600860</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">9.62</span> <span style="font-size:12px;font-weight:400;" class="up">+1.58%</span></div>
+<div class="stock-detail">🟢 偏弱关注 · 震荡偏弱靠近支撑(15.5%)<br><span class="signal signal-hold">➡ 持有</span> 方向不明·观望等待</div>
+</div>
+</div>
+
+</div>
+
+<!-- 多因子评分 TOP5 -->
+<div class="section">
+<h2>🏆 多因子评分 TOP5</h2>
+<table>
+<tr><th>股票</th><th>代码</th><th>评分</th><th>评级</th><th>板块</th></tr>
+<tr><td>帝奥微</td><td>688381</td><td style="color:#f85149;font-weight:700;">6.3</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+<tr><td>蓝思科技</td><td>300433</td><td style="color:#f85149;font-weight:700;">6.3</td><td><span class="tag tag-score-b">B 关注</span></td><td>📡 通信/电子</td></tr>
+<tr><td>华电辽能</td><td>600396</td><td style="color:#f85149;font-weight:700;">6.2</td><td><span class="tag tag-score-b">B 关注</span></td><td>⚡ 能源/公用事业</td></tr>
+<tr><td>隆扬电子</td><td>301389</td><td style="color:#f85149;font-weight:700;">6.0</td><td><span class="tag tag-score-b">B 关注</span></td><td>💻 科技/半导体</td></tr>
+<tr><td>中科创达</td><td>300496</td><td style="color:#f85149;font-weight:700;">6.0</td><td><span class="tag tag-score-b">B 关注</span></td><td>🤖 AI/数字经济</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>⚠️ 多因子评分 BOTTOM5</h2>
+<table>
+<tr><th>股票</th><th>代码</th><th>评分</th><th>评级</th><th>板块</th></tr>
+<tr><td>汇源通信</td><td>000586</td><td style="color:#3fb950;font-weight:700;">4.1</td><td><span class="tag tag-score-c">C 观望</span></td><td>📡 通信/电子</td></tr>
+<tr><td>易点天下</td><td>301171</td><td style="color:#3fb950;font-weight:700;">3.7</td><td><span class="tag tag-score-d">D 回避</span></td><td>🤖 AI/数字经济</td></tr>
+<tr><td>蓝色光标</td><td>300058</td><td style="color:#3fb950;font-weight:700;">3.7</td><td><span class="tag tag-score-d">D 回避</span></td><td>🤖 AI/数字经济</td></tr>
+<tr><td>水发燃气</td><td>603318</td><td style="color:#3fb950;font-weight:700;">3.7</td><td><span class="tag tag-score-d">D 回避</span></td><td>⚡ 能源/公用事业</td></tr>
+<tr><td>京城股份</td><td>600860</td><td style="color:#3fb950;font-weight:700;">3.8</td><td><span class="tag tag-score-d">D 回避</span></td><td>📦 其他</td></tr>
+</table>
+</div>
+
+<!-- 综合策略 -->
+<div class="section">
+<h2>💡 综合策略建议</h2>
+<div style="font-size: 13px;">
+<p>🔹 <strong>强势股持有策略：</strong>华电辽能(RS+34.8全榜第一)、隆扬电子(+10.56%)、天通股份(涨停)、利通电子等A+级标的可继续持有，设好止盈位。注意已至压力位的回调风险。</p>
+<p style="margin-top: 6px;">🔹 <strong>科技板块内部分化加剧：</strong>隆扬电子、利通电子、帝奥微强势，但瑞华泰(-14.02%)、宏景科技弱势。板块内去弱留强。</p>
+<p style="margin-top: 6px;">🔹 <strong>AI/数字经济整体偏弱：</strong>4只持仓全部评级偏弱，板块BOTTOM2拖累中科创达评级下调。建议控制该板块仓位。</p>
+<p style="margin-top: 6px;">🔹 <strong>弱势标的减仓：</strong>RS评级D级标的（瑞华泰、宏景科技、珂玛科技、多氟多、荣科科技）建议择机减仓止损，降低亏损敞口。</p>
+<p style="margin-top: 6px;">🔹 <strong>周五效应：</strong>今日周五+月末，强势股多数已至压力位，不追涨。关注江海股份涨停后今日延续性。</p>
+<p style="margin-top: 6px;">🔹 <strong>大盘研判：</strong>今日关注4,100附近能否企稳，若放量上攻可适度乐观；若缩量下行则需警惕回调。月末资金面偏紧，操作宜稳健。</p>
+</div>
+</div>
+
+<div class="footer">
+小十三 🌀 · 盘前简报 · 2026.05.29 周五<br>
+数据来源：Tushare · 多因子评估系统<br>
+数据仅供参考，不构成投资建议 · 市场有风险，投资需谨慎
+</div>
+
+</div>
+</body>
+</html>
