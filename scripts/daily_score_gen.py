@@ -109,7 +109,7 @@ def fetch_all_stocks(max_time=180):
         url = (f'https://push2.eastmoney.com/api/qt/clist/get?'
                f'pn={page}&pz=100&po=1&np=1&fltt=2&invt=2&fid=f3'
                f'&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23'
-               f'&fields=f2,f3,f4,f5,f12,f14,f15,f20,f21,f62,f184,f175,f23')
+               f'&fields=f2,f3,f4,f5,f12,f14,f15,f20,f21,f62,f168,f169,f184,f175,f23')
         success = False
         for retry in range(3):
             if time.time() - start_t > max_time:
@@ -144,7 +144,7 @@ def fetch_all_stocks(max_time=180):
                     all_data[code] = {
                         'f12': code, 'f14': row.get('name', ''), 'f2': row.get('close', 0),
                         'f3': row.get('pct_chg', 0), 'f15': row.get('high', 0), 'f16': row.get('low', 0),
-                        'f20': row.get('amount', 0), 'f62': 0
+                        'f20': row.get('amount', 0), 'f62': 0, 'f168': 0
                     }
                 log(f"✅ Tushare备选: {len(all_data)}只")
         except Exception as e:
@@ -325,8 +325,58 @@ def fill_sheet(ws, scores, date_str, is_template=False):
     log(f"   ✅ 填充: {len(scores)}行")
 
 # ========== 市场全景HTML ==========
+# ─── 市场全景 JavaScript 模板 ───
+# _WH_INIT_ 会被替换为持仓初始数据
+JS_TEMPLATE = """let cp=1,sk=null,sa=!1;
+function gv(it,k){let v=it[k];if(v==='—'||v==null)return '';if(typeof v==='number')return v;return isNaN(v=parseFloat(v))?v:v}
+function fl(){let s=document.getElementById('sf').value,m=document.getElementById('mf').value,g=document.getElementById('gf').value,q=document.getElementById('si').value.toLowerCase()
+return ad.filter(it=>{if(s&&it['板块']!==s)return 0;if(m&&it['市场']!==m)return 0;if(g&&it['等级']!==g)return 0;if(q&&!String(it['代码']).includes(q)&&!String(it['名称']).toLowerCase().includes(q))return 0;return 1})}
+function st(k){sk===k?sa=!sa:(sk=k,sa=!1);r()}
+let wh=_WH_INIT_;let wf='all';
+function fw(el,m){wf=m;document.querySelectorAll('.fl-btn').forEach(b=>b.classList.toggle('act',b===el));r()}
+async function loadWatchlist(){try{let r=await fetch('http://127.0.0.1:18790/watchlist');let d=await r.json();d.codes.forEach(c=>wh[c]=1)}catch(e){console.log('⚠️ 未连接持仓API')}}
+function cl(k,v,code){
+if(v===''||v==null)return '<td class=gy>—</td>'
+if(k==='排名')return '<td class='+(v===1?'r1':v===2?'r2':v===3?'r3':'')+'>'+v+'</td>'
+if(k==='持仓'){let isH=wh[code];return isH?'<td><span class="wb wb-hld">🔴 已持仓</span><span class="wb wb-rm" onclick=toggleHold("'+code+'","'+v+'",0)>➖</span></td>':'<td><span class="wb wb-un">⚪ 未持仓</span><span class="wb wb-add" onclick=toggleHold("'+code+'","'+v+'",1)>➕</span></td>'}
+if(k==='涨跌幅%'||k==='涨跌额'){let n=parseFloat(v);if(isNaN(n))return '<td>'+v+'</td>';return '<td class='+(n>0?'up':n<0?'dn':'gd')+'>'+(n>0?'+':'')+v+(k==='涨跌幅%'?'%':'')+'</td>'}
+if(k==='等级'){return '<td><span class=tag t-'+String(v).toLowerCase().replace('+','ap')+'>'+v+'</span></td>'}
+if(k==='板块'){return '<td class='+({'科技/半导体':'up','通信/电子':'gd','AI/数字经济':'pu','化工/材料':'bl','能源/公用事业':'gn','其他':'gy'}[String(v)]||'')+'>'+v+'</td>'}
+if(k==='市场'){return '<td class='+({'沪市主板':'bl','深市主板':'gn','创业板':'pu','科创板':'gd','北交所':'dn','退市':'up'}[String(v)]||'')+'>'+v+'</td>'}
+if(['换手率%','量比','RS得分','多因子'].includes(k)){let n=parseFloat(v);if(!isNaN(n)){return '<td class='+(n<=40||k==='换手率%'&&n<=3||k==='量比'&&n<=0.8?'zg':n<=70||k==='换手率%'&&n<=10||k==='量比'&&n<=1.5?'zy':'zr')+'>'+v+'</td>'}}
+if(k==='市盈率'){let n=parseFloat(v);if(!isNaN(n)&&n>0)return '<td class='+(n<=15?'zg':n<=30?'zy':'zr')+'>'+v+'</td>'}
+if(k==='主力净流入(亿)'){let n=parseFloat(v);if(!isNaN(n))return '<td class='+(n>0.5?'up':n<-0.5?'dn':'')+'>'+v+'</td>'}
+return '<td class=gd>'+(typeof v==='number'?v.toFixed(2):v)+'</td>'}
+async function toggleHold(code,name,add){
+let btns=document.querySelectorAll('.wb');btns.forEach(b=>b.classList.add('wb-loading'))
+try{let url='http://127.0.0.1:18790/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);await fetch(url,{method:add?'POST':'DELETE'});if(add)wh[code]=1;else delete wh[code];r()}catch(e){alert('操作失败: '+e.message)}
+btns.forEach(b=>b.classList.remove('wb-loading'))}
+function r(){let f=fl();
+if(wf==='hold')f=f.filter(it=>wh[it['代码']]);
+if(wf==='unhold')f=f.filter(it=>!wh[it['代码']]);
+if(sk)f.sort((a,b)=>{let va=gv(a,sk),vb=gv(b,sk);return typeof va==='number'&&typeof vb==='number'?(sa?va-vb:vb-va):sa?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va))})
+document.getElementById('cn').textContent=f.length+'条'
+let tp=Math.ceil(f.length/PS)||1;if(cp>tp)cp=tp;let s=(cp-1)*PS,pg=f.slice(s,s+PS)
+document.getElementById('tb').innerHTML=pg.map(it=>'<tr>'+hd.map(k=>cl(k,it[k],it['代码'])).join('')+'</tr>').join('')
+let pb='',st=Math.max(1,cp-7),en=Math.min(tp,st+15);if(st>1)pb+='<button onclick=gp('+(cp-1)+')>◀</button>'
+for(let i=st;i<=en;i++)pb+='<button class='+(i===cp?'act':'')+' onclick=gp('+i+')>'+i+'</button>'
+if(en<tp)pb+='<button onclick=gp('+Math.min(cp+1,tp)+')>▶</button>'
+document.getElementById('pg').innerHTML=pb}
+function gp(p){cp=p;r()}
+loadWatchlist();setTimeout(r,100)"""
+
 def gen_selestock_html(scores, date_str):
     import json
+    # 加载当前持仓清单（内联到页面，免跨域请求）
+    _wl_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config", "stocks.json")
+    try:
+        with open(_wl_path) as _f:
+            _wl_data = json.load(_f)
+        _hold_codes = [s["code"] for s in _wl_data.get("watchlist", [])]
+    except:
+        _hold_codes = []
+    _wh_init = "{" + ",".join([f'"{c}":1' for c in _hold_codes]) + "}"
+    
     hdrs = ['排名','代码','名称','持仓','最新价','涨跌幅%','涨跌额','最高','最低',
             '换手率%','量比','市盈率','市净率','成交额(亿)','RS得分','多因子','等级',
             '板块','总市值(亿)','ROE%','主力净流入(亿)','市场']
@@ -337,6 +387,7 @@ def gen_selestock_html(scores, date_str):
             if h == '排名': item[h] = s['rank']
             elif h == '代码': item[h] = s['code']
             elif h == '名称': item[h] = s['name']
+            elif h == '持仓': item[h] = s['name']
             elif h == '等级': item[h] = rg(s['rs'])
             elif h == '板块': item[h] = s['sector']
             elif h == '市场': item[h] = s['market']
@@ -409,45 +460,10 @@ tr:hover td{{background:#1a2744}}
     html += '</tr></thead><tbody id=tb></tbody></table></div>'
     html += '<div class=pag id=pg></div><p class=ft>🌀 市场全景 · 数据仅供参考</p></div>'
     html += f'<script>const PS=50,ad={data_j},hd={hdrs_j};'
-    html += '''let cp=1,sk=null,sa=!1;
-function gv(it,k){let v=it[k];if(v==='—'||v==null)return '';if(typeof v==='number')return v;return isNaN(v=parseFloat(v))?v:v}
-function fl(){let s=document.getElementById('sf').value,m=document.getElementById('mf').value,g=document.getElementById('gf').value,q=document.getElementById('si').value.toLowerCase()
-return ad.filter(it=>{if(s&&it['板块']!==s)return 0;if(m&&it['市场']!==m)return 0;if(g&&it['等级']!==g)return 0;if(q&&!String(it['代码']).includes(q)&&!String(it['名称']).toLowerCase().includes(q))return 0;return 1})}
-function st(k){sk===k?sa=!sa:(sk=k,sa=!1);r()}
-let wh={};let wf='all';
-function fw(el,m){wf=m;document.querySelectorAll('.fl-btn').forEach(b=>b.classList.toggle('act',b===el));r()}
-async function loadWatchlist(){try{let r=await fetch('http://127.0.0.1:18790/watchlist');let d=await r.json();d.codes.forEach(c=>wh[c]=1)}catch(e){console.log('⚠️ 未连接持仓API')}}
-function cl(k,v,code){
-if(v===''||v==null)return '<td class=gy>—</td>'
-if(k==='排名')return '<td class='+(v===1?'r1':v===2?'r2':v===3?'r3':'')+'>'+v+'</td>'
-if(k==='持仓'){let isH=wh[code];return isH?'<td><span class="wb wb-hld">🔴 已持仓</span><span class="wb wb-rm" onclick=toggleHold("'+code+'","'+v+'",0)>➖</span></td>':'<td><span class="wb wb-un">⚪ 未持仓</span><span class="wb wb-add" onclick=toggleHold("'+code+'","'+v+'",1)>➕</span></td>'}
-if(k==='涨跌幅%'||k==='涨跌额'){let n=parseFloat(v);if(isNaN(n))return '<td>'+v+'</td>';return '<td class='+(n>0?'up':n<0?'dn':'gd')+'>'+(n>0?'+':'')+v+(k==='涨跌幅%'?'%':'')+'</td>'}
-if(k==='等级'){return '<td><span class=tag t-'+String(v).toLowerCase().replace('+','ap')+'>'+v+'</span></td>'}
-if(k==='板块'){return '<td class='+({'科技/半导体':'up','通信/电子':'gd','AI/数字经济':'pu','化工/材料':'bl','能源/公用事业':'gn','其他':'gy'}[String(v)]||'')+'>'+v+'</td>'}
-if(k==='市场'){return '<td class='+({'沪市主板':'bl','深市主板':'gn','创业板':'pu','科创板':'gd','北交所':'dn','退市':'up'}[String(v)]||'')+'>'+v+'</td>'}
-if(['换手率%','量比','RS得分','多因子'].includes(k)){let n=parseFloat(v);if(!isNaN(n)){return '<td class='+(n<=40||k==='换手率%'&&n<=3||k==='量比'&&n<=0.8?'zg':n<=70||k==='换手率%'&&n<=10||k==='量比'&&n<=1.5?'zy':'zr')+'>'+v+'</td>'}}
-if(k==='市盈率'){let n=parseFloat(v);if(!isNaN(n)&&n>0)return '<td class='+(n<=15?'zg':n<=30?'zy':'zr')+'>'+v+'</td>'}
-if(k==='主力净流入(亿)'){let n=parseFloat(v);if(!isNaN(n))return '<td class='+(n>0.5?'up':n<-0.5?'dn':'')+'>'+v+'</td>'}
-return '<td class=gd>'+(typeof v==='number'?v.toFixed(2):v)+'</td>'}
-async function toggleHold(code,name,add){
-let btns=document.querySelectorAll('.wb');btns.forEach(b=>b.classList.add('wb-loading'))
-try{let url='http://127.0.0.1:18790/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);await fetch(url,{method:add?'POST':'DELETE'});if(add)wh[code]=1;else delete wh[code];r()}catch(e){alert('操作失败: '+e.message)}
-btns.forEach(b=>b.classList.remove('wb-loading'))}
-function r(){let f=fl();
-if(wf==='hold')f=f.filter(it=>wh[it['代码']]);
-if(wf==='unhold')f=f.filter(it=>!wh[it['代码']]);
-if(sk)f.sort((a,b)=>{let va=gv(a,sk),vb=gv(b,sk);return typeof va==='number'&&typeof vb==='number'?(sa?va-vb:vb-va):sa?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va))})
-document.getElementById('cn').textContent=f.length+'条'
-let tp=Math.ceil(f.length/PS)||1;if(cp>tp)cp=tp;let s=(cp-1)*PS,pg=f.slice(s,s+PS)
-document.getElementById('tb').innerHTML=pg.map(it=>'<tr>'+hd.map(k=>cl(k,it[k],it['代码'])).join('')+'</tr>').join('')
-let pb='',st=Math.max(1,cp-7),en=Math.min(tp,st+15);if(st>1)pb+='<button onclick=gp('+(cp-1)+')>◀</button>'
-for(let i=st;i<=en;i++)pb+='<button class='+(i===cp?'act':'')+' onclick=gp('+i+')>'+i+'</button>'
-if(en<tp)pb+='<button onclick=gp('+Math.min(cp+1,tp)+')>▶</button>'
-document.getElementById('pg').innerHTML=pb}
-function gp(p){cp=p;r()}
-
-loadWatchlist();setTimeout(r,100)
-</script></body></html>'''
+    html += JS_TEMPLATE.replace('_WH_INIT_', _wh_init)
+    html += '</script></body></html>'
+    
+    # 保存两份：selestock/index.html（最新版）+ selestock/YYYY-MM-DD.html（历史版）
 
     # 保存两份：selestock/index.html（最新版）+ selestock/YYYY-MM-DD.html（历史版）
     sel_dir = os.path.join('/Users/shisan/.openclaw/workspace', 'daily-report-html', 'selestock')
