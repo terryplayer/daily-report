@@ -18,97 +18,35 @@ WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_FILE = os.path.join(WORKSPACE, "data", "stock_history.json")
 sys.path.insert(0, WORKSPACE)
 
-# 持仓股完整列表（含代码和名称）
-WATCHLIST_FULL = [
-    # 科技/半导体
-    {"code": "688549", "name": "中巨芯-U", "sector": "科技/半导体"},
-    {"code": "603019", "name": "电科蓝天(中科曙光)", "sector": "科技/半导体"},
-    {"code": "688381", "name": "帝奥微", "sector": "科技/半导体"},
-    {"code": "688323", "name": "瑞华泰", "sector": "科技/半导体"},
-    {"code": "688530", "name": "欧莱新材", "sector": "科技/半导体"},
-    {"code": "688268", "name": "华特气体", "sector": "科技/半导体"},
-    {"code": "301389", "name": "隆扬电子", "sector": "科技/半导体"},
-    {"code": "002600", "name": "领益智造", "sector": "科技/半导体"},
-    {"code": "603629", "name": "利通电子", "sector": "科技/半导体"},
-    {"code": "301396", "name": "宏景科技", "sector": "科技/半导体"},
-    {"code": "600584", "name": "长电科技", "sector": "科技/半导体"},
-    {"code": "300604", "name": "长川科技", "sector": "科技/半导体"},
-    # 通信/电子
-    {"code": "000586", "name": "汇源通信", "sector": "通信/电子"},
-    {"code": "002384", "name": "东山精密", "sector": "通信/电子"},
-    {"code": "300433", "name": "蓝思科技", "sector": "通信/电子"},
-    {"code": "301611", "name": "珂玛科技", "sector": "通信/电子"},
-    {"code": "603516", "name": "淳中科技", "sector": "通信/电子"},
-    {"code": "300975", "name": "商络电子", "sector": "通信/电子"},
-    {"code": "002484", "name": "江海股份", "sector": "通信/电子"},
-    # AI/数字经济
-    {"code": "300496", "name": "中科创达", "sector": "AI/数字经济"},
-    {"code": "301171", "name": "易点天下", "sector": "AI/数字经济"},
-    {"code": "300058", "name": "蓝色光标", "sector": "AI/数字经济"},
-    {"code": "300290", "name": "荣科科技", "sector": "AI/数字经济"},
-    # 化工/材料
-    {"code": "600330", "name": "天通股份", "sector": "化工/材料"},
-    {"code": "002407", "name": "多氟多", "sector": "化工/材料"},
-    {"code": "301217", "name": "铜冠铜箔", "sector": "化工/材料"},
-    {"code": "002379", "name": "宏桥控股", "sector": "化工/材料"},
-    {"code": "300196", "name": "长海股份", "sector": "化工/材料"},
-    {"code": "605006", "name": "山东玻纤", "sector": "化工/材料"},
-    {"code": "000062", "name": "深圳华强", "sector": "其他"},
-    {"code": "002195", "name": "岩山科技", "sector": "科技/半导体"},
-    {"code": "002261", "name": "拓维信息", "sector": "科技/半导体"},
-    {"code": "002389", "name": "航天彩虹", "sector": "其他"},
-    {"code": "002429", "name": "兆驰股份", "sector": "通信/电子"},
-    {"code": "300059", "name": "东方财富", "sector": "其他"},
-    {"code": "300244", "name": "迪安诊断", "sector": "其他"},
-    {"code": "300255", "name": "常山药业", "sector": "其他"},
-    {"code": "300322", "name": "硕贝德", "sector": "通信/电子"},
-    {"code": "300390", "name": "天华新能", "sector": "化工/材料"},
-    {"code": "300394", "name": "天孚通信", "sector": "通信/电子"},
-    {"code": "300395", "name": "菲利华", "sector": "化工/材料"},
-    {"code": "300398", "name": "飞凯材料", "sector": "化工/材料"},
-    {"code": "300502", "name": "新易盛", "sector": "通信/电子"},
-    {"code": "300540", "name": "蜀道装备", "sector": "其他"},
-    {"code": "300613", "name": "富瀚微", "sector": "科技/半导体"},
-    {"code": "300857", "name": "协创数据", "sector": "科技/半导体"},
-    {"code": "300911", "name": "亿田智能", "sector": "其他"},
-    {"code": "301236", "name": "软通动力", "sector": "科技/半导体"},
-    {"code": "301237", "name": "和顺科技", "sector": "化工/材料"},
-    {"code": "301511", "name": "德福科技", "sector": "化工/材料"},
-    {"code": "600110", "name": "诺德股份", "sector": "化工/材料"},
-    {"code": "600170", "name": "上海建工", "sector": "其他"},
-    {"code": "600519", "name": "贵州茅台", "sector": "其他"},
-    {"code": "600711", "name": "盛屯矿业", "sector": "化工/材料"},
-    {"code": "601179", "name": "中国西电", "sector": "能源/公用事业"},
-    {"code": "603799", "name": "华友钴业", "sector": "化工/材料"},
-    {"code": "603985", "name": "恒润股份", "sector": "其他"},
-    {"code": "688008", "name": "澜起科技", "sector": "科技/半导体"},
-    {"code": "688020", "name": "方邦股份", "sector": "科技/半导体"},
-    {"code": "688055", "name": "龙腾光电", "sector": "科技/半导体"},
-    {"code": "688166", "name": "博瑞医药", "sector": "其他"},
-    {"code": "688818", "name": "电科蓝天", "sector": "科技/半导体"},
-    {"code": "002340", "name": "格林美", "sector": "化工/材料"},
-    {"code": "002364", "name": "中恒电气", "sector": "能源/公用事业"},
-    {"code": "002498", "name": "汉缆股份", "sector": "能源/公用事业"},
-    {"code": "002580", "name": "圣阳股份", "sector": "化工/材料"},
-    {"code": "002624", "name": "完美世界", "sector": "AI/数字经济"},
-    {"code": "300027", "name": "ST华谊", "sector": "AI/数字经济"},
-    {"code": "002716", "name": "湖南白银", "sector": "化工/材料"},
-    {"code": "000678", "name": "襄阳轴承", "sector": "其他"},
-    {"code": "000890", "name": "法尔胜", "sector": "其他"},
-    {"code": "002501", "name": "*ST利源", "sector": "其他"},
-    # 能源/公用事业
-    {"code": "603318", "name": "水发燃气", "sector": "能源/公用事业"},
-    {"code": "600396", "name": "华电辽能", "sector": "能源/公用事业"},
-    {"code": "002418", "name": "康盛股份", "sector": "能源/公用事业"},
-    # 其他
-    {"code": "000981", "name": "山子高科", "sector": "其他"},
-    {"code": "600860", "name": "京城股份", "sector": "其他"},
-]
-
 # 基准指数
 BENCHMARK = "sh000001"  # 上证指数
 
-# 用于引用TS代码的纯数字代码
+# ─── 从统一配置源加载持仓清单 ───
+def load_watchlist():
+    """从 config/stocks.json 加载持仓股票清单"""
+    path = os.path.join(WORKSPACE, "config", "stocks.json")
+    try:
+        with open(path) as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        print(f"❌ 配置文件不存在: {path}")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"❌ 配置文件格式错误: {e}")
+        return []
+    watchlist = data.get("watchlist", [])
+    if not watchlist:
+        print(f"⚠️ 配置文件中 watchlist 为空")
+    # 自动同步到 template-stocks.json（标准版报告用）
+    tpl_path = os.path.join(WORKSPACE, "scripts", "template-stocks.json")
+    try:
+        with open(tpl_path, 'w') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"⚠️ 同步到 template-stocks.json 失败: {e}")
+    return watchlist
+
+WATCHLIST_FULL = load_watchlist()
 WATCHLIST_CODES = [s["code"] for s in WATCHLIST_FULL]
 
 
@@ -633,6 +571,506 @@ def calc_all_tech_signals(history):
         signals = get_tech_signals(code, history)
         result[code] = {"name": stock["name"], "sector": stock["sector"], "signals": signals}
     return result
+
+
+# ============================================================
+# 新增统计模型：MOM / BBW / MRD / 随机森林
+# ============================================================
+
+def calc_momentum(code, history, short_days=5, long_days=10):
+    """
+    动量因子 MOM
+    短期动量+长期动量加权，反映趋势延续性
+    返回: {'mom_short':float, 'mom_long':float, 'mom_score':float(0-100)}
+    """
+    dates = sorted(history.keys())
+    closes = []
+    for d in dates:
+        if code in history[d].get('stocks', {}):
+            c = history[d]['stocks'][code].get('close')
+            if c: closes.append(c)
+    if len(closes) < long_days + 1:
+        return {'mom_short': 0, 'mom_long': 0, 'mom_score': 50}
+    
+    mom_short = (closes[-1] / closes[-short_days-1] - 1) * 100
+    mom_long = (closes[-1] / closes[-long_days-1] - 1) * 100
+    # 综合评分 (0-100): 正动量为高分
+    raw = mom_short * 0.6 + mom_long * 0.4
+    score = max(0, min(100, 50 + raw * 2))
+    return {'mom_short': round(mom_short, 2), 'mom_long': round(mom_long, 2), 'mom_score': round(score, 1)}
+
+
+def calc_bbw(code, history, period=None):
+    """
+    布林带宽度 BBW (Bollinger Band Width)
+    BBW = (上轨 - 下轨) / 中轨
+    收窄→变盘信号，拓宽→趋势延续
+    自动适配数据量: period = min(10, len(closes)-1)
+    """
+    import math
+    dates = sorted(history.keys())
+    closes = []
+    for d in dates:
+        if code in history[d].get('stocks', {}):
+            c = history[d]['stocks'][code].get('close')
+            if c: closes.append(c)
+    if period is None:
+        period = min(10, max(5, len(closes) - 1))
+    if len(closes) < period:
+        return {'bbw': 0, 'bbw_percentile': 50, 'signal': '数据不足', 'period': period}
+    
+    recent = closes[-period:]
+    ma = sum(recent) / period
+    variance = sum((x - ma) ** 2 for x in recent) / period
+    std = math.sqrt(variance)
+    upper = ma + 2 * std
+    lower = ma - 2 * std
+    bbw = (upper - lower) / ma * 100 if ma > 0 else 0
+    
+    # 历史百分位估算（用最近period/2个窗口的历史数据）
+    bbws = []
+    for i in range(period, len(closes) - period // 2):
+        seg = closes[i-period:i]
+        m = sum(seg) / period
+        s = math.sqrt(sum((x-m)**2 for x in seg) / period)
+        bw = ((m+2*s) - (m-2*s)) / m * 100 if m > 0 else 0
+        bbws.append(bw)
+    
+    percentile = 50
+    if bbws:
+        count_below = sum(1 for b in bbws if b <= bbw)
+        percentile = count_below / len(bbws) * 100
+    
+    if percentile < 20:
+        signal = '⚠️ 布林带极致收窄·可能变盘'
+    elif percentile < 40:
+        signal = '🔍 布林带收窄·关注方向'
+    elif percentile > 80:
+        signal = '📊 布林带拓宽·趋势延续'
+    else:
+        signal = '⚪ 正常'
+    
+    return {'bbw': round(bbw, 2), 'bbw_percentile': round(percentile, 1), 'signal': signal}
+
+
+def calc_mrd(code, history, period=None):
+    """
+    均值回归偏离度 MRD (Mean Reversion Deviation)
+    MRD = (close - MA) / MA * 100
+    >+8% 超买，<-8% 超卖
+    自动适配数据量: period = min(20, len(closes)-1, 10)
+    """
+    dates = sorted(history.keys())
+    closes = []
+    for d in dates:
+        if code in history[d].get('stocks', {}):
+            c = history[d]['stocks'][code].get('close')
+            if c: closes.append(c)
+    # 自动适配窗口: 最多10天（当前数据有限）
+    if period is None:
+        period = min(10, max(5, len(closes) - 1))
+    if len(closes) < period + 1:
+        return {'mrd_20': 0, 'signal': '数据不足', 'period': period}
+    
+    ma = sum(closes[-period:]) / period
+    cur = closes[-1]
+    mrd = (cur - ma) / ma * 100
+    
+    if mrd > 8:
+        signal = '🔴 超买 · 回归概率高'
+    elif mrd > 4:
+        signal = '🟡 偏高 · 关注压力'
+    elif mrd < -8:
+        signal = '🟢 超卖 · 反弹概率高'
+    elif mrd < -4:
+        signal = '🔵 偏低 · 关注支撑'
+    else:
+        signal = '⚪ 正常区间'
+    
+    return {'mrd_20': round(mrd, 2), 'signal': signal}
+
+
+def calc_combined_signals(code, history):
+    """
+    计算单只股票的四个新模型信号
+    返回 dict
+    """
+    mom = calc_momentum(code, history)
+    bbw = calc_bbw(code, history)
+    mrd = calc_mrd(code, history)
+    return {
+        'momentum': mom,
+        'bbw': bbw,
+        'mrd': mrd
+    }
+
+
+def calc_all_new_signals(history):
+    """计算所有持仓的新模型信号"""
+    result = {}
+    for stock in WATCHLIST_FULL:
+        code = stock["code"]
+        signals = calc_combined_signals(code, history)
+        result[code] = {"name": stock["name"], "sector": stock["sector"], "signals": signals}
+    return result
+
+
+def calc_random_forest_prediction(history, target_date=None):
+    """
+    随机森林多因子分类器（进阶模型-第四阶段）
+    
+    使用全部因子: RS排名 | MOM_5 | MOM_10 | BBW | MRD | RSI | 成交量比 |
+                  北向资金方向 | 隔夜外盘 | PCR
+    预测: 次日涨/跌/平 三分类
+    
+    需要 sklearn，如不可用则返回 None
+    需要积累至少 60 个交易日的训练数据（目前约10天，数据积累中）
+    
+    当前状态：数据积累中，暂不生效
+    """
+    return {
+        'status': 'data_accumulating',
+        'message': f'需要至少60个交易日数据，当前{len(history)}天',
+        'accuracy_estimate': None
+    }
+
+
+# ============================================================
+# 统一模型评估框架（所有报告共用）
+# ============================================================
+# 提供标准化评分(0-100)和信号，保证盘前/午间/收盘/周复盘一致
+
+SIGNAL_STRONG_BUY = {'icon': '🔴🔴', 'label': '强势', 'color': '#f85149', 'action': '超配/持有'}
+SIGNAL_BUY = {'icon': '🔴', 'label': '偏强', 'color': '#d9a52e', 'action': '增配/关注'}
+SIGNAL_NEUTRAL = {'icon': '⚪', 'label': '中性', 'color': '#8b949e', 'action': '标配/观望'}
+SIGNAL_SELL = {'icon': '🟢', 'label': '偏弱', 'color': '#58a6ff', 'action': '减配/减仓'}
+SIGNAL_STRONG_SELL = {'icon': '🟢🟢', 'label': '弱势', 'color': '#3fb950', 'action': '低配/止损'}
+
+def normalize_score(raw, min_v=-100, max_v=100):
+    """将任意范围的值映射到0-100"""
+    if max_v == min_v:
+        return 50
+    clipped = max(min_v, min(max_v, raw))
+    return round((clipped - min_v) / (max_v - min_v) * 100, 1)
+
+def score_to_signal(score):
+    """将0-100评分转为标准信号"""
+    if score >= 80: return SIGNAL_STRONG_BUY
+    if score >= 60: return SIGNAL_BUY
+    if score >= 40: return SIGNAL_NEUTRAL
+    if score >= 20: return SIGNAL_SELL
+    return SIGNAL_STRONG_SELL
+
+def score_to_action(score):
+    """评分转操作建议"""
+    if score >= 80: return '⭐超配'
+    if score >= 60: return '↑增配'
+    if score >= 40: return '—标配'
+    if score >= 20: return '↓减配'
+    return '末低配'
+
+def calc_historical_similarity_score(history, model_cache=None):
+    """
+    计算历史相似度得分（RAG增强维度）。
+    
+    从当前行情特征检索历史相似交易日，
+    按各板块在相似日的涨跌情况输出得分 0~100。
+    
+    这是统一模型的新增维度："历史记忆"。
+    """
+    try:
+        from scripts.rag_memory import search_similar_trading_days
+    except ImportError:
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'rag_not_available'}
+    
+    if not history:
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'no_history'}
+    
+    # 构建当前日特征
+    dates = sorted(history.keys())
+    latest = dates[-1] if dates else None
+    if not latest:
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'no_dates'}
+    
+    last_day = history[latest]
+    stocks_data = last_day.get('stocks', {})
+    bench = last_day.get('benchmark', {})
+    
+    if not isinstance(stocks_data, dict):
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'bad_stocks_format'}
+    
+    # 计算 sector 变化
+    sector_changes = {}
+    sec_stock_count = {}
+    for code, s in stocks_data.items():
+        if not isinstance(s, dict):
+            continue
+        sec = '其他'
+        for stock in WATCHLIST_FULL:
+            if stock['code'] == code:
+                sec = stock['sector']
+                break
+        chg = s.get('change_pct', 0) or s.get('pct_chg', 0)
+        if isinstance(chg, (int, float)):
+            sector_changes.setdefault(sec, []).append(chg)
+    
+    sector_avg_changes = {}
+    for sec, changes in sector_changes.items():
+        sector_avg_changes[sec] = round(sum(changes) / len(changes), 2) if changes else 0
+    
+    # 市场宽度
+    all_changes = []
+    for s in stocks_data.values():
+        if isinstance(s, dict):
+            chg = s.get('change_pct', 0) or s.get('pct_chg', 0)
+            if isinstance(chg, (int, float)):
+                all_changes.append(chg)
+    market_breadth = sum(1 for c in all_changes if c > 0) / max(len(all_changes), 1) if all_changes else 0.5
+    
+    # 从 cache 读 RS 均分
+    rs_scores = {}
+    if model_cache:
+        rs_list = model_cache.get('rs_ranking', [])
+        rs_by_sector = {}
+        for r in rs_list:
+            sec = r.get('sector', '其他')
+            rs_by_sector.setdefault(sec, []).append(r.get('rs_score', 50))
+        for sec, vals in rs_by_sector.items():
+            rs_scores[sec] = sum(vals) / len(vals)
+    
+    # 构建 day_data
+    bench_pct = bench.get('change_pct', 0)
+    if isinstance(bench_pct, str):
+        try:
+            bench_pct = float(bench_pct.rstrip('%'))
+        except:
+            bench_pct = 0
+    
+    day_data = {
+        'date': latest,
+        'benchmark': {'change_pct': bench_pct},
+        'actual_sector_changes': sector_avg_changes,
+        'market_breadth': market_breadth,
+        'sectors': {},
+    }
+    
+    # 用平均涨跌作为 RS 模拟
+    for sec, avg_ch in sector_avg_changes.items():
+        rs = rs_scores.get(sec)
+        day_data['sectors'][sec] = {
+            'rs_mean': rs if rs else (50 + avg_ch * 3),
+        }
+    
+    # 搜索相似日
+    SECTOR_ORDER = ['科技/半导体', '通信/电子', 'AI/数字经济', '化工/材料', '能源/公用事业']
+    all_sectors = set(list(sector_avg_changes.keys()) + SECTOR_ORDER)
+    
+    similar = search_similar_trading_days(day_data, top_k=5, exclude_date=latest)
+    
+    if not similar:
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'no_similar_days'}
+    
+    total_sim = sum(d['score'] for d in similar)
+    if total_sim <= 0:
+        return {'score': 50.0, 'sector_scores': {}, 'note': 'zero_similarity'}
+    
+    # 计算各板块加权得分
+    sector_scores = {}
+    for sec in all_sectors:
+        weighted_change = 0.0
+        wsum = 0.0
+        for d in similar:
+            w = d['score'] / total_sim
+            change = d.get('actual_sector_changes', {}).get(sec, 0)
+            weighted_change += change * w
+            wsum += w
+        
+        # 转成 0~100 分
+        sec_score = 50 + weighted_change * 3
+        sec_score = max(0, min(100, sec_score))
+        sector_scores[sec] = round(sec_score, 1)
+    
+    global_score = sum(sector_scores.values()) / max(len(sector_scores), 1)
+    
+    return {
+        'score': round(global_score, 1),
+        'sector_scores': sector_scores,
+        'similar_days': [d['date'] for d in similar[:3]],
+        'note': 'ok',
+    }
+
+
+def get_model_summary(history, rs_results=None, sector_rotation=None):
+    """
+    统一模型摘要：计算所有模型的最新信号
+    返回结构：
+    {
+        'composite': {板块: {score, signal, action, confidence}},
+        'models': {
+            'rs': {板块: score},
+            'momentum': {板块: score},
+            'mrd': {板块: score},
+            'multi_factor': {板块: score},
+            'rotation': {板块: score},
+        },
+        'all_stocks': [每只股票的综合评分]
+    }
+    """
+    result = {'models': {}, 'composite': {}, 'all_stocks': []}
+    
+    # 1. RS相对强度
+    rs_list = calc_rs(history, days=5) if rs_results is None else rs_results
+    rs_by_sector = {}
+    for r in rs_list or []:
+        sec = r.get('sector', '其他')
+        if sec not in rs_by_sector:
+            rs_by_sector[sec] = []
+        rs_by_sector[sec].append(r.get('rs_score', 50))
+    
+    # RS归一化：原始值范围约-10~+5，映射到0-100
+    all_rs_vals = [v for vals in rs_by_sector.values() for v in vals]
+    rs_min, rs_max = min(all_rs_vals), max(all_rs_vals) if all_rs_vals else (-10, 10)
+    rs_range = max(rs_max - rs_min, 1)
+    
+    rs_scores = {}
+    for sec, scores in rs_by_sector.items():
+        avg_raw = sum(scores) / len(scores) if scores else rs_min
+        # 归一化到0-100
+        normalized = (avg_raw - rs_min) / rs_range * 100
+        rs_scores[sec] = round(normalized, 1)
+    result['models']['rs'] = rs_scores
+    
+    # 2. MOM动量
+    mom_by_sector = {}
+    for stock in WATCHLIST_FULL:
+        code, sec = stock['code'], stock['sector']
+        mom = calc_momentum(code, history)
+        if sec not in mom_by_sector:
+            mom_by_sector[sec] = []
+        mom_by_sector[sec].append(mom['mom_score'])
+    
+    mom_scores = {}
+    for sec, scores in mom_by_sector.items():
+        mom_scores[sec] = round(sum(scores) / len(scores), 1) if scores else 50
+    result['models']['momentum'] = mom_scores
+    
+    # 3. MRD均值回归
+    mrd_by_sector = {}
+    for stock in WATCHLIST_FULL:
+        code, sec = stock['code'], stock['sector']
+        mrd = calc_mrd(code, history)
+        # MRD得分：偏离越大得分越低（超买/超卖都是风险）
+        dev = abs(mrd.get('mrd_20', 0))
+        mrd_score = max(0, 100 - dev * 3)  # 偏离1%扣3分
+        if sec not in mrd_by_sector:
+            mrd_by_sector[sec] = []
+        mrd_by_sector[sec].append(mrd_score)
+    
+    mrd_scores = {}
+    for sec, scores in mrd_by_sector.items():
+        mrd_scores[sec] = round(sum(scores) / len(scores), 1) if scores else 50
+    result['models']['mrd'] = mrd_scores
+    
+    # 4. 多因子评分
+    mf = calc_multi_factor_score(history, rs_results)
+    mf_by_sector = {}
+    for s in mf.get('stocks', []):
+        sec = s.get('sector', '其他')
+        if sec not in mf_by_sector:
+            mf_by_sector[sec] = []
+        mf_by_sector[sec].append(s.get('total_score', 50))
+    
+    # 多因子归一化：原始值范围约2-7，映射到0-100
+    all_mf_vals = [v for vals in mf_by_sector.values() for v in vals]
+    mf_min, mf_max = min(all_mf_vals), max(all_mf_vals) if all_mf_vals else (0, 10)
+    mf_range = max(mf_max - mf_min, 1)
+    
+    mf_scores = {}
+    for sec, scores in mf_by_sector.items():
+        avg_raw = sum(scores) / len(scores) if scores else mf_min
+        normalized = (avg_raw - mf_min) / mf_range * 100
+        mf_scores[sec] = round(normalized, 1)
+    result['models']['multi_factor'] = mf_scores
+    
+    # 5. 行业轮动
+    if sector_rotation is None:
+        sr = calc_sector_rotation()
+    else:
+        sr = sector_rotation
+    rot_scores = {}
+    for item in sr.get('rotation', []):
+        sec = item.get('sector', '')
+        conf = item.get('confidence', 50)
+        if sec:
+            rot_scores[sec] = conf
+    result['models']['rotation'] = rot_scores
+    
+    # 6. 历史相似度 (RAG增强)
+    try:
+        hist_scores = calc_historical_similarity_score(history, model_cache=result)
+        result['models']['historical'] = hist_scores.get('sector_scores', {})
+    except Exception:
+        result['models']['historical'] = {}
+    
+    # 7. 综合评分（所有模型加权平均）
+    all_sectors = set()
+    for m in result['models'].values():
+        all_sectors.update(m.keys())
+    
+    # 权重：历史相似度占10%，其余等比缩减
+    weights = {
+        'rs': 0.23, 'momentum': 0.18, 'mrd': 0.09,
+        'multi_factor': 0.27, 'rotation': 0.13, 'historical': 0.10
+    }
+    
+    for sec in all_sectors:
+        total_w = 0
+        weighted = 0
+        for model_name, w in weights.items():
+            if sec in result['models'].get(model_name, {}):
+                weighted += result['models'][model_name][sec] * w
+                total_w += w
+        composite = round(weighted / total_w, 1) if total_w > 0 else 50
+        signal = score_to_signal(composite)
+        action = score_to_action(composite)
+        result['composite'][sec] = {
+            'score': composite,
+            'signal': signal['icon'],
+            'label': signal['label'],
+            'action': action,
+            'models': {m: result['models'].get(m, {}).get(sec, None) for m in weights}
+        }
+    
+    return result
+
+
+def format_model_summary_text(model_summary):
+    """将模型摘要格式化为文本（用于飞书推送）"""
+    lines = []
+    lines.append('板块评分 & 模型信号')
+    lines.append(f'{"板块":<10}{"综合":>5}{"RS":>5}{"动量":>5}{"MRD":>5}{"多因子":>5}{"轮动":>5}{"历史":>5}{"配置":>6}')
+    
+    for sec, info in sorted(model_summary['composite'].items()):
+        ms = info['models']
+        score = info['score']
+        sig = info['signal']
+        action = info['action']
+        def _fmt(v):
+            if v is None:
+                return '  -'
+            try:
+                return f'{v:>4.0f}'
+            except:
+                return '  -'
+        rs_v = _fmt(ms.get('rs'))
+        mom_v = _fmt(ms.get('momentum'))
+        mrd_v = _fmt(ms.get('mrd'))
+        mf_v = _fmt(ms.get('multi_factor'))
+        rot_v = _fmt(ms.get('rotation'))
+        hist_v = _fmt(ms.get('historical'))
+        lines.append(f'{sec:<10}{score:>5.0f}{rs_v:>5}{mom_v:>5}{mrd_v:>5}{mf_v:>5}{rot_v:>5}{hist_v:>5}{action:>6}')
+    
+    return '\n'.join(lines)
 
 
 # ============================================================
