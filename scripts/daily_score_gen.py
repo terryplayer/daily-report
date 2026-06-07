@@ -92,36 +92,80 @@ def _get_config_sheet(wb):
     return wb[CONFIG_SHEET]
 
 # ========== 数据获取 ==========
-def fetch_all_stocks():
+def fetch_all_stocks(max_time=180):
+    """拉取全市场行情，带全局超时保护 max_time 秒。失败则走Tushare备选。"""
     all_data = {}
     total_pages = 56
+    start_t = time.time()
+    failed_count = 0
+    
     for page in range(1, total_pages + 1):
+        if time.time() - start_t > max_time:
+            log(f"⚠️ 全局超时 {max_time}s，已获取 {len(all_data)} 只，跳过剩余页")
+            break
+        # 每10页间隔0.5秒，降低限流触发概率
+        if page % 10 == 0 and page > 1:
+            time.sleep(0.5)
         url = (f'https://push2.eastmoney.com/api/qt/clist/get?'
                f'pn={page}&pz=100&po=1&np=1&fltt=2&invt=2&fid=f3'
                f'&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23'
                f'&fields=f2,f3,f4,f5,f12,f14,f15,f20,f21,f62,f184,f175,f23')
+        success = False
         for retry in range(3):
+            if time.time() - start_t > max_time:
+                break
             try:
                 req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
-                resp = urllib.request.urlopen(req, timeout=20).read().decode('utf-8')
+                resp = urllib.request.urlopen(req, timeout=12).read().decode('utf-8')
                 for item in json.loads(resp).get('data',{}).get('diff',[]):
                     all_data[item.get('f12','')] = item
                 if page % 10 == 0:
                     log(f"  行情 {page}/{total_pages}页: 累计{len(all_data)}只")
+                success = True
                 break
             except:
-                time.sleep(2)
-    log(f"✅ 行情数据: {len(all_data)}只")
+                time.sleep(1 if retry == 0 else 2)
+        if not success:
+            failed_count += 1
+    
+    # 如果大量失败（>5页），提前切换到Tushare备选
+    if failed_count > 5 or len(all_data) < 3000:
+        log(f"⚠️ 东方财富API大量失败({failed_count}页)，切换到Tushare备选...")
+        try:
+            import tushare as ts
+            tk = open('/Users/shisan/.openclaw/workspace/data/tushare_token.txt').read().strip()
+            ts.set_token(tk)
+            pro = ts.pro_api()
+            df = pro.daily(trade_date=datetime.now().strftime("%Y%m%d"))
+            if df is not None and len(df) > 1000:
+                all_data.clear()
+                for _, row in df.iterrows():
+                    code = row['ts_code'][:6]
+                    all_data[code] = {
+                        'f12': code, 'f14': row.get('name', ''), 'f2': row.get('close', 0),
+                        'f3': row.get('pct_chg', 0), 'f15': row.get('high', 0), 'f16': row.get('low', 0),
+                        'f20': row.get('amount', 0), 'f62': 0
+                    }
+                log(f"✅ Tushare备选: {len(all_data)}只")
+        except Exception as e:
+            log(f"❌ Tushare备选也失败: {str(e)[:60]}")
+    
+    log(f"✅ 行情数据: {len(all_data)}只 (用时{time.time()-start_t:.0f}s)")
     return all_data
 
-def fetch_market_values(all_codes):
+def fetch_market_values(all_codes, max_time=60):
     mv = {}
+    start_t = time.time()
+    total_batches = (len(all_codes) + 80 - 1) // 80
     for i in range(0, len(all_codes), 80):
+        if time.time() - start_t > max_time:
+            log(f"⚠️ 市值超时 {max_time}s，已获取 {len(mv)} 只")
+            break
         batch = all_codes[i:i+80]
         qt = ','.join([f'sh{c}' if c.startswith(('6','9')) else f'sz{c}' for c in batch])
         try:
             req = urllib.request.Request(f'https://qt.gtimg.cn/q={qt}', headers={'User-Agent':'Mozilla/5.0'})
-            resp = urllib.request.urlopen(req, timeout=15).read().decode('gbk')
+            resp = urllib.request.urlopen(req, timeout=8).read().decode('gbk')
             for line in resp.strip().split(';'):
                 if not line.strip(): continue
                 p = line.split('~'); c = p[2]
@@ -130,12 +174,14 @@ def fetch_market_values(all_codes):
                     fm = float(p[44]) if len(p)>44 and p[44] else 0
                     if tm > 0: mv[c] = {'total_mv': round(tm,2), 'float_mv': round(fm,2)}
                 except: pass
-        except: pass
-        time.sleep(0.15)
-        if (i//80+1) % 15 == 0: log(f"  市值 {i//80+1}/{(len(all_codes)+80-1)//80}批: {len(mv)}只")
+        except:
+            log(f"  第{i//80+1}批市值请求失败")
+        time.sleep(0.1)
+        if (i//80+1) % 15 == 0:
+            log(f"  市值 {i//80+1}/{total_batches}批: {len(mv)}只")
     for c in all_codes:
         if c not in mv: mv[c] = {'total_mv': 'N/A', 'float_mv': 'N/A'}
-    log(f"✅ 市值: {len(mv)}只")
+    log(f"✅ 市值: {len(mv)}只 (用时{time.time()-start_t:.0f}s)")
     return mv
 
 def save_history(date_str, stocks_data, mv_data):
@@ -203,6 +249,7 @@ def calc_scores(stocks_data, mv_data):
             'chg_amt': sf(item.get('f4')),
             'high': sf(item.get('f15')), 'low': sf(item.get('f5')),
             'turn': sf(item.get('f20')), 'vr': sf(item.get('f21')),
+            'amt': sf(item.get('f21')),
             'pe': sf(item.get('f175')), 'pb': sf(item.get('f23')),
             'total_mv': mv_data.get(code, {}).get('total_mv', '—'),
             'fund_inflow': round(sf(item.get('f62'))/1e8, 2) if item.get('f62') else '—',
@@ -280,7 +327,7 @@ def fill_sheet(ws, scores, date_str, is_template=False):
 # ========== 市场全景HTML ==========
 def gen_selestock_html(scores, date_str):
     import json
-    hdrs = ['排名','代码','名称','最新价','涨跌幅%','涨跌额','最高','最低',
+    hdrs = ['排名','代码','名称','持仓','最新价','涨跌幅%','涨跌额','最高','最低',
             '换手率%','量比','市盈率','市净率','成交额(亿)','RS得分','多因子','等级',
             '板块','总市值(亿)','ROE%','主力净流入(亿)','市场']
     data = []
@@ -333,11 +380,25 @@ tr:hover td{{background:#1a2744}}
 .pag button:hover{{background:#1c2333;border-color:#58a6ff}}
 .pag .act{{background:#1f6feb;border-color:#1f6feb}}.cnt{{color:#8b949e;font-size:13px}}
 .ft{{text-align:center;color:#8b949e;font-size:12px;margin-top:20px;padding-top:12px;border-top:1px solid #21262d}}
+.wb{{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;border:none}}
+.wb-hld{{background:#3fb95022;color:#3fb950;cursor:default}}
+.wb-un{{background:#8b949e22;color:#8b949e}}
+.wb-add{{background:#58a6ff22;color:#58a6ff}}
+.wb-add:hover{{background:#58a6ff44}}
+.wb-rm{{background:#f8514922;color:#f85149}}
+.wb-rm:hover{{background:#f8514944}}
+.wb-loading{{opacity:0.5;pointer-events:none}}
+.fl-btn{{display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #30363d;background:#0d1117;color:#8b949e;margin-right:4px;user-select:none}}
+.fl-btn:hover{{border-color:#58a6ff;color:#e6edf3}}
+.fl-btn.act{{background:#58a6ff;color:#fff;border-color:#58a6ff}}
 </style></head><body><div class=container>
 <h1>📊 市场全景 | {date_str}</h1>
 <p class=sub>共{total}只 · 双击列头排序</p>
 <div class=ctl>
 <select id=sf onchange=r()><option value=>全部板块</option><option>科技/半导体</option><option>通信/电子</option><option>AI/数字经济</option><option>化工/材料</option><option>能源/公用事业</option><option>其他</option></select>
+<span class=fl-btn act data-fw=all onclick=fw(this,'all')>📋 全部</span>
+<span class=fl-btn data-fw=hold onclick=fw(this,'hold')>🔴 仅持仓</span>
+<span class=fl-btn data-fw=unhold onclick=fw(this,'unhold')>⚪ 仅未持仓</span>
 <select id=mf onchange=r()><option value=>全部市场</option><option>沪市主板</option><option>深市主板</option><option>创业板</option><option>科创板</option><option>北交所</option><option>退市</option></select>
 <select id=gf onchange=r()><option value=>全部等级</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
 <input id=si placeholder="🔍 代码/名称..." oninput=r() style=flex:1>
@@ -353,9 +414,13 @@ function gv(it,k){let v=it[k];if(v==='—'||v==null)return '';if(typeof v==='num
 function fl(){let s=document.getElementById('sf').value,m=document.getElementById('mf').value,g=document.getElementById('gf').value,q=document.getElementById('si').value.toLowerCase()
 return ad.filter(it=>{if(s&&it['板块']!==s)return 0;if(m&&it['市场']!==m)return 0;if(g&&it['等级']!==g)return 0;if(q&&!String(it['代码']).includes(q)&&!String(it['名称']).toLowerCase().includes(q))return 0;return 1})}
 function st(k){sk===k?sa=!sa:(sk=k,sa=!1);r()}
-function cl(k,v){
+let wh={};let wf='all';
+function fw(el,m){wf=m;document.querySelectorAll('.fl-btn').forEach(b=>b.classList.toggle('act',b===el));r()}
+async function loadWatchlist(){try{let r=await fetch('http://127.0.0.1:18790/watchlist');let d=await r.json();d.codes.forEach(c=>wh[c]=1)}catch(e){console.log('⚠️ 未连接持仓API')}}
+function cl(k,v,code){
 if(v===''||v==null)return '<td class=gy>—</td>'
 if(k==='排名')return '<td class='+(v===1?'r1':v===2?'r2':v===3?'r3':'')+'>'+v+'</td>'
+if(k==='持仓'){let isH=wh[code];return isH?'<td><span class="wb wb-hld">🔴 已持仓</span><span class="wb wb-rm" onclick=toggleHold("'+code+'","'+v+'",0)>➖</span></td>':'<td><span class="wb wb-un">⚪ 未持仓</span><span class="wb wb-add" onclick=toggleHold("'+code+'","'+v+'",1)>➕</span></td>'}
 if(k==='涨跌幅%'||k==='涨跌额'){let n=parseFloat(v);if(isNaN(n))return '<td>'+v+'</td>';return '<td class='+(n>0?'up':n<0?'dn':'gd')+'>'+(n>0?'+':'')+v+(k==='涨跌幅%'?'%':'')+'</td>'}
 if(k==='等级'){return '<td><span class=tag t-'+String(v).toLowerCase().replace('+','ap')+'>'+v+'</span></td>'}
 if(k==='板块'){return '<td class='+({'科技/半导体':'up','通信/电子':'gd','AI/数字经济':'pu','化工/材料':'bl','能源/公用事业':'gn','其他':'gy'}[String(v)]||'')+'>'+v+'</td>'}
@@ -364,20 +429,28 @@ if(['换手率%','量比','RS得分','多因子'].includes(k)){let n=parseFloat(
 if(k==='市盈率'){let n=parseFloat(v);if(!isNaN(n)&&n>0)return '<td class='+(n<=15?'zg':n<=30?'zy':'zr')+'>'+v+'</td>'}
 if(k==='主力净流入(亿)'){let n=parseFloat(v);if(!isNaN(n))return '<td class='+(n>0.5?'up':n<-0.5?'dn':'')+'>'+v+'</td>'}
 return '<td class=gd>'+(typeof v==='number'?v.toFixed(2):v)+'</td>'}
-function r(){let f=fl();if(sk)f.sort((a,b)=>{let va=gv(a,sk),vb=gv(b,sk);return typeof va==='number'&&typeof vb==='number'?(sa?va-vb:vb-va):sa?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va))})
+async function toggleHold(code,name,add){
+let btns=document.querySelectorAll('.wb');btns.forEach(b=>b.classList.add('wb-loading'))
+try{let url='http://127.0.0.1:18790/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);await fetch(url,{method:add?'POST':'DELETE'});if(add)wh[code]=1;else delete wh[code];r()}catch(e){alert('操作失败: '+e.message)}
+btns.forEach(b=>b.classList.remove('wb-loading'))}
+function r(){let f=fl();
+if(wf==='hold')f=f.filter(it=>wh[it['代码']]);
+if(wf==='unhold')f=f.filter(it=>!wh[it['代码']]);
+if(sk)f.sort((a,b)=>{let va=gv(a,sk),vb=gv(b,sk);return typeof va==='number'&&typeof vb==='number'?(sa?va-vb:vb-va):sa?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va))})
 document.getElementById('cn').textContent=f.length+'条'
 let tp=Math.ceil(f.length/PS)||1;if(cp>tp)cp=tp;let s=(cp-1)*PS,pg=f.slice(s,s+PS)
-document.getElementById('tb').innerHTML=pg.map(it=>'<tr>'+hd.map(k=>cl(k,it[k])).join('')+'</tr>').join('')
+document.getElementById('tb').innerHTML=pg.map(it=>'<tr>'+hd.map(k=>cl(k,it[k],it['代码'])).join('')+'</tr>').join('')
 let pb='',st=Math.max(1,cp-7),en=Math.min(tp,st+15);if(st>1)pb+='<button onclick=gp('+(cp-1)+')>◀</button>'
 for(let i=st;i<=en;i++)pb+='<button class='+(i===cp?'act':'')+' onclick=gp('+i+')>'+i+'</button>'
 if(en<tp)pb+='<button onclick=gp('+Math.min(cp+1,tp)+')>▶</button>'
 document.getElementById('pg').innerHTML=pb}
 function gp(p){cp=p;r()}
-setTimeout(r,100)
+
+loadWatchlist();setTimeout(r,100)
 </script></body></html>'''
 
     # 保存两份：selestock/index.html（最新版）+ selestock/YYYY-MM-DD.html（历史版）
-    sel_dir = os.path.join(os.path.dirname(EXCEL_PATH).replace('/股票',''), 'daily-report-html', 'selestock')
+    sel_dir = os.path.join('/Users/shisan/.openclaw/workspace', 'daily-report-html', 'selestock')
     if not os.path.exists(sel_dir):
         os.makedirs(sel_dir, exist_ok=True)
     
@@ -451,31 +524,45 @@ def main():
     # B) 今日sheet不存在 → 需要新生成
     need_new_today = sheet_name not in wb.sheetnames
     
-    if not need_generate and not need_new_today and not template_changed:
-        log("✅ 今日已有，模板未变，无需操作")
-        wb.save(EXCEL_PATH)
-        wb.close()
-        return "✅ 今日sheet已存在，模板未变化，无需生成"
-    
     # 获取/加载今日数据
     today_stocks, today_mv = None, None
-    if need_new_today or template_changed:
-        log("🔄 获取今日行情数据...")
-        today_stocks = fetch_all_stocks()
-        if today_stocks:
+    
+    # 市场全景需要全量数据，即使Sheet已存在也要拉取
+    log("🔄 获取今日行情数据（用于市场全景）...")
+    today_stocks = fetch_all_stocks()
+    if today_stocks:
+        # 数据完整性检查：全市场正常应≥5000只，不足则用历史存档兜底
+        if len(today_stocks) < 5000:
+            log(f"⚠️ 数据不完整({len(today_stocks)}只)，尝试加载历史存档兜底...")
+            h_sd, h_mv = load_history(date_str)
+            if h_sd and len(h_sd) >= len(today_stocks):
+                today_stocks, today_mv = h_sd, h_mv
+                log(f"✅ 使用历史存档: {len(today_stocks)}只")
+            else:
+                today_mv = fetch_market_values(list(today_stocks.keys()))
+                save_history(date_str, today_stocks, today_mv)
+                log(f"✅ 行情数据: {len(today_stocks)}只（不全，但无更完整存档）")
+        else:
             today_mv = fetch_market_values(list(today_stocks.keys()))
             save_history(date_str, today_stocks, today_mv)
-            log("🧮 计算今日评分...")
+            log(f"✅ 行情数据: {len(today_stocks)}只")
+    elif not need_new_today:
+        # 拉取失败，尝试加载历史
+        log("⚠️ 拉取失败，尝试加载历史数据...")
+        today_stocks, today_mv = load_history(date_str)
+        if today_stocks:
+            log(f"✅ 加载历史数据: {len(today_stocks)}只")
     
     # 生成今日sheet
+    scores = None
     if need_new_today and today_stocks:
         scores = calc_scores(today_stocks, today_mv)
         new_ws = wb.copy_worksheet(template_ws)
         new_ws.title = sheet_name
-        fill_sheet(new_ws, scores, date_str)
-        wb.move_sheet(sheet_name, offset=len(wb.sheetnames)-1-wb.sheetnames.index(sheet_name))
-        save_fingerprint(wb, date_str, current_fp)
-        log(f"✅ 新增: {sheet_name} ({len(scores)}只)")
+    elif today_stocks and today_mv:
+        # Sheet已存在，只需计算评分用于市场全景
+        scores = calc_scores(today_stocks, today_mv)
+        log(f"✅ 评分已计算: {len(scores)}只（用于市场全景）")
     
     # 回溯重新生成
     for sn, d in need_generate:
