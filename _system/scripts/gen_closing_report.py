@@ -335,6 +335,8 @@ try:
     sec_disp = {'能源/公用事业':'⚡ 能源/公用事业','通信/电子':'📡 通信/电子','科技/半导体':'💻 科技/半导体','化工/材料':'🧪 化工/材料','AI/数字经济':'🤖 AI/数字','其他':'📦 其他'}
     # 按评级统计
     rating_stats = {'A+/A': [0, 0], 'B': [0, 0], 'C/D': [0, 0]}
+    # 按方向统计
+    dir_stats = {'↑ 看涨': [0, 0], '↓ 看跌': [0, 0], '— 中性': [0, 0]}
     # 按板块统计
     sector_stats = {}
     for sec in sector_order:
@@ -379,6 +381,10 @@ try:
                 if rank in ('A+', 'A'): dev_ += '高估看涨'
                 elif rank in ('C', 'D'): dev_ += '高估看跌'
                 else: dev_ += '中性震荡'
+            # 跟踪方向统计
+            _dir_key = '↑ 看涨' if rank in ('A+', 'A') else ('↓ 看跌' if rank in ('C', 'D') else '— 中性')
+            if flag == chr(9989): dir_stats[_dir_key][0] += 1
+            dir_stats[_dir_key][1] += 1
             # 跟踪评级统计
             if rank in ('A+', 'A'): rating_stats['A+/A'][1] += 1
             elif rank in ('C', 'D'): rating_stats['C/D'][1] += 1
@@ -430,13 +436,6 @@ try:
     stats_html += '<p style="font-size:14px;font-weight:700;margin:0 0 8px">'
     stats_html += '综合准确率 <span style="color:#f0f6fc">' + str(total_correct) + '/' + str(total_all) + '</span> = <span style="color:#d9a52e">' + ('%.0f%%' % (total_correct/total_all*100 if total_all else 0)) + '</span>'
     stats_html += '</p>\n'
-    # 按评级
-    stats_html += '<table style="margin-bottom:6px;width:100%"><colgroup><col style="width:35%"><col style="width:40%"><col style="width:25%"></colgroup><tr><th>评级</th><th style="text-align:center">正确/总数</th><th style="text-align:right">准确率</th></tr>\n'
-    for rk, (rc, rt) in rating_stats.items():
-        rp = rc / rt * 100 if rt else 0
-        rcls = '#f85149' if rp >= 70 else ('#d9a52e' if rp >= 50 else '#3fb950')
-        stats_html += '<tr><td>' + rk + '</td><td style="text-align:center">' + str(rc) + '/' + str(rt) + '</td><td style="text-align:right;color:' + rcls + '">' + ('%.0f%%' % rp) + '</td></tr>\n'
-    stats_html += '</table>\n'
     # 按板块
     stats_html += '<table style="width:100%"><colgroup><col style="width:35%"><col style="width:40%"><col style="width:25%"></colgroup><tr><th>板块</th><th style="text-align:center">正确/总数</th><th style="text-align:right">准确率</th></tr>\n'
     for sec in sector_order:
@@ -447,6 +446,21 @@ try:
         sd = sec_disp.get(sec, sec)
         stats_html += '<tr><td>' + sd + '</td><td style="text-align:center">' + str(sc) + '/' + str(st) + '</td><td style="text-align:right;color:' + scls + '">' + ('%.0f%%' % sp_val) + '</td></tr>\n'
     stats_html += '</table></div>\n'
+    # 按评级
+    stats_html += '<table style="margin-bottom:6px;width:100%"><colgroup><col style="width:35%"><col style="width:40%"><col style="width:25%"></colgroup><tr><th>评级</th><th style="text-align:center">正确/总数</th><th style="text-align:right">准确率</th></tr>\n'
+    for rk, (rc, rt) in rating_stats.items():
+        rp = rc / rt * 100 if rt else 0
+        rcls = '#f85149' if rp >= 70 else ('#d9a52e' if rp >= 50 else '#3fb950')
+        stats_html += '<tr><td>' + rk + '</td><td style="text-align:center">' + str(rc) + '/' + str(rt) + '</td><td style="text-align:right;color:' + rcls + '">' + ('%.0f%%' % rp) + '</td></tr>\n'
+    stats_html += '</table>\n'
+    # 按方向
+    stats_html += '<table style="width:100%;margin-bottom:6px"><colgroup><col style="width:35%"><col style="width:40%"><col style="width:25%"></colgroup><tr><th>盘前方向</th><th style="text-align:center">正确/总数</th><th style="text-align:right">准确率</th></tr>\n'
+    for dk, (dc, dt) in dir_stats.items():
+        if dt == 0: continue
+        dp = dc / dt * 100
+        dcls = '#f85149' if dp >= 70 else ('#d9a52e' if dp >= 50 else '#3fb950')
+        stats_html += '<tr><td>' + dk + '</td><td style="text-align:center">' + str(dc) + '/' + str(dt) + '</td><td style="text-align:right;color:' + dcls + '">' + ('%.0f%%' % dp) + '</td></tr>\n'
+    stats_html += '</table>\n'
     prediction_html += stats_html
     
     prediction_html += '<h3 style="font-size:13px;font-weight:600;color:#56d4dd;margin:12px 0 4px">个股预测验证</h3>\n'
