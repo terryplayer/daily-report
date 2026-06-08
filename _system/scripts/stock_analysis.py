@@ -282,6 +282,16 @@ def calc_rs(history, days=5):
                 "stock_change_pct": round(stock_change, 2),
                 "bench_change_pct": round(bench_change, 2),
             })
+        else:
+            # 无足够历史数据→默认值（后续数据积累后自动变实际值）
+            results.append({
+                "code": code,
+                "name": stock["name"],
+                "sector": stock["sector"],
+                "rs_value": 0,
+                "stock_change_pct": 0,
+                "bench_change_pct": round(bench_change, 2),
+            })
 
     # 按RS值从高到低排序
     results.sort(key=lambda x: x["rs_value"], reverse=True)

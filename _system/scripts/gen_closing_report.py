@@ -32,6 +32,46 @@ bot_sectors = sec_mom.get('bottom_sectors', [])
 ts_lookup = cache.get('tech_signals', {})
 
 sector_order = ['能源/公用事业', '通信/电子', '科技/半导体', '化工/材料', 'AI/数字经济', '其他']
+
+# ─── 全量77只持仓数据（合并rs_ranking + multi_stocks + stock_mom + 当日涨跌）────────────────
+try:
+    with open('data/stock_history.json') as _sf:
+        _sd = json.load(_sf)
+    _sh = _sd.get('history', {})
+    _sd_keys = sorted(_sh.keys())
+    _sd_latest = _sd_keys[-1] if _sd_keys else ''
+    _sd_prev = _sd_keys[-2] if len(_sd_keys) >= 2 else ''
+except:
+    _sh, _sd_latest, _sd_prev = {}, '', ''
+
+all_stocks_full = []
+for w in wl.get('watchlist', []):
+    _c = w['code']
+    _rs = rs_ranking.get(_c, {})
+    _mf = multi_stocks.get(_c, {})
+    _mom = stock_mom.get(_c, {})
+    _ts = ts_lookup.get(_c, {}).get('signals', {})
+    # 当日涨跌幅: 优先从stock_history最新日取，其次从vol_alerts取，最后用RS的数据作保底
+    _daily_chg = 0.0
+    if _sd_latest and _sd_latest in _sh:
+        _day_stock = _sh[_sd_latest].get('stocks', {}).get(_c, {})
+        _daily_chg = float(_day_stock.get('change_pct', _day_stock.get('pct_chg', 0)))
+    if _daily_chg == 0.0:
+        _va = vol_alerts.get(_c, {})
+        _daily_chg = float(_va.get('today_change', 0))
+    all_stocks_full.append({
+        'code': _c, 'name': w.get('name', '?'), 'sector': w.get('sector', '其他'),
+        'stock_change_pct': _daily_chg,  # ✅ 真正的当日涨跌幅
+        'rs_change_pct': _rs.get('stock_change_pct', _mf.get('stock_change_pct', 0)),  # 5日RS区间涨幅（供RS排名用）
+        'rank': _rs.get('rank', 'B'),
+        'rs_value': _rs.get('rs_value', 50),
+        'total_score': _mf.get('total_score', 5),
+        'trend_label': _mom.get('trend_label', ''),
+        'close': _ts.get('close', 0),
+        'ma5': _ts.get('ma5', 0),
+        'bollinger': _ts.get('bollinger', []),
+        'kdj': _ts.get('kdj', []),
+    })
 sector_display = {
     '能源/公用事业': '⚡ 能源/公用', '通信/电子': '📡 通信/电子',
     '科技/半导体': '💻 科技/半导体', '化工/材料': '🧪 化工/材料',
@@ -164,8 +204,8 @@ worst_sec = min(sec_ac, key=sec_ac.get)
 up_list, down_list, flat_list = [], [], []
 for sec in sector_order:
     ac = sec_ac[sec]
-    srs = [x for x in cache['rs_ranking'] if x.get('sector') == sec]
-    pump = [x for x in srs if abs(x.get('stock_change_pct', 0)) > 8]
+    srs_daily = [x for x in all_stocks_full if x.get('sector') == sec]
+    pump = [x for x in srs_daily if abs(x.get('stock_change_pct', 0)) > 8]
     pn = '、'.join([x['name'] + ('%+.2f%%' % x.get('stock_change_pct', 0)) for x in pump])
     sec_n = sector_display.get(sec, sec)
     if pn:
@@ -280,7 +320,7 @@ try:
     # ─── 个股预测验证 ───
     up_arrow = chr(8593); down_arrow = chr(8595); dash = chr(8212)
     stock_by_sec = {sec: [] for sec in sector_order}
-    for s in cache['rs_ranking']:
+    for s in all_stocks_full:
         sec = s.get('sector', '')
         code = s.get('code', '')
         rank = rs_ranking.get(code, {}).get('rank', 'B')
@@ -427,7 +467,7 @@ except Exception as e:
 # 读取盘前和午间报告中实际打🔥标签的股票名单（取并集）
 # 按板块分组+组内涨跌幅排序（保持板块固定顺序）
 _sec_stocks_map = {}
-for s in cache['rs_ranking']:
+for s in all_stocks_full:
     sec = s.get('sector', '其他')
     _sec_stocks_map.setdefault(sec, []).append(s)
 for sec in _sec_stocks_map:
@@ -522,7 +562,7 @@ holdings_html = (
 # 4. 技术面信号 — 按板块分组
 # ──────────────────────────────────────────────
 
-scored = sorted(cache['rs_ranking'], key=lambda x: x.get('rs_value', 0), reverse=True)
+scored = sorted(all_stocks_full, key=lambda x: x.get('rs_value', 0), reverse=True)
 # 按板块分组排序
 stocks_by_sec = {}
 for s in scored:
@@ -696,7 +736,7 @@ rh = f'<table><tr><th>股票</th><th>涨跌幅</th><th>预警</th></tr>\n{vol_ro
 # 8. 今日总结 & 明日展望
 # ──────────────────────────────────────────────
 top3_stocks = sorted(cache['rs_ranking'], key=lambda x: x.get('stock_change_pct', 0), reverse=True)[:3]
-pump_stocks = [s for s in cache['rs_ranking'] if s.get('stock_change_pct', 0) >= 9.5]
+pump_stocks = [s for s in all_stocks_full if abs(s.get('stock_change_pct', 0)) >= 9.5]
 
 summary_parts = [f'{best_idx_name}{best_idx_val:+.2f}%领涨']
 if up_holdings or dn_holdings:
@@ -746,7 +786,7 @@ for k, v in replacements:
 # 今日要闻
 news_parts = []
 sec_news = {}
-for s in cache['rs_ranking']:
+for s in all_stocks_full:
     chg = s.get('stock_change_pct', 0)
     sec = s.get('sector', '')
     if abs(chg) >= 3:
