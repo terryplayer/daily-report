@@ -93,64 +93,69 @@ def _get_config_sheet(wb):
 
 # ========== 数据获取 ==========
 def fetch_all_stocks(max_time=180):
-    """拉取全市场行情，带全局超时保护 max_time 秒。失败则走Tushare备选。"""
+    """拉取全市场行情。主用Tushare Pro（稳定0.5s），东方财富API作兜底。"""
+    date_str = datetime.now().strftime("%Y%m%d")
     all_data = {}
-    total_pages = 56
-    start_t = time.time()
-    failed_count = 0
     
-    for page in range(1, total_pages + 1):
-        if time.time() - start_t > max_time:
-            log(f"⚠️ 全局超时 {max_time}s，已获取 {len(all_data)} 只，跳过剩余页")
-            break
-        # 每10页间隔0.5秒，降低限流触发概率
-        if page % 10 == 0 and page > 1:
-            time.sleep(0.5)
-        url = (f'https://push2.eastmoney.com/api/qt/clist/get?'
-               f'pn={page}&pz=100&po=1&np=1&fltt=2&invt=2&fid=f3'
-               f'&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23'
-               f'&fields=f2,f3,f4,f5,f12,f14,f15,f20,f21,f62,f168,f169,f184,f175,f23')
-        success = False
-        for retry in range(3):
-            if time.time() - start_t > max_time:
-                break
+    # Phase 1: Tushare Pro
+    try:
+        import tushare as ts
+        tk = open(os.path.join(os.path.dirname(__file__), '..', 'data', 'tushare_token.txt')).read().strip()
+        ts.set_token(tk)
+        pro = ts.pro_api()
+        
+        # 加载名称映射
+        try:
+            with open(os.path.join(os.path.dirname(__file__), 'name_map.json')) as _f:
+                _nm = json.load(_f)
+        except:
+            _nm = {}
+        
+        start_t = time.time()
+        df = pro.daily(trade_date=date_str)
+        if df is not None and len(df) > 1000:
+            for _, row in df.iterrows():
+                code = row['ts_code'][:6]
+                chg = float(row.get('pct_chg', 0))
+                all_data[code] = {
+                    'f12': code,
+                    'f14': _nm.get(code, ''),
+                    'f2': float(row.get('close', 0)),
+                    'f3': chg,
+                    'f4': abs(chg) if chg else 0,
+                    'f15': float(row.get('high', 0)),
+                    'f16': float(row.get('low', 0)),
+                    'f20': float(row.get('amount', 0) or 0) / 1e8,
+                    'f62': float(row.get('vol', 0) or 0) / 1e4,
+                    'f168': float(row.get('vol', 0) or 0),
+                    'f169': float(row.get('vol', 0) or 0),
+                    'f175': float(row.get('pe', 0) or 0),
+                    'f23': float(row.get('pb', 0) or 0),
+                }
+            log(f"✅ Tushare行情: {len(all_data)}只（{time.time()-start_t:.1f}s）")
+            return all_data
+        log(f"⚠️ Tushare数据不足({len(df) if df is not None else 0}只)")
+    except Exception as e:
+        log(f"⚠️ Tushare失败: {e}")
+    
+    # Phase 2: 东方财富API兜底
+    log("🔄 东方财富API兜底...")
+    start_t = time.time()
+    for page in range(1, 57):
+        url = 'https://push2.eastmoney.com/api/qt/clist/get?pn=%d&pz=100&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f2,f3,f12,f14,f15,f20,f62,f168,f169,f175,f23' % page
+        for retry in range(2):
             try:
                 req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
-                resp = urllib.request.urlopen(req, timeout=12).read().decode('utf-8')
+                resp = urllib.request.urlopen(req, timeout=8).read().decode('utf-8')
                 for item in json.loads(resp).get('data',{}).get('diff',[]):
                     all_data[item.get('f12','')] = item
-                if page % 10 == 0:
-                    log(f"  行情 {page}/{total_pages}页: 累计{len(all_data)}只")
-                success = True
                 break
             except:
-                time.sleep(1 if retry == 0 else 2)
-        if not success:
-            failed_count += 1
-    
-    # 如果大量失败（>5页），提前切换到Tushare备选
-    if failed_count > 5 or len(all_data) < 3000:
-        log(f"⚠️ 东方财富API大量失败({failed_count}页)，切换到Tushare备选...")
-        try:
-            import tushare as ts
-            tk = open('/Users/shisan/.openclaw/workspace/data/tushare_token.txt').read().strip()
-            ts.set_token(tk)
-            pro = ts.pro_api()
-            df = pro.daily(trade_date=datetime.now().strftime("%Y%m%d"))
-            if df is not None and len(df) > 1000:
-                all_data.clear()
-                for _, row in df.iterrows():
-                    code = row['ts_code'][:6]
-                    all_data[code] = {
-                        'f12': code, 'f14': row.get('name', ''), 'f2': row.get('close', 0),
-                        'f3': row.get('pct_chg', 0), 'f15': row.get('high', 0), 'f16': row.get('low', 0),
-                        'f20': row.get('amount', 0), 'f62': 0, 'f168': 0
-                    }
-                log(f"✅ Tushare备选: {len(all_data)}只")
-        except Exception as e:
-            log(f"❌ Tushare备选也失败: {str(e)[:60]}")
-    
-    log(f"✅ 行情数据: {len(all_data)}只 (用时{time.time()-start_t:.0f}s)")
+                time.sleep(1)
+    if all_data:
+        log(f"✅ 东财兜底: {len(all_data)}只（{time.time()-start_t:.0f}s）")
+    else:
+        log(f"❌ 所有数据源均失败")
     return all_data
 
 def fetch_market_values(all_codes, max_time=60):
