@@ -51,11 +51,14 @@ def s(val, fmt='.2f'):
 # 1. 大盘指数收盘
 # ──────────────────────────────────────────────
 import tushare as ts
+from datetime import date as _idx_date
+_idx_today = _idx_date.today().strftime('%Y%m%d')
+
 idx_conf = [
-    ('000001.SH', '上证指数', '4,083.97', '+0.22'),
-    ('399001.SZ', '深证成指', '15,704.71', '+0.73'),
-    ('399006.SZ', '创业板指', '4,122.99', '+1.65'),
-    ('000688.SH', '科创50', '1,726.18', '+2.11'),
+    ('000001.SH', '上证指数', None, None),
+    ('399001.SZ', '深证成指', None, None),
+    ('399006.SZ', '创业板指', None, None),
+    ('000688.SH', '科创50', None, None),
 ]
 
 
@@ -66,7 +69,7 @@ def _fetch_index(tc, dp, dc):
             'python3', '-c',
             'import tushare as ts;ts.set_token(open("data/tushare_token.txt").read().strip());'
             'pro=ts.pro_api();df=pro.index_daily(ts_code="' + tc + '",'
-            'start_date="20260603",end_date="20260603");'
+            'start_date="' + _idx_today + '",end_date="' + _idx_today + '");'
             'print(df.to_json(orient="records") if df is not None else "null");'
         ], capture_output=True, text=True, timeout=10)
         if r.stdout and len(r.stdout) > 10:
@@ -78,7 +81,21 @@ def _fetch_index(tc, dp, dc):
                 return pr, cg
     except:
         pass
-    return dp, dc
+    # 保底: 从 stock_history.json 上证数据
+    try:
+        with open('data/stock_history.json') as f:
+            hist = json.load(f)
+        dates = sorted(hist.get('history', {}).keys())
+        if dates:
+            day = hist['history'][dates[-1]]
+            bm = day.get('benchmark', {})
+            pr = str(int(bm.get('close', 0)))
+            cg = '%+.2f' % bm.get('change_pct', 0)
+            if tc == '000001.SH':
+                return pr, cg
+    except:
+        pass
+    return '—', '—'
 
 
 m = ''
