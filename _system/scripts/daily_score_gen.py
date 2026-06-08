@@ -571,14 +571,25 @@ def main():
     
     # 生成今日sheet
     scores = None
-    if need_new_today and today_stocks:
+    if today_stocks and today_mv:
         scores = calc_scores(today_stocks, today_mv)
-        new_ws = wb.copy_worksheet(template_ws)
-        new_ws.title = sheet_name
-    elif today_stocks and today_mv:
-        # Sheet已存在，只需计算评分用于市场全景
-        scores = calc_scores(today_stocks, today_mv)
-        log(f"✅ 评分已计算: {len(scores)}只（用于市场全景）")
+        if need_new_today:
+            # 创建新sheet
+            new_ws = wb.copy_worksheet(template_ws)
+            new_ws.title = sheet_name
+        else:
+            # Sheet已存在 → 强制覆盖刷新
+            log(f"🔄 强制刷新: {sheet_name}")
+            old_idx = wb.sheetnames.index(sheet_name)
+            old_sheet = wb[sheet_name]
+            wb.remove(old_sheet)
+            new_ws = wb.copy_worksheet(template_ws)
+            new_ws.title = sheet_name
+            # 移回原来位置
+            new_idx = wb.sheetnames.index(sheet_name)
+            target = min(old_idx, len(wb.sheetnames)-1)
+            wb.move_sheet(sheet_name, offset=target-new_idx)
+        fill_sheet(new_ws, scores, date_str)
     
     # 回溯重新生成
     for sn, d in need_generate:
