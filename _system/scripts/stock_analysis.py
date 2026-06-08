@@ -542,7 +542,7 @@ def get_tech_signals(code, history):
             closes.append(c)
     closes.reverse()
     if len(closes) < 5:
-        return {"status": f"数据不足({len(closes)}天)", "data_days": len(closes), "signals": {"close": closes[-1] if closes else 0, "data_days": len(closes)}}
+        return {"status": f"数据不足({len(closes)}天)", "data_days": len(closes), "signals": {"close": closes[-1] if closes else 0, "data_days": len(closes), "mrd_pct": 0}}
     signals = {
         "close": closes[-1], "data_days": len(closes),
         "ma5": calc_ma(closes, min(5, len(closes))),
@@ -552,6 +552,7 @@ def get_tech_signals(code, history):
         "macd": calc_macd(closes),
         "bollinger": calc_bollinger(closes, min(20, len(closes))),
         "kdj": calc_kdj(closes, min(9, len(closes))),
+        "mrd_pct": round((closes[-1] - sum(closes[-5:])/5) / (sum(closes[-5:])/5) * 100, 2) if len(closes) >= 5 else 0,
     }
     notes = []
     if signals["rsi14"] is not None:

@@ -132,6 +132,18 @@ for code in watch_codes:
         if sec in alert_by_sec:
             alert_by_sec[sec].append((code, name, chg, cls, ms, sig_color, opt_clr))
 
+# ─── MRD查找表(from缓存tech_signals)────────────────
+_ts_lookup = cache.get('tech_signals', {})
+_mrd_lookup = {}
+for _c, _v in _ts_lookup.items():
+    if isinstance(_v, dict):
+        _s = _v.get('signals', {})
+        if isinstance(_s, dict) and 'signals' in _s:
+            _s = _s['signals']
+        _mrd = _s.get('mrd_pct')
+        if _mrd is not None:
+            _mrd_lookup[_c] = _mrd
+
 alerts_html = ''
 for sec in sector_order:
     sec_alerts = alert_by_sec.get(sec, [])
@@ -142,7 +154,13 @@ for sec in sector_order:
     alerts_html += '<table><colgroup><col style="width:14%"><col style="width:12%"><col style="width:12%"><col style="width:10%"><col style="width:8%"><col style="width:20%"><col style="width:24%"></colgroup>'
     alerts_html += '<tr><th>股票</th><th>代码</th><th>半日涨跌</th><th>MOM</th><th>MRD</th><th>信号分析</th><th>下午建议</th></tr>\n'
     for code, name, chg, cls, ms, sig_color, opt_clr in sec_alerts:
-        alerts_html += '<tr><td>' + name + '</td><td>' + code + '</td><td class="' + cls + '">' + ('%+.1f%%' % chg) + '</td><td>' + str(ms) + '</td><td style="color:#8b949e">\u2014</td>'
+        mrd_v = _mrd_lookup.get(code, None)
+        if mrd_v is not None:
+            mrd_clr = '#f85149' if abs(mrd_v) > 3 else ('#3fb950' if mrd_v < -3 else '#8b949e')
+            mrd_cell = f'<td style="font-size:11px;color:{mrd_clr}">{mrd_v:+.1f}%</td>'
+        else:
+            mrd_cell = '<td style="color:#8b949e">—</td>'
+        alerts_html += '<tr><td>' + name + '</td><td>' + code + '</td><td class="' + cls + '">' + ('%+.1f%%' % chg) + '</td><td>' + str(ms) + '</td>' + mrd_cell
         alerts_html += '<td style="font-size:11px;color:' + sig_color + '">' + ('%+.1f%%' % chg) + '异动</td>'
         alerts_html += '<td style="font-size:11px">' + opt_clr + '</td></tr>\n'
     alerts_html += '</table>\n'
