@@ -542,7 +542,7 @@ def get_tech_signals(code, history):
             closes.append(c)
     closes.reverse()
     if len(closes) < 5:
-        return {"status": f"数据不足({len(closes)}天)", "data_days": len(closes)}
+        return {"status": f"数据不足({len(closes)}天)", "data_days": len(closes), "signals": {"close": closes[-1] if closes else 0, "data_days": len(closes)}}
     signals = {
         "close": closes[-1], "data_days": len(closes),
         "ma5": calc_ma(closes, min(5, len(closes))),
