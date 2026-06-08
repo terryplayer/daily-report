@@ -168,18 +168,37 @@ def calc_opt(code, rank, chg):
         return f'\U0001f7e2 弱势\xb7关注{fmt(sup)}支撑' if '靠近支撑' in pos and sup else '\U0001f7e2 继续走弱\xb7减仓'
     return '\u26aa 窄幅震荡\xb7持有'
 
-# 收集板块对比中的代表个股（用于打🔥标签）
-rep_stocks_in_sec = set()
+# ─── 🔥📌 标签计算（与盘前规则一致）──────────────────
+# 🔥 = 统一模型板块推荐股（calc_sector_scores 中每个板块前3）
+sec_mom = cache.get('sector_momentum', {})
+top_sectors = sec_mom.get('top_sectors', [])
+bot_sectors = sec_mom.get('bottom_sectors', [])
+sec_summary = {s['sector']: s for s in cache.get('sector_ranking', [])}
+vol_alerts_list = [v for v in (cache.get('tech_signals') or {}).values()
+                   if isinstance(v, dict) and abs(v.get('today_change', 0)) >= 5]
+
+def _calc_strong_stocks():
+    """返回🔥股票名集合（每个板块RS排名前3）"""
+    strong = set()
+    for sec in sector_order:
+        sec_rs = [s for s in cache['rs_ranking'] if s.get('sector') == sec]
+        for s in sec_rs[:3]:
+            strong.add(s['name'])
+    return strong
+
+strong_stocks_in_sec = _calc_strong_stocks()
+
+# 📌 = 今日关注事件涉及的股票（北向·行业·异动）
+from datetime import date as _dt
+focus_stock_set = set()
 try:
-    with open('/tmp/premarket-predictions.json') as f:
-        pred = json.load(f)
-    sec_list = pred.get('sector_predictions', [])
-    if isinstance(sec_list, list):
-        for sec_item in sec_list:
-            sec_name = sec_item.get('sector', '')
-            sec_rs = [x for x in cache['rs_ranking'] if x.get('sector') == sec_name]
-            for x in sec_rs[:2]:
-                rep_stocks_in_sec.add(x['name'])
+    # 行业走强（top sector第一名）
+    if top_sectors:
+        sec_rs = [s for s in cache['rs_ranking'] if s.get('sector') == top_sectors[0]]
+        if sec_rs: focus_stock_set.add(sec_rs[0]['name'])
+    # 异动股（前2只）
+    for v in vol_alerts_list[:2]:
+        focus_stock_set.add(v.get('name', ''))
 except:
     pass
 
@@ -205,8 +224,14 @@ for sec in sector_order:
         tl = mom.get('trend_label', '')
         ms = 80 if '强势' in tl else (65 if '偏强' in tl else (35 if '偏弱' in tl else 50))
         name_display = w['name']
-        if w['name'] in rep_stocks_in_sec:
+        has_fire = w['name'] in strong_stocks_in_sec
+        has_focus = w['name'] in focus_stock_set
+        if has_fire and has_focus:
+            name_display = f'{w["name"]}&nbsp;<span class="tag-rec">\U0001f525</span>&nbsp;<span class="tag-focus">\U0001f4cc</span>'
+        elif has_fire:
             name_display = f'{w["name"]}&nbsp;<span class="tag-rec">\U0001f525</span>'
+        elif has_focus:
+            name_display = f'{w["name"]}&nbsp;<span class="tag-focus">\U0001f4cc</span>'
         opt_text = calc_opt(code, rank, chg)
         opt_html = opt_color(opt_text)
         rv = fmt(mom.get('resistance_10d', '\u2014'))
