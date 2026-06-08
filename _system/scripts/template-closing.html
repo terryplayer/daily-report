@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📊 收盘简报 | {{DATE}} {{WEEKDAY}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);color:#e6edf3;padding:24px 20px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:880px;margin:0 auto}
+h1{font-size:18px;color:#f85149;border-bottom:2px solid #f85149;padding-bottom:10px;margin-bottom:12px;letter-spacing:0.5px;font-weight:700}
+h2{font-size:14px;color:#f85149;margin:10px 0 8px;padding-bottom:6px;font-weight:600;letter-spacing:0.3px}
+.section{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px;margin-bottom:14px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:border-color 0.2s}
+.section:hover{border-color:#484f58}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th{background:linear-gradient(180deg,#1c2333,#21262d);color:#8b949e;padding:6px 10px;text-align:left;font-weight:600;font-size:11px;letter-spacing:0.3px;text-transform:uppercase;border-bottom:2px solid #30363d;white-space:nowrap}
+td{padding:5px 10px;border-bottom:1px solid #21262d;white-space:nowrap;font-size:12px}
+tr:hover td{background:rgba(48,54,61,0.4)}
+tr:last-child td{border-bottom:none}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}.flat{color:#d9a52e;font-weight:600}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:2px;letter-spacing:0.3px}
+.tag-rec{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(248,81,73,0.15);color:#f85149;font-weight:700;line-height:1.4}
+.tag-aplus{background:rgba(248,81,73,0.2);color:#ff6b6b}.tag-a{background:rgba(217,165,46,0.2);color:#e6b422}
+.tag-b{background:rgba(88,166,255,0.2);color:#79b8ff}.tag-c{background:rgba(139,148,158,0.2);color:#959da5}.tag-d{background:rgba(63,185,80,0.2);color:#56d364}
+.sc-aplus{color:#f85149;font-weight:700}.sc-a{color:#d9a52e;font-weight:700}
+.sc-b{color:#8b949e;font-weight:600}.sc-c{color:#58a6ff;font-weight:600}.sc-d{color:#3fb950;font-weight:600}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.metric-card{background:linear-gradient(180deg,#0d1117,#161b22);border:1px solid #21262d;border-radius:8px;padding:12px 8px;text-align:center;transition:all 0.2s}
+.metric-card:hover{border-color:#f85149;transform:translateY(-1px)}
+.metric-val{font-size:20px;font-weight:700;letter-spacing:0.5px}
+.metric-label{font-size:11px;color:#8b949e;margin-top:4px;font-weight:500}
+.tech-signal{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.tech-bullish{background:rgba(248,81,73,0.18);color:#ff6b6b}.tech-neutral{background:rgba(139,148,158,0.18);color:#959da5}.tech-bearish{background:rgba(63,185,80,0.18);color:#56d364}
+.stat-line{font-size:13px;margin:6px 0;line-height:1.6}
+.judge-up{color:#ff6b6b;font-weight:600}.judge-down{color:#56d364;font-weight:600}.judge-neutral{color:#959da5}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:20px;padding-top:14px;border-top:1px solid #21262d;letter-spacing:0.3px}
+.banner{background:linear-gradient(90deg,#f85149,#d93835);color:#fff;text-align:center;padding:5px;border-radius:6px;font-size:11px;margin-bottom:10px;letter-spacing:0.5px;font-weight:500}
+@media(max-width:600px){.metric-grid{grid-template-columns:repeat(2,1fr)}body{padding:14px 10px}td,th{padding:4px 6px;font-size:11px}}
+
+/* 关注/方向/压力支撑色 */
+.tag-focus{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(248,81,73,0.15);color:#f85149;font-weight:700;line-height:1.4}
+.tag-up{color:#f85149;font-weight:600}.tag-down{color:#3fb950;font-weight:600}
+.tag-hold{color:#8b949e;font-weight:600}
+.resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
+</style></head><body><div class="container">
+<div class="banner">📊 {{DATE}} {{WEEKDAY}} · 收盘简报</div>
+<h1>📊 收盘简报 · {{DATE}} {{WEEKDAY}}</h1>
+<div class="section"><h2>📊 大盘指数收盘</h2>{{INDEX_METRICS}}</div>
+<div class="section"><h2>🔄 板块评分 & 宏观背景</h2>{{SECTOR_SCORING}}</div>
+<div class="section"><h2>📋 持仓收盘明细</h2>{{HOLDINGS_DETAIL}}</div>
+<div class="section"><h2>📰 今日要闻</h2>{{TODAY_NEWS}}</div>
+<div class="section"><h2>📐 技术面信号</h2>{{TECH_SIGNALS}}</div>
+<div class="section"><h2>⚡ 波动预警</h2>{{VOLATILITY_ALERTS}}</div>
+<div class="section"><h2>🎯 盘前预测准确率</h2>{{PREDICTION_ACCURACY}}</div>
+<div class="section"><h2>⭐ 多因子评分排名</h2>{{MULTI_FACTOR_RANKING}}</div>
+<div class="section"><h2>⚠️ 风险提示</h2>{{RISK_WARNINGS}}</div>
+<div class="section"><h2>🔮 今日总结 & 明日展望</h2>{{SUMMARY_OUTLOOK}}</div>
+<div class="footer">🌀 收盘简报 · 统一模型 v1 · {{DATE}} {{WEEKDAY}}</div>
+</div></body></html>
