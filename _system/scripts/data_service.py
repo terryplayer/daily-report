@@ -205,7 +205,21 @@ class Handler(BaseHTTPRequestHandler):
         # /score/generate — 触发评分计算
         if parsed.path == "/score/generate":
             date_str = (qs.get("date") or [date.today().strftime("%Y-%m-%d")])[0]
-            return self._json({"status": "queued", "message": f"评分计算已触发: {date_str}", "note": "calc_score.py 尚未实现"})
+            import subprocess
+            try:
+                r = subprocess.run(["python3", "scripts/calc_score.py", date_str],
+                                 capture_output=True, text=True, timeout=120, cwd=WORKSPACE)
+                out = r.stdout + r.stderr
+                success = "✅" in r.stdout or "[RESULT]" in r.stdout
+                return self._json({
+                    "status": "ok" if success else "error",
+                    "output": out[-1000:],
+                    "date": date_str
+                })
+            except subprocess.TimeoutExpired:
+                return self._json({"status": "error", "message": "评分超时(>120s)"}, 504)
+            except Exception as e:
+                return self._json({"status": "error", "message": str(e)}, 500)
         
         self._json({"error": "not found"}, 404)
     

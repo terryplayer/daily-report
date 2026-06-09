@@ -1,0 +1,31 @@
+{
+  "fields": {
+    "f2":  {"desc": "最新价", "unit": "元", "scale": null, "keep": true},
+    "f3":  {"desc": "涨跌幅%", "unit": "%", "scale": null, "keep": true},
+    "f12": {"desc": "代码", "unit": null, "scale": null, "keep": true},
+    "f14": {"desc": "名称", "unit": null, "scale": null, "keep": true},
+    "f15": {"desc": "最高价", "unit": "元", "scale": null, "keep": true},
+    "f16": {"desc": "最低价", "unit": "元", "scale": null, "keep": true},
+    "f17": {"desc": "今开", "unit": "元", "scale": null, "keep": true},
+    "f18": {"desc": "昨收", "unit": "元", "scale": null, "keep": true},
+    "f20": {"desc": "成交额", "unit": "亿元", "scale": 1e5, "keep": true},
+    "f21": {"desc": "流通市值", "unit": "亿元", "scale": 1e8, "keep": true},
+    "f23": {"desc": "市净率", "unit": null, "scale": null, "keep": true},
+    "f62": {"desc": "换手率%", "unit": "%", "scale": null, "keep": true},
+    "f115": {"desc": "市盈率(动)", "unit": null, "scale": null, "keep": true},
+    "f168": {"desc": "量比", "unit": null, "scale": null, "keep": true},
+    "f175": {"desc": "市盈率(静)", "unit": null, "scale": null, "keep": true},
+    "f184": {"desc": "ROE%", "unit": "%", "scale": null, "keep": true},
+    "f100": {"desc": "细分行业", "unit": null, "scale": null, "keep": true}
+  },
+  "score": {
+    "rs_method": "existing_5day",
+    "weights": {"RS": 0.25, "MOM": 0.20, "MRD": 0.10, "multi_factor": 0.30, "rotation": 0.15},
+    "grade_thresholds": {"A+": 80, "A": 60, "B": 40, "C": 20, "D": 0},
+    "history_retention_days": 30
+  },
+  "schedule": {
+    "fetch_time": "19:00",
+    "score_time": "19:30"
+  }
+}
