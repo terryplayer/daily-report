@@ -144,7 +144,25 @@ class Handler(BaseHTTPRequestHandler):
                 "score_exists": os.path.exists(score_path),
             })
         
-        self._json({"error": "not found", "paths": ["/data/today","/data/list","/data/fields","/watchlist","/score/status"]}, 404)
+        # / 或 /selestock — 市场全景页面
+        if parsed.path == "/" or parsed.path == "/selestock" or parsed.path == "/selestock/":
+            return self._serve_file(os.path.join(WORKSPACE, "daily-report-html", "selestock", "index.html"))
+        
+        self._json({"error": "not found", "paths": ["/", "/selestock", "/data/today","/data/list","/data/fields","/watchlist","/score/status"]}, 404)
+    
+    def _serve_file(self, path):
+        if not os.path.exists(path):
+            return self._json({"error": "not found"}, 404)
+        ext = os.path.splitext(path)[1]
+        mime = {".html": "text/html; charset=utf-8", ".js": "application/javascript",
+                ".css": "text/css", ".json": "application/json",
+                ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml"}
+        self.send_response(200)
+        self.send_header("Content-Type", mime.get(ext, "application/octet-stream"))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        with open(path, "rb") as f:
+            self.wfile.write(f.read())
     
     # ── POST ─────────────────────────────────────
     def do_POST(self):
