@@ -163,6 +163,23 @@ def fetch_all_stocks(max_time=180):
                 time.sleep(1)
     if all_data:
         log(f"✅ 东财兜底: {len(all_data)}只（{time.time()-start_t:.0f}s）")
+        # 归一化东财数据字段（兼容东财原始格式与Tushare daily_basic格式差异）
+        for code in list(all_data.keys()):
+            item = all_data[code]
+            # f20: 成交额(元)→亿元
+            item['f20'] = round(float(item.get('f20', 0) or 0) / 1e8, 2)
+            # f62: 换手率 - 超过100的说明是原始值非百分比，置0
+            f62 = item.get('f62')
+            if f62 is None: item['f62'] = 0
+            elif isinstance(f62, (int,float)) and (f62 > 100 or f62 < 0): item['f62'] = 0
+            # f168/f169: 量比 - 超过100的说明是原始值非百分比
+            for _k in ['f168','f169']:
+                v = item.get(_k)
+                if v is None: item[_k] = 0
+                elif isinstance(v, (int,float)) and (v > 100 or v < 0): item[_k] = 0
+            # f175/f23/f21: PE/PB/流通市值 - None→0
+            for _k in ['f175','f23','f21']:
+                if item.get(_k) is None: item[_k] = 0
     else:
         log(f"❌ 所有数据源均失败")
     return all_data
