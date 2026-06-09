@@ -30,8 +30,14 @@ from datetime import date as dt_date
 review_date = dt_date.today().strftime('%Y-%m-%d')
 review_fn = review_date.replace('-', '')
 
+# 读取持仓清单并过滤
+with open('scripts/template-stocks.json') as f:
+    _wl = json.load(f)
+_watch_codes = {s['code'] for s in _wl.get('watchlist', [])}
+
 # 公用数据
-rs_list = cache.get('rs_ranking', [])
+rs_list_raw = cache.get('rs_ranking', [])
+rs_list = [s for s in rs_list_raw if s.get('code') in _watch_codes]
 rs_vals = [r.get('rs_score', 0) for r in rs_list if r.get('rs_score') is not None]
 rs_min, rs_max = min(rs_vals) if rs_vals else -5, max(rs_vals) if rs_vals else 10
 rs_range = max(rs_max - rs_min, 1)
@@ -39,7 +45,8 @@ rs_range = max(rs_max - rs_min, 1)
 def norm_rs(v):
     return max(0, min(100, (v - rs_min) / rs_range * 100)) if v is not None else 50
 
-mf_stocks = cache.get('multi_factor_scores', {}).get('stocks', [])
+mf_stocks_raw = cache.get('multi_factor_scores', {}).get('stocks', [])
+mf_stocks = [s for s in mf_stocks_raw if s.get('code') in _watch_codes]
 def norm_mf(v):
     return max(0, min(100, (v - 2) / 5 * 100)) if v else 50
 
@@ -100,6 +107,11 @@ def build_midday_stock_rows(stocks, max_n=77):
 # ═══════════════════════════════════════════
 # 午间报告
 # ═══════════════════════════════════════════
+# ─── CLI 参数解析 ────────────────
+_gen_midday = '--midday' in sys.argv
+_gen_closing = '--closing' in sys.argv
+_gen_weekly = '--weekly' in sys.argv
+
 print('🌤 生成午间...')
 mid_sec_rows = ''
 for sec_item in sec_ranking:
