@@ -76,13 +76,13 @@ def gen_cards(reports):
 
                 r = reports[d_str]
                 if 'premarket' in r:
-                    ap(f'    <a href="{r["premarket"]}" class="pm">📋 盘前简报</a>')
+                    ap(f'    <a href="{r["premarket"]}.html" class="pm">📋 盘前简报</a>')
                 if 'midday' in r:
-                    ap(f'    <a href="{r["midday"]}" class="mid">🌤 午间监测</a>')
+                    ap(f'    <a href="{r["midday"]}.html" class="mid">🌤 午间监测</a>')
                 if 'daily-combined' in r:
-                    ap(f'    <a href="{r["daily-combined"]}" class="dc">📊 收盘汇总</a>')
+                    ap(f'    <a href="{r["daily-combined"]}.html" class="dc">📊 收盘汇总</a>')
                 if 'weekend' in r:
-                    ap(f'    <a href="{r["weekend"]}" class="we">🌙 周末简报</a>')
+                    ap(f'    <a href="{r["weekend"]}.html" class="we">🌙 周末简报</a>')
                 if 'market_overview' in r:
                     ap(f'    <a href="{r["market_overview"]}" class="mo">🌐 市场全景</a>')
 
@@ -110,7 +110,7 @@ def main():
         for f in os.listdir(sel_dir):
             m = re.match(r'(\d{4}-\d{2}-\d{2})\.html', f)
             if m:
-                reports.setdefault(m.group(1), {})['market_overview'] = f'selestock/{m.group(1)}'
+                reports.setdefault(m.group(1), {})['market_overview'] = f'selestock/{m.group(1)}.html'
 
     if not reports:
         print("❌ 没有找到任何报告文件")

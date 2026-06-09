@@ -113,10 +113,18 @@ def fetch_all_stocks(max_time=180):
         
         start_t = time.time()
         df = pro.daily(trade_date=date_str)
-        if df is not None and len(df) > 1000:
+        if df is None or len(df) < 1000:
+            log(f"⚠️ Tushare行情无数据({len(df) if df is not None else 0}只)")
+        else:
+            # daily_basic 补PE/PB/换手率/量比
+            dfb = pro.daily_basic(trade_date=date_str, fields='ts_code,pe,pb,turnover_rate,volume_ratio,circ_mv')
+            has_basic = dfb is not None and len(dfb) > 1000
+            basic_cols = {r['ts_code'][:6]: r for _, r in dfb.iterrows()} if has_basic else {}
+            
             for _, row in df.iterrows():
                 code = row['ts_code'][:6]
                 chg = float(row.get('pct_chg', 0))
+                b = basic_cols.get(code, {})
                 all_data[code] = {
                     'f12': code,
                     'f14': _nm.get(code, ''),
@@ -125,14 +133,15 @@ def fetch_all_stocks(max_time=180):
                     'f4': abs(chg) if chg else 0,
                     'f15': float(row.get('high', 0)),
                     'f16': float(row.get('low', 0)),
-                    'f20': float(row.get('amount', 0) or 0) / 1e8,
-                    'f62': float(row.get('vol', 0) or 0) / 1e4,
-                    'f168': float(row.get('vol', 0) or 0),
-                    'f169': float(row.get('vol', 0) or 0),
-                    'f175': float(row.get('pe', 0) or 0),
-                    'f23': float(row.get('pb', 0) or 0),
+                    'f20': float(row.get('amount', 0) or 0) / 1e5,  # amount千元→亿元
+                    'f62': round(float(b.get('turnover_rate', 0)), 2) if b.get('turnover_rate') else 0,  # 换手率%
+                    'f168': round(float(b.get('volume_ratio', 0)), 2) if b.get('volume_ratio') else 0,  # 量比
+                    'f169': round(float(b.get('volume_ratio', 0)), 2) if b.get('volume_ratio') else 0,
+                    'f175': float(b.get('pe', 0)),              # 市盈率
+                    'f23': float(b.get('pb', 0)),               # 市净率
+                    'f21': float(b.get('circ_mv', 0)) / 1e8,    # 流通市值
                 }
-            log(f"✅ Tushare行情: {len(all_data)}只（{time.time()-start_t:.1f}s）")
+            log(f"✅ Tushare行情: {len(all_data)}只 + basic(PE/PB/换手率/量比) {len(basic_cols)}只（{time.time()-start_t:.1f}s）")
             return all_data
         log(f"⚠️ Tushare数据不足({len(df) if df is not None else 0}只)")
     except Exception as e:
@@ -253,12 +262,12 @@ def calc_scores(stocks_data, mv_data):
             'price': sf(item.get('f2')), 'chg': sf(item.get('f3')),
             'chg_amt': sf(item.get('f4')),
             'high': sf(item.get('f15')), 'low': sf(item.get('f5')),
-            'turn': sf(item.get('f20')), 'vr': sf(item.get('f21')),
-            'amt': sf(item.get('f21')),
+            'turn': sf(item.get('f62')), 'vr': sf(item.get('f168')),
+            'amt': sf(item.get('f20')),
             'pe': sf(item.get('f175')), 'pb': sf(item.get('f23')),
-            'total_mv': mv_data.get(code, {}).get('total_mv', '—'),
-            'fund_inflow': round(sf(item.get('f62'))/1e8, 2) if item.get('f62') else '—',
-            'roe': sf(item.get('f184')),
+            'total_mv': sf(item.get('f21')),
+            'fund_inflow': 0,
+            'roe': 0,
             'rs': 0, 'multi': 0, 'rank': 0
         })
     if not scores: return scores
@@ -334,8 +343,9 @@ def fill_sheet(ws, scores, date_str, is_template=False):
 # _WH_INIT_ 会被替换为持仓初始数据
 JS_TEMPLATE = """let cp=1,sk=null,sa=!1;
 function gv(it,k){let v=it[k];if(v==='—'||v==null)return '';if(typeof v==='number')return v;return isNaN(v=parseFloat(v))?v:v}
-function fl(){let s=document.getElementById('sf').value,m=document.getElementById('mf').value,g=document.getElementById('gf').value,q=document.getElementById('si').value.toLowerCase()
-return ad.filter(it=>{if(s&&it['板块']!==s)return 0;if(m&&it['市场']!==m)return 0;if(g&&it['等级']!==g)return 0;if(q&&!String(it['代码']).includes(q)&&!String(it['名称']).toLowerCase().includes(q))return 0;return 1})}
+function fl(){let ss=[...document.querySelectorAll('#sfg .fl-btn.act')].map(b=>b.dataset.val),ms=[...document.querySelectorAll('#mfg .fl-btn.act')].map(b=>b.dataset.val),g=document.getElementById('gf').value,q=document.getElementById('si').value.toLowerCase()
+return ad.filter(it=>{if(ss.length&&!ss.includes(it['板块']))return 0;if(ms.length&&!ms.includes(it['市场']))return 0;if(g&&it['等级']!==g)return 0;if(q&&!String(it['代码']).includes(q)&&!String(it['名称']).toLowerCase().includes(q))return 0;return 1})}
+function tg(el){el.classList.toggle('act');cp=1;r()}
 function st(k){sk===k?sa=!sa:(sk=k,sa=!1);r()}
 let wh=_WH_INIT_;let wf='all';
 function fw(el,m){wf=m;document.querySelectorAll('.fl-btn').forEach(b=>b.classList.toggle('act',b===el));r()}
@@ -363,9 +373,9 @@ if(sk)f.sort((a,b)=>{let va=gv(a,sk),vb=gv(b,sk);return typeof va==='number'&&ty
 document.getElementById('cn').textContent=f.length+'条'
 let tp=Math.ceil(f.length/PS)||1;if(cp>tp)cp=tp;let s=(cp-1)*PS,pg=f.slice(s,s+PS)
 document.getElementById('tb').innerHTML=pg.map(it=>'<tr>'+hd.map(k=>cl(k,it[k],it['代码'])).join('')+'</tr>').join('')
-let pb='',st=Math.max(1,cp-7),en=Math.min(tp,st+15);if(st>1)pb+='<button onclick=gp('+(cp-1)+')>◀</button>'
+let pb='',st=Math.max(1,cp-7),en=Math.min(tp,st+15);if(cp>1)pb+='<button onclick=gp('+(cp-1)+')>◀</button>'
 for(let i=st;i<=en;i++)pb+='<button class='+(i===cp?'act':'')+' onclick=gp('+i+')>'+i+'</button>'
-if(en<tp)pb+='<button onclick=gp('+Math.min(cp+1,tp)+')>▶</button>'
+if(cp<tp)pb+='<button onclick=gp('+Math.min(cp+1,tp)+')>▶</button>'
 document.getElementById('pg').innerHTML=pb}
 function gp(p){cp=p;r()}
 loadWatchlist();setTimeout(r,100)"""
@@ -399,7 +409,7 @@ def gen_selestock_html(scores, date_str):
             elif h == '总市值(亿)': item[h] = s['total_mv']
             elif h == 'ROE%': item[h] = s['roe']
             elif h == '主力净流入(亿)': item[h] = s['fund_inflow']
-            elif h == '成交额(亿)': item[h] = round(s['amt']/1e8,2) if s['amt'] else 0
+            elif h == '成交额(亿)': item[h] = round(s['amt'],2) if s['amt'] else 0
             elif h == '市盈率': item[h] = s['pe'] if s['pe']!=0 else '—'
             elif h == '市净率': item[h] = s['pb'] if s['pb']!=0 else '—'
             else: item[h] = s.get({'最新价':'price','涨跌幅%':'chg','涨跌额':'chg_amt','最高':'high','最低':'low',
@@ -451,13 +461,13 @@ tr:hover td{{background:#1a2744}}
 <h1>📊 市场全景 | {date_str}</h1>
 <p class=sub>共{total}只 · 双击列头排序</p>
 <div class=ctl>
-<select id=sf onchange=r()><option value=>全部板块</option><option>科技/半导体</option><option>通信/电子</option><option>AI/数字经济</option><option>化工/材料</option><option>能源/公用事业</option><option>其他</option></select>
+<span class=ctl-label>板块</span><span id=sfg class=tag-group><span class=fl-btn data-val=科技/半导体 onclick=tg(this)>💻 科技</span><span class=fl-btn data-val=通信/电子 onclick=tg(this)>📡 通信</span><span class=fl-btn data-val=AI/数字经济 onclick=tg(this)>🤖 AI</span><span class=fl-btn data-val=化工/材料 onclick=tg(this)>🧪 化工</span><span class=fl-btn data-val=能源/公用事业 onclick=tg(this)>⚡ 能源</span><span class=fl-btn data-val=其他 onclick=tg(this)>📦 其他</span></span>
 <span class=fl-btn act data-fw=all onclick=fw(this,'all')>📋 全部</span>
 <span class=fl-btn data-fw=hold onclick=fw(this,'hold')>🔴 仅持仓</span>
 <span class=fl-btn data-fw=unhold onclick=fw(this,'unhold')>⚪ 仅未持仓</span>
-<select id=mf onchange=r()><option value=>全部市场</option><option>沪市主板</option><option>深市主板</option><option>创业板</option><option>科创板</option><option>北交所</option><option>退市</option></select>
-<select id=gf onchange=r()><option value=>全部等级</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
-<input id=si placeholder="🔍 代码/名称..." oninput=r() style=flex:1>
+<span class=ctl-label>市场</span><span id=mfg class=tag-group><span class=fl-btn data-val=沪市主板 onclick=tg(this)>沪市</span><span class=fl-btn data-val=深市主板 onclick=tg(this)>深市</span><span class=fl-btn data-val=创业板 onclick=tg(this)>创业板</span><span class=fl-btn data-val=科创板 onclick=tg(this)>科创板</span><span class=fl-btn data-val=北交所 onclick=tg(this)>北交所</span></span>
+<select id=gf onchange="cp=1;r()"><option value=>全部等级</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+<input id=si placeholder="🔍 代码/名称..." oninput="cp=1;r()" style=flex:1>
 <span class=cnt id=cn>0条</span></div>
 <div class=tw><table><thead><tr>'''
     for h in hdrs:
