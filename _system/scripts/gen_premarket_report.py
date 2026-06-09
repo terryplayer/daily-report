@@ -226,9 +226,13 @@ for w in wl.get('watchlist', []):
     watch_by_sec[sec].append(w)
 
 def _get_price(code):
-    """从 tech_signals 缓存获取最新收盘价"""
+    """从 tech_signals 缓存获取最新收盘价（兼容嵌套signals结构）"""
     ts = cache.get('tech_signals', {}).get(code, {}).get('signals', {})
     price = ts.get('close')
+    if price: return f"{price:.2f}"
+    # 有些股票数据不足，close在嵌套的signals里
+    nested = ts.get('signals', {})
+    price = nested.get('close')
     if price: return f"{price:.2f}"
     return "—"
 
