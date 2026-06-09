@@ -373,10 +373,12 @@ with open('scripts/template-premarket.html') as f:
 today = date.today()
 date_str = today.strftime('%Y.%m.%d')
 weekday_cn = ['周一','周二','周三','周四','周五','周六','周日'][today.weekday()]
+now_str = datetime.now().strftime('%H:%M CST')
 
 result = template
 result = result.replace('{{DATE}}', date_str)
 result = result.replace('{{WEEKDAY}}', weekday_cn)
+result = result.replace('{{GENERATED_TIME}}', now_str)
 result = result.replace('{{OVERSEAS_MARKET}}', overseas_html)
 result = result.replace('{{MARKET_OUTLOOK}}', market_html)
 result = result.replace('{{UNIFIED_MODEL_TABLE}}', unified_html)
