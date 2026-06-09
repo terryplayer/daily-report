@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📈 周复盘 · advanced model | {{DATE_RANGE}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:linear-gradient(160deg,#0b0e14 0%,#111820 40%,#161b22 100%);color:#e6edf3;padding:28px 20px;line-height:1.75}
+.container{max-width:900px;margin:0 auto}
+h1{font-size:22px;color:#f778ba;border-bottom:2px solid #f778ba;padding-bottom:12px;margin-bottom:16px;font-weight:800}
+h2{font-size:15px;color:#f778ba;margin:12px 0 10px;font-weight:700}
+h3{font-size:13px;color:#f778ba;margin:10px 0 4px;font-weight:600}
+.section{background:linear-gradient(180deg,#161b22 0%,#1a2030 100%);border:1px solid #2d333b;border-radius:12px;padding:18px 20px;margin-bottom:16px;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.section:hover{border-color:#f778ba44}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;margin-bottom:4px}
+th{background:linear-gradient(180deg,#1c2333,#21262d);color:#8b949e;padding:6px 10px;text-align:left;font-weight:600;font-size:10.5px;border-bottom:2px solid #30363d;white-space:nowrap}
+td{padding:5px 10px;border-bottom:1px solid #21262d;white-space:nowrap;font-size:12px}
+tr:hover td{background:rgba(48,54,61,0.4)}
+tr:last-child td{border-bottom:none}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}.flat{color:#d9a52e;font-weight:600}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:20px;padding-top:14px;border-top:1px solid #21262d}
+.banner{background:linear-gradient(90deg,#f778ba,#d938b0);color:#fff;text-align:center;padding:5px;border-radius:6px;font-size:11px;margin-bottom:10px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:2px}
+.tag-q1{background:rgba(88,166,255,0.2);color:#58a6ff}.tag-q2{background:rgba(86,212,221,0.2);color:#56d4dd}
+.tag-q3{background:rgba(247,120,186,0.2);color:#f778ba}.tag-q4{background:rgba(248,81,73,0.2);color:#f85149}
+.q-label{font-size:10px;color:#8b949e;margin:2px 0;font-style:italic}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.metric-card{background:linear-gradient(180deg,#0d1117,#161b22);border:1px solid #21262d;border-radius:8px;padding:12px 8px;text-align:center}
+.metric-card:hover{border-color:#f778ba}
+.metric-val{font-size:20px;font-weight:700}.metric-label{font-size:11px;color:#8b949e;margin-top:4px}
+.summary-card{background:linear-gradient(180deg,#1a2030,#161b22);border:1px solid #2a2f38;border-radius:8px;padding:12px;margin:8px 0}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+.sub-hdr{font-size:13px;color:#f778ba;font-weight:600;margin:10px 0 4px;border-bottom:1px solid #21262d}
+@media(max-width:600px){body{padding:14px 10px}.metric-grid,.summary-grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="container">
+<div class="banner">📈 {{DATE_RANGE}} · 四象限进阶模型</div>
+<h1>📈 周复盘 · 进阶版 · {{DATE_RANGE}}</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:14px">生成时间：{{GENERATED_TIME}} CST</div>
+
+<!-- ====== 1. 本周四象限总评 ====== -->
+<div class="section">
+<h2>🏁 本周 · 四象限总评</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-val" style="color:#58a6ff">{{WEEK_Q1}}</div><div class="metric-label">① 统计准确率</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#56d4dd">{{WEEK_Q2}}</div><div class="metric-label">② 时序命中率</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f778ba">{{WEEK_Q3}}</div><div class="metric-label">③ 经济方向</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149">{{WEEK_Q4}}</div><div class="metric-label">④ 情绪指数</div></div>
+</div>
+<p class="q-label">本周融合方向: {{WEEK_FUSION}}  ·  综合准确率: {{WEEK_ACCURACY}}  ·  上周: {{LAST_WEEK_ACCURACY}} → 本周: {{WEEK_ACCURACY}}</p>
+</div>
+
+<!-- ====== 2. 大盘周回顾 ====== -->
+<div class="section">
+<h2>📈 一、本周大盘回顾</h2>
+{{WEEKLY_MARKET_ADV}}
+</div>
+
+<!-- ====== 3. 板块轮动 · 四维分析 ====== -->
+<div class="section">
+<h2>🔄 二、板块轮动 · 四维分析</h2>
+<p class="q-label">① 统计轮动 · ② Hurst板块趋势判断 · ③ 美林时钟 · ④ 北向资金轮动</p>
+{{WEEKLY_SECTOR_QUADRANT}}
+</div>
+
+<!-- ====== 4. 预测验证 · 全模型准确率 ====== -->
+<div class="section">
+<h2>🎯 三、预测验证 · 全模型准确率</h2>
+<p class="q-label">① 综合评分/RF方向 · ② 趋势判断 · ③ 估值方向 · ④ 情绪方向</p>
+{{WEEKLY_ACCURACY_FULL}}
+<div class="summary-grid">
+<div class="metric-card"><div class="metric-val" style="color:#58a6ff">{{Q1_DIR_ACC}}</div><div class="metric-label">统计方向</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#56d4dd">{{Q2_TREND_ACC}}</div><div class="metric-label">趋势判断</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f778ba">{{Q3_VAL_ACC}}</div><div class="metric-label">估值方向</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149">{{Q4_EMO_ACC}}</div><div class="metric-label">情绪方向</div></div>
+</div>
+</div>
+
+<!-- ====== 5. 周末信息 + 情绪影响 ====== -->
+<div class="section">
+<h2>📰 四、周末信息 · 情绪影响</h2>
+<p class="q-label">④ NLP新闻情绪 · ③ 宏观事件 · ④ 融资/北向变化</p>
+{{WEEKLY_NEWS_EMOTION}}
+</div>
+
+<!-- ====== 6. 下周趋势 · 四维预判 ====== -->
+<div class="section">
+<h2>🔮 五、下周趋势 · 四维预判</h2>
+<p class="q-label">② 马尔可夫下周状态概率 · ② Hurst趋势延续性 · ① ARIMA短期预测 · ③ 美林时钟阶段</p>
+<div class="summary-grid">
+<div class="metric-card"><div class="metric-val">{{NEXT_MARKOV}}</div><div class="metric-label">📊 最可能状态</div></div>
+<div class="metric-card"><div class="metric-val">{{NEXT_HURST}}</div><div class="metric-label">📈 Hurst趋势</div></div>
+<div class="metric-card"><div class="metric-val">{{NEXT_MERRILL}}</div><div class="metric-label">🏛️ 美林阶段</div></div>
+</div>
+{{WEEKLY_TREND_ADV}}
+</div>
+
+<!-- ====== 7. 板块+个股建议 ====== -->
+<div class="section">
+<h2>💡 六、板块及个股建议</h2>
+<p class="q-label">① 综合评分/RF · ② 卡尔曼支撑压力 · ③ 估值位置 · ④ 资金方向</p>
+{{WEEKLY_SUGGESTIONS_ADV}}
+</div>
+
+<!-- ====== 8. 协整配对 + K-means板块结构 ====== -->
+<div class="section">
+<h2>🔗 七、板块结构 · 配对信号</h2>
+<p class="q-label">① K-means板块聚类 · ① 协整配对价差</p>
+{{WEEKLY_CLUSTER_PAIR}}
+</div>
+
+<!-- ====== 9. 综合评级 ====== -->
+<div class="section">
+<h2>🏆 八、综合评级 · 四维诊断</h2>
+<p class="q-label">① 统计综合 · ② 趋势适配 · ③ DCF估值偏离 · ④ 情绪热力图</p>
+{{WEEKLY_RATINGS_ADV}}
+</div>
+
+<!-- ====== 10. 进化复盘 ====== -->
+<div class="section">
+<h2>📊 九、模型进化复盘</h2>
+<p class="q-label">本周各象限准确率 → 指导下周权重微调</p>
+<p style="font-size:11px;color:#8b949e;margin-bottom:4px">
+本周最优象限: {{BEST_Q}} (准确率{{BEST_Q_ACC}})  ·  最弱象限: {{WORST_Q}} (准确率{{WORST_Q_ACC}})
+</p>
+{{EVOLUTION_REVIEW}}
+</div>
+
+<div class="footer">🌀 周复盘 · 四象限进阶模型 v2 · {{DATE_RANGE}}</div>
+</div></body></html>

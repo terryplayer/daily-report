@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🌤 午间动态 · advanced model | {{DATE}} {{WEEKDAY}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:20px;line-height:1.6}
+.container{max-width:860px;margin:0 auto}
+h1{font-size:18px;color:#56d4dd;border-bottom:2px solid #56d4dd;padding-bottom:8px;margin-bottom:10px}
+h2{font-size:14px;color:#56d4dd;margin:12px 0 6px;border-bottom:1px solid #30363d;padding-bottom:4px}
+h3{font-size:13px;color:#56d4dd;margin:8px 0 4px;font-weight:600}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
+td{padding:4px 8px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#21262d}
+.up{color:#f85149}.down{color:#3fb950}.flat{color:#d9a52e}
+.resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:16px;padding-top:12px;border-top:1px solid #21262d}
+.banner{background:#56d4dd;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.tag-q1{background:rgba(88,166,255,0.2);color:#58a6ff}.tag-q2{background:rgba(86,212,221,0.2);color:#56d4dd}
+.tag-q3{background:rgba(247,120,186,0.2);color:#f778ba}.tag-q4{background:rgba(248,81,73,0.2);color:#f85149}
+.q-label{font-size:10px;color:#8b949e;margin:2px 0;font-style:italic}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
+.metric-card{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:10px 6px;text-align:center}
+.metric-val{font-size:18px;font-weight:700}.metric-label{font-size:11px;color:#8b949e;margin-top:2px}
+@media(max-width:600px){.metric-grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="container">
+<div class="banner">🌤 {{DATE}} {{WEEKDAY}} · 四象限进阶模型</div>
+<h1>🌤 午间动态监测 · 进阶版 · {{DATE}} {{WEEKDAY}}</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:14px">生成时间：{{GENERATED_TIME}} CST | ⚡ 今日交易中</div>
+
+<!-- ====== 1. 上午盘面 + 实时四象限 ====== -->
+<div class="section">
+<h2>📊 上午盘面 · 实时四象限</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-val" style="color:#58a6ff">{{REALTIME_Q1}}</div><div class="metric-label">① 统计方向</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#56d4dd">{{REALTIME_Q2}}</div><div class="metric-label">② 卡尔曼追踪</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f778ba">{{REALTIME_Q3}}</div><div class="metric-label">③ 估值变动</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149">{{REALTIME_Q4}}</div><div class="metric-label">④ 北向/主力资金</div></div>
+</div>
+{{MORNING_REVIEW_ADV}}
+</div>
+
+<!-- ====== 2. 半日趋势判断 ====== -->
+<div class="section">
+<h2>📐 半日趋势 · 时序模型验证</h2>
+<p class="q-label">② Hurst实时验证 · 卡尔曼支撑压力跟踪 · 马尔可夫状态</p>
+<p style="font-size:11px;color:#8b949e;margin-bottom:6px">开前Hurst: {{PRE_HURST}}  →  午间修正: {{MID_HURST}}  ·  当前状态: {{MID_MARKOV}}</p>
+{{TREND_VERIFICATION}}
+</div>
+
+<!-- ====== 3. 午间异动 · 多维信号 ====== -->
+<div class="section">
+<h2>⚡ 午间异动 · 多维信号</h2>
+<p class="q-label">④ 主力资金异动 · ① MRD偏离预警 · ② 波动率GARCH · ④ 新闻情绪突变</p>
+{{MULTI_ALERTS}}
+</div>
+
+<!-- ====== 4. 持仓股 · 四维午间表现 ====== -->
+<div class="section">
+<h2>📋 持仓 · 四维午间表现</h2>
+<p class="q-label">① 实时MOM/MRD · ② 卡尔曼支撑压力 · ③ 估值位置 · ④ 资金流方向</p>
+{{HOLDINGS_MIDDAY_ADV}}
+</div>
+
+<!-- ====== 5. 盘前预测 vs 午间实际 ====== -->
+<div class="section">
+<h2>📐 预测验证 · 午间</h2>
+<p class="q-label">① 统计预测验证 · ② 时序判断验证 · ④ 情绪预测验证</p>
+{{PREDICTION_VERIFY_MID}}
+</div>
+
+<!-- ====== 6. 午后策略 ====== -->
+<div class="section">
+<h2>💡 午后策略</h2>
+<p class="q-label">① RF预测修正 · ② 午后趋势判断 · ④ 资金流方向确认</p>
+{{AFTERNOON_STRATEGY}}
+</div>
+
+<div class="footer">🌀 午间监测 · 四象限进阶模型 v2 · {{DATE}} {{WEEKDAY}}</div>
+</div></body></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📈 周复盘 | {{DATE_RANGE}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:linear-gradient(160deg,#0b0e14 0%,#111820 40%,#161b22 100%);color:#e6edf3;padding:28px 20px;line-height:1.75}
+.container{max-width:900px;margin:0 auto}
+h1{font-size:22px;color:#f778ba;border-bottom:2px solid #f778ba;padding-bottom:12px;margin-bottom:16px;letter-spacing:0.8px;font-weight:800}
+h2{font-size:15px;color:#f778ba;margin:12px 0 10px;font-weight:700;letter-spacing:0.4px}
+h3{font-size:13px;color:#f778ba;margin:10px 0 4px;font-weight:600}
+.section{background:linear-gradient(180deg,#161b22 0%,#1a2030 100%);border:1px solid #2d333b;border-radius:12px;padding:18px 20px;margin-bottom:16px;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.section:hover{border-color:#f778ba44}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;margin-bottom:4px}
+th{background:linear-gradient(180deg,#1c2333,#21262d);color:#8b949e;padding:6px 10px;text-align:left;font-weight:600;font-size:10.5px;letter-spacing:0.3px;border-bottom:2px solid #30363d;white-space:nowrap}
+td{padding:5px 10px;border-bottom:1px solid #21262d;white-space:nowrap;font-size:12px}
+tr:hover td{background:rgba(48,54,61,0.4)}
+tr:last-child td{border-bottom:none}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}.flat{color:#d9a52e;font-weight:600}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:2px}
+.tag-aplus{background:rgba(248,81,73,0.2);color:#ff6b6b}.tag-a{background:rgba(217,165,46,0.2);color:#e6b422}
+.tag-b{background:rgba(88,166,255,0.2);color:#79b8ff}.tag-c{background:rgba(139,148,158,0.2);color:#959da5}.tag-d{background:rgba(63,185,80,0.2);color:#56d364}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.metric-card{background:linear-gradient(180deg,#0d1117,#161b22);border:1px solid #21262d;border-radius:8px;padding:12px 8px;text-align:center;transition:all 0.2s}
+.metric-card:hover{border-color:#f778ba}
+.metric-val{font-size:20px;font-weight:700;letter-spacing:0.5px}
+.metric-label{font-size:11px;color:#8b949e;margin-top:4px;font-weight:500}
+.stat-line{font-size:13px;margin:6px 0;line-height:1.6}
+.summary-card{background:linear-gradient(180deg,#1a2030,#161b22);border:1px solid #2a2f38;border-radius:8px;padding:12px;margin:8px 0}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+.sub-hdr{font-size:13px;color:#f778ba;font-weight:600;margin:10px 0 4px;padding:3px 0;border-bottom:1px solid #21262d}
+.lbl{display:inline-block;padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.num{font-size:16px;font-weight:700;letter-spacing:0.3px}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:20px;padding-top:14px;border-top:1px solid #21262d}
+.banner{background:linear-gradient(90deg,#f778ba,#d938b0);color:#fff;text-align:center;padding:5px;border-radius:6px;font-size:11px;margin-bottom:10px;letter-spacing:0.5px;font-weight:500}
+@media(max-width:600px){body{padding:14px 10px}td,th{padding:4px 6px;font-size:11px}}
+</style></head><body><div class="container">
+<div class="banner">📈 {{DATE_RANGE}} · 周复盘</div>
+<h1>📈 周复盘 · {{DATE_RANGE}}</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:14px">生成时间：{{GENERATED_TIME}} CST</div>
+<div class="section"><h2>📈 一、本周大盘回顾</h2>{{WEEKLY_MARKET}}</div>
+<div class="section"><h2>🔄 二、本周板块轮动回顾</h2>{{WEEKLY_SECTORS}}</div>
+<div class="section"><h2>🎯 三、预测验证 & 准确率评估</h2>{{WEEKLY_ACCURACY}}</div>
+<div class="section"><h2>📰 四、周末重大信息汇总</h2>{{WEEKLY_NEWS}}</div>
+<div class="section"><h2>🔮 五、下周趋势判断</h2>{{WEEKLY_TREND}}</div>
+<div class="section"><h2>💡 六、下周板块及个股建议</h2>{{WEEKLY_SUGGESTIONS}}</div>
+<div class="section"><h2>🏆 七、综合评级与操作建议</h2>{{WEEKLY_RATINGS}}</div>
+<div class="footer">🌀 周复盘 · 统一模型 v1 · {{DATE_RANGE}}</div>
+</div></body></html>

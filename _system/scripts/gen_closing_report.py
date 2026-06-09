@@ -6,7 +6,7 @@
 """
 
 import json, os, sys, warnings
-from datetime import date
+from datetime import date, datetime
 
 warnings.filterwarnings('ignore', category=Warning, module='urllib3')
 from validate_report import validate
@@ -788,6 +788,7 @@ result = template
 replacements = [
     ('{{DATE}}', ds),
     ('{{WEEKDAY}}', wd),
+    ('{{GENERATED_TIME}}', datetime.now().strftime('%H:%M CST')),
     ('{{INDEX_METRICS}}', index_html),
     ('{{SECTOR_SCORING}}', sector_html),
     ('{{HOLDINGS_DETAIL}}', holdings_html),

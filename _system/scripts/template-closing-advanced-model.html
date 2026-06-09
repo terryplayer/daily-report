@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📊 收盘简报 · advanced model | {{DATE}} {{WEEKDAY}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);color:#e6edf3;padding:24px 20px;line-height:1.7}
+.container{max-width:880px;margin:0 auto}
+h1{font-size:18px;color:#f85149;border-bottom:2px solid #f85149;padding-bottom:10px;margin-bottom:12px;font-weight:700}
+h2{font-size:14px;color:#f85149;margin:10px 0 8px;padding-bottom:6px;font-weight:600}
+.section{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px;margin-bottom:14px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.section:hover{border-color:#484f58}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th{background:linear-gradient(180deg,#1c2333,#21262d);color:#8b949e;padding:6px 10px;text-align:left;font-weight:600;font-size:11px;border-bottom:2px solid #30363d;white-space:nowrap}
+td{padding:5px 10px;border-bottom:1px solid #21262d;white-space:nowrap;font-size:12px}
+tr:hover td{background:rgba(48,54,61,0.4)}
+tr:last-child td{border-bottom:none}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}.flat{color:#d9a52e;font-weight:600}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:20px;padding-top:14px;border-top:1px solid #21262d}
+.banner{background:linear-gradient(90deg,#f85149,#d93835);color:#fff;text-align:center;padding:5px;border-radius:6px;font-size:11px;margin-bottom:10px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:2px}
+.tag-q1{background:rgba(88,166,255,0.2);color:#58a6ff}.tag-q2{background:rgba(86,212,221,0.2);color:#56d4dd}
+.tag-q3{background:rgba(247,120,186,0.2);color:#f778ba}.tag-q4{background:rgba(248,81,73,0.2);color:#f85149}
+.q-label{font-size:10px;color:#8b949e;margin:2px 0;font-style:italic}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.metric-card{background:linear-gradient(180deg,#0d1117,#161b22);border:1px solid #21262d;border-radius:8px;padding:12px 8px;text-align:center}
+.metric-card:hover{border-color:#f85149;transform:translateY(-1px)}
+.metric-val{font-size:20px;font-weight:700}.metric-label{font-size:11px;color:#8b949e;margin-top:4px}
+@media(max-width:600px){.metric-grid{grid-template-columns:repeat(2,1fr)}body{padding:14px 10px}}
+</style></head><body><div class="container">
+<div class="banner">📊 {{DATE}} {{WEEKDAY}} · 四象限进阶模型</div>
+<h1>📊 收盘简报 · 进阶版 · {{DATE}} {{WEEKDAY}}</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:14px">生成时间：{{GENERATED_TIME}} CST | ⚡ 收盘数据</div>
+
+<!-- ====== 1. 四象限融合评分 ====== -->
+<div class="section">
+<h2>🏁 四象限融合评分</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-val" style="color:#58a6ff">{{Q1_FINAL}}</div><div class="metric-label">① 统计综合 (30%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#56d4dd">{{Q2_FINAL}}</div><div class="metric-label">② 时序系统 (25%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f778ba">{{Q3_FINAL}}</div><div class="metric-label">③ 经济金融 (25%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149">{{Q4_FINAL}}</div><div class="metric-label">④ 行为情绪 (20%)</div></div>
+</div>
+<p class="q-label">融合评分: <strong>{{FUSION_FINAL}}</strong> · 方向: {{FUSION_DIRECTION}} · 置信度: {{FUSION_CONFIDENCE}}</p>
+</div>
+
+<!-- ====== 2. 大盘指数收盘 ====== -->
+<div class="section">
+<h2>📊 大盘指数收盘</h2>
+{{INDEX_METRICS_ADV}}
+</div>
+
+<!-- ====== 3. 板块 · 四象限评分 ====== -->
+<div class="section">
+<h2>🔄 板块 · 四象限评分</h2>
+<p class="q-label">① RS/动量/MRD/多因子/历史相似度 · ② Hurst/卡尔曼/马尔可夫 · ③ PE/PB/Fama-French/美林 · ④ 北向/融资/PCR/主力/新闻</p>
+{{SECTOR_QUADRANT_FULL}}
+</div>
+
+<!-- ====== 4. 持仓 · 全模型综合诊断 ====== -->
+<div class="section">
+<h2>📋 持仓 · 全模型综合诊断</h2>
+<p class="q-label">① 综合评分/RF预测 · ② 卡尔曼支撑压力/GARCH波动 · ③ DCF估值/PB分位 · ④ 资金流/情绪</p>
+{{HOLDINGS_FULL_DIAG}}
+</div>
+
+<!-- ====== 5. 今日要闻 + 情绪影响 ====== -->
+<div class="section">
+<h2>📰 今日要闻 · 情绪影响</h2>
+<p class="q-label">④ NLP新闻情绪评分 · 板块影响量化</p>
+{{NEWS_EMOTION}}
+</div>
+
+<!-- ====== 6. 技术面+波动预警 ====== -->
+<div class="section">
+<h2>📐 技术面 · 波动预警</h2>
+<p class="q-label">① BBW布林 · ② GARCH波动率 · ① MRD超买/超卖 · ② 卡尔曼趋势突破</p>
+{{TECH_VOLATILITY}}
+</div>
+
+<!-- ====== 7. 预测准确率 · 四象限验证 ====== -->
+<div class="section">
+<h2>🎯 预测准确率 · 四象限验证</h2>
+<p class="q-label">① 方向预测 · ② 趋势判断 · ③ 估值方向 · ④ 情绪方向</p>
+{{QUADRANT_ACCURACY}}
+</div>
+
+<!-- ====== 8. 配对策略 + 聚类信号 ====== -->
+<div class="section">
+<h2>🔄 配对策略 · 板块聚类</h2>
+<p class="q-label">① 协整配对价差 · ② K-means板块子群体</p>
+{{PAIR_CLUSTER}}
+</div>
+
+<!-- ====== 9. Fama-French因子暴露 ====== -->
+<div class="section">
+<h2>📊 Fama-French 因子暴露</h2>
+<p class="q-label">③ 持仓对市场/规模/价值/盈利/投资因子的暴露度</p>
+{{FAMA_FRENCH}}
+</div>
+
+<!-- ====== 10. 美林时钟定位 ====== -->
+<div class="section">
+<h2>🏛️ 美林时钟 · 宏观定位</h2>
+<p class="q-label">③ 当前周期阶段 · 板块配置建议</p>
+{{MERRILL_CLOCK}}
+</div>
+
+<!-- ====== 11. 风险提示 ====== -->
+<div class="section">
+<h2>⚠️ 综合风险提示</h2>
+<p class="q-label">② GARCH波动预警 · ① 回调风险 · ④ 情绪过热/过冷</p>
+{{RISK_ADV}}
+</div>
+
+<!-- ====== 12. 总结 & 明日展望 ====== -->
+<div class="section">
+<h2>🔮 今日总结 · 明日展望</h2>
+<p class="q-label">① RF明日预测 · ② 卡尔曼下日支撑 · ③ 估值修正 · ④ 情绪延续性</p>
+{{SUMMARY_OUTLOOK_ADV}}
+</div>
+
+<div class="footer">🌀 收盘简报 · 四象限进阶模型 v2 · {{DATE}} {{WEEKDAY}}</div>
+</div></body></html>

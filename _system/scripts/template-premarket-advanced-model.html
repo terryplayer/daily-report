@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📋 盘前简报 · advanced model | {{DATE}} {{WEEKDAY}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:20px;line-height:1.6}
+.container{max-width:860px;margin:0 auto}
+h1{font-size:18px;color:#58a6ff;border-bottom:2px solid #58a6ff;padding-bottom:8px;margin-bottom:10px}
+h2{font-size:14px;color:#58a6ff;margin:12px 0 6px;border-bottom:1px solid #30363d;padding-bottom:4px}
+h3{font-size:13px;color:#58a6ff;margin:8px 0 4px;font-weight:600}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
+td{padding:4px 8px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#21262d}
+.up{color:#f85149}.down{color:#3fb950}.flat{color:#d9a52e}
+.resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:16px;padding-top:12px;border-top:1px solid #21262d}
+.banner{background:#58a6ff;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.tag-q1{background:rgba(88,166,255,0.2);color:#58a6ff} /* 统计 */
+.tag-q2{background:rgba(86,212,221,0.2);color:#56d4dd} /* 时序 */
+.tag-q3{background:rgba(247,120,186,0.2);color:#f778ba} /* 经济 */
+.tag-q4{background:rgba(248,81,73,0.2);color:#f85149} /* 行为 */
+.q-label{font-size:10px;color:#8b949e;margin:2px 0;font-style:italic}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
+.metric-card{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:10px 6px;text-align:center}
+.metric-val{font-size:18px;font-weight:700}.metric-label{font-size:11px;color:#8b949e;margin-top:2px}
+@media(max-width:600px){.metric-grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="container">
+<div class="banner">📋 {{DATE}} {{WEEKDAY}} · 四象限进阶模型</div>
+<h1>📋 盘前简报 · 进阶版 · {{DATE}} {{WEEKDAY}}</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:14px">生成时间：{{GENERATED_TIME}} CST | ⚡ 今日交易中</div>
+
+<!-- ====== 1. 四象限信号快照 ====== -->
+<div class="section">
+<h2>🏁 四象限信号快照</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-val" style="color:#58a6ff">{{Q1_SCORE}}</div><div class="metric-label">① 统计综合 (30%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#56d4dd">{{Q2_SCORE}}</div><div class="metric-label">② 时序系统 (25%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f778ba">{{Q3_SCORE}}</div><div class="metric-label">③ 经济金融 (25%)</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149">{{Q4_SCORE}}</div><div class="metric-label">④ 行为情绪 (20%)</div></div>
+</div>
+<p class="q-label">四象限融合评分: <strong style="color:#e6edf3">{{FUSION_SCORE}}</strong> · 综合方向: {{FUSION_DIRECTION}}</p>
+</div>
+
+<!-- ====== 2. 隔夜外围 + 情绪面 ====== -->
+<div class="section">
+<h2>🌍 隔夜外围 · 情绪面</h2>
+<p class="q-label">④ 行为情绪 · ③ 经济金融</p>
+{{OVERSEAS_EMOTION}}
+</div>
+
+<!-- ====== 3. 大盘趋势预判 ====== -->
+<div class="section">
+<h2>📊 大盘趋势预判</h2>
+<p class="q-label">② 时序系统 · ① 统计</p>
+<p style="font-size:11px;color:#8b949e;margin-bottom:6px">Hurst: {{HURST}}  · 马尔可夫: {{MARKOV}}  · 支持/阻力: {{KALMAN_SR}}</p>
+{{MARKET_OUTLOOK_ADV}}
+</div>
+
+<!-- ====== 4. 板块评分 · 四象限多维度 ====== -->
+<div class="section">
+<h2>🧭 板块评分 · 四象限多维度</h2>
+<p class="q-label">① 统计(RS/动量/MRD/多因子/历史相似度/RF) · ② 时序(Hurst/卡尔曼) · ③ 估值(PE/PB/美林) · ④ 情绪(NLP/资金)</p>
+<p style="font-size:11px;color:#8b949e;margin-bottom:6px">
+<span class="tag tag-q1">①权重23%</span> <span class="tag tag-q1">②权重0%</span> <span class="tag tag-q3">③权重13%</span> <span class="tag tag-q4">④权重0%</span>
+→ 进阶: ①30% ②25% ③25% ④20%
+</p>
+{{QUADRANT_SECTOR_TABLE}}
+</div>
+
+<!-- ====== 5. 个股四维评分 ====== -->
+<div class="section">
+<h2>📋 持仓股 · 四维评分</h2>
+<p class="q-label">① 统计评分 · ③ PE/PB估值 · ④ 情绪/资金流 · 🆕 RAG历史相似度</p>
+{{HOLDINGS_QUADRANT}}
+</div>
+
+<!-- ====== 6. 今日关键信号 ====== -->
+<div class="section">
+<h2>🎯 今日关键信号</h2>
+<p class="q-label">① 随机森林预测 · ④ 北向资金 · ④ PCR情绪 · ④ 新闻舆情</p>
+{{KEY_SIGNALS}}
+</div>
+
+<!-- ====== 7. 配对策略信号 ====== -->
+<div class="section">
+<h2>🔄 配对策略信号</h2>
+<p class="q-label">① 协整配对 · ② K-means聚类</p>
+{{PAIR_SIGNALS}}
+</div>
+
+<!-- ====== 8. 综合策略 · 四象限融合 ====== -->
+<div class="section">
+<h2>💡 今日策略</h2>
+<p class="q-label">① 统计方向 · ② 趋势判断 · ③ 估值锚 · ④ 情绪修正</p>
+{{STRATEGY_ADV}}
+</div>
+
+<div class="footer">🌀 盘前简报 · 四象限进阶模型 v2 · {{DATE}} {{WEEKDAY}}</div>
+</div></body></html>

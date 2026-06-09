@@ -400,6 +400,7 @@ wd = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][toda
 
 result = template
 for k, v in [('{{DATE}}', ds), ('{{WEEKDAY}}', wd),
+             ('{{GENERATED_TIME}}', datetime.now().strftime('%H:%M CST'))]:
              ('{{MORNING_REVIEW}}', morning_html),
              ('{{MIDDAY_ALERTS}}', alerts_html),
              ('{{HOLDINGS_OBSERVATION}}', holdings_html),
