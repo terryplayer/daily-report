@@ -85,6 +85,64 @@ for w in wl.get('watchlist', []):
         'bollinger': _ts.get('bollinger', []),
         'kdj': _ts.get('kdj', []),
     })
+
+
+# ─── RF方向预测 ─────────────────────
+def _get_rf_direction(code, rs_val, mf_score, trend_label, change_pct, rank, bollinger, cache):
+    try:
+        import pickle, numpy as np
+        model_path = os.path.join(WORKSPACE, 'models', 'rf_cross_section.pkl')
+        if not os.path.exists(model_path): raise FileNotFoundError
+        with open(model_path, 'rb') as f: model = pickle.load(f)
+        sec_mom = cache.get('sector_momentum', {}); top_sec = sec_mom.get('top_sectors', [])
+        bot_sec = sec_mom.get('bottom_sectors', [])
+        sec = next((s['sector'] for s in cache.get('rs_ranking', []) if s['code'] == code), '其他')
+        sec_rank = {s['sector']: s for s in cache.get('sector_ranking', [])}
+        def rv(r): return {'A+':1.0,'A':0.8,'B':0.5,'C':0.3,'D':0.1}.get(r,0.5)
+        def tv(t): return {'强势上攻':1.0,'震荡偏强':0.7,'横盘震荡':0.5,'震荡偏弱':0.3,'弱势下行':0.0}.get(t,0.5)
+        boll = bollinger if len(bollinger)==3 else [0,0,0]; f10 = 0.5
+        if boll[0] != boll[2]:
+            c_val = cache.get('tech_signals',{}).get(code,{}).get('signals',{}).get('close',0)
+            if c_val: f10 = (float(c_val) - boll[2]) / (boll[0] - boll[2])
+        fx = [rs_val/50, 5, mf_score, 0, 1 if sec in top_sec else (0 if sec in bot_sec else 0.5),
+              sec_rank.get(sec,{}).get('avg_score',5), change_pct/10, rv(rank), tv(trend_label), f10, 0.5]
+        pred = model.predict([fx])[0]
+        if pred > 0.1: return '↑ 强势'
+        if pred < -0.1: return '↓ 弱势'
+        return '— 中性'
+    except:
+        pass
+    if rank in ('A+', 'A'): return '↑ 强势'
+    if rank in ('C', 'D'): return '↓ 弱势'
+    return '— 中性'
+
+def _fetch_midday_quotes():
+    import subprocess, re as _re
+    codes = ','.join(['sh'+w['code'] if w['code'].startswith(('6','9')) else 'sz'+w['code'] for w in wl.get('watchlist',[])])
+    try:
+        r = subprocess.run(['curl','-s','--connect-timeout','5','--max-time','10',
+            f'https://hq.sinajs.cn/list={codes}','-H','Referer: https://finance.sina.com.cn'],
+            capture_output=True, timeout=15)
+        raw = r.stdout.decode('gbk', errors='replace'); quotes = {}
+        for line in raw.strip().split('\n'):
+            if 'hq_str' not in line: continue
+            cm = _re.search(r'hq_str_(?:sh|sz)(\w+)', line)
+            if not cm: continue; code = cm.group(1)
+            start = line.find('"'); end = line.rfind('"')
+            if start < 0: continue
+            parts = line[start+1:end].split(',')
+            if len(parts) < 6: continue
+            try:
+                prev = float(parts[2]); cur = float(parts[3])
+                pct = round((cur-prev)/prev*100,2) if prev else 0
+            except: continue
+            quotes[code] = {'price': parts[3], 'change_pct': pct}
+        return quotes
+    except:
+        return {}
+
+_midday_quotes = _fetch_midday_quotes()
+
 sector_display = {
     '能源/公用事业': '⚡ 能源/公用', '通信/电子': '📡 通信/电子',
     '科技/半导体': '💻 科技/半导体', '化工/材料': '🧪 化工/材料',
@@ -287,38 +345,6 @@ except:
 # ──────────────────────────────────────────────
 # 3. 预测准确率评估
 # ──────────────────────────────────────────────
-
-
-# ─── RF方向预测（用于替代RS排名判断涨跌方向）─────
-def _rf_direction(code, rs_val, mf_score, trend_label, change_pct, rank, bollinger, cache):
-    try:
-        import pickle
-        model_path = 'models/rf_cross_section.pkl'
-        if not os.path.exists(model_path): raise FileNotFoundError
-        with open(model_path, 'rb') as f: model = pickle.load(f)
-        sec_mom = cache.get('sector_momentum', {}); top_sec = sec_mom.get('top_sectors', [])
-        bot_sec = sec_mom.get('bottom_sectors', [])
-        sec = next((s['sector'] for s in cache.get('rs_ranking', []) if s['code'] == code), '其他')
-        sec_rank = {s['sector']: s for s in cache.get('sector_ranking', [])}
-        def rv(r): return {'A+':1.0,'A':0.8,'B':0.5,'C':0.3,'D':0.1}.get(r,0.5)
-        def tv(t): return {'强势上攻':1.0,'震荡偏强':0.7,'横盘震荡':0.5,'震荡偏弱':0.3,'弱势下行':0.0}.get(t,0.5)
-        b = bollinger if len(bollinger)==3 else [0,0,0]; f10 = 0.5
-        if b[0] != b[2]:
-            c = cache.get('tech_signals',{}).get(code,{}).get('signals',{}).get('close',0)
-            if c: f10 = (float(c) - b[2]) / (b[0] - b[2])
-        fx = [rs_val/50, 5, mf_score, 0, 1 if sec in top_sec else (0 if sec in bot_sec else 0.5),
-              sec_rank.get(sec,{}).get('avg_score',5), change_pct/10, rv(rank), tv(trend_label), f10, 0.5]
-        pred = model.predict([fx])[0]
-        if pred > 0.1: return '↑ 强势'
-        if pred < -0.1: return '↓ 弱势'
-        return '— 中性'
-    except:
-        pass
-    if rank in ('A+', 'A'): return '↑ 强势'
-    if rank in ('C', 'D'): return '↓ 弱势'
-    return '— 中性'
-
-
 try:
     with open('/tmp/premarket-predictions.json') as f:
         pred_data = json.load(f)
@@ -386,11 +412,8 @@ try:
         rank = rs_ranking.get(code, {}).get('rank', 'B')
         name = s.get('name', '?')
         chg = s.get('stock_change_pct', 0)
-        rf_dir = _rf_direction(code, s.get('rs_value', 50), s.get('total_score', 5),
-                               s.get('trend_label', ''), s.get('stock_change_pct', 0),
-                               rank, s.get('bollinger', []), cache)
         if sec in stock_by_sec:
-            stock_by_sec[sec].append({'name': name, 'code': code, 'rank': rank, 'chg': chg, 'rf_dir': rf_dir})
+            stock_by_sec[sec].append({'name': name, 'code': code, 'rank': rank, 'chg': chg})
     
     stock_html = ''
     stock_correct = 0
@@ -415,7 +438,9 @@ try:
             chg = s['chg']
             cls = 'up' if chg > 0 else 'down'
             cl_h = '#f85149' if cls == 'up' else '#3fb950'
-            rf_dir = s.get('rf_dir', '— 中性')
+            rf_dir = _get_rf_direction(s['code'], s.get('rs_value', 50), s.get('total_score', 5),
+                                       s.get('trend_label', ''), s.get('stock_change_pct', 0),
+                                       rank, s.get('bollinger', []), cache)
             tl = s.get('trend_label', '')
             if rf_dir == '↑ 强势' and ('压力' in tl or '超买' in tl):
                 pd_ = '— 中性(压力)'
@@ -424,28 +449,36 @@ try:
             else:
                 pd_ = rf_dir
             stock_total += 1
-            # 判断预测是否准确（基于RF方向）
+            # 判断预测是否准确
             is_correct = False
-            if '强势' in rf_dir: is_correct = chg > 0
-            elif '弱势' in rf_dir: is_correct = chg < 0
-            else: is_correct = abs(chg) < 2
+            if rank in ('A+', 'A'):
+                is_correct = chg > 0  # 看涨→涨了
+            elif rank in ('C', 'D'):
+                is_correct = chg < 0  # 看跌→跌了
+            else:
+                is_correct = abs(chg) < 2  # 中性→震荡±2%以内
             
             if is_correct:
-                flag = chr(9989); stock_correct += 1; dev_ = '方向判断正确'
-                _rk = 'A+/A' if '强势' in rf_dir else ('C/D' if '弱势' in rf_dir else 'B')
-                rating_stats[_rk][0] += 1
+                flag = chr(9989)
+                stock_correct += 1
+                dev_ = '方向判断正确'
+                if rank in ('A+', 'A'): rating_stats['A+/A'][0] += 1
+                elif rank in ('C', 'D'): rating_stats['C/D'][0] += 1
+                else: rating_stats['B'][0] += 1
             else:
-                flag = chr(9898); dev_ = '偏差 '
-                if '强势' in rf_dir: dev_ += '高估看涨'
-                elif '弱势' in rf_dir: dev_ += '高估看跌'
+                flag = chr(9898)
+                dev_ = '偏差 '
+                if rank in ('A+', 'A'): dev_ += '高估看涨'
+                elif rank in ('C', 'D'): dev_ += '高估看跌'
                 else: dev_ += '中性震荡'
-            # 方向统计
-            _dk = '↑ 看涨' if '强势' in rf_dir else ('↓ 看跌' if '弱势' in rf_dir else '— 中性')
-            if flag == chr(9989): dir_stats[_dk][0] += 1
-            dir_stats[_dk][1] += 1
-            # 评级统计
-            _rk2 = 'A+/A' if '强势' in rf_dir else ('C/D' if '弱势' in rf_dir else 'B')
-            rating_stats[_rk2][1] += 1
+            # 跟踪方向统计
+            _dir_key = '↑ 看涨' if rank in ('A+', 'A') else ('↓ 看跌' if rank in ('C', 'D') else '— 中性')
+            if flag == chr(9989): dir_stats[_dir_key][0] += 1
+            dir_stats[_dir_key][1] += 1
+            # 跟踪评级统计
+            if rank in ('A+', 'A'): rating_stats['A+/A'][1] += 1
+            elif rank in ('C', 'D'): rating_stats['C/D'][1] += 1
+            else: rating_stats['B'][1] += 1
             # 跟踪板块统计
             if sec not in sector_stats:
                 sector_stats[sec] = [0, 0]
@@ -479,6 +512,34 @@ try:
         stock_html += '</table>\n'
     
     stock_acc_rate = stock_correct / stock_total * 100 if stock_total else 0
+
+    # ─── 午间 vs 收盘判断准确率 ───
+    if len(_midday_quotes) > 5:
+        mid_html = '<h3 style="font-size:13px;font-weight:600;color:#56d4dd;margin:16px 0 8px">\U0001f324 午间 vs 收盘判断准确率</h3>\n'
+        mid_correct = 0; mid_total = 0; mid_sector_stats = {}
+        for sec in sector_order:
+            ms = stock_by_sec.get(sec, [])
+            if not ms: continue
+            sc = 0; st = 0
+            for s_ in ms:
+                mq = _midday_quotes.get(s_['code'], {})
+                if not mq: continue
+                mc = mq.get('change_pct', 0); cc = s_['chg']; st += 1; mid_total += 1
+                if (mc > 0 and cc > 0) or (mc < 0 and cc < 0): sc += 1; mid_correct += 1
+            if st > 0: mid_sector_stats[sec] = (sc, st)
+        if mid_total > 0:
+            mp = round(mid_correct * 100 / mid_total)
+            mid_html += '<div style="background:#1c2333;border:1px solid #30363d;border-radius:8px;padding:12px 16px;margin-bottom:12px">'
+            mid_html += '<p style="font-size:14px;color:#e6edf3">综合准确率 <span style="color:#f0f6fc">' + str(mid_correct) + '/' + str(mid_total) + '</span> = <span style="color:#d9a52e">' + str(mp) + '%</span></p>'
+            mid_html += '</div>\n'
+            mid_html += '<table><tr><th>板块</th><th>正确/总数</th><th>准确率</th></tr>\n'
+            for sec in sector_order:
+                if sec not in mid_sector_stats: continue
+                scc, sst = mid_sector_stats[sec]; sp_ = round(scc*100/sst)
+                mid_html += '<tr><td>' + sector_display.get(sec, sec) + '</td><td>' + str(scc) + '/' + str(sst) + '</td><td>' + str(sp_) + '%</td></tr>\n'
+            mid_html += '</table>'
+            prediction_html += mid_html
+
     
     prediction_html = '<h3 style="font-size:13px;font-weight:600;color:#56d4dd;margin:10px 0 4px">板块预测</h3>\n'
     prediction_html += '<table><tr><th>板块</th><th>盘前方向</th><th>概率</th><th>收盘涨跌</th><th>验证</th><th>偏差分析</th></tr>\n'
@@ -586,7 +647,7 @@ def _make_analysis(stock):
 
 def _price_str(code):
     sig = ts_lookup.get(code, {}).get('signals', {})
-    c = sig.get('close', 0) or sig.get('signals', {}).get('close', 0) or sig.get('signals', {}).get('close', 0)
+    c = sig.get('close', 0) or sig.get('signals', {}).get('close', 0)
     return f'{c:.2f}' if c else '—'
 
 
@@ -655,7 +716,7 @@ for sec in sector_order:
         _raw = ts_lookup.get(code, {}).get('signals', {})
         ts_sig = _raw.get('signals', _raw) if isinstance(_raw.get('signals'), dict) else _raw
         mo = stock_mom.get(code, {})
-        close = ts_sig.get('close', 0) or sig.get('signals', {}).get('close', 0) or _raw.get('close', 0)
+        close = ts_sig.get('close', 0) or _raw.get('close', 0)
         ma5 = ts_sig.get('ma5', 0)
         boll = ts_sig.get('bollinger', [])
         kdj = ts_sig.get('kdj', [])

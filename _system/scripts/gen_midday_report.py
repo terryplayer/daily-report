@@ -147,6 +147,12 @@ if len(stock_quotes) < len(watch_codes) * 0.5:
         pass
 
 print(f'[MIDDAY] 实时行情: {len(stock_quotes)}/{len(watch_codes)} 只', file=sys.stderr)
+# 保存午间行情到缓存（供收盘午间vs收盘模块使用）
+try:
+    __import__('json').dump({k: {'price': v.get('price', ''), 'change_pct': v.get('change_pct', 0)} for k, v in stock_quotes.items() if k != 'name'}, 
+              open('/tmp/midday_quotes.json', 'w'), ensure_ascii=False)
+except: pass
+
 
 # ─── 1. 上午盘面回顾 ──────────────────────────────
 rows_html = ''
