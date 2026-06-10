@@ -3,7 +3,7 @@
 ## 前置约束
 - 样式模板：`scripts/template-midday.html`
 - 持仓清单：`scripts/template-stocks.json`
-- 不可修改：`index.html`
+- 不可修改：`dashboard.html`
 - 周末/节假日：直接结束
 
 ## 执行步骤

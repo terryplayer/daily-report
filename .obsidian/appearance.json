@@ -1,7 +1,9 @@
 {
   "accentColor": "#58a6ff",
   "cssTheme": "",
-  "enabledCssSnippets": [],
+  "enabledCssSnippets": [
+    "hybrid-system"
+  ],
   "baseFontSize": 16,
   "baseFontSizeAction": false,
   "theme": "obsidian",

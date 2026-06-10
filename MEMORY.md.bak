@@ -1,0 +1,18 @@
+# 🧠 MEMORY.md — 小十三的长期记忆
+
+## 关于十三哥
+
+- 名字：小酒
+- 称呼：十三哥
+- 生日：6月15日
+- 技术栈：Python、FastAPI
+- 时区：Asia/Shanghai (GMT+8)
+
+## 系统记忆
+
+- 2026-06-04：混动系统架构 v2.0 完成
+  - 报告管线重构（gen_* + validate）
+  - 统一模型 v1 上线
+  - 随机森林 ML 模型（方向准确率 82%）
+  - Hermes 记忆激活 + 每日复盘循环
+  - Obsidian 仓库统一为 workspace

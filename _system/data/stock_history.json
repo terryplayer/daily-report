@@ -686,10 +686,1037 @@
           "change_pct": null
         }
       }
+    },
+    "20260608": {
+      "date": "20260608",
+      "benchmark": {
+        "close": 3959.338,
+        "change_pct": -1.7
+      },
+      "stocks": {
+        "688549": {
+          "close": 19.19,
+          "change_pct": 20.01
+        },
+        "603019": {
+          "close": 78.51,
+          "change_pct": -4.69
+        },
+        "688381": {
+          "close": 38.85,
+          "change_pct": 1.36
+        },
+        "688323": {
+          "close": 31.36,
+          "change_pct": 5.55
+        },
+        "688530": {
+          "close": 45.51,
+          "change_pct": -6.26
+        },
+        "688268": {
+          "close": 183.02,
+          "change_pct": -6.95
+        },
+        "301389": {
+          "close": 77.78,
+          "change_pct": -5.03
+        },
+        "002600": {
+          "close": 14.34,
+          "change_pct": -4.91
+        },
+        "603629": {
+          "close": 162.34,
+          "change_pct": -10.0
+        },
+        "301396": {
+          "close": 159.03,
+          "change_pct": -3.27
+        },
+        "600584": {
+          "close": 70.3,
+          "change_pct": -7.07
+        },
+        "300604": {
+          "close": 200.4,
+          "change_pct": -3.06
+        },
+        "000586": {
+          "close": 15.6,
+          "change_pct": -4.35
+        },
+        "002384": {
+          "close": 213.0,
+          "change_pct": -3.8
+        },
+        "300433": {
+          "close": 42.64,
+          "change_pct": -6.51
+        },
+        "301611": {
+          "close": 102.0,
+          "change_pct": -5.56
+        },
+        "603516": {
+          "close": 129.33,
+          "change_pct": -4.21
+        },
+        "300975": {
+          "close": 41.6,
+          "change_pct": -7.14
+        },
+        "002484": {
+          "close": 83.62,
+          "change_pct": -7.09
+        },
+        "300496": {
+          "close": 64.74,
+          "change_pct": 2.49
+        },
+        "301171": {
+          "close": 40.29,
+          "change_pct": 1.15
+        },
+        "300058": {
+          "close": 15.05,
+          "change_pct": -2.84
+        },
+        "300290": {
+          "close": 9.72,
+          "change_pct": -5.45
+        },
+        "600330": {
+          "close": 26.78,
+          "change_pct": -8.97
+        },
+        "002407": {
+          "close": 33.63,
+          "change_pct": 1.3
+        },
+        "300196": {
+          "close": 22.18,
+          "change_pct": -7.85
+        },
+        "605006": {
+          "close": 17.41,
+          "change_pct": -5.33
+        },
+        "301217": {
+          "close": 113.1,
+          "change_pct": 1.65
+        },
+        "603318": {
+          "close": 8.76,
+          "change_pct": -1.35
+        },
+        "600396": {
+          "close": 19.3,
+          "change_pct": -3.55
+        },
+        "002379": {
+          "close": 17.48,
+          "change_pct": -6.17
+        },
+        "002418": {
+          "close": 4.34,
+          "change_pct": -4.62
+        },
+        "000981": {
+          "close": 3.39,
+          "change_pct": -4.78
+        },
+        "600860": {
+          "close": 8.88,
+          "change_pct": -2.31
+        },
+        "000062": {
+          "close": 30.7,
+          "change_pct": -8.79
+        },
+        "002195": {
+          "close": 7.15,
+          "change_pct": -3.51
+        },
+        "002261": {
+          "close": 27.05,
+          "change_pct": -4.72
+        },
+        "002389": {
+          "close": 18.5,
+          "change_pct": -2.27
+        },
+        "002429": {
+          "close": 11.12,
+          "change_pct": -5.92
+        },
+        "300059": {
+          "close": 17.72,
+          "change_pct": -4.32
+        },
+        "300244": {
+          "close": 16.25,
+          "change_pct": -3.39
+        },
+        "300255": {
+          "close": 36.97,
+          "change_pct": -1.49
+        },
+        "300322": {
+          "close": 28.61,
+          "change_pct": -15.23
+        },
+        "300390": {
+          "close": 79.95,
+          "change_pct": -0.68
+        },
+        "300394": {
+          "close": 425.11,
+          "change_pct": -6.98
+        },
+        "300395": {
+          "close": 112.38,
+          "change_pct": -5.75
+        },
+        "300398": {
+          "close": 39.75,
+          "change_pct": -3.59
+        },
+        "300502": {
+          "close": 725.0,
+          "change_pct": -3.07
+        },
+        "300540": {
+          "close": 25.8,
+          "change_pct": -3.08
+        },
+        "300613": {
+          "close": 56.3,
+          "change_pct": -5.99
+        },
+        "300857": {
+          "close": 213.3,
+          "change_pct": -6.64
+        },
+        "300911": {
+          "close": 22.97,
+          "change_pct": -4.61
+        },
+        "301236": {
+          "close": 43.53,
+          "change_pct": 4.14
+        },
+        "301237": {
+          "close": 60.75,
+          "change_pct": -5.84
+        },
+        "301511": {
+          "close": 123.08,
+          "change_pct": 3.0
+        },
+        "600110": {
+          "close": 10.74,
+          "change_pct": -4.87
+        },
+        "600170": {
+          "close": 2.44,
+          "change_pct": -2.01
+        },
+        "600519": {
+          "close": 1262.98,
+          "change_pct": -0.78
+        },
+        "600711": {
+          "close": 11.09,
+          "change_pct": -6.81
+        },
+        "601179": {
+          "close": 14.01,
+          "change_pct": -6.79
+        },
+        "603799": {
+          "close": 46.72,
+          "change_pct": -6.49
+        },
+        "603985": {
+          "close": 22.43,
+          "change_pct": -4.15
+        },
+        "688008": {
+          "close": 224.31,
+          "change_pct": -6.3
+        },
+        "688020": {
+          "close": 130.0,
+          "change_pct": -5.58
+        },
+        "688055": {
+          "close": 4.97,
+          "change_pct": -4.42
+        },
+        "688166": {
+          "close": 44.0,
+          "change_pct": -6.98
+        },
+        "688818": {
+          "close": 70.58,
+          "change_pct": -3.58
+        },
+        "002340": {
+          "close": 6.85,
+          "change_pct": -4.86
+        },
+        "002364": {
+          "close": 52.41,
+          "change_pct": -1.02
+        },
+        "002498": {
+          "close": 7.68,
+          "change_pct": -3.64
+        },
+        "002580": {
+          "close": 20.8,
+          "change_pct": -4.81
+        },
+        "002624": {
+          "close": 14.3,
+          "change_pct": 2.44
+        },
+        "300027": {
+          "close": 1.94,
+          "change_pct": 1.04
+        },
+        "002716": {
+          "close": 8.5,
+          "change_pct": -6.39
+        },
+        "000678": {
+          "close": 11.48,
+          "change_pct": -2.96
+        },
+        "000890": {
+          "close": 10.01,
+          "change_pct": -2.44
+        },
+        "002501": {
+          "close": 1.62,
+          "change_pct": -4.71
+        }
+      }
+    },
+    "20260609": {
+      "date": "20260609",
+      "benchmark": {
+        "close": 4010.03,
+        "change_pct": 1.28
+      },
+      "stocks": {
+        "688549": {
+          "close": 22.66,
+          "change_pct": 18.08
+        },
+        "603019": {
+          "close": 80.4,
+          "change_pct": 2.41
+        },
+        "688381": {
+          "close": 42.07,
+          "change_pct": 8.29
+        },
+        "688323": {
+          "close": 35.76,
+          "change_pct": 14.03
+        },
+        "688530": {
+          "close": 49.3,
+          "change_pct": 8.33
+        },
+        "688268": {
+          "close": 189.33,
+          "change_pct": 3.45
+        },
+        "301389": {
+          "close": 81.26,
+          "change_pct": 4.47
+        },
+        "002600": {
+          "close": 14.86,
+          "change_pct": 3.63
+        },
+        "603629": {
+          "close": 160.71,
+          "change_pct": -1.0
+        },
+        "301396": {
+          "close": 166.0,
+          "change_pct": 4.38
+        },
+        "600584": {
+          "close": 75.29,
+          "change_pct": 7.1
+        },
+        "300604": {
+          "close": 212.73,
+          "change_pct": 6.15
+        },
+        "000586": {
+          "close": 15.71,
+          "change_pct": 0.71
+        },
+        "002384": {
+          "close": 224.4,
+          "change_pct": 5.35
+        },
+        "300433": {
+          "close": 44.78,
+          "change_pct": 5.02
+        },
+        "301611": {
+          "close": 113.0,
+          "change_pct": 10.78
+        },
+        "603516": {
+          "close": 124.81,
+          "change_pct": -3.49
+        },
+        "300975": {
+          "close": 45.47,
+          "change_pct": 9.3
+        },
+        "002484": {
+          "close": 91.98,
+          "change_pct": 10.0
+        },
+        "300496": {
+          "close": 66.01,
+          "change_pct": 1.96
+        },
+        "301171": {
+          "close": 41.79,
+          "change_pct": 3.72
+        },
+        "300058": {
+          "close": 15.56,
+          "change_pct": 3.39
+        },
+        "300290": {
+          "close": 9.65,
+          "change_pct": -0.72
+        },
+        "600330": {
+          "close": 29.46,
+          "change_pct": 10.01
+        },
+        "002407": {
+          "close": 33.94,
+          "change_pct": 0.92
+        },
+        "300196": {
+          "close": 24.35,
+          "change_pct": 9.78
+        },
+        "605006": {
+          "close": 19.15,
+          "change_pct": 9.99
+        },
+        "301217": {
+          "close": 122.76,
+          "change_pct": 8.54
+        },
+        "603318": {
+          "close": 8.48,
+          "change_pct": -3.2
+        },
+        "600396": {
+          "close": 21.23,
+          "change_pct": 10.0
+        },
+        "002379": {
+          "close": 17.35,
+          "change_pct": -0.74
+        },
+        "002418": {
+          "close": 4.45,
+          "change_pct": 2.53
+        },
+        "000981": {
+          "close": 3.35,
+          "change_pct": -1.18
+        },
+        "600860": {
+          "close": 9.0,
+          "change_pct": 1.35
+        },
+        "000062": {
+          "close": 32.21,
+          "change_pct": 4.92
+        },
+        "002195": {
+          "close": 7.31,
+          "change_pct": 2.24
+        },
+        "002261": {
+          "close": 28.1,
+          "change_pct": 3.88
+        },
+        "002389": {
+          "close": 18.36,
+          "change_pct": -0.76
+        },
+        "002429": {
+          "close": 11.74,
+          "change_pct": 5.58
+        },
+        "300059": {
+          "close": 17.88,
+          "change_pct": 0.9
+        },
+        "300244": {
+          "close": 16.66,
+          "change_pct": 2.52
+        },
+        "300255": {
+          "close": 39.8,
+          "change_pct": 7.65
+        },
+        "300322": {
+          "close": 29.75,
+          "change_pct": 3.98
+        },
+        "300390": {
+          "close": 87.8,
+          "change_pct": 9.82
+        },
+        "300394": {
+          "close": 443.92,
+          "change_pct": 4.42
+        },
+        "300395": {
+          "close": 121.33,
+          "change_pct": 7.96
+        },
+        "300398": {
+          "close": 44.34,
+          "change_pct": 11.55
+        },
+        "300502": {
+          "close": 785.73,
+          "change_pct": 8.38
+        },
+        "300540": {
+          "close": 25.9,
+          "change_pct": 0.39
+        },
+        "300613": {
+          "close": 58.15,
+          "change_pct": 3.29
+        },
+        "300857": {
+          "close": 221.5,
+          "change_pct": 3.84
+        },
+        "300911": {
+          "close": 22.92,
+          "change_pct": -0.22
+        },
+        "301236": {
+          "close": 44.76,
+          "change_pct": 2.83
+        },
+        "301237": {
+          "close": 62.55,
+          "change_pct": 2.96
+        },
+        "301511": {
+          "close": 136.8,
+          "change_pct": 11.15
+        },
+        "600110": {
+          "close": 11.81,
+          "change_pct": 9.96
+        },
+        "600170": {
+          "close": 2.44,
+          "change_pct": 0.0
+        },
+        "600519": {
+          "close": 1256.0,
+          "change_pct": -0.55
+        },
+        "600711": {
+          "close": 11.39,
+          "change_pct": 2.71
+        },
+        "601179": {
+          "close": 14.29,
+          "change_pct": 2.0
+        },
+        "603799": {
+          "close": 47.85,
+          "change_pct": 2.42
+        },
+        "603985": {
+          "close": 22.23,
+          "change_pct": -0.89
+        },
+        "688008": {
+          "close": 236.4,
+          "change_pct": 5.39
+        },
+        "688020": {
+          "close": 147.72,
+          "change_pct": 13.63
+        },
+        "688055": {
+          "close": 5.07,
+          "change_pct": 2.01
+        },
+        "688166": {
+          "close": 43.38,
+          "change_pct": -1.36
+        },
+        "688818": {
+          "close": 68.26,
+          "change_pct": -3.29
+        },
+        "002340": {
+          "close": 7.02,
+          "change_pct": 2.48
+        },
+        "002364": {
+          "close": 55.14,
+          "change_pct": 5.21
+        },
+        "002498": {
+          "close": 7.7,
+          "change_pct": 0.26
+        },
+        "002580": {
+          "close": 21.38,
+          "change_pct": 2.79
+        },
+        "002624": {
+          "close": 14.34,
+          "change_pct": 0.28
+        },
+        "300027": {
+          "close": 1.89,
+          "change_pct": -2.58
+        },
+        "002716": {
+          "close": 8.72,
+          "change_pct": 2.59
+        },
+        "000678": {
+          "close": 11.6,
+          "change_pct": 1.05
+        },
+        "000890": {
+          "close": 9.99,
+          "change_pct": -0.2
+        },
+        "002501": {
+          "close": 1.58,
+          "change_pct": -2.47
+        },
+        "000887": {
+          "close": 21.8,
+          "change_pct": 0.14
+        },
+        "000830": {
+          "close": 12.4,
+          "change_pct": 2.73
+        },
+        "002130": {
+          "close": 19.48,
+          "change_pct": 2.26
+        },
+        "601012": {
+          "close": 12.94,
+          "change_pct": 4.02
+        },
+        "688662": {
+          "close": 93.53,
+          "change_pct": 12.44
+        }
+      },
+      "indices": {
+        "sh000001": {
+          "close": 4010.03,
+          "change_pct": 1.28
+        },
+        "sz399001": {
+          "close": 15268.72,
+          "change_pct": 3.02
+        },
+        "sz399006": {
+          "close": 3961.75,
+          "change_pct": 3.93
+        },
+        "sh000688": {
+          "close": 1663.11,
+          "change_pct": 4.17
+        }
+      }
+    },
+    "20260610": {
+      "date": "20260610",
+      "benchmark": {
+        "close": 3993.23,
+        "change_pct": -0.42
+      },
+      "stocks": {
+        "688549": {
+          "close": 25.05,
+          "change_pct": 10.55
+        },
+        "603019": {
+          "close": 82.7,
+          "change_pct": 2.86
+        },
+        "688381": {
+          "close": 40.6,
+          "change_pct": -3.29
+        },
+        "688323": {
+          "close": 39.9,
+          "change_pct": 11.58
+        },
+        "688530": {
+          "close": 55.88,
+          "change_pct": 13.35
+        },
+        "688268": {
+          "close": 190.68,
+          "change_pct": 0.71
+        },
+        "301389": {
+          "close": 80.26,
+          "change_pct": -1.23
+        },
+        "002600": {
+          "close": 13.9,
+          "change_pct": -6.46
+        },
+        "603629": {
+          "close": 144.64,
+          "change_pct": -10.0
+        },
+        "301396": {
+          "close": 175.0,
+          "change_pct": 5.42
+        },
+        "600584": {
+          "close": 74.05,
+          "change_pct": -1.65
+        },
+        "300604": {
+          "close": 226.74,
+          "change_pct": 6.59
+        },
+        "000586": {
+          "close": 14.96,
+          "change_pct": -4.77
+        },
+        "002384": {
+          "close": 212.27,
+          "change_pct": -5.41
+        },
+        "300433": {
+          "close": 42.11,
+          "change_pct": -5.96
+        },
+        "301611": {
+          "close": 106.8,
+          "change_pct": -5.49
+        },
+        "603516": {
+          "close": 115.77,
+          "change_pct": -7.24
+        },
+        "300975": {
+          "close": 39.78,
+          "change_pct": -12.51
+        },
+        "002484": {
+          "close": 87.6,
+          "change_pct": -4.76
+        },
+        "300496": {
+          "close": 62.39,
+          "change_pct": -5.48
+        },
+        "301171": {
+          "close": 37.83,
+          "change_pct": -9.48
+        },
+        "300058": {
+          "close": 14.75,
+          "change_pct": -5.21
+        },
+        "300290": {
+          "close": 9.31,
+          "change_pct": -3.52
+        },
+        "600330": {
+          "close": 29.08,
+          "change_pct": -1.29
+        },
+        "002407": {
+          "close": 34.72,
+          "change_pct": 2.3
+        },
+        "300196": {
+          "close": 24.45,
+          "change_pct": 0.41
+        },
+        "605006": {
+          "close": 21.07,
+          "change_pct": 10.03
+        },
+        "301217": {
+          "close": 122.8,
+          "change_pct": 0.03
+        },
+        "603318": {
+          "close": 8.95,
+          "change_pct": 5.54
+        },
+        "600396": {
+          "close": 19.11,
+          "change_pct": -9.99
+        },
+        "002379": {
+          "close": 17.14,
+          "change_pct": -1.21
+        },
+        "002418": {
+          "close": 4.25,
+          "change_pct": -4.49
+        },
+        "000981": {
+          "close": 3.17,
+          "change_pct": -5.37
+        },
+        "600860": {
+          "close": 8.82,
+          "change_pct": -2.0
+        },
+        "000062": {
+          "close": 31.45,
+          "change_pct": -2.36
+        },
+        "002195": {
+          "close": 7.03,
+          "change_pct": -3.83
+        },
+        "002261": {
+          "close": 30.91,
+          "change_pct": 10.0
+        },
+        "002389": {
+          "close": 18.21,
+          "change_pct": -0.82
+        },
+        "002429": {
+          "close": 10.8,
+          "change_pct": -8.01
+        },
+        "300059": {
+          "close": 17.78,
+          "change_pct": -0.56
+        },
+        "300244": {
+          "close": 16.64,
+          "change_pct": -0.12
+        },
+        "300255": {
+          "close": 37.49,
+          "change_pct": -5.8
+        },
+        "300322": {
+          "close": 28.13,
+          "change_pct": -5.45
+        },
+        "300390": {
+          "close": 87.6,
+          "change_pct": -0.23
+        },
+        "300394": {
+          "close": 411.08,
+          "change_pct": -7.4
+        },
+        "300395": {
+          "close": 121.31,
+          "change_pct": -0.02
+        },
+        "300398": {
+          "close": 44.8,
+          "change_pct": 1.04
+        },
+        "300502": {
+          "close": 772.5,
+          "change_pct": -1.68
+        },
+        "300540": {
+          "close": 26.98,
+          "change_pct": 4.17
+        },
+        "300613": {
+          "close": 58.04,
+          "change_pct": -0.19
+        },
+        "300857": {
+          "close": 222.22,
+          "change_pct": 0.33
+        },
+        "300911": {
+          "close": 22.09,
+          "change_pct": -3.62
+        },
+        "301236": {
+          "close": 43.91,
+          "change_pct": -1.9
+        },
+        "301237": {
+          "close": 61.25,
+          "change_pct": -2.08
+        },
+        "301511": {
+          "close": 137.1,
+          "change_pct": 0.22
+        },
+        "600110": {
+          "close": 12.2,
+          "change_pct": 3.3
+        },
+        "600170": {
+          "close": 2.42,
+          "change_pct": -0.82
+        },
+        "600519": {
+          "close": 1275.88,
+          "change_pct": 1.58
+        },
+        "600711": {
+          "close": 11.29,
+          "change_pct": -0.88
+        },
+        "601179": {
+          "close": 13.64,
+          "change_pct": -4.55
+        },
+        "603799": {
+          "close": 47.15,
+          "change_pct": -1.46
+        },
+        "603985": {
+          "close": 22.06,
+          "change_pct": -0.76
+        },
+        "688008": {
+          "close": 231.0,
+          "change_pct": -2.28
+        },
+        "688020": {
+          "close": 160.0,
+          "change_pct": 8.31
+        },
+        "688055": {
+          "close": 4.71,
+          "change_pct": -7.1
+        },
+        "688166": {
+          "close": 42.98,
+          "change_pct": -0.92
+        },
+        "688818": {
+          "close": 65.41,
+          "change_pct": -4.18
+        },
+        "002340": {
+          "close": 7.02,
+          "change_pct": 0.0
+        },
+        "002364": {
+          "close": 51.14,
+          "change_pct": -7.25
+        },
+        "002498": {
+          "close": 7.31,
+          "change_pct": -5.06
+        },
+        "002580": {
+          "close": 20.7,
+          "change_pct": -3.18
+        },
+        "002624": {
+          "close": 13.94,
+          "change_pct": -2.79
+        },
+        "300027": {
+          "close": 1.79,
+          "change_pct": -5.29
+        },
+        "002716": {
+          "close": 8.52,
+          "change_pct": -2.29
+        },
+        "000678": {
+          "close": 11.38,
+          "change_pct": -1.9
+        },
+        "000890": {
+          "close": 10.16,
+          "change_pct": 1.7
+        },
+        "002501": {
+          "close": 1.5,
+          "change_pct": -5.06
+        },
+        "000887": {
+          "close": 21.25,
+          "change_pct": -2.52
+        },
+        "000830": {
+          "close": 12.33,
+          "change_pct": -0.56
+        },
+        "002130": {
+          "close": 19.35,
+          "change_pct": -0.67
+        },
+        "601012": {
+          "close": 14.08,
+          "change_pct": 8.81
+        },
+        "688662": {
+          "close": 112.24,
+          "change_pct": 20.0
+        }
+      },
+      "indices": {
+        "sh000001": {
+          "close": 3993.23,
+          "change_pct": -0.42
+        },
+        "sz399001": {
+          "close": 15200,
+          "change_pct": -0.5
+        },
+        "sz399006": {
+          "close": 4100,
+          "change_pct": -0.5
+        },
+        "sh000688": {
+          "close": 1700,
+          "change_pct": -0.3
+        }
+      }
     }
   },
   "metadata": {
-    "last_updated": "20260528",
+    "last_updated": "20260610",
     "note": "Bootstrapped from existing reports + web scraping"
   }
 }

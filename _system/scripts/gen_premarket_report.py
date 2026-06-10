@@ -92,6 +92,27 @@ def fetch_overseas():
 
 overseas = fetch_overseas()
 
+# ─── 北向资金（从Tushare获取）─────────────────────────
+def fetch_north_flow():
+    """获取昨日北向资金净流入(亿元)"""
+    try:
+        import tushare as ts
+        tk = open(os.path.join(WORKSPACE, 'data', 'tushare_token.txt')).read().strip()
+        ts.set_token(tk)
+        pro = ts.pro_api()
+        yesterday = (date.today() - __import__('datetime').timedelta(days=1)).strftime('%Y%m%d')
+        df = pro.moneyflow_hsgt(start_date=yesterday, end_date=yesterday)
+        if df is not None and not df.empty:
+            v = float(df.iloc[0]['north_money'])
+            return round(v / 10000, 2)  # 万元→亿元
+    except Exception as e:
+        print(f'[WARN] 北向资金获取失败: {e}', file=sys.stderr)
+    return 0
+
+north_val = fetch_north_flow()
+if north_val == 0:
+    print('[WARN] 北向资金获取失败，返回0', file=sys.stderr)
+
 overseas_html = '<table>\n<tr><th>市场</th><th>收盘</th><th>涨跌幅</th><th>对A股影响</th></tr>\n'
 for m_name in ['道琼斯', '纳斯达克']:
     if m_name in overseas:
@@ -103,7 +124,7 @@ for m_name in ['道琼斯', '纳斯达克']:
     else:
         overseas_html += f'<tr><td>{m_name}</td><td style="color:#8b949e">—</td><td style="color:#8b949e">数据暂缺</td><td style="color:#8b949e">—</td></tr>\n'
 
-overseas_html += '<tr><td>北向资金</td><td colspan="2" class="up">净流入 +41.47亿</td><td style="color:#f85149">积极信号</td></tr>\n'
+overseas_html += '<tr><td>北向资金</td><td colspan="2" class="up">净流入 +' + str(north_val) + '亿</td><td style="color:#f85149">积极信号</td></tr>\n'
 overseas_html += '</table>\n'
 
 avg_pct = 0
@@ -112,7 +133,7 @@ for m in overseas.values():
     try: avg_pct += float(m['pct']); count += 1
     except: pass
 overseas_summary = '美股涨跌互现' if count == 0 else ('美股整体收跌' if avg_pct/count < 0 else '美股小幅收涨')
-overseas_html += f'<p style="margin-top:6px;font-size:12px;color:#d9a52e">📌 <b>外围总结</b>：{overseas_summary}，北向资金净流入 +41.47亿。</p>\n'
+overseas_html += f'<p style="margin-top:6px;font-size:12px;color:#d9a52e">📌 <b>外围总结</b>：{overseas_summary}，北向资金净流入 +{north_val}亿。</p>\n'
 
 # ─── 2. A股大盘预判 ─────────────────────────────────────
 import tushare as ts
@@ -198,7 +219,13 @@ unified_html = f'''
 
 # ─── 4. 今日关注 ─────────────────────────────────────────
 events = []
-events.append(('<span class="tag-up">资金</span>', '北向资金大幅净流入+41.47亿', 'class="up"', '正面', '全市场/核心资产', '华特气体 · 澜起科技'))
+# 资金类：从多因子评分取资金面评分最高的2只股票
+mf_stocks_list = cache['multi_factor_scores']['stocks']
+capital_top = sorted(mf_stocks_list,
+    key=lambda s: (s.get('factors', {}).get('capital', {}).get('score', 0), s.get('total_score', 0)),
+    reverse=True)[:2]
+capital_stocks = ' · '.join([s['name'] for s in capital_top])
+events.append(('<span class="tag-up">资金</span>', f'北向资金大幅净流入+{north_val}亿', 'class="up"', '正面', '全市场/核心资产', capital_stocks))
 for sec in top_sectors[:1]:
     sec_rs = [s for s in cache['rs_ranking'] if s.get('sector') == sec]
     top_stock = sec_rs[0]['name'] if sec_rs else '—'

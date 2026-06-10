@@ -9,5 +9,5 @@ DATE="${1:-$(date '+%Y-%m-%d')}"
 
 cd "$WORKSPACE"
 echo "🌀 同步到 Obsidian | $DATE"
-python3 scripts/parse_html.py "$DATE"
+python3 scripts/obsidian_sync.py "$DATE"
 echo "✅ 同步完成"

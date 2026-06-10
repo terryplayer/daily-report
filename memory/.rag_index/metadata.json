@@ -1,0 +1,566 @@
+[
+  {
+    "text": "# 🧠 MEMORY.md — 小十三的长期记忆",
+    "source": "MEMORY.md",
+    "section": "前言",
+    "memory_type": "root"
+  },
+  {
+    "text": "## 关于十三哥\n\n- 名字：小酒\n- 称呼：十三哥\n- 生日：6月15日\n- 技术栈：Python、FastAPI\n- 时区：Asia/Shanghai (GMT+8)",
+    "source": "MEMORY.md",
+    "section": "关于十三哥",
+    "memory_type": "root"
+  },
+  {
+    "text": "## 系统记忆\n\n- 2026-06-04：混动系统架构 v2.0 完成\n  - 报告管线重构（gen_* + validate）\n  - 统一模型 v1 上线\n  - 随机森林 ML 模型（方向准确率 82%）\n  - Hermes 记忆激活 + 每日复盘循环\n  - Obsidian 仓库统一为 workspace\n\n- 2026-06-05：回退修复 + 系统全面恢复\n  - 版本回退（6.1→5.26）后所有cron任务丢失，从session历史全数找回\n  - 重新注册 10 个日常定时任务 + 9 个架构演进一次性任务\n  - 补跑了：盘前简报、凌晨自检、随机森林Demo训练\n  - 盘前简报修复：RF预测行独立表格、持仓按评级降序、🔥推荐标签\n  - 候选模板已更新到 temp_reports/\n  - 新增自检模型费用模块（DeepSeek余额¥47.61）\n  - 重新设计每日复盘（20:00）和系统晨检（1:00）方案并更新模版\n  - 两个模版保存到 memory/*模版.md",
+    "source": "MEMORY.md",
+    "section": "系统记忆",
+    "memory_type": "root"
+  },
+  {
+    "text": "## A股分析系统升级完成 ✅\n\n**盘前简报、收盘简报、周复盘 三个报告体系已全部定版**",
+    "source": "memory/2026-05-22.md",
+    "section": "A股分析系统升级完成 ✅",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 实装模型清单\n1. **RS相对强度排名** — 25只持仓A+~D五档，每天更新\n2. **波动率异常预警** — 偏离1.5倍/2倍标准差自动报警\n3. **多因子评分模型** — 动量25%+趋势20%+波动15%+资金20%+估值20%\n4. **行业轮动模型** — 自动抓取PMI/CPI/PPI/GDP → 判断经济周期 → 板块配置\n5. **技术面量化** — MA5/10/20、RSI、MACD、布林带、KDJ（数据积累中）\n6. **宏观数据自动获取** — 东方财富API实时拉取",
+    "source": "memory/2026-05-22.md",
+    "section": "实装模型清单",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 文件清单\n- `scripts/stock_analysis.py` — RS/波动/多因子/技术指标\n- `scripts/macro_fetch.py` — PMI/CPI/PPI/GDP + 行业轮动\n- `data/stock_history.json` — 历史收盘数据（每天自动累加）\n- `daily-report-html/` — 三种报告输出目录",
+    "source": "memory/2026-05-22.md",
+    "section": "文件清单",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 定时任务\n- 盘前简报: 周一到五 9:15\n- 收盘简报: 周一到五 16:00（含数据更新）\n- 周复盘: 周日 12:00",
+    "source": "memory/2026-05-22.md",
+    "section": "定时任务",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## A股分析系统定版确认 ✅ (05.22)\n\n十三哥确认最终版。三个报告体系+全部模型已定版。",
+    "source": "memory/2026-05-22.md",
+    "section": "A股分析系统定版确认 ✅ (05.22)",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 三份报告\n| 报告 | 执行时间 | 包含模型 |\n|------|----------|----------|\n| 📋 盘前简报 | 周一到五 9:15 | RS+多因子+行业轮动+技术面 |\n| 📊 收盘简报 | 周一到五 16:00 | 全部6项+每日数据更新 |\n| 📈 周复盘 | 周日 12:00 | 全部+板块七综合评级 |",
+    "source": "memory/2026-05-22.md",
+    "section": "三份报告",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 综合评级板块七（最终版）\n- 🔥 短期持有 — 趋势交易/事件驱动\n- 💎 长期持有 — 价值投资/行业龙头  \n- 🚫 建议卖出 — 止损/趋势走坏\n- 权重：RS 20% + 多因子 30% + 波动 15% + 技术面 15% + 行业轮动 20%\n- 25只持仓全覆盖，每只标注评级+原因+操作建议",
+    "source": "memory/2026-05-22.md",
+    "section": "综合评级板块七（最终版）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 📊 日报\n- 📋 [[日报/2026-05-22/premarket-2026-05-22|盘前简报]]\n- 📊 [[日报/2026-05-22/daily-combined-2026-05-22|收盘简报]]",
+    "source": "memory/2026-05-22.md",
+    "section": "📊 日报",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📅 每日记录 | 2026-05-31 周日",
+    "source": "memory/2026-05-31.md",
+    "section": "前言",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 📊 A股周复盘完成 (2026.05.25→05.29)",
+    "source": "memory/2026-05-31.md",
+    "section": "📊 A股周复盘完成 (2026.05.25→05.29)",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 大盘回顾\n- 上证: 4,068.57 (-1.08%) | 深证: 15,575.13 (-0.14%)\n- 创业板: 4,037.95 (+2.53%) | 科创50: 1,751.32 (-2.20%)\n- 走势: 周一暴涨→周中分化→周五恐慌杀跌",
+    "source": "memory/2026-05-31.md",
+    "section": "大盘回顾",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 强势股 TOP5\n1. 华电辽能 600396 +37.57% 🥇 (RS A+)\n2. 利通电子 603629 +23.04% 🥈 (RS A+)\n3. 隆扬电子 301389 +12.68% 🥉 (RS A+)\n4. 天通股份 600330 +11.86% (RS A+)\n5. 蓝思科技 300433 +5.47% (RS A)",
+    "source": "memory/2026-05-31.md",
+    "section": "强势股 TOP5",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 弱势股 BOT5\n1. 宏景科技 301396 -43.76% (RS D)\n2. 瑞华泰 688323 -24.48% (RS D)\n3. 荣科科技 300290 -22.98% (RS D)\n4. 多氟多 002407 -21.08% (RS D)\n5. 珂玛科技 301611 -20.93% (RS D)",
+    "source": "memory/2026-05-31.md",
+    "section": "弱势股 BOT5",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 周末重大消息\n- 美股科技狂欢：戴尔+32%、超微+14%，纳指创新高\n- 5月PMI 50.0（前值50.3），经济景气度小幅回落\n- 半导体政策传闻+AI指导意见预期",
+    "source": "memory/2026-05-31.md",
+    "section": "周末重大消息",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 持仓评级分布\n🔥短期持有 7只 | 💎长期持有 5只 | 🚫建议卖出/减仓 19只 | 待定 1只",
+    "source": "memory/2026-05-31.md",
+    "section": "持仓评级分布",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 下周策略\n去弱留强，关注周一科技超跌反弹机会，整体仓位5-6成",
+    "source": "memory/2026-05-31.md",
+    "section": "下周策略",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 部署状态\n- ✅ Cloudflare Pages: https://daily-report-3ai.pages.dev/weekly-review-2026-05-31\n- ✅ Obsidian 同步完成\n- ⚠️ Gitee push 冲突（需要手动处理）\n\n🌀 小十三",
+    "source": "memory/2026-05-31.md",
+    "section": "部署状态",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📅 每日记录 | 2026-06-03 周三",
+    "source": "memory/2026-06-03.md",
+    "section": "前言",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 今日完成\n1. **架构定案**：OpenClaw + Hermes 混动系统上线\n   - 🌀 小十三（OpenClaw）= 日常对话 + A股分析 + 定时任务\n   - 🤖 Hermes Agent = 深度分析引擎（按需调用）\n2. **图片识别能力**：OpenClaw 接入 Qwen-Plus（通义千问）\n   - 通过阿里 DashScope，国内直连\n3. **Hermes 升级**：模型从 DeepSeek V4 Flash → V4 Pro\n   - 深度金融分析能力验证通过 ✅\n4. **通路实测**：Hermes + V4 Pro 成功输出第一份金融分析报告\n5. **架构文档**：`混动系统架构说明书.md` 已编写并同步到 Obsidian\n6. **每周自检**：设置周日12:00自检定时任务",
+    "source": "memory/2026-06-03.md",
+    "section": "今日完成",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 当前系统全景\n```\n用户(飞书) → 🌀 小十三(OpenClaw DeepSeek Flash + Qwen Vision)\n                    ↓ exec\n              🤖 Hermes Agent (DeepSeek V4 Pro)\n                    ↓\n         ☁️ Tablestore (阿里云记忆) + 📝 Obsidian (共享vault)\n```",
+    "source": "memory/2026-06-03.md",
+    "section": "当前系统全景",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 待办\n- [ ] Hermes 接飞书网关（双bot并行）\n- [ ] Hermes-4 通过 Nous Portal 测试\n- [ ] Hermes Cron 定时任务配置\n\n🌀 小十三",
+    "source": "memory/2026-06-03.md",
+    "section": "待办",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📋 每日工作复盘 · 2026.06.04 周四\n\n> 状态图例：🟢 正常  ·  🔴 异常  ·  ⚪ 未运行\n\n---",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "前言",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ❶ 系统状态\n\n| 组件 | 状态 |\n| :--- | :---: |\n| OpenClaw Gateway | 🟢 |\n| Hermes Agent | 🟢 |\n| RF 模型文件 | 🟢 |\n| Cloudflare Pages | 🟢 |",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "❶ 系统状态",
+    "memory_type": "review"
+  },
+  {
+    "text": "### Cron 任务\n\n| 任务 | 状态 |\n| :--- | :---: |\n| 午间调度 | 🟢 |\n| 收盘调度 | 🔴 |\n| 盘前调度 | 🟢 |",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "Cron 任务",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 报告生成\n\n| 报告 | 状态 |\n| :--- | :---: |\n| 盘前简报 | 🟢 |\n| 午间监测 | 🟢 |\n| 收盘汇总 | 🟢 |",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "报告生成",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ❷ 今日工作记录\n\n- 上证 4066.56(-0.43%) 创业板 4077.75(-1.10%)\n- 四大指数全绿，缩量震荡，周四效应明显\n- 🔺 中巨芯-U +10.01% 涨停、华特气体 +13.59%、珂玛科技 +11.91%\n- 🔺 淳中科技/江海股份 涨停、东山精密 +6.05%、完美世界 +7.21%\n- 🔻 天通股份 -5.43%、圣阳股份 -5.31%、诺德股份 -5.81%\n- 🔻 化工材料板块普跌，AI数字经济（蓝色光标-4.41%、中科创达-3.12%）走弱\n- 周四效应兑现，四大指数普遍回调\n- 通信/电子、科技/半导体延续强势但个股分化加剧",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "❷ 今日工作记录",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ❸ 待办事项\n\n| 优先级 | 事项 |\n| :---: | :--- |\n| 🔴 P0 | 检查今日报告生成是否正常 |\n| 🟡 P1 | 查看 Hermes 复盘结果 |\n| 🟢 P2 | 整理 Obsidian 笔记 |\n\n---\n\n> 🌀 小十三 · 2026.06.04 周四 · 自动生成",
+    "source": "memory/2026-06-04-复盘.md",
+    "section": "❸ 待办事项",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 大盘\n- 上证 4066.56(-0.43%) 创业板 4077.75(-1.10%)\n- 四大指数全绿，缩量震荡，周四效应明显",
+    "source": "memory/2026-06-04.md",
+    "section": "大盘",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 持仓关键异动\n- 🔺 中巨芯-U +10.01% 涨停、华特气体 +13.59%、珂玛科技 +11.91%\n- 🔺 淳中科技/江海股份 涨停、东山精密 +6.05%、完美世界 +7.21%\n- 🔻 天通股份 -5.43%、圣阳股份 -5.31%、诺德股份 -5.81%\n- 🔻 化工材料板块普跌，AI数字经济（蓝色光标-4.41%、中科创达-3.12%）走弱",
+    "source": "memory/2026-06-04.md",
+    "section": "持仓关键异动",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 盘前预判验证\n- 周四效应兑现，四大指数普遍回调\n- 通信/电子、科技/半导体延续强势但个股分化加剧\n- 化工/材料走弱符合盘前评级（↓52%）\n- AI/数字走弱验证盘前判断",
+    "source": "memory/2026-06-04.md",
+    "section": "盘前预判验证",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 今日操作提示\n- 中巨芯/U 涨停不追，观察持续性\n- 华特气体午后若回落至190附近可考虑止盈\n- 化工/能源板块弱势股（圣阳、诺德、天通）关注止损\n- 午后关注北向资金方向",
+    "source": "memory/2026-06-04.md",
+    "section": "今日操作提示",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📋 每日复盘 · 2026.06.05 周五\n\n> 今日三分钟 · 行情回顾 · 系统状态 · 明日提醒\n\n---",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "前言",
+    "memory_type": "review"
+  },
+  {
+    "text": "## 📊 今日行情\n\n| 指数 | 涨跌 |\n| :--- | :---: |\n| 上证 | 4083 (+0.22%) |\n| 深证 | 15704 (+0.73%) |\n| 创业板 | 4122 (+1.65%) |\n| 科创50 | 1726 (+2.11%) |\n\n📌 四大指数全面收涨，科创50领涨+2.11%",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "📊 今日行情",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 🔥 持仓异动 TOP\n\n**涨幅 TOP5：**\n华特气体 +42.28% · 江海股份 +23.76% · 商络电子 +21.27%\n珂玛科技 +16.70% · 淳中科技 +12.84%\n\n**跌幅 TOP5：**\n利通电子 -16.74% · 帝奥微 -9.02% · 天通股份 -9.04%\n荣科科技 -8.42% · 隆扬电子 -5.93%",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "🔥 持仓异动 TOP",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 📡 板块轮动\n\n↑ **领涨**：通信/电子 +13.2% — 江海/商络/珂玛/淳中全面涨停爆发\n↑ 能源/公用 +3.8% — 华电辽能+9.69%涨停带动\n↑ 科技/半导体 +1.6% — 内部分化，华特+42% vs 利通-17%\n↓ **领跌**：AI/数字 -3.6% · 化工/材料 -2.7%",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "📡 板块轮动",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 🎯 今日预测验证\n\n| 板块 | 盘前方向 | 实际 | 验证 |\n|:----|:--------:|:---:|:----:|\n| 通信/电子 | ↑ 看涨 | +13.2% | ✅ |\n| 能源/公用 | ↑ 看涨 | +3.8% | ✅ |\n| 科技/半导体 | — 中性 | +1.6% | ⚪ |\n| 化工/材料 | ↓ 看跌 | -2.7% | ✅ |\n| AI/数字 | ↓ 看跌 | -3.6% | ✅ |\n| 其他 | — 中性 | -2.2% | ⚪ |\n\n板块：**4/6 = 67%** · 个股：**24/32 = 75%** · 综合准确率 **75%** ✅\n\n---",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "🎯 今日预测验证",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ⚙️ 系统状态\n\n| 报告 | 状态 |\n| :--- | :---: |\n| 盘前简报 | 🟢 |\n| 午间监测 | 🟢 |\n| 收盘汇总 | 🟢 |\n\nCron任务：✅ 19个全部正常\nHermes复盘：⚪ 今日未生成",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "⚙️ 系统状态",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 📝 今日工作\n\n- 🔄 **版本回退修复** — 十三哥早上修复回退问题，重新上线所有cron和演进任务\n- 📋 **盘前简报修复** — 板块评分RF重复行、持仓排序、🔥蓝色标签\n- 🌲 **随机森林Demo训练** — 153样本，方向准确率61.3%，R² 0.229\n- 🕐 **自检×3次** — 11:18 / 11:42 / 12:04，全部正常\n- 🔄 **混动系统自检** — 12:25 全部正常",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "📝 今日工作",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 🚀 架构演进进度\n\n**已交付（2/11）：**\n统一模型框架 MOM/BBW/MRD · 随机森林Demo训练\n\n**待执行：**\nRAG向量检索（6/6）· 研究员角色（6/9）· 分析师角色（6/13）\n自动任务拆解（6/17）· MCP工具（6/21）· 协整配对（6/12）· Ridge回归（6/25）\n\n---\n\n📎 在线查看：https://daily-report-3ai.pages.dev\n🌀 小十三 · 2026.06.05 周五 · 自动生成",
+    "source": "memory/2026-06-05-复盘.md",
+    "section": "🚀 架构演进进度",
+    "memory_type": "review"
+  },
+  {
+    "text": "# 📅 每日记录 | 2026-06-05 周五",
+    "source": "memory/2026-06-05.md",
+    "section": "前言",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🔄 版本回退修复 & 系统恢复\n十三哥早上修复了回退问题（6.1→5.26），重新上线。\n- 找回并重新注册了所有10个cron定时任务\n- 模板文件和脚本全部完好\n- 所有架构演进任务也重新注册（共9个一次性任务）",
+    "source": "memory/2026-06-05.md",
+    "section": "🔄 版本回退修复 & 系统恢复",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🕐 自检补跑（11:18 补执行）\n故障导致凌晨1:00自检未执行，手动补跑。",
+    "source": "memory/2026-06-05.md",
+    "section": "🕐 自检补跑（11:18 补执行）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 检查结果\n| 项目 | 状态 |\n|:---|:---:|\n| Gateway HTTP 200 | ✅ |\n| 数据最新日期 | ✅ 20260604（最近交易日） |\n| CF Pages 200 | ✅ |\n| 模型导入 | ✅ 全部成功 |\n| 盘前预测文件 | ✅ 存在 |\n| 混动系统架构说明书 | ✅ 存在（02-研究/） |\n| cron任务 | ✅ 19个全部正常 |",
+    "source": "memory/2026-06-05.md",
+    "section": "检查结果",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🌲 随机森林Demo训练 ✅（10:34 执行）\n样本153条，方向准确率61.3%，R² 0.229",
+    "source": "memory/2026-06-05.md",
+    "section": "🌲 随机森林Demo训练 ✅（10:34 执行）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 📋 盘前简报修复\n- 修复了板块评分表RF预测行重复问题\n- 持仓股票按评级降序排列\n- 热门推荐股票加 🔥 蓝色标签\n- 候选模板已更新到 temp_reports/\n\n🌀 小十三",
+    "source": "memory/2026-06-05.md",
+    "section": "📋 盘前简报修复",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🕐 自检补跑（11:42）— 按最新模版\n1️⃣ 基础连通性 ✅\n2️⃣ DeepSeek余额¥48.05 / Hermes需网页查 / 昨日消耗¥1.00 ✅\n3️⃣ 数据 & 报告 ✅\n4️⃣ 模型 & 框架 ✅\n5️⃣ 架构状态 ✅",
+    "source": "memory/2026-06-05.md",
+    "section": "🕐 自检补跑（11:42）— 按最新模版",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 📊 指数表现\n| 指数 | 午间收盘 | 半日涨跌 |\n|------|---------|--------|\n| 上证指数 | 4075.31 | +0.43% |\n| 深证成指 | 15623.57 | -0.24% |\n| 创业板指 | 4055.23 | -0.82% |\n| 科创50 | 1708.54 | -1.70% |\n\n**格局**：大盘分化，上证独红，双创走弱。",
+    "source": "memory/2026-06-05.md",
+    "section": "📊 指数表现",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### ⚡ 异动提醒（≥5%）\n- **🔴 涨停**：淳中科技 +10%，硕贝德 +12.9%，电科蓝天(688818) +7.6%\n- **🟢 大跌**：利通电子 -9.9%，长川科技 -5.2%，易点天下 -6.0%",
+    "source": "memory/2026-06-05.md",
+    "section": "⚡ 异动提醒（≥5%）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 📋 板块观察\n- **📡 通信/电子**：淳中涨停领涨，珂玛A+强势，板块整体活跃\n- **💻 科技/半导体**：利通电子接近跌停(评级D)，长川回撤-5%，华特回踩-2%\n- **🧪 化工/材料**：多氟多+3.3%，天通+4.9%，整体回升\n- **⚡ 能源/公用**：中国西电-2.8%，中恒电气+3.5%\n- **🤖 AI/数字**：易点天下-6%，蓝色光标-1.5%，弱势延续",
+    "source": "memory/2026-06-05.md",
+    "section": "📋 板块观察",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 📐 盘前 vs 实际\n- 通信/电子方向正确 ✅ 淳中/珂玛/蓝思均涨\n- 科技/半导体偏分歧，强势股也回撤\n- AI/数字弱势判断正确 ✅\n\n🌐 午间报告已部署：https://daily-report-3ai.pages.dev",
+    "source": "memory/2026-06-05.md",
+    "section": "📐 盘前 vs 实际",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🕐 系统晨检补跑（12:04）\n按最新设计方案执行：架构一致性✅ DeepSeek¥47.61✅ 组件全部正常✅",
+    "source": "memory/2026-06-05.md",
+    "section": "🕐 系统晨检补跑（12:04）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🕐 混动系统每日自检（12:25 cron触发，实际执行）",
+    "source": "memory/2026-06-05.md",
+    "section": "🕐 混动系统每日自检（12:25 cron触发，实际执行）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 板块一 · 系统状态\n1️⃣ 基础连通性\n- ✅ OpenClaw Gateway: 🟢 OPERATIONAL（fast status 无异常）\n- ✅ Hermes Agent: 🟢 OPERATIONAL（Python 3.11, OpenRouter配置完好，仅未绑定消息平台正常）\n2️⃣ 数据 & 报告\n- ✅ 数据最新日期: 20260604（最近交易日6月4日）\n- ✅ daily-report-3ai.pages.dev → HTTP 200\n- ✅ cron任务: 17个全部正常（含9个架构演进一次性任务待执行）\n3️⃣ 新模型 & 框架\n- ✅ 模型导入全部成功\n4️⃣ 架构文件\n- ✅ 混动系统架构说明书.md 存在（02-研究/）\n- ❌ memory/daily-report-template.md 不存在\n- ✅ memory/自检报告模版.md 存在",
+    "source": "memory/2026-06-05.md",
+    "section": "板块一 · 系统状态",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 板块二 · Token 消耗审计\n- 今早余额记录: ¥48.05 → ¥47.61（约消耗¥0.44）\n- 当前余额估算: ~¥47.6\n- 状态: 🟢 正常（日消耗 ¥0.44 < ¥5）",
+    "source": "memory/2026-06-05.md",
+    "section": "板块二 · Token 消耗审计",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 板块三 · 演进路线图进度\n- 已交付: 2/11（统一模型框架 + 随机森林Demo）\n- 进度: 🟡 18%\n- 今日已执行: 无新任务（今日无新增cron事件）\n- 待确认任务: RAG向量检索(6/6)、研究员角色(6/9)、分析师角色(6/13)、自动任务拆解(6/17)、MCP工具(6/21)、协整配对(6/12)、Ridge回归(6/25)",
+    "source": "memory/2026-06-05.md",
+    "section": "板块三 · 演进路线图进度",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 结论\n🟢 全部正常 — 已更新演进路线图（随机森林Demo标记为已交付）",
+    "source": "memory/2026-06-05.md",
+    "section": "结论",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📅 每日记录 | 2026-06-06 周六",
+    "source": "memory/2026-06-06.md",
+    "section": "前言",
+    "memory_type": "daily"
+  },
+  {
+    "text": "## 🧠 RAG 向量检索搭建完成（10:00 cron 执行）",
+    "source": "memory/2026-06-06.md",
+    "section": "🧠 RAG 向量检索搭建完成（10:00 cron 执行）",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 背景\n按架构演进计划（02-研究/ai-agent-evolution-plan.md），今天是 RAG 向量检索模块的搭建日。目标是在已有 Tablestore + text-embedding-v3 基础上，构建语义搜索接口。",
+    "source": "memory/2026-06-06.md",
+    "section": "背景",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 架构决策\n由于 Tablestore Python SDK (6.4.6) 的 `put_row` 不支持 Python `list` 类型的向量列（底层 plainbuffer 序列化只能处理 int/float/str/bytes），改用 **FAISS + local index** 方案：\n\n```\n记忆文件 (MEMORY.md + memory/*.md)\n        ↓  分块 (按 ## 章节 + 512字符阈值)\n   85 个 chunks\n        ↓  DashScope text-embedding-v3 (1024维)\n  向量化\n        ↓  FAISS IndexFlatIP (内积=余弦相似度)\n  本地索引 (.rag_index/)\n        ↓  归一化 L2\n  语义搜索\n```",
+    "source": "memory/2026-06-06.md",
+    "section": "架构决策",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 模块文件\n- **`scripts/rag_memory.py`** — 核心模块，包含：\n\n| 函数 | 作用 |\n|:-----|:-----|\n| `get_embedding(text)` | 调用 text-embedding-v3 获取向量 |\n| `get_embeddings_batch(texts)` | 批量向量化（自动分 ≤10 小批） |\n| `index_all_memories()` | 扫描全部记忆文件，检测变更，重建索引 |\n| `search_memories(query, top_k, memory_type)` | 语义搜索，支持按类型过滤 |\n| `add_to_index(text, source, section)` | 动态添加经验到索引（复盘后调用） |\n| `format_for_prompt(results, max_chars)` | 格式化结果为 Hermes 提示上下文 |",
+    "source": "memory/2026-06-06.md",
+    "section": "模块文件",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 测试结果\n```\n搜索 \"A股板块评分方法\" →\n  [0.6789] memory/2026-05-22.md > 综合评级板块七\n  [0.5899] memory/2026-06-05.md > 板块观察\n  [0.5881] memory/2026-06-05-复盘.md > 今日预测验证\n\n搜索 \"MRD权重 震荡市\" →\n  [0.7893] 复盘/2026-06-05 > 调仓规则  ← 刚添加的记忆\n```",
+    "source": "memory/2026-06-06.md",
+    "section": "测试结果",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### Hermes 集成方式\n```python\nfrom rag_memory import search_memories, format_for_prompt\n\n# 分析前检索历史\nhistory = search_memories(f\"类似行情：{板块} {信号}\")\ncontext = format_for_prompt(history)\nprompt = f\"历史参考：{context}\\n当前数据：{current_data}\"\n```",
+    "source": "memory/2026-06-06.md",
+    "section": "Hermes 集成方式",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 索引统计\n- 总计 86 chunks（85 文件 + 1 动态添加）\n- 索引位于 `memory/.rag_index/`（含 FAISS 索引文件 + 元数据 JSON）\n- 文件变更自动检测（MD5 哈希缓存），无变更时跳过索引",
+    "source": "memory/2026-06-06.md",
+    "section": "索引统计",
+    "memory_type": "daily"
+  },
+  {
+    "text": "### 备忘\n- 💡 后续可添加 `memory_type` 过滤更细粒度的搜索\n- 💡 `add_to_index()` 可用于复盘循环中自动保存经验\n- 💡 FAISS 索引重建成本低（≈10秒/85条），增量足够快\n\n🌀 小十三",
+    "source": "memory/2026-06-06.md",
+    "section": "备忘",
+    "memory_type": "daily"
+  },
+  {
+    "text": "# 📋 每日复盘报告模版\n\n> 最终确认版本 · 2026-06-05\n\n---\n\n```\n# 📋 每日工作复盘 · YYYY.MM.DD 周X\n\n> 状态图例：🟢 正常  ·  🔴 异常  ·  ⚪ 未运行\n\n---",
+    "source": "memory/复盘报告模版.md",
+    "section": "前言",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ❶ 系统状态\n\n| 组件 | 状态 |\n| :--- | :---: |\n| OpenClaw Gateway | 🟢 |\n| Hermes Agent | 🟢 |\n| RF 模型文件 | 🟢 |\n| Cloudflare Pages | 🟢 |",
+    "source": "memory/复盘报告模版.md",
+    "section": "❶ 系统状态",
+    "memory_type": "review"
+  },
+  {
+    "text": "### Cron 任务\n\n| 任务 | 状态 |\n| :--- | :---: |\n| 盘前调度 | 🟢 |\n| 午间调度 | 🟢 |\n| 收盘调度 | 🟢 |",
+    "source": "memory/复盘报告模版.md",
+    "section": "Cron 任务",
+    "memory_type": "review"
+  },
+  {
+    "text": "### 报告生成\n\n| 报告 | 状态 |\n| :--- | :---: |\n| 盘前简报 | 🟢 |\n| 午间监测 | 🟢 |\n| 收盘汇总 | 🟢 |",
+    "source": "memory/复盘报告模版.md",
+    "section": "报告生成",
+    "memory_type": "review"
+  },
+  {
+    "text": "## ❸ 待办事项\n\n| 优先级 | 事项 |\n| :---: | :--- |\n| 🔴 P0 | 检查今日报告生成是否正常 |\n| 🟡 P1 | 查看 Hermes 复盘结果 |\n| 🟢 P2 | 整理 Obsidian 笔记 |\n\n---\n\n> 🌀 小十三 · YYYY.MM.DD 周X · 自动生成\n```",
+    "source": "memory/复盘报告模版.md",
+    "section": "❸ 待办事项",
+    "memory_type": "review"
+  },
+  {
+    "text": "# 🕐 混动系统每日自检 — 任务规范书\n\n| 标识 | OPS-CHECK-001 | 版本 | v3.0 |\n|:-----|:--------------|:-----|:------|\n| 执行 | 每日 01:00 CST | 方式 | 自动 cron → 飞书 |\n| 维护 | 小十三 🌀 | 审批 | 十三哥 |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "前言",
+    "memory_type": "system"
+  },
+  {
+    "text": "## 一、架构一致性检查\n\n> 参照《混动系统架构说明书 v2.0》验证实际系统与设计的偏差。功能正常但描述不符 → 反向更新说明书。\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "一、架构一致性检查",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 1.1 智能体宿主\n\n| # | 组件 | 检查方法 | 期望 | 等级 |\n|:-:|:-----|:---------|:-----|:----:|\n| 1 | 🌀 OpenClaw Gateway | `curl :18789` | HTTP 200 | 🔴 |\n| 2 | 🤖 Hermes Agent | `hermes status` | 在线 | 🔴 |\n| 3 | 🐍 Python 引擎 | `from stock_analysis import *` | 全部可用 | 🔴 |\n| 4 | 🟩 Node.js | `node --version` | v26.x | 🟡 |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "1.1 智能体宿主",
+    "memory_type": "system"
+  },
+  {
+    "text": "#### 📡 数据源层\n\n| # | 工具 | 用途 | 检查 | 期望 |\n|:-:|:-----|:------|:-----|:-----|\n| 1 | Tushare | A股历史行情 | `import tushare; print(__version__)` | 模块可用 |\n| 2 | Sina/QQ | 实时行情 | `curl hq.sinajs.cn` | 有数据 |\n| 3 | stock_history.json | 本地缓存 | `ls -lh` | 存在且>0 |\n| 4 | /tmp 缓存 | 运行时数据 | `ls /tmp/stock_analysis_cache.json` | 工作日存在 |\n| 5 | 盘前预测缓存 | 预判数据 | `ls /tmp/premarket-predictions.txt` | 工作日存在 |\n\n**数据完整性：** 读取 `stock_history.json` → 交易日数、最新日期、股票数。",
+    "source": "memory/自检任务规范书.md",
+    "section": "📡 数据源层",
+    "memory_type": "system"
+  },
+  {
+    "text": "#### 🤖 模型调用层\n\n| # | 工具 | 用途 | 检查 | 期望 |\n|:-:|:-----|:------|:-----|:-----|\n| 1 | DeepSeek API | V4 Flash 推理 | 查询余额 | `¥xx.xx`, <¥10预警 |\n| 2 | OpenRouter | Hermes V4 Pro | — | ⚠️ 需网页确认 |\n| 3 | DashScope | Qwen + Embedding | 月固定¥3 | ✅ |",
+    "source": "memory/自检任务规范书.md",
+    "section": "🤖 模型调用层",
+    "memory_type": "system"
+  },
+  {
+    "text": "#### ☁️ 记忆存储层\n\n| # | 工具 | 用途 | 检查 | 期望 |\n|:-:|:-----|:------|:-----|:-----|\n| 1 | Tablestore 阿里云成都 | 长期记忆 | `openclaw status \\| grep memory` | 实例可达 |\n| 2 | Mem0 | 记忆服务 | 同上 | 已启用 |\n| 3 | MEMORY.md / memory/ | 手工记忆 | `wc -l MEMORY.md` + `ls memory/` | 文件存在 |",
+    "source": "memory/自检任务规范书.md",
+    "section": "☁️ 记忆存储层",
+    "memory_type": "system"
+  },
+  {
+    "text": "#### 🚀 发布部署层\n\n| # | 工具 | 用途 | 检查 | 期望 |\n|:-:|:-----|:------|:-----|:-----|\n| 1 | GitHub remote | 仓库 | `git remote -v \\| grep github` | 正常 |\n| 2 | Cloudflare Pages | 托管 | `curl daily-report-3ai.pages.dev` | HTTP 200 |\n| 3 | 盘前/午间/收盘 HTML | 最近交易日 | 检查3份文件 | 均存在 |",
+    "source": "memory/自检任务规范书.md",
+    "section": "🚀 发布部署层",
+    "memory_type": "system"
+  },
+  {
+    "text": "#### 💬 用户通道层\n\n| # | 通道 | 状态 | 检查 |\n|:-:|:-----|:----:|:-----|\n| 1 | 飞书 | `openclaw status \\| grep Feishu` | ON · OK |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "💬 用户通道层",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 1.3 报告管线\n\n**路径** | **检查** | **分量**\n:---------|:---------|:------:\n`scripts/gen_*.py` | 逐个检查 | 6/6\n`scripts/template-*.html` | 逐个检查 | 4/4\n`scripts/stock_analysis.py` | 存在？ | ✅/❌\n`scripts/validate_report.py` | 存在？ | ✅/❌\n`scripts/rf_injector.py` | 存在？ | ✅/❌\n`scripts/template-stocks.json` | 存在？ | ✅/❌\n`scripts/audit_gen_scripts.py` | 存在？ | ✅/❌\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "1.3 报告管线",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 1.4 模板基线\n\n| 报告 | 模板 | 主题色 | h2≥ |\n|:-----|:------|:-------|:---:|\n| 📋 盘前 | `template-premarket.html` | `#58a6ff` | 6 |\n| 🌤 午间 | `template-midday.html` | `#56d4dd` | 4 |\n| 📊 收盘 | `template-closing.html` | `#f85149` | 10 |\n| 📈 周复盘 | `template-weekly.html` | `#f778ba` | 7 |\n\n差异 → ⚠️ 更新说明书。\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "1.4 模板基线",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 1.5 数据红线\n\n| 检查 | 命令 | 期望 |\n|:-----|:-----|:------|\n| 硬编码 | `grep 'price.*=.*\"[0-9]' gen_premarket_report.py` | 无 |\n| 占位符 | `grep -c '{{' temp_reports/*.html` | 均为0 |\n| index.html 安全 | `git log --oneline -3 -- index.html` | 无直接修改 |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "1.5 数据红线",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 1.6 差异处理\n\n| 情形 | 处理 | 标记 |\n|:-----|:------|:----:|\n| 功能OK·说明书不符 | 更新说明书 | ⚠️ |\n| 功能异常·说明书正确 | 重试3次·报告 | 🔴 |\n| 组件/工具缺失 | 报告缺失 | 🔴 |\n| 模板基线不符 | 标记·判断调整 | ⚠️ |\n| 数据通路中断 | 报告异常 | 🔴 |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "1.6 差异处理",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 已完成\n\n- ✅ **统一模型框架** — RS+动量+MRD+多因子+轮动 · 已上线\n- ✅ **随机森林框架搭建** — 特征工程完成 · 已交付\n- ✅ **随机森林Demo训练** — 方向准确率 61.3% · 已交付",
+    "source": "memory/自检任务规范书.md",
+    "section": "已完成",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 待执行\n\n| 阶段 | 任务 | 排期 |\n|:-----|:-----|:----:|\n| 模型增强 | 随机森林迭代优化 | 6/8 |\n| | 随机森林正式上线 | 6/11 |\n| | 协整配对分析 | 6/12 |\n| | Ridge回归建模 | 6/25 |\n| 记忆层 | RAG向量检索 | 6/6 |\n| 多智能体 | 研究员角色 | 6/9 |\n| | 分析师+撰写员 | 6/13 |\n| 自主规划 | AI任务拆解 | 6/17 |\n| 工具扩展 | MCP+语音输入 | 6/21 |\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "待执行",
+    "memory_type": "system"
+  },
+  {
+    "text": "## 三、Cron任务点检\n\n> `openclaw cron list`\n\n**10 个日常 + 9 个演进 = 19 个全部启用**\n\n逐项检查：\n- `enabled = true`？\n- `lastRunStatus = ok`？\n- 无连续失败？\n- 演进任务配置 `deleteAfterRun = true`？\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "三、Cron任务点检",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 余额\n\n| 模型 | 通道 | 余额 | 状态 |\n|:-----|:------|:----:|:----:|\n| DeepSeek Flash | 直连 | `curl /user/balance` | <¥10→🔴 |\n| Hermes Pro | OpenRouter | 网页确认 | ⚠️ |\n| DashScope(Qwen+Embed) | 阿里 | 月¥3 | ✅ |\n| Tablestore | 阿里 | 按量 | ✅ |",
+    "source": "memory/自检任务规范书.md",
+    "section": "余额",
+    "memory_type": "system"
+  },
+  {
+    "text": "### 消耗\n\n```\n昨日  YYYY-MM-DD    ¥x.xx (x.x万 tokens)\n前日  YYYY-MM-DD    ¥x.xx\n环比  >50%→⚠️\n月费  日消耗×30 + ¥23(固定)  ≈ ¥xx\n```\n\n---",
+    "source": "memory/自检任务规范书.md",
+    "section": "消耗",
+    "memory_type": "system"
+  },
+  {
+    "text": "## 五、异常处理\n\n| 等级 | 处理 |\n|:----:|:-----|\n| 🔴 P0 | 60秒重试 ×3 → 报告突出显示 |\n| 🟠 P1 | 报告标注异常 |\n| 🟡 P2 | 标注⚠️ · 判断是否更新说明书 |\n| 🟢 P3 | 展示即可 |\n\n**说明书更新：** 有差异 → 追加至 `02-研究/混动系统架构说明书.md` 更新日志。\n\n---\n\n*OPS-CHECK-001 v3.0 · 小十三 🌀 · 最终确认版 2026-06-06*",
+    "source": "memory/自检任务规范书.md",
+    "section": "五、异常处理",
+    "memory_type": "system"
+  },
+  {
+    "text": "🕐 混动系统每日自检 · YYYY-MM-DD 周X\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n一、架构一致性   🟢/🟡/🔴\n\n智能体宿主\n  OpenClaw Gateway   🟢 200    Hermes Agent   🟢 在线\n  Python 引擎        🟢 全部可用  Node.js       🟢 v26\n\n外部工具链\n  Tushare        🟢 v1.4.29     stock_history  🟢 N交易日\n  Sina/QQ        🟡 403(缓存正常)   /tmp 缓存     🟢 123K\n  DeepSeek       🟢 ¥xx.xx     Hermes/OR      🟡 需确认\n  DashScope      🟢 月¥3       Tablestore     🟢 已启用\n  GitHub         🟢 正常       CF Pages       🟢 200\n  飞书           🟢 ON        报告3份         🟢 全部存在\n\n报告管线        🟢 6脚本 7模板 全部完整",
+    "source": "memory/自检报告模版.md",
+    "section": "前言",
+    "memory_type": "system"
+  },
+  {
+    "text": "模板基线        🟢 盘前/午间/收盘/周复盘 主题色h2均达标\n数据红线        🟢 无硬编码 无占位符\n差异汇总        🟢 无差异\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n二、架构演进   🟡 N/N\n\n  模型增强层 ████░░  N/7\n  ✅ 统一模型 · RF框架 · RF Demo(61.3%)\n  ⏳ 迭代(6/8) · 上线(6/11) · 协整(6/12) · Ridge(6/25)\n\n  记忆层 ░░░░  N/1   ⏳ RAG向量检索(6/6)\n  多智能体 ░░░░  N/2  ⏳ 研究员(6/9) · 分析师(6/13)\n  自主规划 ░░░░  N/1  ⏳ 任务拆解(6/17)\n  工具扩展 ░░░░  N/1  ⏳ MCP+语音(6/21)\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n三、Cron任务   🟢 19/19\n\n  01:00 🔁晨检 · 07:00 🎓TED · 09:00 🌅采集\n  09:15 📰简报 · 12:00 🌤午间 · 15:30 📊收盘\n  16:00 📮推送 · 18:00 📈评分 · 20:00 📋复盘",
+    "source": "memory/自检报告模版.md",
+    "section": "前言",
+    "memory_type": "system"
+  },
+  {
+    "text": "周日 📅周复盘 · 📌演进×9\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n四、模型费用   🟢\n\n  DeepSeek(Flash)  🟢 ¥xx.xx\n  Hermes(Pro/OR)   🟡 需确认\n  DashScope        🟢 月¥3\n  Tablestore       🟢 按量\n\n  昨日 ¥x.xx(x万tokens)  月费≈¥xx\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n结论：全部正常 🟢\n\n⚠️ 关注项",
+    "source": "memory/自检报告模版.md",
+    "section": "前言",
+    "memory_type": "system"
+  }
+]

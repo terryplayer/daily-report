@@ -3,7 +3,7 @@
 ## 前置约束
 - 样式模板：`scripts/template-daily-combined.html`
 - 持仓清单：`scripts/template-stocks.json`
-- 不可修改：`index.html`
+- 不可修改：`dashboard.html`
 - 周末/节假日：直接结束
 - 颜色规则：🔴红色=正向(涨/利好/强势) 🟢绿色=负向(跌/利空/弱势)
 - 静默执行：不推送飞书

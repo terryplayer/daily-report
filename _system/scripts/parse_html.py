@@ -401,7 +401,7 @@ tags:
 if __name__ == "__main__":
     import os
     WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    VAULT = "/Users/shisan/openclaw-cn/workspace"
+    VAULT = "/Users/shisan/.openclaw/workspace"
     HTML_DIR = os.path.join(WORKSPACE, "daily-report-html")
 
     if len(sys.argv) > 1:

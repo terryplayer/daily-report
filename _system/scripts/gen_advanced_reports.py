@@ -18,6 +18,23 @@ def load_text(fpath, default=''):
             return f.read()
     except: return default
 
+# ─── 北向资金获取 ────────────────────────────────
+def fetch_north_flow():
+    """获取昨日北向资金净流入(亿元)"""
+    try:
+        import tushare as ts
+        tk = open(os.path.join(WORKSPACE, 'data', 'tushare_token.txt')).read().strip()
+        ts.set_token(tk)
+        pro = ts.pro_api()
+        yesterday = (date.today() - __import__('datetime').timedelta(days=1)).strftime('%Y%m%d')
+        df = pro.moneyflow_hsgt(start_date=yesterday, end_date=yesterday)
+        if df is not None and not df.empty:
+            v = float(df.iloc[0]['north_money'])
+            return round(v / 10000, 2)  # 万元→亿元
+    except Exception as e:
+        print(f'[WARN] 北向资金获取失败: {e}', file=sys.stderr)
+    return 0
+
 cache = load_json('/tmp/stock_analysis_cache.json')
 pred = load_json('/tmp/premarket-predictions.json')
 hist = load_json('data/stock_history.json')
@@ -50,7 +67,7 @@ mf_stocks = [s for s in mf_stocks_raw if s.get('code') in _watch_codes]
 def norm_mf(v):
     return max(0, min(100, (v - 2) / 5 * 100)) if v else 50
 
-north_flow = 41.47
+north_flow = fetch_north_flow()
 q1_global = sum(norm_rs(r.get('rs_score')) for r in rs_list) / max(len(rs_list), 1)
 q4_global = 70 if north_flow > 20 else (60 if north_flow > 0 else 40)
 
@@ -153,7 +170,7 @@ mid_replace = {
     'REALTIME_Q4': '北向+%.0f亿' % north_flow,
     'PRE_HURST': '≈0.58', 'MID_HURST': hurst_mid,
     'MID_MARKOV': markov_mid,
-    'MORNING_REVIEW_ADV': '<div>上午盘面: 震荡偏弱，半导体+1.2%%领涨，北向净流入+15亿(估算)<br>四象限信号: 统计偏弱 趋势中性 估值中性 情绪积极</div>',
+    'MORNING_REVIEW_ADV': f'<div>上午盘面: 震荡偏弱，半导体+1.2%%领涨，北向净流入+{north_flow:.0f}亿<br>四象限信号: 统计偏弱 趋势中性 估值中性 情绪积极</div>',
     'TREND_VERIFICATION': mid_trend,
     'MULTI_ALERTS': mid_alerts,
     'HOLDINGS_MIDDAY_ADV': '<table><tr><th>股票</th><th>半日涨跌</th><th>MOM</th><th>卡尔曼</th><th>PB分位</th><th>资金</th><th>信号</th></tr>' + build_midday_stock_rows(sorted_mf) + '</table>',
@@ -315,7 +332,8 @@ if _gen_weekly:
     with open(weekly_path, 'w') as f: f.write(weekly_html)
     print('📈  ✅', weekly_path)
 
-for p in [mid_path, closing_path, weekly_path]:
-    if os.path.exists(p):
+for var_name in ['mid_path', 'closing_path', 'weekly_path']:
+    p = locals().get(var_name)
+    if p and os.path.exists(p):
         print('  大小: %s (%d bytes)' % (os.path.basename(p), os.path.getsize(p)))
 print('🎉 生成完成!')

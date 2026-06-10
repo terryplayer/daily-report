@@ -15,7 +15,7 @@ v3.0 修复：
 """
 
 import json, subprocess, re, sys, os, warnings
-from datetime import datetime, date
+from datetime import datetime, date, date
 
 warnings.filterwarnings('ignore', category=Warning, module='urllib3')
 from validate_report import validate
@@ -62,27 +62,91 @@ def opt_color(opt_str):
     if first == chr(0x26AA): return f'<span style="color:#8b949e">{opt_str}</span>'
     return opt_str
 
-def fetch_qt(codes_str):
+def fetch_quotes(codes_str):
+    """获取实时行情：主通道新浪，兜底腾讯"""
+    q = {}
+    # 通道A：新浪财经
     try:
-        r = subprocess.run(['curl','-s','--connect-timeout','5','--max-time','15',f'http://qt.gtimg.cn/q={codes_str}'], capture_output=True, timeout=20)
+        r = subprocess.run(['curl','-s','--connect-timeout','5','--max-time','10',
+            f'https://hq.sinajs.cn/list={codes_str}',
+            '-H','Referer: https://finance.sina.com.cn'],
+            capture_output=True, timeout=15)
         raw = r.stdout.decode('gbk', errors='replace')
-        q = {}
+        for line in raw.strip().split('\n'):
+            if 'hq_str' not in line: continue
+            # 解析代码
+            cm = re.search(r'hq_str_(?:sh|sz)(\w+)', line)
+            if not cm: continue
+            code = cm.group(1)
+            # 解析引号内数据
+            start = line.find('"')
+            end = line.rfind('"')
+            if start < 0 or end <= start: continue
+            parts = line[start+1:end].split(',')
+            if len(parts) < 6: continue
+            try:
+                prev_close = float(parts[2])
+                current = float(parts[3])
+                pct = round((current - prev_close) / prev_close * 100, 2) if prev_close else 0
+            except:
+                continue
+            q[code] = {
+                'name': parts[0],
+                'price': parts[3],
+                'change_pct': str(pct),
+                'high': parts[4],
+                'low': parts[5]
+            }
+        if len(q) >= len(codes_str.split(',')) * 0.3:
+            return q  # 成功率>30%直接返回
+    except:
+        pass
+    
+    # 通道B：腾讯行情（兜底）
+    try:
+        r = subprocess.run(['curl','-s','--connect-timeout','5','--max-time','10',
+            f'http://qt.gtimg.cn/q={codes_str}'], capture_output=True, timeout=15)
+        raw = r.stdout.decode('gbk', errors='replace')
         for line in raw.strip().split(';'):
             if not line.strip() or '=' not in line: continue
             p = line.split('~')
             if len(p) < 40: continue
             q[p[2]] = {'name': p[1], 'price': p[3], 'change_pct': p[32], 'high': p[33], 'low': p[34]}
-        return q
     except:
-        return {}
+        pass
+    return q
 
-idx_quotes = fetch_qt('sh000001,sz399001,sz399006,sh000688')
+idx_quotes = fetch_quotes('sh000001,sz399001,sz399006,sh000688')
 index_map = {'sh000001':'上证指数','sz399001':'深证成指','sz399006':'创业板指','sh000688':'科创50'}
 
 watch_items = wl.get('watchlist', [])
 watch_codes = [w['code'] for w in watch_items]
 qt_codes = ','.join(['sh'+c if c.startswith(('6','9')) else 'sz'+c for c in watch_codes])
-stock_quotes = fetch_qt(qt_codes)
+stock_quotes = fetch_quotes(qt_codes)
+
+# 通道C：Tushare兜底（如果新浪+腾讯都没拿到足够数据）
+if len(stock_quotes) < len(watch_codes) * 0.5:
+    try:
+        import tushare as ts
+        tk = open(os.path.join(WORKSPACE, 'data', 'tushare_token.txt')).read().strip()
+        ts.set_token(tk)
+        pro = ts.pro_api()
+        today = date.today().strftime('%Y%m%d')
+        for code in watch_codes:
+            if code in stock_quotes: continue
+            df = pro.daily(ts_code=code + ('.SH' if code.startswith(('6','9')) else '.SZ'),
+                          start_date=today, end_date=today)
+            if df is not None and len(df) > 0:
+                r = df.iloc[0]
+                stock_quotes[code] = {
+                    'name': '', 'price': str(r['close']),
+                    'change_pct': str(round(r['pct_chg'], 2)),
+                    'high': str(r['high']), 'low': str(r['low'])
+                }
+    except:
+        pass
+
+print(f'[MIDDAY] 实时行情: {len(stock_quotes)}/{len(watch_codes)} 只', file=sys.stderr)
 
 # ─── 1. 上午盘面回顾 ──────────────────────────────
 rows_html = ''

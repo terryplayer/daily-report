@@ -9,6 +9,23 @@ from datetime import date, datetime
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(WORKSPACE)
 
+# ─── 北向资金获取 ────────────────────────────────
+def fetch_north_flow():
+    """获取昨日北向资金净流入(亿元)"""
+    try:
+        import tushare as ts
+        tk = open(os.path.join(WORKSPACE, 'data', 'tushare_token.txt')).read().strip()
+        ts.set_token(tk)
+        pro = ts.pro_api()
+        yesterday = (date.today() - __import__('datetime').timedelta(days=1)).strftime('%Y%m%d')
+        df = pro.moneyflow_hsgt(start_date=yesterday, end_date=yesterday)
+        if df is not None and not df.empty:
+            v = float(df.iloc[0]['north_money'])
+            return round(v / 10000, 2)  # 万元→亿元
+    except Exception as e:
+        print(f'[WARN] 北向资金获取失败: {e}', file=sys.stderr)
+    return 0
+
 # ─── 读取数据 ──────────────────────────────────
 with open('/tmp/stock_analysis_cache.json') as f:
     cache = json.load(f)
@@ -63,7 +80,7 @@ rot = cache.get('sector_momentum', {})
 q3_score = 50
 
 # Q4: 行为情绪 — 北向资金
-north_flow = 41.47  # 从text_content提取
+north_flow = fetch_north_flow()
 if north_flow > 20:
     q4_score = 70
 elif north_flow > 0:
@@ -294,7 +311,7 @@ strategy_html = f'''
 <tr><td>① 统计</td><td class="up">{"偏强" if q1_score >= 55 else "中性" if q1_score >= 45 else "偏弱"}</td><td>{q1_score:.0f}%</td><td>{"RS排名领先板块可增配" if q1_score>=55 else "等待信号明确"}</td></tr>
 <tr><td>② 趋势</td><td class="flat">⏳ 待演进</td><td>50%</td><td>Hurst+卡尔曼上线后优化</td></tr>
 <tr><td>③ 估值</td><td class="flat">⏳ 待演进</td><td>50%</td><td>PE/PB分位+美林时钟上线后优化</td></tr>
-<tr><td>④ 情绪</td><td class="up">积极</td><td>70%</td><td>北向大幅净流入+41亿，短期偏多</td></tr>
+<tr><td>④ 情绪</td><td class="up">积极</td><td>70%</td><td>北向大幅净流入+{north_flow:.0f}亿，短期偏多</td></tr>
 </table>
 <p style="margin-top:8px;font-size:12px;color:#8b949e">
 <strong>综合建议</strong>: {fusion_dir} · 融合评分 {fusion_score:.0f}/100 · 

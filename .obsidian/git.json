@@ -1,0 +1,10 @@
+{
+  "commitMessage": "📝 Obsidian 笔记同步 {{date}}",
+  "autoCommitMessage": "📝 自动备份 {{date}}",
+  "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
+  "autoSaveInterval": 10,
+  "autoPullInterval": 30,
+  "autoPushInterval": 0,
+  "syncMethod": "rebase",
+  "gitStatus": "hidden"
+}

@@ -8,7 +8,7 @@
 import json, os, sys, time, shutil
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from datetime import date
+from datetime import date, datetime
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DIR = os.path.join(WORKSPACE, "data", "raw")
@@ -20,7 +20,7 @@ FIELD_DEFS = {
     "f15": "最高价(元)", "f16": "最低价(元)", "f17": "今开(元)", "f18": "昨收(元)",
     "f20": "成交额(亿元)", "f21": "流通市值(亿元)", "f23": "市净率",
     "f62": "换手率(%)", "f115": "市盈率(动)", "f168": "量比",
-    "f175": "市盈率(静)", "f184": "ROE(%)", "f100": "细分行业"
+    "f175": "市盈率(静)", "f184": "ROE(%)", "f100": "细分行业", "f193": "主力净流入(万)"
 }
 
 # ─── 数据存取 ───────────────────────────────────
@@ -29,7 +29,22 @@ def load_raw(date_str=None):
         date_str = date.today().strftime("%Y-%m-%d")
     path = os.path.join(RAW_DIR, f"{date_str}.json")
     if not os.path.exists(path):
-        return None, f"无 {date_str} 数据"
+        # 降级：自动找最近可用数据
+        files = sorted([f for f in os.listdir(RAW_DIR) if f.endswith('.json')], reverse=True)
+        if files:
+            fallback = files[0]
+            path = os.path.join(RAW_DIR, fallback)
+            with open(path) as f:
+                data = json.load(f)
+            fallback_date = fallback.replace('.json', '')
+            # 在 _meta 中标记降级信息
+            if '_meta' not in data:
+                data['_meta'] = {}
+            data['_meta']['is_fallback'] = True
+            data['_meta']['latest_date'] = fallback_date
+            data['_meta']['fallback_hint'] = f"今日数据19:00采集后更新，当前显示{fallback_date}数据"
+            return data, None
+        return None, f"无 {date_str} 数据，且无历史数据可降级"
     with open(path) as f:
         return json.load(f), None
 
@@ -57,6 +72,21 @@ def get_sector(code):
     return "其他"
 
 # ─── HTTP Handler ───────────────────────────────
+class NanToNullEncoder(json.JSONEncoder):
+    def default(self, obj):
+        return None
+    def encode(self, o):
+        return super().encode(self._clean(o))
+    def _clean(self, o):
+        import math
+        if isinstance(o, float) and math.isnan(o):
+            return None
+        if isinstance(o, dict):
+            return {k: self._clean(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [self._clean(v) for v in o]
+        return o
+
 class Handler(BaseHTTPRequestHandler):
     def _json(self, data, status=200):
         self.send_response(status)
@@ -65,7 +95,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "*")
         self.end_headers()
-        self.wfile.write(json.dumps(data, ensure_ascii=False, indent=2).encode())
+        try:
+            self.wfile.write(json.dumps(data, ensure_ascii=False, indent=2, cls=NanToNullEncoder).encode())
+        except:
+            self.wfile.write(json.dumps(data, ensure_ascii=False, indent=2).encode())
     
     def _read_body(self):
         length = int(self.headers.get("Content-Length", 0))
@@ -126,11 +159,23 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/data/fields":
             return self._json({"fields": FIELD_DEFS})
         
+        # /data/export — 导出Excel（前端用POST传codes）
+        if parsed.path == "/data/export":
+            return self._json({"error": "请用 POST 方式导出，传入 codes 参数"}, 405)
+        
         # /watchlist — 持仓列表
         if parsed.path == "/watchlist":
             data = load_watchlist()
             return self._json({"codes": [s["code"] for s in data["watchlist"]],
                                "stocks": data["watchlist"]})
+        
+        # /data/leaders — 行业龙头标签
+        if parsed.path == "/data/leaders":
+            path = os.path.join(WORKSPACE, "data", "sector_leaders.json")
+            if os.path.exists(path):
+                with open(path) as f:
+                    return self._json(json.load(f))
+            return self._json({"leaders": {}, "total_sectors": 0, "total_stocks": 0})
         
         # /score/status — 评分状态
         if parsed.path == "/score/status":
@@ -147,6 +192,11 @@ class Handler(BaseHTTPRequestHandler):
         # / 或 /selestock — 市场全景页面
         if parsed.path == "/" or parsed.path == "/selestock" or parsed.path == "/selestock/":
             return self._serve_file(os.path.join(WORKSPACE, "daily-report-html", "selestock", "index.html"))
+        if parsed.path == "/simple.html":
+            return self._serve_file(os.path.join(WORKSPACE, "daily-report-html", "selestock", "simple.html"))
+        # /debug.html — 诊断工具
+        if parsed.path == "/debug.html":
+            return self._serve_file(os.path.join(WORKSPACE, "daily-report-html", "selestock", "debug.html"))
         
         self._json({"error": "not found", "paths": ["/", "/selestock", "/data/today","/data/list","/data/fields","/watchlist","/score/status"]}, 404)
     
@@ -220,6 +270,127 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"status": "error", "message": "评分超时(>120s)"}, 504)
             except Exception as e:
                 return self._json({"status": "error", "message": str(e)}, 500)
+        
+        # /data/export — 导出Excel（POST，接收codes数组）
+        if parsed.path == "/data/export":
+            body = self._read_body()
+            codes = body.get("codes", [])
+            date_str = (qs.get("date") or [date.today().strftime("%Y-%m-%d")])[0]
+            data, err = load_raw(date_str)
+            if err:
+                return self._json({"error": err}, 404)
+            try:
+                import openpyxl
+                from openpyxl.styles import Font, PatternFill, Alignment, Border, Side, numbers
+                from openpyxl.utils import get_column_letter
+                
+                wb = openpyxl.Workbook()
+                ws = wb.active
+                ws.title = "股票数据"
+                
+                meta = data.pop("_meta", {})
+                filed_at = meta.get("fetched_at", "")[:19] if isinstance(meta.get("fetched_at"), str) else "--"
+                
+                # ── 样式定义 ──
+                header_font = Font(name="微软雅黑", bold=True, color="FFFFFF", size=11)
+                header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
+                header_align = Alignment(horizontal="center", vertical="center")
+                cell_font = Font(name="微软雅黑", size=10, color="333333")
+                cell_align = Alignment(horizontal="center", vertical="center")
+                thin_border = Border(
+                    left=Side(style="thin", color="30363d"),
+                    right=Side(style="thin", color="30363d"),
+                    top=Side(style="thin", color="30363d"),
+                    bottom=Side(style="thin", color="30363d")
+                )
+                up_font = Font(name="微软雅黑", size=10, color="C00000")
+                down_font = Font(name="微软雅黑", size=10, color="00B050")
+                
+                # ── 表头 ──
+                headers = ["代码","名称","最新价","涨跌幅%","最高","最低","今开","昨收",
+                           "成交额(亿)","流通市值(亿)","市净率","换手率%","市盈率(动)",
+                           "量比","市盈率(静)","ROE%","细分行业","主力净流入(万)"]
+                ws.append(headers)
+                for col_idx, cell in enumerate(ws[1], 1):
+                    cell.font = header_font
+                    cell.fill = header_fill
+                    cell.alignment = header_align
+                    cell.border = thin_border
+                ws.row_dimensions[1].height = 28
+                
+                # ── 数据 ──
+                # 如果前端传了codes则只导这些，否则导全部
+                stock_items = sorted(data.items())
+                if codes:
+                    code_set = set(codes)
+                    stock_items = [(k, v) for k, v in stock_items if k in code_set]
+                
+                # 隔行背景色
+                row_fill_even = PatternFill(start_color="F2F7FC", end_color="F2F7FC", fill_type="solid")
+                
+                for row_idx, (code, s) in enumerate(stock_items):
+                    row_data = [
+                        code,
+                        s.get("f14", ""),
+                        s.get("f2"), s.get("f3"), s.get("f15"), s.get("f16"),
+                        s.get("f17"), s.get("f18"), s.get("f20"), s.get("f21"),
+                        s.get("f23"), s.get("f62"), s.get("f115"), s.get("f168"),
+                        s.get("f175"), s.get("f184"), s.get("f100"), s.get("f193")
+                    ]
+                    ws.append(row_data)
+                    r = row_idx + 2
+                    ws.row_dimensions[r].height = 20
+                    for col_idx in range(1, len(headers) + 1):
+                        cell = ws.cell(row=r, column=col_idx)
+                        cell.border = thin_border
+                        cell.alignment = cell_align
+                        # 隔行颜色
+                        if row_idx % 2 == 0:
+                            cell.fill = row_fill_even
+                        # 涨跌幅列（第4列）特殊着色
+                        if col_idx == 4 and cell.value is not None:
+                            try:
+                                cell.font = up_font if float(cell.value) > 0 else (down_font if float(cell.value) < 0 else cell_font)
+                            except:
+                                cell.font = cell_font
+                        else:
+                            cell.font = cell_font
+                
+                # ── 列宽 ──
+                for col_idx in range(1, len(headers) + 1):
+                    max_len = len(headers[col_idx - 1])
+                    for row_idx in range(2, len(stock_items) + 2):
+                        v = ws.cell(row=row_idx, column=col_idx).value
+                        if v is not None:
+                            max_len = max(max_len, len(str(v)))
+                    ws.column_dimensions[get_column_letter(col_idx)].width = min(max_len + 4, 22)
+                
+                # ── 底部信息 ──
+                ws.append([])
+                info_row = len(stock_items) + 3
+                ws.cell(row=info_row, column=1, value=f"导出时间: {datetime.now().strftime('%Y-%m-%d %H:%M')}").font = Font(size=9, color="888888")
+                ws.cell(row=info_row + 1, column=1, value=f"数据日期: {filed_at}").font = Font(size=9, color="888888")
+                ws.cell(row=info_row + 2, column=1, value=f"股票数量: {len(stock_items)}").font = Font(size=9, color="888888")
+                
+                # ── 冻结首行 ──
+                ws.freeze_panes = "A2"
+                
+                # ── 保存并返回 ──
+                out_path = os.path.join(WORKSPACE, "daily-report-html", f"export_{date_str}.xlsx")
+                wb.save(out_path)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                self.send_header("Content-Disposition", f'attachment; filename="{os.path.basename(out_path)}"')
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                with open(out_path, "rb") as f:
+                    self.wfile.write(f.read())
+                os.remove(out_path)
+                return
+            except Exception as e:
+                import traceback
+                return self._json({"error": f"导出失败: {e}", "trace": traceback.format_exc()}, 500)
         
         self._json({"error": "not found"}, 404)
     

@@ -1,0 +1,160 @@
+/* ========================================
+   🌀 混动系统 - Obsidian 样式增强 v2.1
+   ======================================== */
+
+/* ---- 全局字体与段落 ---- */
+.markdown-preview-view {
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+.markdown-preview-view p {
+  margin: 0.6em 0;
+}
+
+/* ---- 标题 ---- */
+.markdown-preview-view h1 {
+  font-size: 1.6em;
+  border-bottom: 3px solid var(--interactive-accent);
+  padding-bottom: 8px;
+  margin: 1.6em 0 0.8em 0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.markdown-preview-view h2 {
+  font-size: 1.25em;
+  border-bottom: 2px solid var(--background-modifier-border);
+  padding-bottom: 6px;
+  margin: 1.4em 0 0.6em 0;
+}
+
+.markdown-preview-view h3 {
+  font-size: 1.05em;
+  color: var(--text-accent);
+  margin: 1em 0 0.4em 0;
+}
+
+/* ---- 表格 ---- */
+.markdown-preview-view table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.8em 0;
+  font-size: 0.88em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.markdown-preview-view th {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-weight: 600;
+  padding: 6px 12px;
+  text-align: left;
+  border: none;
+  font-size: 0.9em;
+  letter-spacing: 0.3px;
+}
+
+.markdown-preview-view td {
+  padding: 5px 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.markdown-preview-view tr:nth-child(even) td {
+  background-color: var(--background-primary-alt);
+}
+
+.markdown-preview-view tr:hover td {
+  background-color: var(--background-modifier-hover);
+}
+
+/* ---- 代码块 ---- */
+.markdown-preview-view pre {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0.8em 0;
+  background-color: var(--code-background);
+  border: 1px solid var(--background-modifier-border);
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+
+.markdown-preview-view code {
+  font-size: 0.85em;
+}
+
+/* ---- Mermaid 图表 - 统一缩小 ---- */
+.markdown-preview-view .mermaid {
+  text-align: center;
+  margin: 0.6em 0;
+}
+
+.markdown-preview-view .mermaid svg {
+  max-width: 85% !important;
+  height: auto !important;
+  transform: scale(0.85);
+  transform-origin: top center;
+}
+
+/* ---- Callout / blockquote ---- */
+.markdown-preview-view blockquote {
+  border-left: 3px solid var(--interactive-accent);
+  padding: 10px 16px;
+  margin: 0.8em 0;
+  background-color: var(--background-primary-alt);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92em;
+}
+
+/* ---- 列表 ---- */
+.markdown-preview-view ul, 
+.markdown-preview-view ol {
+  padding-left: 1.3em;
+  margin: 0.4em 0;
+}
+
+.markdown-preview-view li {
+  margin: 3px 0;
+}
+
+/* ---- 任务列表 ---- */
+.markdown-preview-view ul li.task-list-item {
+  list-style: none;
+  margin-left: -1.5em;
+  padding: 2px 0;
+}
+
+.markdown-preview-view input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.markdown-preview-view input[type="checkbox"]:checked {
+  background-color: var(--interactive-accent);
+}
+
+/* ---- 水平分隔线 ---- */
+.markdown-preview-view hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    var(--interactive-accent) 15%, 
+    var(--interactive-accent) 85%, 
+    transparent 100%
+  );
+  margin: 1.8em 0;
+}
+
+/* ---- 加粗 ---- */
+.markdown-preview-view strong {
+  color: var(--text-accent);
+}
+
+/* ---- text 标签内嵌样式 ---- */
+.markdown-preview-view .tag {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent) !important;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.78em;
+}

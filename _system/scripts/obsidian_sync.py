@@ -18,7 +18,7 @@ from html.parser import HTMLParser
 from datetime import datetime, date
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-VAULT = "/Users/shisan/openclaw-cn/workspace"
+VAULT = "/Users/shisan/.openclaw/workspace"
 HTML_DIR = os.path.join(WORKSPACE, "daily-report-html")
 
 WATCHLIST = [

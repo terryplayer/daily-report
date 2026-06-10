@@ -1,0 +1,69 @@
+{
+  "date": "2026-06-10",
+  "collected_at": "09:00:24",
+  "overnight_markets": {
+    "dow": {
+      "price": "N/A",
+      "change_pct": "N/A"
+    },
+    "nasdaq": {
+      "price": "N/A",
+      "change_pct": "N/A"
+    },
+    "sp500": {
+      "price": "N/A",
+      "change_pct": "N/A"
+    },
+    "a50_futures": {
+      "price": "N/A",
+      "change_pct": "N/A"
+    }
+  },
+  "north_bound": {
+    "total": "0.0亿",
+    "direction": "净流入",
+    "data_source": "Tushare"
+  },
+  "sector_news_status": {
+    "sectors": [
+      {
+        "sector": "科技/半导体",
+        "status": "web_search",
+        "note": "通过 web_search 补充"
+      },
+      {
+        "sector": "通信/电子",
+        "status": "web_search",
+        "note": "通过 web_search 补充"
+      },
+      {
+        "sector": "AI/数字经济",
+        "status": "web_search",
+        "note": "通过 web_search 补充"
+      },
+      {
+        "sector": "化工/材料",
+        "status": "web_search",
+        "note": "通过 web_search 补充"
+      },
+      {
+        "sector": "能源/公用事业",
+        "status": "web_search",
+        "note": "通过 web_search 补充"
+      }
+    ],
+    "note": "需调用 web_search 补充实时热点新闻"
+  },
+  "signals": {
+    "pcr": {
+      "pcr_50etf": "N/A",
+      "data_source": "失败",
+      "error": "The read operation timed out"
+    }
+  },
+  "data_sources_available": {
+    "tushare": "可用",
+    "tencent_quote": "可用",
+    "hermes": "可用"
+  }
+}

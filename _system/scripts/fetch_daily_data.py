@@ -53,15 +53,18 @@ def fetch_tushare(date_str):
             basic_map[r["ts_code"][:6]] = r
         log(f"  ✅ Tushare daily_basic: {len(basic_map)}只")
     
-    # 股票名称映射
+    # 股票名称 + 行业映射
     try:
         df_name = pro.stock_basic()
         name_map = {}
+        ind_map = {}
         for _, r in df_name.iterrows():
-            name_map[r["ts_code"][:6]] = r.get("name", "")
+            code = r["ts_code"][:6]
+            name_map[code] = r.get("name", "")
+            ind_map[code] = r.get("industry", "")
     except:
-        name_map = {}
-        log("  ⚠️ 名称映射获取失败")
+        name_map = {}; ind_map = {}
+        log("  ⚠️ 名称/行业映射获取失败")
     
     all_data = {}
     for _, row in df.iterrows():
@@ -87,8 +90,30 @@ def fetch_tushare(date_str):
             "f168": round(float(b.get("volume_ratio", 0)), 4) if b.get("volume_ratio") else None,  # 量比
             "f175": float(b.get("pe", 0)) if b.get("pe") else None,  # 市盈率(静)
             "f184": None,     # ROE% — 需要额外接口
-            "f100": None,     # 细分行业 — 需要额外接口
+            "f100": ind_map.get(code, None),  # 细分行业
         }
+    
+    # 资金流向（主力净流入）
+    try:
+        df_mf = pro.moneyflow(trade_date=date_str.replace("-", ""))
+        if df_mf is not None and len(df_mf) > 100:
+            mf_map = {}
+            for _, r in df_mf.iterrows():
+                code = r["ts_code"][:6]
+                mf_map[code] = {
+                    "f193": round(float(r.get("net_mf_amount", 0) or 0), 2),  # 主力净流入(万元)
+                }
+            for code in all_data:
+                mf = mf_map.get(code, {})
+                if mf:
+                    all_data[code]["f193"] = mf["f193"]
+                else:
+                    all_data[code]["f193"] = None
+            log(f"  ✅ 资金流向: {len(mf_map)}只")
+        else:
+            log(f"  ⚠️ 资金流向数据不足: {len(df_mf) if df_mf is not None else 0}只")
+    except Exception as e:
+        log(f"  ⚠️ 资金流向获取失败: {e}")
     
     return all_data
 
@@ -140,7 +165,7 @@ def normalize(raw_data):
     for code, item in raw_data.items():
         stock = {"code": code}
         for field in ["f2","f3","f12","f14","f15","f16","f17","f18",
-                       "f20","f21","f23","f62","f115","f168","f175","f184","f100"]:
+                       "f20","f21","f23","f62","f115","f168","f175","f184","f100","f193"]:
             v = item.get(field)
             if v is None:
                 stock[field] = None

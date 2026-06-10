@@ -13,6 +13,19 @@ from validate_report import validate
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(WORKSPACE)
+# ─── 数据完整性校验 ────────────────────────────
+try:
+    with open('/tmp/stock_analysis_cache.json') as _f:
+        _cache = __import__('json').load(_f)
+    _rs = _cache.get('rs_ranking', [])
+    if len(_rs) < 30:
+        print(f'❌ RS排名数据异常: 仅{len(_rs)}只（预期≥30）')
+        __import__('sys').exit(1)
+    print(f'✅ 数据校验通过: RS{len(_rs)}只')
+except Exception as _e:
+    print(f'❌ 读取分析缓存失败: {_e}')
+    __import__('sys').exit(1)
+
 
 with open('/tmp/stock_analysis_cache.json') as f:
     cache = json.load(f)
@@ -121,13 +134,28 @@ def _fetch_index(tc, dp, dc):
                 return pr, cg
     except:
         pass
-    # 保底: 从 stock_history.json 上证数据
+    # 保底: 从 stock_history.json 获取指数数据
     try:
         with open('data/stock_history.json') as f:
             hist = json.load(f)
         dates = sorted(hist.get('history', {}).keys())
         if dates:
             day = hist['history'][dates[-1]]
+            # 优先使用 indices 字段
+            idx_data = day.get('indices', {})
+            sina_map = {
+                '000001.SH': 'sh000001',
+                '399001.SZ': 'sz399001',
+                '399006.SZ': 'sz399006',
+                '000688.SH': 'sh000688',
+            }
+            sina_key = sina_map.get(tc)
+            if sina_key and sina_key in idx_data and idx_data[sina_key]:
+                d = idx_data[sina_key]
+                pr = str(int(d.get('close', 0)))
+                cg = '%+.2f' % d.get('change_pct', 0)
+                return pr, cg
+            # 回退: 仅 000001.SH 使用 benchmark 字段
             bm = day.get('benchmark', {})
             pr = str(int(bm.get('close', 0)))
             cg = '%+.2f' % bm.get('change_pct', 0)
@@ -529,7 +557,7 @@ def _make_analysis(stock):
 
 def _price_str(code):
     sig = ts_lookup.get(code, {}).get('signals', {})
-    c = sig.get('close', 0)
+    c = sig.get('close', 0) or sig.get('signals', {}).get('close', 0)
     return f'{c:.2f}' if c else '—'
 
 

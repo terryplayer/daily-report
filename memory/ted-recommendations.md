@@ -81,3 +81,19 @@
 - **时长**: ~11分钟
 - **链接**: https://www.ted.com/talks/laura_vanderkam_how_to_gain_control_of_your_free_time
 - **推荐理由**: 时间管理不是挤时间，而是优先做重要的事。周五早上看，帮你有意识地安排一个充实的周末
+
+## 2026-06-09
+- **演讲**: Why Good Leaders Make You Feel Safe
+- **演讲者**: Simon Sinek
+- **主题**: 领导力 / 团队管理
+- **时长**: ~12分钟
+- **链接**: https://www.ted.com/talks/simon_sinek_why_good_leaders_make_you_feel_safe
+- **推荐理由**: 好领导创造安全感，让团队成员敢于冒险、彼此信任。适合上班族一早建立领导力思维
+
+## 2026-06-10
+- **演讲**: All It Takes Is 10 Mindful Minutes
+- **演讲者**: Andy Puddicombe
+- **主题**: 正念 / 心理健康 / 冥想
+- **时长**: ~9分钟
+- **链接**: https://www.ted.com/talks/andy_puddicombe_all_it_takes_is_10_mindful_minutes
+- **推荐理由**: 当我们最需要专注力时却最焦躁？前僧侣、Headspace 联合创始人用轻松易懂的方式解释正念冥想——不是要清空大脑，而是更好地了解自己的思维方式。周三在中间，是给自己10分钟重新调焦的好时机

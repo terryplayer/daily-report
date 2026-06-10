@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📋 盘前简报 | {{DATE}} {{WEEKDAY}}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:20px;line-height:1.6}
+.container{max-width:860px;margin:0 auto}
+h1{font-size:18px;color:#58a6ff;border-bottom:2px solid #58a6ff;padding-bottom:8px;margin-bottom:10px}
+h2{font-size:14px;color:#58a6ff;margin:12px 0 6px;border-bottom:1px solid #30363d;padding-bottom:4px}
+.sector-title{font-size:13px;color:#58a6ff;margin:10px 0 4px;font-weight:600}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th.sector-hdr{background:#1c2333;font-weight:600;color:#58a6ff;font-size:12px;border-bottom:2px solid #30363d}
+th, .table-header{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
+.col-name{width:18%}.col-code{width:12%}.col-rate{width:7%}.col-mom{width:7%}.col-price{width:10%}.col-resist{width:10%}.col-support{width:10%}.col-opt{width:32%}
+td{padding:4px 8px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#21262d}
+.up{color:#f85149}.down{color:#3fb950}.flat{color:#d9a52e}
+.resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
+.sector-hdr{background:#1c2333;font-weight:600;color:#58a6ff;font-size:12px;border-bottom:2px solid #30363d}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:16px;padding-top:12px;border-top:1px solid #21262d}
+.sc-aplus{color:#f85149;font-weight:700}.sc-a{color:#d9a52e;font-weight:700}
+.sc-b{color:#8b949e;font-weight:600}.sc-c{color:#58a6ff;font-weight:600}.sc-d{color:#3fb950;font-weight:600}
+.rate{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;min-width:22px;text-align:center}
+.rate-aplus{background:rgba(248,81,73,0.2);color:#f85149}
+.rate-a{background:rgba(217,165,46,0.2);color:#d9a52e}
+.rate-bplus{background:rgba(230,195,132,0.2);color:#e6c384}
+.rate-b{background:rgba(88,166,255,0.2);color:#58a6ff}
+.rate-c{background:rgba(139,148,158,0.2);color:#8b949e}
+.rate-d{background:rgba(63,185,80,0.2);color:#3fb950}
+.tag-up{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(248,81,73,0.15);color:#f85149}
+.tag-rec{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(88,166,255,0.15);color:#58a6ff;font-weight:700;line-height:1.4}
+.tag-down{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(63,185,80,0.15);color:#3fb950}
+.tag-hold{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(88,166,255,0.15);color:#58a6ff}
+.banner{background:#58a6ff;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
+</style></head><body><div class="container">
+
+<div class="banner">📋 {{DATE}} {{WEEKDAY}} · 自动生成</div>
+<h1>📋 盘前简报 · {{DATE}} {{WEEKDAY}}</h1>
+
+<!-- ====== 1. 隔夜外围市场 ====== -->
+<div class="section">
+<h2>🌍 隔夜外围市场</h2>
+{{OVERSEAS_MARKET}}
+</div>
+
+<!-- ====== 2. A股大盘预判 ====== -->
+<div class="section">
+<h2>📊 A股大盘预判</h2>
+{{MARKET_OUTLOOK}}
+</div>
+
+<!-- ====== 3. 板块评分 & 统一模型信号 ====== -->
+<div class="section">
+<h2>🧭 板块评分 & 统一模型信号</h2>
+<p style="font-size:11px;color:#8b949e;margin-bottom:6px">权重: RS 25% · 动量 20% · MRD 10% · 多因子 30% · 轮动 15%</p>
+{{UNIFIED_MODEL_TABLE}}
+<p style="margin-top:4px;font-size:11px;color:#8b949e"><span class="sc-aplus">▓ ≥80 强势</span> · <span class="sc-a">▓ 60-79 偏强</span> · <span class="sc-b">▓ 40-59 中性</span> · <span class="sc-c">▓ 20-39 偏弱</span> · <span class="sc-d">▓ &lt;20 弱势</span></p>
+</div>
+
+<!-- ====== 4. 今日关注 ====== -->
+<div class="section">
+<h2>📅 今日关注</h2>
+{{TODAY_FOCUS}}
+</div>
+
+<!-- ====== 5. 持仓股票盘前观察 ====== -->
+<div class="section">
+<h2>📋 持仓股票盘前观察</h2>
+{{HOLDINGS_OBSERVATION}}
+</div>
+
+<!-- ====== 6. 综合策略建议 ====== -->
+<div class="section">
+<h2>💡 综合策略建议</h2>
+{{STRATEGY}}
+</div>
+
+<div class="footer">🌀 盘前简报 · 统一模型 v1 · {{DATE}} {{WEEKDAY}}</div>
+</div></body></html>

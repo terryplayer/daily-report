@@ -19,5 +19,15 @@
   "audio-recorder": false,
   "workspaces": true,
   "file-recovery": true,
-  "publish": false
+  "publish": false,
+  "sync": true,
+  "properties": true,
+  "bases": true,
+  "footnotes": false,
+  "slash-command": false,
+  "markdown-importer": false,
+  "zk-prefixer": false,
+  "random-note": false,
+  "slides": false,
+  "webviewer": false
 }

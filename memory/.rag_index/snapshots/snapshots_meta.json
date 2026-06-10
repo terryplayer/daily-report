@@ -1,0 +1,968 @@
+[
+  {
+    "date": "20260525",
+    "benchmark": {
+      "change_pct": 0.87,
+      "close": 4112.9
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 0.0,
+      "通信/电子": 0.0,
+      "AI/数字经济": 0.0,
+      "化工/材料": 0.0,
+      "能源/公用事业": 0.0,
+      "其他": 0.0
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.0,
+    "north_flow": 0,
+    "feature_vector": [
+      0.87,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      0.0
+    ]
+  },
+  {
+    "date": "20260527",
+    "benchmark": {
+      "change_pct": -1.2459,
+      "close": 4093.7266
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 0.0,
+      "通信/电子": 0.0,
+      "AI/数字经济": 0.0,
+      "化工/材料": 0.0,
+      "能源/公用事业": 0.0,
+      "其他": 0.0
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.0,
+    "north_flow": 0,
+    "feature_vector": [
+      -1.2459,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      0.0
+    ]
+  },
+  {
+    "date": "20260528",
+    "benchmark": {
+      "change_pct": 0.12,
+      "close": 4098.64
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 0.0,
+      "通信/电子": 0.0,
+      "AI/数字经济": 0.0,
+      "化工/材料": 0.0,
+      "能源/公用事业": 0.0,
+      "其他": 0.0
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.0,
+    "north_flow": 0,
+    "feature_vector": [
+      0.12,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      0.0
+    ]
+  },
+  {
+    "date": "20260529",
+    "benchmark": {
+      "change_pct": -0.73,
+      "close": 4068.57
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": -3.83,
+      "通信/电子": -2.11,
+      "AI/数字经济": -0.02,
+      "化工/材料": -5.71,
+      "能源/公用事业": -1.1,
+      "其他": -4.21
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.1875,
+    "north_flow": 0,
+    "feature_vector": [
+      -0.73,
+      -1.682284040995608,
+      -1.238747553816047,
+      -0.019867549668874173,
+      -1.9667049368541907,
+      -0.8048780487804879,
+      0.1875,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260601",
+    "benchmark": {
+      "change_pct": -0.12,
+      "close": 4063.72
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": -2.15,
+      "通信/电子": -3.2,
+      "AI/数字经济": 2.93,
+      "化工/材料": -1.62,
+      "其他": 0.34,
+      "能源/公用事业": -1.63
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.3766,
+    "north_flow": 0,
+    "feature_vector": [
+      -0.12,
+      -1.2524271844660193,
+      -1.5483870967741937,
+      1.482293423271501,
+      -1.051948051948052,
+      -1.0561555075593951,
+      0.3766,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260602",
+    "benchmark": {
+      "change_pct": 0.43,
+      "close": 4075.1016
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 0.34,
+      "通信/电子": 5.26,
+      "AI/数字经济": -2.41,
+      "化工/材料": -0.2,
+      "其他": 0.21,
+      "能源/公用事业": -0.3
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.4805,
+    "north_flow": 0,
+    "feature_vector": [
+      0.43,
+      0.30538922155688625,
+      1.9104116222760292,
+      -1.33641404805915,
+      -0.1875,
+      -0.2727272727272727,
+      0.4805,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260603",
+    "benchmark": {
+      "change_pct": 0.22,
+      "close": 4083.974
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 3.08,
+      "通信/电子": 4.01,
+      "AI/数字经济": -1.11,
+      "化工/材料": -0.36,
+      "其他": -0.25,
+      "能源/公用事业": 3.12
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.5584,
+    "north_flow": 0,
+    "feature_vector": [
+      0.22,
+      1.5197368421052635,
+      1.716119828815977,
+      -0.8102189781021898,
+      -0.3214285714285714,
+      1.5294117647058825,
+      0.5584,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260604",
+    "benchmark": {
+      "change_pct": -0.64,
+      "close": 4057.78
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 1.21,
+      "通信/电子": 4.22,
+      "AI/数字经济": -0.56,
+      "化工/材料": -1.18,
+      "其他": -0.43,
+      "能源/公用事业": -0.62
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.4156,
+    "north_flow": 0,
+    "feature_vector": [
+      -0.64,
+      0.8622327790973872,
+      1.7534626038781165,
+      -0.47191011235955055,
+      -0.84688995215311,
+      -0.5138121546961326,
+      0.4156,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260520",
+    "benchmark": {
+      "change_pct": -0.18,
+      "close": 4162.18
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 3.55,
+      "通信/电子": -0.79,
+      "AI/数字经济": -3.89,
+      "化工/材料": 3.7,
+      "能源/公用事业": -3.84,
+      "其他": -4.88
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.44,
+    "north_flow": 0,
+    "feature_vector": [
+      -0.18,
+      1.6259541984732822,
+      -0.62532981530343,
+      -1.6937590711175616,
+      1.6567164179104479,
+      -1.6842105263157892,
+      0.44,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260521",
+    "benchmark": {
+      "change_pct": -2.04,
+      "close": 4077.28
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": -5.18,
+      "通信/电子": -6.31,
+      "AI/数字经济": -2.34,
+      "化工/材料": -1.96,
+      "能源/公用事业": -6.4,
+      "其他": -0.62
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.24,
+    "north_flow": 0,
+    "feature_vector": [
+      -2.04,
+      -1.8997555012224938,
+      -2.0332975295381313,
+      -1.3146067415730338,
+      -1.185483870967742,
+      -2.042553191489362,
+      0.24,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260522",
+    "benchmark": {
+      "change_pct": 0.87,
+      "close": 4112.9
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 4.82,
+      "通信/电子": 3.13,
+      "AI/数字经济": 0.23,
+      "化工/材料": 5.52,
+      "能源/公用事业": 2.01,
+      "其他": -0.76
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.76,
+    "north_flow": 0,
+    "feature_vector": [
+      0.87,
+      1.8491048593350385,
+      1.5318107667210443,
+      0.21362229102167185,
+      1.9436619718309858,
+      1.2035928143712573,
+      0.76,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      1.0
+    ]
+  },
+  {
+    "date": "20260526",
+    "benchmark": {
+      "change_pct": -0.17,
+      "close": 4105.91
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 12
+      },
+      "通信/电子": {
+        "rs_mean": 3.2,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "AI/数字经济": {
+        "rs_mean": -0.8,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -0.6,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.9,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 0.0,
+      "通信/电子": 0.0,
+      "AI/数字经济": 0.0,
+      "化工/材料": 0.0,
+      "能源/公用事业": 0.0,
+      "其他": 0.0
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": true,
+    "market_breadth": 0.0,
+    "north_flow": 0,
+    "feature_vector": [
+      -0.17,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4,
+      3.2,
+      -0.8,
+      -0.6,
+      0.9,
+      0.0
+    ]
+  },
+  {
+    "date": "20260608",
+    "benchmark": {
+      "change_pct": -1.7,
+      "close": 3959.338
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": -1.6,
+        "mom_mean": 50.0,
+        "stocks_count": 10
+      },
+      "通信/电子": {
+        "rs_mean": -0.1,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "AI/数字经济": {
+        "rs_mean": -2.3,
+        "mom_mean": 50.0,
+        "stocks_count": 4
+      },
+      "化工/材料": {
+        "rs_mean": -2.5,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.7,
+        "mom_mean": 50.0,
+        "stocks_count": 3
+      },
+      "其他": {
+        "rs_mean": -2.1,
+        "mom_mean": 50.0,
+        "stocks_count": 2
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": -2.9,
+      "通信/电子": -6.35,
+      "AI/数字经济": -0.2,
+      "化工/材料": -4.26,
+      "能源/公用事业": -3.49,
+      "其他": -3.69
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": null,
+    "market_breadth": 0.1429,
+    "north_flow": 0,
+    "feature_vector": [
+      -1.7,
+      -1.4745762711864405,
+      -2.0374331550802136,
+      -0.1875,
+      -1.7603305785123966,
+      -1.6132511556240372,
+      0.1429,
+      -1.6,
+      -0.1,
+      -2.3,
+      -2.5,
+      0.7,
+      1.0
+    ]
+  },
+  {
+    "date": "20260609",
+    "benchmark": {
+      "change_pct": 1.28,
+      "close": 4010.03
+    },
+    "sectors": {
+      "科技/半导体": {
+        "rs_mean": -0.3,
+        "mom_mean": 50.0,
+        "stocks_count": 22
+      },
+      "通信/电子": {
+        "rs_mean": 0.3,
+        "mom_mean": 50.0,
+        "stocks_count": 11
+      },
+      "AI/数字经济": {
+        "rs_mean": -1.5,
+        "mom_mean": 50.0,
+        "stocks_count": 6
+      },
+      "化工/材料": {
+        "rs_mean": -0.1,
+        "mom_mean": 50.0,
+        "stocks_count": 20
+      },
+      "能源/公用事业": {
+        "rs_mean": 0.4,
+        "mom_mean": 50.0,
+        "stocks_count": 7
+      },
+      "其他": {
+        "rs_mean": -0.3,
+        "mom_mean": 50.0,
+        "stocks_count": 16
+      }
+    },
+    "actual_sector_changes": {
+      "科技/半导体": 5.71,
+      "通信/电子": 5.46,
+      "AI/数字经济": 1.01,
+      "化工/材料": 5.5,
+      "能源/公用事业": 2.97,
+      "其他": 0.7
+    },
+    "rf_prediction": {
+      "direction": "unknown",
+      "probability": 0.5
+    },
+    "prediction_accuracy": null,
+    "market_breadth": 0.8049,
+    "north_flow": 0,
+    "feature_vector": [
+      1.28,
+      1.9667049368541907,
+      1.9361702127659572,
+      0.7556109725685786,
+      1.9411764705882355,
+      1.4924623115577889,
+      0.8049,
+      -0.3,
+      0.3,
+      -1.5,
+      -0.1,
+      0.4,
+      1.0
+    ]
+  }
+]
