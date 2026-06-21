@@ -111,7 +111,7 @@
 
 <div class="meta">
   <span class="meta-item">📅 <strong>2026-06-21 周日</strong></span>
-  <span class="meta-item">🕐 <strong>01:26 CST</strong></span>
+  <span class="meta-item">🕐 <strong>01:34 CST</strong></span>
 </div>
 
 
@@ -1401,15 +1401,15 @@
     <thead><tr><th>群组</th><th>成分股</th><th>特征</th></tr></thead>
     <tbody>
     
-      <tr><td>4个聚类</td><td style="font-size:12px;">24 + 12 + 26 + 18</td><td style="font-size:12px;color:#8b949e;">基于技术指标+动量的股票分组</td></tr>
+      <tr><td>4个聚类</td><td style="font-size:12px;">24 + 12 + 26 + 18</td><td style="font-size:12px;color:#8b949e;">基于技术指标+动量 内聚度=11003</td></tr>
     
-      <tr><td>簇1</td><td style="font-size:12px;">24只股票</td><td style="font-size:12px;color:#8b949e;">—</td></tr>
+      <tr><td>簇1</td><td style="font-size:12px;">24只股票</td><td style="font-size:12px;color:#8b949e;">24只成分股</td></tr>
     
-      <tr><td>簇2</td><td style="font-size:12px;">12只股票</td><td style="font-size:12px;color:#8b949e;">—</td></tr>
+      <tr><td>簇2</td><td style="font-size:12px;">12只股票</td><td style="font-size:12px;color:#8b949e;">12只成分股</td></tr>
     
-      <tr><td>簇3</td><td style="font-size:12px;">26只股票</td><td style="font-size:12px;color:#8b949e;">—</td></tr>
+      <tr><td>簇3</td><td style="font-size:12px;">26只股票</td><td style="font-size:12px;color:#8b949e;">26只成分股</td></tr>
     
-      <tr><td>簇4</td><td style="font-size:12px;">18只股票</td><td style="font-size:12px;color:#8b949e;">—</td></tr>
+      <tr><td>簇4</td><td style="font-size:12px;">18只股票</td><td style="font-size:12px;color:#8b949e;">18只成分股</td></tr>
     
       <tr><td>协整配对</td><td style="font-size:12px;">长电科技 × 华特气体</td><td style="font-size:12px;color:#8b949e;">z-score=1.51 · 中性持有</td></tr>
     
@@ -1429,10 +1429,10 @@
   <div class="grid" style="margin-bottom:8px;">
     <div class="data-card"><div class="label">模型总数</div><div class="value">6</div><div class="sub">已上线</div></div>
     <div class="data-card"><div class="label">本周新增</div><div class="value up">0</div><div class="sub">新模型</div></div>
-    <div class="data-card"><div class="label">本周更新</div><div class="value">4</div><div class="sub">版本更新</div></div>
+    <div class="data-card"><div class="label">本周更新</div><div class="value">0</div><div class="sub">版本更新</div></div>
   </div>
   <table>
-    <thead><tr><th>模型</th><th>类型</th><th>版本</th><th>训练时间</th><th>状态</th><th>变化</th></tr></thead>
+    <thead><tr><th>模型</th><th>类型</th><th>版本</th><th>训练时间</th><th>准确率</th><th>效果评估</th><th>变化</th><th>调整建议</th></tr></thead>
     <tbody>
     
       <tr>
@@ -1440,8 +1440,10 @@
         <td>🤖 ML模型</td>
         <td>1.0</td>
         <td style="font-size:12px;color:#8b949e;">2026-06-17</td>
-        <td><span class="tag tag-up">production</span></td>
+        <td class="up">67.0%</td>
+        <td style="font-size:12px;">截面参考信号，需积累时序数据</td>
         <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">需积累更多交易日数据后再评估</td>
       </tr>
     
       <tr>
@@ -1449,8 +1451,10 @@
         <td>📐 规则模型</td>
         <td>1.0</td>
         <td style="font-size:12px;color:#8b949e;">无需训练</td>
-        <td><span class="tag tag-up">production</span></td>
-        <td>🔄 模型更新（无需训练）</td>
+        <td class="flat">—</td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">候选列表可定期更新</td>
       </tr>
     
       <tr>
@@ -1458,8 +1462,10 @@
         <td>📐 规则模型</td>
         <td>1.0</td>
         <td style="font-size:12px;color:#8b949e;">无需训练</td>
-        <td><span class="tag tag-up">production</span></td>
-        <td>🔄 模型更新（无需训练）</td>
+        <td class="flat">—</td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">FAISS索引自动构建，无需人工干预</td>
       </tr>
     
       <tr>
@@ -1467,8 +1473,10 @@
         <td>📐 规则模型</td>
         <td>1.0</td>
         <td style="font-size:12px;color:#8b949e;">无需训练</td>
-        <td><span class="tag tag-up">production</span></td>
-        <td>🔄 模型更新（无需训练）</td>
+        <td class="flat">—</td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">阈值可回测优化</td>
       </tr>
     
       <tr>
@@ -1476,8 +1484,10 @@
         <td>📐 规则模型</td>
         <td>2.0</td>
         <td style="font-size:12px;color:#8b949e;">无需训练</td>
-        <td><span class="tag tag-up">production</span></td>
-        <td>🔄 模型更新（无需训练）</td>
+        <td class="flat">—</td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">权重可回测优化</td>
       </tr>
     
       <tr>
@@ -1485,8 +1495,10 @@
         <td>🤖 ML模型</td>
         <td>2.0</td>
         <td style="font-size:12px;color:#8b949e;">2026-06-05</td>
-        <td><span class="tag tag-up">production</span></td>
+        <td class="up">67.0%</td>
+        <td style="font-size:12px;">良好</td>
         <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">维持当前参数，定期重训</td>
       </tr>
     
     </tbody>
