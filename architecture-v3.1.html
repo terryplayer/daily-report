@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><title>🧩 混动系统 · 股票系统架构设计 v3.1 | 2026-06-13</title>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
+  h2 { color: #f0883e; margin-top: 40px; border-left: 4px solid #f0883e; padding-left: 12px; }
+  h3 { color: #79c0ff; }
+  h4 { color: #d2a8ff; }
+  .meta { color: #8b949e; font-size: 14px; margin-bottom: 30px; }
+  .meta a { color: #58a6ff; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; }
+  tr:nth-child(even) { background: #161b22; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; align-items: center; }
+  .flow-item { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }
+  .flow-item .label { font-size: 12px; color: #8b949e; }
+  .flow-item .name { font-size: 14px; font-weight: 600; color: #f0f6fc; }
+  .arrow { font-size: 24px; color: #58a6ff; align-self: center; font-weight: bold; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+  .alert { background: #3d1f00; border: 1px solid #d29922; border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .alert-blue { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-green { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-red { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-purple { background: #1a0d2e; border: 1px solid #d2a8ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .badge-new { background: #3fb950; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .badge-chg { background: #d29922; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .badge-del { background: #f85149; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .badge-srv { background: #a371f7; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .badge-local { background: #58a6ff; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .badge-both { background: #3fb950; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+  .role-server { background: #1a0d2e; border-left: 4px solid #a371f7; padding: 12px 16px; margin: 8px 0; border-radius: 4px; }
+  .role-local { background: #0c2d4a; border-left: 4px solid #58a6ff; padding: 12px 16px; margin: 8px 0; border-radius: 4px; }
+  .arch-diagram { background: #161b22; border: 2px solid #30363d; border-radius: 12px; padding: 24px; margin: 20px 0; text-align: center; }
+  .arch-diagram .layer { display: flex; gap: 12px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+  .arch-diagram .box { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+  .box-srv { background: #2d1a4e; color: #d2a8ff; border: 1px solid #a371f7; }
+  .box-local { background: #0c2d4a; color: #79c0ff; border: 1px solid #58a6ff; }
+  .box-shared { background: #0d2a17; color: #7ee787; border: 1px solid #3fb950; }
+  .box-ext { background: #3d1f00; color: #f0883e; border: 1px solid #d29922; }
+  .sync-arrow { color: #3fb950; font-weight: bold; font-size: 18px; margin: 0 8px; }
+  @media (max-width: 768px) { .grid, .grid-3 { grid-template-columns: 1fr; } .flow { flex-direction: column; } .arrow { transform: rotate(90deg); } }
+</style>
+</head>
+<body>
+
+<h1>🧩 混动系统 · 股票系统架构设计 v3.1</h1>
+<div class="meta">
+  <span>生成日期: 2026-06-13</span> ·
+  <span>版本: v3.1</span> ·
+  <span>用途: 重构实施蓝图 + 服务器迁移规划</span> ·
+  <span>基于: <a href="D方案新架构设计-2026-06-13.html">D方案 v3.0</a></span> ·
+  <span class="badge-srv">新增: 混合架构</span>
+</div>
+
+<!-- ==================== 速览 ==================== -->
+<div class="grid">
+<div class="alert alert-green">
+<b>📌 v3.1 核心新增（相比 v3.0）</b><br>
+· 第10节: 本地↔服务器混合架构设计<br>
+· 第11节: 数据同步与备份机制<br>
+· 第12节: 迁移路径（纯本地→混合架构分步走）<br>
+· 第13-15节: 更新对比/维护/实施顺序，加入双环境
+</div>
+<div class="alert alert-blue">
+<b>🎯 一句话总结</b><br>
+服务器做主力（采集→分析→生成→部署→推送），本地做开发+备份+紧急回滚。<br>
+D方案所有重构保持本地可用，加 <code>ASTRADE_ENV</code> 环境变量一键切换。
+</div>
+</div>
+
+<!-- ==================== 1 ==================== -->
+<h2>1. 整体架构概览</h2>
+
+<p><b>设计原则：</b>不改算法核心，只改组织方式。5层架构不变，每层做精简和标准化。v3.1新增：<span class="badge-srv">双环境兼容</span>，同一套代码在本地和服务器都能跑。</p>
+
+<div class="flow">
+  <div class="flow-item"><div class="label">①</div><div class="name">数据采集</div><div class="label">sina / tushare<br>researcher</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">②</div><div class="name">分析计算</div><div class="label">stock_analysis.py<br>kalman.py<span class="badge-chg">替换mrd</span></div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">③</div><div class="name">模型评分</div><div class="label">统一模型6维<br>RF / Ridge</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">④</div><div class="name">报告生成</div><div class="label">gen_report.py<span class="badge-new">统一入口</span><br>gen_common.py<span class="badge-new">公共库</span></div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">⑤</div><div class="name">部署上线</div><div class="label">deploy.sh<span class="badge-chg">8→3次</span><br><span class="badge-srv">服务器主力</span></div></div>
+</div>
+
+<div class="grid-3">
+
+<div class="alert alert-blue">
+<b>📊 数据源（不变）</b><br>
+· 新浪财经 (qt.gtimg.cn) — 实时行情<br>
+· Tushare Pro — 历史数据/基本面<br>
+· 公开API — 隔夜外盘/宏观<br>
+· researcher 自采 — 资金流/融资/PCR<br>
+· <span class="badge-chg">新增：卡尔曼平滑价存入缓存</span><br>
+· <span class="badge-srv">服务器：Tushare token / API keys 走环境变量</span>
+</div>
+
+<div class="alert alert-blue">
+<b>📦 中间缓存（精简）</b><br>
+· <code>/tmp/stock_analysis_cache.json</code> ← 核心<br>
+· <code>/tmp/premarket-predictions.json</code><br>
+· <code>/tmp/review-structured.json</code> <span class="badge-new">JSON</span><br>
+· <code>data/stock_history.json</code> ← 历史K线<br>
+· <code>data/research_cache.json</code><br>
+· <span class="badge-srv">服务器: /tmp 目录同上</span>
+</div>
+
+<div class="alert alert-blue">
+<b>📋 输出产物（不变路径）</b><br>
+· daily-report-html/*.html ← 各时段报告<br>
+· Cloudflare Pages (daily-report-3ai.pages.dev)<br>
+· Obsidian 同步<br>
+· <span class="badge-new">reviews/closing-review-YYYY-MM-DD.json</span><br>
+· <span class="badge-srv">服务器生成后自动同步到本地</span>
+</div>
+
+</div>
+
+<!-- ==================== 2 ==================== -->
+<span class="badge-chg">2026-06-13 订正</span><h2>2. 数据采集层</h2>
+
+<h3>2.1 数据源（不变，新增环境适配）</h3>
+<table>
+<tr><th>数据源</th><th>采集方式</th><th>采集脚本</th><th>触发频率</th><th>输出</th></tr>
+<tr><td>新浪财经实时行情</td><td>HTTP GET + 正则解析</td><td>stock_analysis.py / fetch_via_sina()</td><td>09:00 / 12:00 / 15:30</td><td>data/stock_history.json</td></tr>
+<tr><td>Tushare Pro</td><td>Python SDK</td><td>tushare_fetch.py + researcher.py</td><td>盘前采集</td><td>data/stock_history.json</td></tr>
+<tr><td>隔夜外盘</td><td>新浪财经</td><td><span class="badge-chg">gen_common.py / fetch_overseas()</span></td><td>每日09:00</td><td>内嵌缓存中</td></tr>
+<tr><td>宏观数据</td><td>公开API</td><td>macro_fetch.py</td><td>按需</td><td>data/macro_cache.json</td></tr>
+<tr><td>研究员自采</td><td>多路并行</td><td>researcher.py --mode premarket</td><td>09:00</td><td>data/research_cache.json</td></tr>
+</table>
+
+<div class="alert alert-purple">
+<b>🔑 服务器环境适配：</b>所有API密钥（TUSHARE_TOKEN等）从环境变量读取，不硬编码路径。gen_common.py 在启动时检测 <code>os.environ.get('ASTRADE_ENV', 'local')</code>，自动配置数据目录。
+</div>
+
+<h3>2.2 核心数据模型（采集层产出，不变）</h3>
+<table>
+<tr><th>文件</th><th>变更</th><th>说明</th></tr>
+<tr>
+  <td>/tmp/stock_analysis_cache.json</td>
+  <td><span class="badge-chg">新增 kalman_analysis 顶层字段</span></td>
+  <td><pre>{
+  "kalman_analysis": {
+    "000001": {
+      "smoothed_price": 12.50,
+      "trend": 0.0213,
+      "volatility": 0.45,
+      "support": 11.60,
+      "resistance": 13.40,
+      "deviation_pct": 2.1,
+      "signal": "偏高·关注压力"
+    }, ...
+  },
+  "sector_kalman": {
+    "通信/电子": {"avg_deviation": -1.2, "overbought": 1, "oversold": 3, "signal": "板块偏低"},
+    ...
+  }
+}</pre></td>
+</tr>
+<tr>
+  <td>/tmp/review-structured.json <span class="badge-new">新文件</span></td>
+  <td><span class="badge-new">取代纯文本复盘</span></td>
+  <td><pre>{
+  "date": "2026-06-13",
+  "accuracy": {"total": 6, "correct": 4, "rate": 0.667},
+  "sectors": [{
+    "name": "通信/电子",
+    "pred": "↑", "prob": 65,
+    "actual_pct": 2.3, "correct": true
+  }],
+  "lessons": [{
+    "type": "correction",
+    "rule": "北向连续+40亿→融合+10~15分",
+    "confidence": "high"
+  }]
+}</pre></td>
+</tr>
+</table>
+
+<!-- ==================== 3 ==================== -->
+<span class="badge-chg">2026-06-13 独立为计算分析模块</span><h2>3. 计算分析层</h2>
+
+<h3>3.1 stock_analysis.py — 核心分析引擎（变化点）</h3>
+
+<table>
+<tr><th>模块</th><th>函数</th><th>D方案变更</th><th>说明</th></tr>
+<tr><td>RS排名</td><td>calc_rs()</td><td>不变</td><td>价格相对强度排名</td></tr>
+<tr><td>多因子评分</td><td>calc_multi_factor_score()</td><td>不变</td><td>综合多因子</td></tr>
+<tr><td>板块轮动</td><td>calc_sector_rotation()</td><td>不变</td><td>板块涨跌/动量</td></tr>
+<tr><td>技术信号</td><td>calc_all_tech_signals()</td><td>不变</td><td>MA/RSI/MACD/布林/KDJ</td></tr>
+<tr><td>动量分析</td><td>calc_momentum()</td><td>不变</td><td>趋势判断</td></tr>
+<tr><td>波动预警</td><td>calc_volatility_alerts()</td><td>不变</td><td>异常波动提醒</td></tr>
+<tr><td>布林带宽</td><td>calc_bbw()</td><td>不变</td><td>布林缩口/扩张</td></tr>
+<tr>
+  <td><b>均值偏离</b></td>
+  <td><b>calc_mrd()</b></td>
+  <td><span class="badge-del">删除</span></td>
+  <td><b>整个函数移除。</b>不再用 turn×3 代理偏离度</td>
+</tr>
+<tr>
+  <td><b>卡尔曼偏离</b></td>
+  <td><b>calc_kalman_deviation()</b> <span class="badge-new">新增</span></td>
+  <td><span class="badge-new">替换calc_mrd()</span></td>
+  <td><b>参数完全不变：</b>输出字段名保持 <code>kalman_dev</code>（对齐统一模型接口），权重保持 <b>15%</b>，不新建第7维</td>
+</tr>
+<tr><td>历史相似度</td><td>calc_historical_similarity_score()</td><td>不变</td><td>FAISS+Hurst</td></tr>
+<tr><td>统一模型总结</td><td>get_model_summary()</td><td><span class="badge-chg">引用kalman_dev替代mrd</span></td><td>6维权重不变</td></tr>
+</table>
+
+<h3>3.2 卡尔曼替换 MRD — 详细设计</h3>
+
+<div class="alert alert-green">
+<b>✅ 设计决策：</b>只换算法，不换接口。MRD 在统一模型中的权重/位置/字段含义<b>全部不变</b>，只把底层从「(close-MA)/MA」换成「(当前价-卡尔曼平滑价)/卡尔曼平滑价」。
+</div>
+
+<h4>3.2.1 替换前后对比</h4>
+<table>
+<tr><th>对比项</th><th>旧 MRD</th><th>新 卡尔曼偏离</th></tr>
+<tr><td>计算方式</td><td><code>mrd = (close - MA10) / MA10 × 100</code></td><td><code>kf_dev = (close - kalman_price) / kalman_price × 100</code></td></tr>
+<tr><td>偏离基准</td><td>10日均价（固定窗口）</td><td>卡尔曼估计价（自适应噪声 + 全历史）</td></tr>
+<tr><td>趋势感知</td><td>❌ 无</td><td>✅ 状态向量包含趋势分量</td></tr>
+<tr><td>波动率</td><td>❌ 无</td><td>✅ 输出 volatility / support / resistance</td></tr>
+<tr><td>自适应</td><td>❌ 固定窗口</td><td>✅ process/observe noise 按个股波动自适应</td></tr>
+<tr><td>活跃股误判</td><td>❌ 高换手率→高MRD误判</td><td>✅ 与换手率无关，纯价格统计</td></tr>
+<tr><td>超买阈值</td><td>&gt;+8%</td><td>&gt;+8%（不变）</td></tr>
+<tr><td>超卖阈值</td><td>&lt;-8%</td><td>&lt;-8%（不变）</td></tr>
+</table>
+
+<h4>3.2.2 calc_kalman_deviation() 函数签名</h4>
+<pre>
+# stock_analysis.py 新增函数
+
+def calc_kalman_deviation(code, history):
+    """
+    卡尔曼偏离度 — 替换原 calc_mrd()
+
+    算法: (当前收盘价 - 卡尔曼平滑价格) / 卡尔曼平滑价格 × 100
+    卡尔曼参数按个股价格波动率自适应 (已实现在 utils/kalman.py)
+
+    参数:
+        code: 股票代码
+        history: stock_history 格式的历史数据
+
+    返回: {
+        'kalman_dev': float,        # 偏离百分比（对齐旧字段mrd_20）
+        'smoothed_price': float,    # 卡尔曼平滑价
+        'trend': float,            # 趋势分量
+        'support': float,          # 支撑位（平滑-2σ）
+        'resistance': float,       # 压力位（平滑+2σ）
+        'signal': str,             # 信号文本
+    }
+    """
+</pre>
+
+<h4>3.2.3 统一模型接口变更</h4>
+<table>
+<tr><th>位置</th><th>旧引用</th><th>新引用</th></tr>
+<tr><td>get_model_summary()</td><td><code>signals['mrd']['mrd_20']</code></td><td><code>signals['kalman']['kalman_dev']</code></td></tr>
+<tr><td>calc_combined_signals()</td><td><code>mrd = calc_mrd(code, history)</code></td><td><code>kalman = calc_kalman_deviation(code, history)</code></td></tr>
+<tr><td>缓存输出字段</td><td><code>"mrd": {...}</code></td><td><code>"kalman": {...}</code></td></tr>
+<tr><td>统一模型6维权重</td><td>MRD 15%</td><td>卡尔曼偏离 <b>15%（不变）</b></td></tr>
+</table>
+
+<h4>3.2.4 卡尔曼工具模块已就绪</h4>
+<div class="alert alert-blue">
+<b>✅ utils/kalman_filter.py 已完成</b>（143行），提供：
+<br><code>KalmanFilter1D</code> 类 — 状态向量 [price, trend]，观测 price
+<br><code>get_kalman_levels(closes)</code> — 自适应参数（按价格波动率推算 process/observe noise）
+<br><code>run_kalman(closes)</code> — 运行滤波返回最终状态
+<br>输出: {price, trend, volatility, support, resistance}
+<br><br>
+<b>集成方式：</b>在 stock_analysis.py 中 <code>from utils.kalman_filter import get_kalman_levels</code>，对每只股票的价格序列调用，输出偏离百分比。
+</div>
+
+<!-- ==================== 4 ==================== -->
+<span class="badge-chg">2026-06-13 独立为模型评分模块</span><h2>4. 模型评分层</h2>
+
+<h3>4.1 统一模型（6维评分）— 权重不变</h3>
+<table>
+<tr><th>维度</th><th>权重</th><th>D方案变更</th><th>计算方式</th></tr>
+<tr><td>RS相对强度</td><td>30%</td><td>不变</td><td>5日价格涨幅排名 0-100</td></tr>
+<tr><td>动量趋势</td><td>20%</td><td>不变</td><td>趋势标签映射</td></tr>
+<tr><td><b>卡尔曼偏离</b></td><td><b>15%</b></td><td><span class="badge-chg">替换MRD</span></td><td>卡尔曼平滑价偏离%</td></tr>
+<tr><td>布林带宽</td><td>15%</td><td>不变</td><td>布林缩口/扩张</td></tr>
+<tr><td>多因子综合</td><td>10%</td><td>不变</td><td>大盘/板块/量价/流动性</td></tr>
+<tr><td>历史相似度</td><td>10%</td><td>不变</td><td>FAISS+Hurst</td></tr>
+</table>
+
+<h3>4.2 机器学习模型（不变）</h3>
+<table>
+<tr><th>模型</th><th>文件</th><th>变更</th></tr>
+<tr><td>随机森林 v1</td><td>models/random_forest_optimized.pkl</td><td>不变</td></tr>
+<tr><td>随机森林 v2</td><td>models/random_forest_v2.pkl</td><td>不变</td></tr>
+<tr><td>截面RF</td><td>models/rf_cross_section.pkl</td><td>不变</td></tr>
+<tr><td>个股RF</td><td>models/rf_stock_model.pkl</td><td>不变</td></tr>
+<tr><td>Ridge</td><td>models/ridge_direction.pkl</td><td>不变</td></tr>
+</table>
+
+<div class="alert alert-purple">
+<b>📌 服务器适配：</b>模型文件 (.pkl) 纳入同步清单。本地训练/更新模型后 → push 到服务器 → 服务器加载最新模型推理。<br>
+初期（迁移阶段）模型训练仍在本地，服务器仅做推理；后期可考虑服务器上定时重训。
+</div>
+
+<!-- ==================== 5 ==================== -->
+<h2>5. 资源与模板管理</h2>
+
+<h3>5.1 模板文件清单（不变，路径不变）</h3>
+<table>
+<tr><th>模板</th><th>文件</th><th>生成入口</th><th>输出文件</th></tr>
+<tr><td>盘前标准</td><td>scripts/template-premarket.html</td><td>gen_report.py --premarket</td><td>premarket-YYYY-MM-DD.html</td></tr>
+<tr><td>盘前进阶</td><td>scripts/template-premarket-advanced-model.html</td><td>gen_report.py --premarket-adv</td><td>premarket-advanced-YYYY-MM-DD.html</td></tr>
+<tr><td>午间标准</td><td>scripts/template-midday.html</td><td>gen_report.py --midday</td><td>midday-YYYY-MM-DD.html</td></tr>
+<tr><td>午间进阶</td><td>scripts/template-midday-advanced-model.html</td><td>gen_report.py --midday-adv</td><td>midday-advanced-YYYY-MM-DD.html</td></tr>
+<tr><td>收盘标准</td><td>scripts/template-daily-combined.html</td><td>gen_report.py --closing</td><td>daily-combined-YYYY-MM-DD.html</td></tr>
+<tr><td>收盘进阶</td><td>scripts/template-closing-advanced-model.html</td><td>gen_report.py --closing-adv</td><td>closing-advanced-YYYY-MM-DD.html</td></tr>
+<tr><td>周报标准</td><td>scripts/template-weekly.html</td><td>gen_report.py --weekly</td><td>weekly-review-YYYY-MM-DD.html</td></tr>
+<tr><td>周报进阶</td><td>scripts/template-weekly-advanced-model.html</td><td>gen_report.py --weekly-adv</td><td>weekly-advanced-YYYY-MM-DD.html</td></tr>
+<tr><td>Dashboard</td><td>—（自生成）</td><td>gen_report.py --dashboard</td><td>dashboard.html</td></tr>
+<tr><td>主页</td><td>—（自生成）</td><td>gen_report.py --index</td><td>index.html</td></tr>
+</table>
+
+<h3>5.2 配置资源（不变）</h3>
+<table>
+<tr><th>文件</th><th>用途</th><th>变更</th></tr>
+<tr><td>config/stocks.json</td><td>主持仓配置（93只）</td><td>不变</td></tr>
+<tr><td>scripts/template-stocks.json</td><td>板块分类/持仓清单副本</td><td>不变</td></tr>
+<tr><td>scripts/name_map.json</td><td>股票代码/名称映射</td><td>不变</td></tr>
+</table>
+
+<!-- ==================== 6 ==================== -->
+<h2>6. 报告生成层</h2>
+
+<h3>6.1 gen_report.py — 统一报告入口</h3>
+
+<div class="alert alert-green">
+<b>🎯 新架构核心变革：</b>11个gen_*.py → <b>1个 gen_report.py + 1个 gen_common.py</b>
+<br>通过 <code>--mode</code> 参数切换报告类型，公共逻辑全部抽到 gen_common.py。
+</div>
+
+<h4>6.1.1 命令行接口</h4>
+<pre>
+# ─── 单入口，多模式 ───
+
+# 盘前标准版
+python3 scripts/gen_report.py --mode premarket
+
+# 盘前进阶版
+python3 scripts/gen_report.py --mode premarket-adv
+
+# 午间标准版
+python3 scripts/gen_report.py --mode midday
+
+# 午间进阶版
+python3 scripts/gen_report.py --mode midday-adv
+
+# 收盘标准版
+python3 scripts/gen_report.py --mode closing
+
+# 收盘进阶版
+python3 scripts/gen_report.py --mode closing-adv
+
+# 周报标准版
+python3 scripts/gen_report.py --mode weekly
+
+# 周报进阶版
+python3 scripts/gen_report.py --mode weekly-adv
+
+# Dashboard + Index
+python3 scripts/gen_report.py --mode dashboard
+python3 scripts/gen_report.py --mode index
+
+# 每日快照（收盘后触发）
+python3 scripts/gen_report.py --mode snapshot
+
+# 每日复盘（收盘后触发）
+python3 scripts/gen_report.py --mode review
+</pre>
+
+<h4>6.1.2 gen_report.py 内部架构（约600行）</h4>
+<pre>
+#!/usr/bin/env python3
+"""
+D方案 · 统一报告生成器
+用法: python3 gen_report.py --mode {premarket|midday|closing|weekly|...}
+
+所有报告类型共用同一入口，通过 --mode 切换。
+公共逻辑（数据加载、格式化、HTML辅助）抽到 gen_common.py
+"""
+
+import argparse
+from gen_common import (
+    load_cache, load_watchlist, load_predictions, load_research, load_history,
+    load_template, render_html, save_report, validate_output,
+    fmt_pct, fmt_price, rate_html, get_rank, sector_order, sector_display,
+    COLOR_RULES, build_stock_row, build_sector_card, build_index_card,
+    build_alert_section, build_footer
+)
+
+# ─── 各模式的主函数 ───
+def run_premarket():   ...   # 盘前标准版
+def run_premarket_adv(): ...  # 盘前进阶版
+def run_midday():      ...   # 午间标准版
+def run_midday_adv():  ...   # 午间进阶版
+def run_closing():     ...   # 收盘标准版
+def run_closing_adv(): ...   # 收盘进阶版
+def run_weekly():      ...   # 周报标准版
+def run_weekly_adv():  ...   # 周报进阶版
+def run_dashboard():   ...   # 报告中心
+def run_index():       ...   # 主页重定向
+def run_snapshot():    ...   # FAISS快照
+def run_review():      ...   # 每日复盘（输出JSON）
+</pre>
+
+<h4>6.1.3 gen_common.py 接口清单（约400行）</h4>
+<table>
+<tr><th>类别</th><th>函数/常量</th><th>说明</th></tr>
+<tr><td><b>数据加载</b></td>
+<td>load_cache(), load_watchlist(), load_predictions(), load_research(), load_history()</td>
+<td>统一的缓存/配置/研究员数据读取，含缺省容错</td></tr>
+<tr><td><b>模板渲染</b></td>
+<td>load_template(mode), render_html(template, sections), save_report(html, mode)</td>
+<td>按mode读取对应HTML模板，填充各section，保存</td></tr>
+<tr><td><b>格式化</b></td>
+<td>fmt_pct(v), fmt_price(v), fmt_volume(v)</td>
+<td>百分比/价格/成交量格式化</td></tr>
+<tr><td><b>HTML组件</b></td>
+<td>rate_html(rank), build_stock_row(s), build_sector_card(s), build_index_card(idx), build_alert_section(alerts), build_footer()</td>
+<td>可复用的HTML片段生成函数</td></tr>
+<tr><td><b>颜色规则</b></td>
+<td>COLOR_RULES, class_for_change(v), color_for_trend(label)</td>
+<td>统一红涨绿跌规则</td></tr>
+<tr><td><b>板块元数据</b></td>
+<td>sector_order, sector_display, sector_icons</td>
+<td>板块排序/显示名/图标映射</td></tr>
+<tr><td><b>数据提取</b></td>
+<td>get_rank(code), get_sector(code), get_daily_change(code)</td>
+<td>从缓存中按code查询常用字段</td></tr>
+</table>
+
+<h4>6.1.4 旧→新脚本映射</h4>
+<table>
+<tr><th>旧脚本（删除）</th><th>新入口</th></tr>
+<tr><td>gen_premarket_report.py (501行)</td><td><code>gen_report.py --mode premarket</code></td></tr>
+<tr><td>gen_premarket_advanced.py (340行)</td><td><code>gen_report.py --mode premarket-adv</code></td></tr>
+<tr><td>gen_midday_report.py (497行)</td><td><code>gen_report.py --mode midday</code></td></tr>
+<tr><td>gen_closing_report.py (1078行)</td><td><code>gen_report.py --mode closing</code></td></tr>
+<tr><td>gen_advanced_reports.py (362行)</td><td><code>gen_report.py --mode *-adv</code></td></tr>
+<tr><td>gen_weekly_report.py (114行)</td><td><code>gen_report.py --mode weekly</code></td></tr>
+<tr><td>gen_daily_review.py (274行)</td><td><code>gen_report.py --mode review</code></td></tr>
+<tr><td>gen_daily_snapshot.py (305行)</td><td><code>gen_report.py --mode snapshot</code></td></tr>
+<tr><td>gen_dashboard.py (359行)</td><td><code>gen_report.py --mode dashboard</code></td></tr>
+<tr><td>gen_dashboard_preview.py (240行)</td><td><code>gen_report.py --mode dashboard</code>（合并）</td></tr>
+<tr><td>gen_index.py (41行)</td><td><code>gen_report.py --mode index</code></td></tr>
+</table>
+
+<h3>6.2 Hermes复盘JSON化</h3>
+
+<table>
+<tr><th>对比项</th><th>旧 hermes_review.py</th><th>新 gen_report.py --mode review</th></tr>
+<tr><td>输出格式</td><td>纯文本 + Hermes CLI自然语言分析</td><td>结构化JSON + 可选Hermes增强注释</td></tr>
+<tr><td>可编程消费</td><td>❌ 需人工解析</td><td>✅ 直接读取JSON字段</td></tr>
+<tr><td>输出文件</td><td>reviews/closing-review-*.txt</td><td>reviews/closing-review-*.json</td></tr>
+<tr><td>字段</td><td>—</td><td>date, accuracy{total,correct,rate}, sectors[{name,pred,prob,actual_pct,correct}], lessons[{type,rule,confidence}]</td></tr>
+<tr><td>趋势分析</td><td>❌ 无法做</td><td>✅ 可加载N天复盘JSON做准确率趋势曲线</td></tr>
+<tr><td><span class="badge-srv">服务器执行</span></td><td>—</td><td>服务器主力运行，复盘JSON同步到本地归档</td></tr>
+</table>
+
+<!-- ==================== 7 ==================== -->
+<h2>7. 网页部署层</h2>
+
+<h3>7.1 部署方案 — deploy_cloudflare.py（双环境通用）</h3>
+
+<div class="alert alert-green">
+<b>🔑 核心变化：</b>8次部署 → <b>3次</b>（盘前09:15 / 午间12:00 / 收盘16:00）。
+<br>v3.1新增：<span class="badge-srv">服务器主力部署</span>，本地保留部署能力用于紧急回滚。
+</div>
+
+<pre>
+#!/usr/bin/env bash
+# 🚀 D方案 · 统一部署脚本 v3.1（双环境兼容）
+# 用法: bash scripts/deploy.sh
+# 服务器: 主力部署，每天3次（交易日）
+# 本地: 保留能力，紧急回滚时手动调用
+
+set -e
+
+# ─── 环境检测 ───
+ASTRADE_ENV="${ASTRADE_ENV:-local}"
+WORKSPACE="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$WORKSPACE/daily-report-html"
+
+# 1. 计算行业龙头
+python3 "$WORKSPACE/scripts/calc_sector_leaders.py" 2>&1 | tail -3
+
+# 2. 生成 Dashboard
+python3 "$WORKSPACE/scripts/gen_report.py" --mode dashboard 2>&1 | tail -3
+
+# 3. 生成 Index
+python3 "$WORKSPACE/scripts/gen_report.py" --mode index 2>&1 | tail -3
+
+# 4. Cloudflare Pages 部署
+#    API token 从环境变量读取（服务器和本地都支持）
+if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+    CLOUDFLARE_API_TOKEN=$(python3 -c "
+import json, os
+token = os.environ.get('CLOUDFLARE_API_TOKEN', '')
+if not token:
+    # 无需手动配置token（deploy_cloudflare.py自动读取）
+    try:
+        with open(cfg) as f:
+            token = json.load(f)[0]['api_token']
+    except: pass
+print(token)
+" 2>/dev/null)
+fi
+
+export CLOUDFLARE_API_TOKEN
+
+if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+    python3 $WORKSPACE/scripts/deploy_cloudflare.py 2>&1
+    echo "✅ 部署完成 → https://daily-report-3ai.pages.dev"
+else
+    echo "⚠️  CLOUDFLARE_API_TOKEN 未设置，跳过部署"
+fi
+
+# 5. (仅服务器) 部署完成后触发数据同步到本地
+if [ "$ASTRADE_ENV" = "server" ]; then
+    echo "📡 触发数据同步到本地..."
+    bash "$WORKSPACE/scripts/sync-to-local.sh" 2>&1 | tail -3 || echo "⚠️ 同步失败（本地可能离线）"
+fi
+</pre>
+
+<h3>7.2 部署触发点对比</h3>
+<table>
+<tr><th>#</th><th>时间</th><th>旧触发者</th><th>D方案触发者</th><th>部署？</th><th><span class="badge-srv">执行环境</span></th></tr>
+<tr><td>1</td><td>09:00</td><td>盘前数据采集</td><td>daily-cycle (盘前数据)</td><td><span class="badge-del">砍掉，合入09:15</span></td><td>服务器</td></tr>
+<tr><td>2</td><td><b>09:15</b></td><td>盘前简报推送</td><td>daily-cycle (盘前推送)</td><td><span class="badge-new">✅ 部署</span></td><td><span class="badge-srv">服务器</span></td></tr>
+<tr><td>3</td><td><b>12:00</b></td><td>午间监测</td><td>daily-cycle (午间)</td><td><span class="badge-new">✅ 部署</span></td><td><span class="badge-srv">服务器</span></td></tr>
+<tr><td>4</td><td>15:30</td><td>收盘数据采集</td><td>daily-cycle (收盘数据)</td><td><span class="badge-del">砍掉，合入16:00</span></td><td>服务器</td></tr>
+<tr><td>5</td><td><b>16:00</b></td><td>收盘推送</td><td>daily-cycle (收盘推送)</td><td><span class="badge-new">✅ 部署</span></td><td><span class="badge-srv">服务器</span></td></tr>
+<tr><td>6</td><td>18:00</td><td>每日复盘</td><td>daily-cycle (复盘)</td><td><span class="badge-del">不部署</span></td><td>服务器</td></tr>
+<tr><td>7</td><td><b>周日12:00</b></td><td>周复盘</td><td>daily-cycle (周报)</td><td><span class="badge-new">✅ 部署</span></td><td><span class="badge-srv">服务器</span></td></tr>
+<tr><td>8</td><td>—</td><td>—</td><td>—</td><td><span class="badge-local">本地备份部署</span></td><td><span class="badge-local">本地(按需)</span></td></tr>
+</table>
+
+<!-- ==================== 8 ==================== -->
+<h2>8. Cron调度 · 新每日时间线</h2>
+
+<h3>8.1 daily-cycle.md — 统一调度 <span class="badge-new">新文件</span></h3>
+
+<div class="alert alert-green">
+<b>🎯 6个taskflow → 1个 daily-cycle.md：</b>
+服务器cron按时间触发不同section，本地保留完整调用能力。
+</div>
+
+<pre>
+00:00
+01:00  — 混动系统每日自检 (daily_check.py + AI深度检查 + 飞书推送) [服务器]
+07:00  — TED学习推送 (独立，不参与交易系统) [服务器]
+09:00  — [盘前数据采集] daily-cycle → premarket-data [服务器]
+         stock_analysis.py --update
+         + tushare_fetch.py report
+         + researcher.py --mode premarket
+         + stock_analysis.py --json > /tmp/stock_analysis_cache.json
+         + gen_report.py --mode premarket    → premarket-YYYY-MM-DD.html
+         + gen_report.py --mode premarket-adv → premarket-advanced-YYYY-MM-DD.html
+         ❌ 不部署（合入09:15一起）
+09:15  — [盘前简报推送+部署] daily-cycle → premarket-push [服务器]
+         飞书推送盘前简报正文
+         + python3 scripts/deploy_cloudflare.py  ✅ 部署（盘前标准+进阶）
+12:00  — [午间监测+部署] daily-cycle → midday [服务器]
+         实时行情采集
+         + gen_report.py --mode midday    → midday-YYYY-MM-DD.html
+         + gen_report.py --mode midday-adv → midday-advanced-YYYY-MM-DD.html
+         + 飞书推送午间报告正文
+         + python3 scripts/deploy_cloudflare.py  ✅ 部署（午间标准+进阶）
+15:00  — A股收盘
+15:30  — [收盘数据采集] daily-cycle → closing-data [服务器]
+         stock_analysis.py --update
+         + stock_analysis.py --json > /tmp/stock_analysis_cache.json
+         + gen_report.py --mode closing    → daily-combined-YYYY-MM-DD.html
+         + gen_report.py --mode closing-adv → closing-advanced-YYYY-MM-DD.html
+         + gen_report.py --mode snapshot   → FAISS索引
+         + gen_report.py --mode review     → /tmp/review-structured.json
+         ❌ 不部署（合入16:00一起）
+16:00  — [收盘推送+部署+同步] daily-cycle → closing-push [服务器]
+         飞书推送收盘简报正文 + 链接
+         + calc_sector_leaders.py
+         + gen_report.py --mode dashboard
+         + gen_report.py --mode index
+         + python3 scripts/deploy_cloudflare.py  ✅ 部署（收盘+Dashboard+全部）
+         + bash scripts/sync-to-local.sh  <span class="badge-srv">📡 同步数据到本地</span>
+18:00  — [每日复盘] daily-cycle → closing-review [服务器]
+         读取 /tmp/review-structured.json
+         + 飞书推送复盘摘要
+         ❌ 不部署
+23:59
+</pre>
+
+<h3>8.2 Cron任务配置（新）</h3>
+<table>
+<tr><th>Cron Job</th><th>时间</th><th>命令</th><th>部署？</th><th><span class="badge-srv">环境</span></th></tr>
+<tr><td>daily-check</td><td>01:00</td><td>python3 scripts/daily_check.py</td><td>否</td><td>服务器</td></tr>
+<tr><td>ted-push</td><td>07:00</td><td>TED推荐脚本</td><td>否</td><td>服务器</td></tr>
+<tr><td>premarket-data</td><td>09:00</td><td>hermes task: daily-cycle → premarket-data</td><td><span class="badge-del">合入09:15</span></td><td>服务器</td></tr>
+<tr><td>premarket-push</td><td>09:15</td><td>hermes task: daily-cycle → premarket-push</td><td><span class="badge-new">✅ 是</span></td><td>服务器</td></tr>
+<tr><td>midday</td><td>12:00</td><td>hermes task: daily-cycle → midday</td><td><span class="badge-new">✅ 是</span></td><td>服务器</td></tr>
+<tr><td>closing-data</td><td>15:30</td><td>hermes task: daily-cycle → closing-data</td><td><span class="badge-del">合入16:00</span></td><td>服务器</td></tr>
+<tr><td><b>closing-push</b></td><td><b>16:00</b></td><td>hermes task: daily-cycle → closing-push</td><td><span class="badge-new">✅ 是</span></td><td>服务器</td></tr>
+<tr><td>closing-review</td><td>18:00</td><td>hermes task: daily-cycle → closing-review</td><td>否</td><td>服务器</td></tr>
+<tr><td>weekly-review</td><td>周日12:00</td><td>hermes task: daily-cycle → weekly</td><td><span class="badge-new">✅ 周报</span></td><td>服务器</td></tr>
+<tr><td>sync-to-local</td><td>16:05</td><td>bash scripts/sync-to-local.sh</td><td>否</td><td>服务器→本地</td></tr>
+</table>
+
+<!-- ==================== 9 ==================== -->
+<h2>9. 文件依赖关系图（新）</h2>
+
+<pre>
+config/stocks.json
+    |
+    +---> stock_analysis.py: load_watchlist()
+    +---> gen_common.py: load_watchlist()  <span class="badge-new">统一加载</span>
+
+data/tushare_token.txt --→ researcher.py / tushare_fetch.py
+<span class="badge-srv">  服务器: TUSHARE_TOKEN 环境变量优先</span>
+
+    v
+stock_analysis.py (采集+分析)
+    |   <span class="badge-chg">from utils.kalman_filter import get_kalman_levels</span>
+    |
+    +---> data/stock_history.json (93只xN天K线)
+    +---> /tmp/stock_analysis_cache.json (含kalman_analysis)
+    +---> /tmp/premarket-predictions.json
+
+    v
+<span class="badge-new">gen_common.py</span> ← 公共数据加载/格式化/HTML组件 <span class="badge-srv">+ 环境检测</span>
+    |
+    v
+<span class="badge-new">gen_report.py</span> ← 统一报告入口 (--mode 切换12种报告)
+    |
+    +---> premarket-YYYY-MM-DD.html
+    +---> premarket-advanced-YYYY-MM-DD.html
+    +---> midday-YYYY-MM-DD.html
+    +---> midday-advanced-YYYY-MM-DD.html
+    +---> daily-combined-YYYY-MM-DD.html
+    +---> closing-advanced-YYYY-MM-DD.html
+    +---> weekly-review-YYYY-MM-DD.html
+    +---> weekly-advanced-YYYY-MM-DD.html
+    +---> dashboard.html
+    +---> index.html
+    +---> /tmp/review-structured.json <span class="badge-new">结构化复盘</span>
+
+    v
+<span class="badge-new">deploy_cloudflare.py</span> (09:15/12:00/16:00触发，3次/日) <span class="badge-srv">[服务器主力]</span>
+    +---> calc_sector_leaders.py
+    +---> gen_report.py --mode dashboard
+    +---> gen_report.py --mode index
+    +---> Cloudflare Direct Upload API (curl直推，零Node依赖)
+    |         |
+    |         v
+    |   https://daily-report-3ai.pages.dev
+    |
+    +---> <span class="badge-srv">sync-to-local.sh (服务器→本地数据同步)</span>
+            |
+            v
+        <span class="badge-local">本地: data/ reviews/ models/ 归档备份</span>
+</pre>
+
+<!-- ==================== 10 ==================== -->
+<h2>10. 本地↔服务器混合架构 <span class="badge-srv">NEW v3.1</span></h2>
+
+<h3>10.1 架构全景图</h3>
+
+<div class="arch-diagram">
+  <div style="color:#8b949e;font-size:13px;margin-bottom:12px;">📐 混合架构总览 — 服务器主力 + 本地备份/开发</div>
+
+  <div class="layer" style="margin-bottom:16px;">
+    <div class="box box-ext" style="flex:1;">📊 外部数据源<br><small>新浪/Tushare/公开API</small></div>
+    <div style="font-size:20px;align-self:center;">→</div>
+    <div class="box box-srv" style="flex:2;">🖥️ 服务器（主力）<br><small>数据采集 → 分析 → 报告 → 部署 → 推送<br>cron 定时调度 · 飞书直推</small></div>
+    <div style="font-size:20px;align-self:center;" class="sync-arrow">⇄</div>
+    <div class="box box-local" style="flex:2;">💻 本地 MacBook（备份/开发）<br><small>开发调试 · 模型训练 · Obsidian<br>紧急回滚 · 离线可用</small></div>
+  </div>
+
+  <div class="layer">
+    <div class="box box-shared" style="flex:1;">🌐 Cloudflare Pages<br><small>daily-report-3ai.pages.dev<br>静态HTML · CDN全球</small></div>
+    <div class="box box-shared" style="flex:1;">📱 飞书推送<br><small>服务器直推 · 三时段<br>本地可测试推送</small></div>
+    <div class="box box-shared" style="flex:1;">📓 Obsidian<br><small>本地读取Cloudflare<br>或本地HTML归档</small></div>
+  </div>
+</div>
+
+<h3>10.2 角色分工矩阵</h3>
+
+<table>
+<tr><th>职责</th><th style="background:#2d1a4e;color:#d2a8ff;">🖥️ 服务器</th><th style="background:#0c2d4a;color:#79c0ff;">💻 本地</th><th>说明</th></tr>
+<tr>
+  <td><b>数据采集</b></td>
+  <td><span class="badge-srv">主力</span> 每日自动采集</td>
+  <td><span class="badge-local">按需</span> 调试/回补</td>
+  <td>服务器负责交易日定时采集；本地可手动回补历史数据</td>
+</tr>
+<tr>
+  <td><b>数据分析+评分</b></td>
+  <td><span class="badge-srv">主力</span> stock_analysis.py</td>
+  <td><span class="badge-local">可用</span> 开发调试</td>
+  <td>同一套代码，服务器运行生产，本地用于开发和验证</td>
+</tr>
+<tr>
+  <td><b>模型训练 (.pkl)</b></td>
+  <td><span class="badge-local">—</span></td>
+  <td><span class="badge-local">主力</span> 训练+调参</td>
+  <td>初期模型训练保留在本地（有GPU/交互环境）；训练后push到服务器</td>
+</tr>
+<tr>
+  <td><b>模型推理</b></td>
+  <td><span class="badge-srv">主力</span> 加载.pkl推理</td>
+  <td><span class="badge-local">可用</span></td>
+  <td>服务器加载最新模型做推理；本地可独立推理验证</td>
+</tr>
+<tr>
+  <td><b>报告生成 (HTML)</b></td>
+  <td><span class="badge-srv">主力</span> gen_report.py</td>
+  <td><span class="badge-local">可用</span> 开发/紧急</td>
+  <td>服务器日常生成；本地开发新模板时使用</td>
+</tr>
+<tr>
+  <td><b>部署（deploy_cloudflare.py）</b></td>
+  <td><span class="badge-srv">主力</span> 3次/交易日</td>
+  <td><span class="badge-local">紧急</span> 手动触发</td>
+  <td>服务器自动部署；服务器挂了本地可以手动部署接力</td>
+</tr>
+<tr>
+  <td><b>飞书推送</b></td>
+  <td><span class="badge-srv">主力</span> 直推webhook</td>
+  <td><span class="badge-local">测试</span></td>
+  <td>服务器直推，不经本地转发；本地测试时可用测试webhook</td>
+</tr>
+<tr>
+  <td><b>Hermes复盘</b></td>
+  <td><span class="badge-srv">主力</span> 18:00 cron</td>
+  <td><span class="badge-local">可用</span> 深度复盘</td>
+  <td>服务器自动跑日常复盘；本地可做更深入的交互式复盘</td>
+</tr>
+<tr>
+  <td><b>Obsidian同步</b></td>
+  <td><span class="badge-local">—</span></td>
+  <td><span class="badge-local">本地</span> 自动sync</td>
+  <td>本地Obsidian vault自动同步daily-report-html目录</td>
+</tr>
+<tr>
+  <td><b>数据持久存储</b></td>
+  <td>临时缓存（/tmp）</td>
+  <td><span class="badge-local">主仓库</span> git + 文件</td>
+  <td>stock_history.json/reviews/在本地有完整历史；服务器/tmp可丢失</td>
+</tr>
+</table>
+
+<h3>10.3 环境检测机制</h3>
+
+<div class="role-server">
+<b>🖥️ 服务器端配置</b>
+<pre>
+# ~/.bashrc 或 systemd environment
+export ASTRADE_ENV=server
+export TUSHARE_TOKEN="your_token"
+export CLOUDFLARE_API_TOKEN="your_cf_token"
+export FEISHU_WEBHOOK="https://open.feishu.cn/..."
+export ASTRADE_DATA_DIR="/data/astrade"        # 持久化数据目录
+export ASTRADE_LOCAL_HOST="macbook.local"       # 本地机器地址（用于同步）
+export ASTRADE_LOCAL_USER="shisan"
+</pre>
+</div>
+
+<div class="role-local">
+<b>💻 本地端配置</b>
+<pre>
+# ~/.zshrc（保持不变，ASTRADE_ENV 默认 local 或不设置）
+export ASTRADE_ENV=local                        # 或不设置，默认local
+export TUSHARE_TOKEN="your_token"
+export CLOUDFLARE_API_TOKEN="your_cf_token"     # 紧急回滚时使用
+export FEISHU_WEBHOOK="https://open.feishu.cn/..."  # 测试时可设测试webhook
+# 本地路径不变，无需额外配置
+</pre>
+</div>
+
+<div class="alert alert-blue">
+<b>🔧 gen_common.py 环境适配逻辑</b>
+<pre>
+# gen_common.py 头部
+import os
+
+ASTRADE_ENV = os.environ.get('ASTRADE_ENV', 'local')
+IS_SERVER = ASTRADE_ENV == 'server'
+IS_LOCAL = ASTRADE_ENV in ('local', '', None)
+
+# 数据目录：服务器用ASTRADE_DATA_DIR，本地用项目根目录
+if IS_SERVER:
+    DATA_DIR = os.environ.get('ASTRADE_DATA_DIR', '/data/astrade')
+    TMP_DIR = '/tmp'
+else:
+    DATA_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    TMP_DIR = '/tmp'
+
+# API keys：优先环境变量，fallback到文件（本地兼容）
+def get_token(name, file_path=None):
+    token = os.environ.get(name, '')
+    if token:
+        return token
+    if file_path and os.path.exists(file_path):
+        with open(file_path) as f:
+            return f.read().strip()
+    return ''
+</pre>
+</div>
+
+<h3>10.4 关键设计决策</h3>
+
+<div class="grid">
+
+<div class="alert alert-green">
+<b>✅ 决策1: 飞书推送 — 服务器直推</b><br><br>
+<b>理由：</b>服务器是主力运行环境，直接调用飞书webhook最快、最可靠。<br>
+<b>不需要本地转发：</b>避免了「本地离线→飞书收不到」的单点故障。<br>
+<b>测试：</b>本地开发时可用独立测试webhook，不影响生产推送。
+</div>
+
+<div class="alert alert-green">
+<b>✅ 决策2: Hermes复盘 — 服务器主力</b><br><br>
+<b>理由：</b>复盘紧跟数据生成（18:00，收盘后），在服务器上跑最自然。<br>
+<b>本地可重跑：</b>复盘JSON同步到本地后，本地Hermes可加载历史JSON做深度交互复盘。<br>
+<b>不依赖本地在线：</b>复盘不等待本地，独立完成。
+</div>
+
+<div class="alert alert-green">
+<b>✅ 决策3: 服务器运行方式 — cron + 脚本</b><br><br>
+<b>推荐：cron + shell/Python脚本</b>（最简方案）<br>
+· 不需要FastAPI（没有外部API调用需求）<br>
+· cron直接调度 daily-cycle.md 各section<br>
+· 可选：一个小型健康检查端点（<code>python3 -m http.server 8080</code> 提供 /health）<br>
+<b>不推荐FastAPI：</b>增加复杂度但无收益（报告是静态HTML，部署走CF Pages）
+</div>
+
+<div class="alert alert-green">
+<b>✅ 决策4: 路径和API Keys — 环境变量统一</b><br><br>
+<b>服务器：</b>全部走环境变量，不依赖文件路径（/tmp除外）<br>
+<b>本地：</b>保持现有文件配置（token文件、config目录），向后兼容<br>
+<b>gen_common.py：</b>env优先 + file fallback，一套代码双环境运行
+</div>
+
+</div>
+
+<!-- ==================== 11 ==================== -->
+<h2>11. 数据同步与备份机制 <span class="badge-srv">NEW v3.1</span></h2>
+
+<h3>11.1 同步全景</h3>
+
+<table>
+<tr><th>数据</th><th>大小</th><th>方向</th><th>频率</th><th>方式</th></tr>
+<tr>
+  <td><code>data/stock_history.json</code></td>
+  <td>~5-10MB</td>
+  <td>服务器 → 本地</td>
+  <td>每日16:05（收盘部署后）</td>
+  <td>rsync over SSH</td>
+</tr>
+<tr>
+  <td><code>reviews/closing-review-*.json</code></td>
+  <td>~5KB/天</td>
+  <td>服务器 → 本地</td>
+  <td>每日16:05</td>
+  <td>rsync over SSH</td>
+</tr>
+<tr>
+  <td><code>models/*.pkl</code></td>
+  <td>~50-200MB</td>
+  <td><span class="badge-local">本地 → 服务器</span></td>
+  <td>模型更新时（手动触发）</td>
+  <td>rsync / scp</td>
+</tr>
+<tr>
+  <td><code>config/stocks.json</code><br><code>scripts/name_map.json</code></td>
+  <td>~10KB</td>
+  <td><span class="badge-local">本地 → 服务器</span></td>
+  <td>配置变更时（手动/自动）</td>
+  <td>git push + git pull</td>
+</tr>
+<tr>
+  <td>报告HTML</td>
+  <td>~1-5MB/天</td>
+  <td>—</td>
+  <td>不主动同步</td>
+  <td>通过Cloudflare Pages公开访问</td>
+</tr>
+<tr>
+  <td>代码 (scripts/, utils/)</td>
+  <td>~100KB</td>
+  <td><span class="badge-local">本地 → 服务器</span></td>
+  <td>代码变更时</td>
+  <td>git push + git pull</td>
+</tr>
+<tr>
+  <td><code>/tmp/stock_analysis_cache.json</code></td>
+  <td>~1MB</td>
+  <td>—</td>
+  <td>不同步</td>
+  <td>临时缓存，丢失可重新生成</td>
+</tr>
+</table>
+
+<h3>11.2 sync-to-local.sh — 服务器端同步脚本</h3>
+
+<pre>
+#!/usr/bin/env bash
+# 📡 sync-to-local.sh — 服务器 → 本地数据同步
+# 由 deploy.sh 在收盘部署后触发（16:05）
+# 失败不阻塞部署流程
+
+set -e
+
+LOCAL_HOST="${ASTRADE_LOCAL_HOST:-macbook.local}"
+LOCAL_USER="${ASTRADE_LOCAL_USER:-shisan}"
+LOCAL_PATH="${ASTRADE_LOCAL_PATH:-/Users/$LOCAL_USER/.openclaw/workspace}"
+SERVER_DATA="${ASTRADE_DATA_DIR:-/data/astrade}"
+
+echo "📡 同步服务器数据 → $LOCAL_USER@$LOCAL_HOST ..."
+
+# 1. stock_history.json (核心历史数据)
+rsync -avz --timeout=30 \
+    "$SERVER_DATA/data/stock_history.json" \
+    "$LOCAL_USER@$LOCAL_HOST:$LOCAL_PATH/data/stock_history.json" \
+    2>&1 || echo "⚠️  stock_history 同步失败（本地可能离线）"
+
+# 2. 复盘JSON (长期归档)
+rsync -avz --timeout=30 \
+    "$SERVER_DATA/reviews/" \
+    "$LOCAL_USER@$LOCAL_HOST:$LOCAL_PATH/reviews/" \
+    2>&1 || echo "⚠️  reviews 同步失败"
+
+# 3. 研究缓存
+rsync -avz --timeout=30 \
+    "$SERVER_DATA/data/research_cache.json" \
+    "$LOCAL_USER@$LOCAL_HOST:$LOCAL_PATH/data/research_cache.json" \
+    2>&1 || echo "⚠️  research_cache 同步失败"
+
+echo "✅ 同步完成"
+</pre>
+
+<h3>11.3 push-models.sh — 本地推送模型到服务器</h3>
+
+<pre>
+#!/usr/bin/env bash
+# 📤 push-models.sh — 本地 → 服务器模型推送
+# 用法: bash scripts/push-models.sh
+# 在本地训练/更新模型后执行
+
+set -e
+
+SERVER_HOST="${ASTRADE_SERVER_HOST:-your-server.com}"
+SERVER_USER="${ASTRADE_SERVER_USER:-root}"
+SERVER_MODELS="${ASTRADE_SERVER_MODELS_PATH:-/data/astrade/models}"
+
+echo "📤 推送模型 → $SERVER_USER@$SERVER_HOST ..."
+
+rsync -avz --progress \
+    models/*.pkl \
+    "$SERVER_USER@$SERVER_HOST:$SERVER_MODELS/"
+
+echo "✅ 模型推送完成。服务器下次推理将使用新模型。"
+</pre>
+
+<h3>11.4 备份策略</h3>
+
+<div class="grid">
+
+<div class="alert alert-blue">
+<b>🗄️ 服务器 → 本地 (日常备份)</b><br><br>
+· 频率：每日自动（16:05）<br>
+· 内容：stock_history.json, reviews/, research_cache<br>
+· 方式：rsync over SSH（增量，快速）<br>
+· 容错：同步失败不报警（本地可能关机）<br>
+· 保留：本地永久保留全部历史（git + 文件）
+</div>
+
+<div class="alert alert-blue">
+<b>💾 本地 git 备份 (代码+配置)</b><br><br>
+· 频率：代码变更时手动commit<br>
+· 内容：scripts/, config/, 模板, 文档<br>
+· 方式：git push 到远程仓库<br>
+· 服务器：git pull 同步最新代码<br>
+· .pkl文件：git不跟踪大文件，另行rsync
+</div>
+
+<div class="alert alert-blue">
+<b>☁️ Cloudflare (报告冗余)</b><br><br>
+· 部署后全站HTML在CF CDN上<br>
+· 历史报告不会丢失（只要不手动删除）<br>
+· 本地Obsidian可随时从CF拉取<br>
+· 这不是备份，是冗余发布渠道
+</div>
+
+<div class="alert alert-red">
+<b>⚠️ 注意事项</b><br><br>
+· 服务器 /tmp 目录重启即清空<br>
+· 所有持久数据必须存在 ASTRADE_DATA_DIR<br>
+· 本地是数据的最终归属（source of truth）<br>
+· 服务器可随时重建（数据从本地恢复）
+</div>
+
+</div>
+
+<!-- ==================== 12 ==================== -->
+<h2>12. 迁移路径 <span class="badge-srv">NEW v3.1</span></h2>
+
+<h3>12.1 六步迁移路线图</h3>
+
+<div class="flow" style="font-size:13px;">
+  <div class="flow-item"><div class="label">步骤1</div><div class="name">D方案落地<br>本地验证</div><div class="label">1-2周</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">步骤2</div><div class="name">服务器环境<br>搭建</div><div class="label">2-3天</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">步骤3</div><div class="name">双环境适配<br>代码改造</div><div class="label">3-5天</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">步骤4</div><div class="name">并行运行<br>输出对比</div><div class="label">1-2周</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">步骤5</div><div class="name">切换主力<br>本地降级</div><div class="label">1天</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">步骤6</div><div class="name">持续优化<br>稳定运营</div><div class="label">长期</div></div>
+</div>
+
+<h3>12.2 详细步骤</h3>
+
+<table>
+<tr><th>步骤</th><th>内容</th><th>产出</th><th>回滚方案</th></tr>
+
+<tr>
+  <td><b>步骤1<br>D方案落地</b><br><span class="badge-local">本地</span></td>
+  <td>
+    完成 v3.0 五个 Phase：<br>
+    · <span class="badge-new">✅ Phase 1</span>: 卡尔曼替换MRD <b>(已完成)</b><br>
+    · <span class="badge-new">✅ Phase 2</span>: gen_report.py + gen_common.py <b>(已完成)</b><br>
+    · <span class="badge-new">✅ Phase 3</span>: deploy.sh 3次/日 <b>(已完成)</b><br>
+    · <span class="badge-new">✅ Phase 4</span>: 复盘JSON化 <b>(已完成)</b><br>
+    · <span class="badge-new">✅ Phase 5</span>: daily-cycle.md + 文件名统一 <b>(已完成)</b><br>
+    <br>
+    <b>全部在本地完成，不改服务器。</b>
+  </td>
+  <td>
+    · Phase 1: 卡尔曼偏离度已替换MRD ✅<br>
+    · Phase 1-5: 全部已完成 ✅ (2026-06-13)<br>
+    · 部署方式: wrangler → deploy_cloudflare.py<br>
+    · 主页: 恢复为"小十三的智能管理系统"4板块版
+  </td>
+  <td>
+    旧脚本保留在 git 历史中<br>
+    <code>git revert</code> 到旧版即可
+  </td>
+</tr>
+
+<tr>
+  <td><b>步骤2<br>服务器搭建</b><br><span class="badge-srv">服务器</span><br><span class="badge-chg">⏳ 进行中</span></td>
+  <td>
+    <span class="badge-new">✅ 已完成:</span><br>
+    · 阿里云轻量服务器 (8.137.53.96 / Ubuntu 24.04 / 30G / 894MB) ✅<br>
+    · Python 3.12.3 虚拟环境 + tushare/pandas/numpy/sklearn/filterpy ✅<br>
+    · 目录结构 /data/astrade/{config,data,scripts,utils,models,...} ✅<br>
+    · .env 已配置 (ASTRADE_ENV / TUSHARE_TOKEN / CLOUDFLARE_API_TOKEN / FEISHU凭证) ✅<br>
+    · FEISHU_APP_ID + FEISHU_APP_SECRET 已配置到服务器 .env ✅<br>
+    · deploy_cloudflare.py 已部署到服务器（wrangler本地兜底） ✅<br>
+    <br>
+    <span class="badge-chg">⏳ 待解决:</span><br>
+    · deploy_cloudflare.py multipart上传bug（中优先级，wrangler兜底）<br>
+    · 服务器SSH免密到本地 ✅ 密钥已配，但NAT不通，需要时处理
+  </td>
+  <td>
+    · 服务器就绪 ✅<br>
+    · Python 虚拟环境验证通过 ✅<br>
+    · deploy_cloudflare.py 双环境部署测试通过 ✅<br>
+    · SSH: 本地→服务器 ✅ 成功 / 服务器→本地 ⚠️ 密钥已配,NAT不通<br>
+    · deploy_cloudflare.py: ⚠️ multipart bug（wrangler本地兜底）<br>
+    · FEISHU 凭证 (APP_ID/APP_SECRET): ✅ 服务器 .env<br>
+    · 服务器cron: ✅ 7个核心报告任务
+  </td>
+  <td>
+    服务器随时可以重建<br>
+    持久数据都在本地
+  </td>
+</tr>
+
+<tr>
+  <td><b>步骤3<br>双环境适配</b><br><span class="badge-both">双环境</span><br><span class="badge-chg">⏳ 进行中</span></td>
+  <td>
+    <span class="badge-new">✅ 已完成:</span><br>
+    1. gen_common.py 加入 ASTRADE_ENV 检测 + resolve_path/resolve_script_path ✅<br>
+    2. gen_report.py 通过 gen_common 使用路径（兼容双环境）✅<br>
+    3. deploy_cloudflare.py 自动读取 .env / wrangler config ✅<br>
+    4. API key 优先从环境变量读取 ✅<br>
+    <br>
+    <span class="badge-new">✅ 已完成:</span><br>
+    5. push-to-server.sh — 推送代码/配置/模型到服务器 ✅<br>
+    6. pull-from-server.sh — 从服务器拉取数据/复盘 ✅<br>
+    7. 代码同步: 48个py + utils + config + models 已部署 ✅<br>
+    <span class="badge-new">✅ 已完成:</span><br>
+    7. 服务器 cron 已安装（7个核心报告任务：09:00/09:15/12:00/15:30/16:00/18:00/周日）
+  </td>
+  <td>
+    · 同一套代码在本地和服务器均正常运行 ✅<br>
+    · <code>ASTRADE_ENV=server</code> 开关验证通过 ✅<br>
+    · gen_common.py 双环境路径测试通过 ✅<br>
+    · 同步脚本: push-to-server ✅ / pull-from-server ✅<br>
+    · 代码同步: 48个py + utils + config + models ✅<br>
+    · 服务器cron: ✅ 已安装（7个核心报告任务，不含模型训练。计算与研究任务留在本地）
+  </td>
+  <td>
+    环境变量设为 <code>local</code> 即回退<br>
+    代码向后兼容
+  </td>
+</tr>
+
+<tr>
+  <td><b>步骤4<br>并行运行</b><br><span class="badge-both">双环境</span></td>
+  <td>
+    1. 服务器cron开启全部定时任务<br>
+    2. 本地cron同时运行（保留原有调度）<br>
+    3. 对比两边的输出：<br>
+    · stock_analysis_cache 差异<br>
+    · 报告HTML差异<br>
+    · 模型评分差异<br>
+    4. 飞书推送先用测试webhook验证<br>
+    5. 修正差异直到完全一致<br>
+    <br>
+    <b>目标：服务器输出 = 本地输出，连续5个交易日无差异。</b>
+  </td>
+  <td>
+    · 输出一致性验证报告<br>
+    · 差异清单及修复记录<br>
+    · 飞书推送验证通过
+  </td>
+  <td>
+    本地cron保持运行<br>
+    服务器部署/webhook暂用测试环境<br>
+    随时切回本地生产
+  </td>
+</tr>
+
+<tr>
+  <td><b>步骤5<br>切换主力</b><br><span class="badge-srv">服务器</span></td>
+  <td>
+    1. 服务器飞书webhook切到生产<br>
+    2. 服务器deploy_cloudflare.py使用production token<br>
+    3. 本地cron暂停（保留配置，不删除）<br>
+    4. 本地Markdown/Cron改为备份角色<br>
+    5. 验证一个完整交易日：<br>
+    · 09:15 盘前推送正常<br>
+    · 12:00 午间报告正常<br>
+    · 16:00 收盘部署正常<br>
+    · 16:05 数据同步到本地正常
+  </td>
+  <td>
+    · 服务器成为唯一主力<br>
+    · 本地完成降级<br>
+    · sync-to-local 正常运行
+  </td>
+  <td>
+    暂停服务器cron → 恢复本地cron<br>
+    5分钟内可切回
+  </td>
+</tr>
+
+<tr>
+  <td><b>步骤6<br>持续优化</b><br><span class="badge-srv">服务器</span></td>
+  <td>
+    1. 监控告警：<br>
+    · 服务器cron失败→飞书通知<br>
+    · 同步失败→降级到本地cron自动激活（可选）<br>
+    · deploy_cloudflare.py部署失败→告警<br>
+    2. 模型定时重训（可选：服务器端训练）<br>
+    3. 历史数据归档策略<br>
+    4. 服务器资源优化（按需升降配）
+  </td>
+  <td>
+    · 监控就绪<br>
+    · 故障自愈（本地自动接手）<br>
+    · 长期稳定运营
+  </td>
+  <td>
+    始终保持本地完整可运行<br>
+    5分钟内可全量切回本地
+  </td>
+</tr>
+</table>
+
+<h3>12.3 时间线估算</h3>
+
+<table>
+<tr><th>阶段</th><th>预计耗时</th><th>依赖</th><th>关键里程碑</th></tr>
+<tr><td>步骤1: D方案落地</td><td>1-2周</td><td>—</td><td>本地全部5个Phase完成且稳定5个交易日</td></tr>
+<tr><td>步骤2: 服务器搭建</td><td>2-3天</td><td>步骤1完成</td><td>服务器环境就绪，所有依赖安装完毕</td></tr>
+<tr><td>步骤3: 双环境适配</td><td>3-5天</td><td>步骤2完成</td><td>ASTRADE_ENV 开关验证通过</td></tr>
+<tr><td>步骤4: 并行运行</td><td>1-2周</td><td>步骤3完成</td><td>连续5个交易日输出完全一致</td></tr>
+<tr><td>步骤5: 切换主力</td><td>1天</td><td>步骤4完成</td><td>服务器独立跑通完整交易日</td></tr>
+<tr><td>步骤6: 持续优化</td><td>长期</td><td>步骤5完成</td><td>监控+故障自愈上线</td></tr>
+<tr style="background:#1a0d2e;"><td><b>合计</b></td><td><b>4-6周</b></td><td colspan="2"><b>从纯本地到服务器主力运行</b></td></tr>
+</table>
+
+<h3>12.4 紧急回滚流程</h3>
+
+<div class="alert alert-red">
+<b>🚨 服务器挂了怎么办？5分钟切回本地：</b>
+<pre>
+# 在本地 MacBook 上执行：
+# 1. 同步服务器最新数据（如果服务器还能ssh）
+bash scripts/sync-from-server.sh
+
+# 2. 恢复本地 cron
+crontab ~/.hermes/cron/astrade-local.cron.bak
+
+# 3. 手动触发一次收盘部署（如果盘中有报告未部署）
+ASTRADE_ENV=local python3 scripts/deploy_cloudflare.py
+
+# 4. 确认飞书接收端正常
+# 本地飞书webhook应该已配置好（与服务器相同）
+</pre>
+<b>原则：</b>本地始终保持完整可运行状态，代码/配置/依赖齐全，不依赖服务器的任何状态。
+</div>
+
+<!-- ==================== 13 ==================== -->
+<h2>13. 新旧变更点对比</h2>
+
+<table>
+<tr><th>#</th><th>类别</th><th>旧</th><th>新</th><th>影响</th></tr>
+<tr>
+  <td>1</td>
+  <td><b>报告生成</b></td>
+  <td>11个 gen_*.py 独立脚本<br>(总计 ~4,111 行)</td>
+  <td>1个 gen_report.py + 1个 gen_common.py<br>(总计 ~1,000 行)</td>
+  <td><span class="badge-new">行数压缩75%</span>，改一处即可</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><b>核心引擎架构</b></td>
+  <td>分析和评分混在 stock_analysis.py（1200行）</td>
+  <td><b>三层独立：</b><br>data_collector.py（采集·纯数据）<br>analysis_engine.py（分析·不可训练）<br>calc_model.py（评分·可训练）</td>
+  <td><span class="badge-new">模块独立，可测试，可训练</span></td>
+</tr>
+<tr>
+  <td><b>模型权重管理</b></td>
+  <td>硬编码在 stock_analysis.py</td>
+  <td>可训练配置：schemas/model_weights.json</td>
+  <td><span class="badge-new">权重可通过回测优化</span></td>
+</tr>
+<tr>
+  <td><b>部署频率</b></td>
+  <td>每天最多8次部署<br>(旧:wrangler/gh-pages-sync 4-8分钟/天)</td>
+  <td>每天<b>3次</b>部署<br>(deploy_cloudflare.py curl直推，~30秒/次)</td>
+  <td><span class="badge-new">部署次数减少62.5%</span></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><b>偏离度算法</b></td>
+  <td>MRD = (close-MA)/MA×100<br>无趋势感知</td>
+  <td>卡尔曼偏离 = (close-kf_price)/kf_price×100<br>自适应噪声+趋势+支撑/压力</td>
+  <td><span class="badge-new">解决活跃股误判</span></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><b>复盘输出</b></td>
+  <td>纯文本 .txt<br>+ Hermes自然语言分析</td>
+  <td>结构化 .json<br>+ 可选Hermes增强注释</td>
+  <td><span class="badge-new">可编程消费</span></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><b>文件名</b></td>
+  <td>部分 YYYYMMDD / 部分 YYYY-MM-DD</td>
+  <td>全部 YYYY-MM-DD</td>
+  <td><span class="badge-new">扫描一致</span></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><b>调度文件</b></td>
+  <td>6个 taskflow .md</td>
+  <td>1个 daily-cycle.md</td>
+  <td><span class="badge-new">维护简单</span></td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><b>代码组织</b></td>
+  <td>公共逻辑在每个gen脚本中重复</td>
+  <td>gen_common.py 统一管理</td>
+  <td><span class="badge-new">改一处生效全局</span></td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><b>数据获取</b></td>
+  <td>fetch_overseas()/fetch_north_flow()嵌在各脚本</td>
+  <td>移入 gen_common.py 或通过 researcher.py</td>
+  <td><span class="badge-new">单一数据源</span></td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><b>运行环境</b> <span class="badge-srv">NEW</span></td>
+  <td>纯本地 MacBook（单点）</td>
+  <td><span class="badge-srv">服务器主力</span> + <span class="badge-local">本地备份/开发</span></td>
+  <td><span class="badge-srv">高可用 · 不依赖本地在线</span></td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><b>飞书推送</b> <span class="badge-srv">NEW</span></td>
+  <td>本地 → 飞书</td>
+  <td><span class="badge-srv">服务器 → 飞书（直推）</span></td>
+  <td><span class="badge-srv">本地离线不影响推送</span></td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><b>数据备份</b> <span class="badge-srv">NEW</span></td>
+  <td>仅本地（无备份）</td>
+  <td>服务器→本地每日rsync + git</td>
+  <td><span class="badge-srv">双重保障</span></td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><b>配置管理</b> <span class="badge-srv">NEW</span></td>
+  <td>硬编码路径 + token文件</td>
+  <td>环境变量优先 + 文件fallback</td>
+  <td><span class="badge-srv">双环境兼容</span></td>
+</tr>
+</table>
+
+<!-- ==================== 14 ==================== -->
+<h2>14. 后续维护方法</h2>
+
+<h3>14.1 新增报告类型</h3>
+<div class="alert alert-blue">
+<b>三步新增：</b><br>
+1. 在 gen_report.py 中新增 <code>run_xxx()</code> 函数（复用 gen_common 的组件）<br>
+2. 在 argparse 中注册 <code>--mode xxx</code><br>
+3. 在 daily-cycle.md 中新增触发section<br>
+<b>不需要：</b>创建新脚本、复制模板加载逻辑、复制格式化函数。<br>
+<span class="badge-srv">服务器端：</span>git pull 新代码后自动生效，无需额外配置。
+</div>
+
+<h3>14.2 修改公共逻辑</h3>
+<div class="alert alert-blue">
+<b>一处修改：</b><br>
+1. 格式化 → 改 gen_common.py 中的 fmt_* 函数<br>
+2. HTML组件 → 改 gen_common.py 中的 build_* 函数<br>
+3. 数据加载 → 改 gen_common.py 中的 load_* 函数<br>
+<b>不需要：</b>逐文件修改11个脚本。<br>
+<span class="badge-srv">服务器端：</span>git pull → 下次cron触发自动用新逻辑。
+</div>
+
+<h3>14.3 调试单个报告</h3>
+<pre>
+# 只生成盘前报告，不触及其他
+python3 scripts/gen_report.py --mode premarket
+
+# 查看某个模式的内部状态
+python3 scripts/gen_report.py --mode closing --verbose
+
+# 在服务器上调试（本地先改代码，git push，服务器 git pull）
+ssh server "cd /data/astrade && git pull && python3 scripts/gen_report.py --mode closing --verbose"
+
+# 对比本地和服务器输出
+diff &lt;(python3 scripts/gen_report.py --mode premarket --dry-run) \
+     &lt;(ssh server "cd /data/astrade && python3 scripts/gen_report.py --mode premarket --dry-run")
+</pre>
+
+<h3>14.4 卡尔曼参数调优</h3>
+<div class="alert alert-blue">
+<b>集中管理：</b><br>
+卡尔曼滤波参数（process_noise, observe_noise 的自适应规则）在 <code>utils/kalman_filter.py</code> 的 <code>get_kalman_levels()</code> 中统一管理。
+调优时只改这一个函数，<code>stock_analysis.py</code> 中 <code>calc_kalman_deviation()</code> 和统一模型自动适配。<br>
+<span class="badge-srv">调优流程：</span>本地调参 → 验证 → git push → 服务器 git pull → 下次运行自动生效。
+</div>
+
+<h3>14.5 复盘数据消费</h3>
+<pre>
+# 读取最近N天复盘JSON做准确率趋势分析（本地或服务器均可）
+python3 -c "
+import json, glob
+files = sorted(glob.glob('reviews/closing-review-*.json'))[-30:]
+for f in files:
+    with open(f) as fp:
+        d = json.load(fp)
+    print(f'{d[\"date\"]}: {d[\"accuracy\"][\"rate\"]:.0%}')
+"
+</pre>
+
+<h3>14.6 双环境维护 <span class="badge-srv">NEW</span></h3>
+
+<div class="grid">
+
+<div class="alert alert-purple">
+<b>🔄 代码更新流程</b><br><br>
+1. 本地开发/测试<br>
+2. <code>git commit && git push</code><br>
+3. 服务器 <code>git pull</code>（或cron定时pull）<br>
+4. 下次cron触发自动用新代码<br>
+<br>
+<b>原则：</b>永远在本地改代码，服务器只做 pull + 运行。
+</div>
+
+<div class="alert alert-purple">
+<b>📦 模型更新流程</b><br><br>
+1. 本地训练新模型 → models/xxx.pkl<br>
+2. <code>bash scripts/push-models.sh</code><br>
+3. 验证：服务器端手动跑一次推理<br>
+4. 确认输出合理后，cron自动用新模型<br>
+<br>
+<b>原则：</b>模型先在本地验证，再推到服务器。
+</div>
+
+<div class="alert alert-purple">
+<b>🔧 配置变更流程</b><br><br>
+1. 修改 config/stocks.json（本地）<br>
+2. git commit && git push<br>
+3. 服务器 git pull<br>
+4. 如变更了环境变量，SSH到服务器修改<br>
+<br>
+<b>原则：</b>文件配置走git，环境变量走SSH手动设。
+</div>
+
+<div class="alert alert-purple">
+<b>🚑 故障处理流程</b><br><br>
+1. 服务器cron失败 → 飞书告警<br>
+2. 检查服务器日志<br>
+3. 如需紧急部署：本地 <code>ASTRADE_ENV=local python3 scripts/deploy_cloudflare.py</code><br>
+4. 修复后恢复服务器cron<br>
+<br>
+<b>原则：</b>本地是最可靠的fallback，永远可用。
+</div>
+
+</div>
+
+<!-- ==================== 15 ==================== -->
+<h2>15. 实施顺序（含服务器迁移）</h2>
+
+<table>
+<tr><th>阶段</th><th>内容</th><th>依赖</th><th>风险</th><th><span class="badge-srv">环境</span></th></tr>
+
+<tr>
+  <td><b>Phase 1</b> <span class="badge-new">✅ 已完成 6/13</span></td>
+  <td>
+    <b>卡尔曼替换MRD</b><br>
+    · stock_analysis.py: 新增 calc_kalman_deviation()<br>
+    · 修改 calc_combined_signals() 引用<br>
+    · 修改 get_model_summary() 引用<br>
+    · 缓存输出字段从 mrd → kalman
+  </td>
+  <td>utils/kalman_filter.py ✓已就绪</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-local">本地</span></td>
+</tr>
+
+<tr>
+  <td><b>Phase 2</b> <span class="badge-new">✅ 已完成 6/13</span></td>
+  <td>
+    <b>合并报告脚本</b><br>
+    · 创建 gen_common.py（抽取公共逻辑 + 环境检测预留接口）<br>
+    · 创建 gen_report.py（统一入口）<br>
+    · 逐个模式迁移并验证输出HTML一致<br>
+    · 删除旧11个gen脚本<br>
+    <span class="badge-srv">★ 预留 ASTRADE_ENV 检测接口</span>
+  </td>
+  <td>Phase 1 完成</td>
+  <td><span class="badge-chg">中</span></td>
+  <td><span class="badge-local">本地</span></td>
+</tr>
+
+<tr>
+  <td><b>Phase 3</b> <span class="badge-new">✅ 已完成 6/13</span></td>
+  <td>
+    <b>统一部署流程（3次/日）</b><br>
+    · 创建 deploy.sh（可重复调用，支持3次/日）<br>
+    · 修改 daily-cycle.md 各section<br>
+    · 部署点：09:15盘前 / 12:00午间 / 16:00收盘<br>
+    · 周日12:00周报部署（不变）<br>
+    <span class="badge-srv">★ deploy.sh 预留环境检测</span>
+  </td>
+  <td>Phase 2 完成</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-local">本地</span></td>
+</tr>
+
+<tr>
+  <td><b>Phase 4</b> <span class="badge-new">✅ 已完成 6/13</span></td>
+  <td>
+    <b>复盘JSON化</b><br>
+    · gen_report.py --mode review 输出JSON<br>
+    · 飞书推送改为读JSON字段渲染<br>
+    · 旧 hermes_review.py 归档
+  </td>
+  <td>Phase 2 完成</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-local">本地</span></td>
+</tr>
+
+<tr>
+  <td><b>Phase 5</b> <span class="badge-new">✅ 已完成 6/13</span></td>
+  <td>
+    <b>调度精简</b><br>
+    · 6个taskflow → 1个 daily-cycle.md<br>
+    · 更新 cron 配置<br>
+    · 文件名统一为 YYYY-MM-DD
+  </td>
+  <td>Phase 3 完成</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-local">本地</span></td>
+</tr>
+
+<tr style="background:#1a0d2e;">
+  <td><b>Phase 6</b> <span class="badge-chg">⏳ 部分完成</span></td>
+  <td>
+    <b>服务器环境搭建</b> ✅ 环境就绪/代码同步/cron配置<br>
+    · 选型/采购服务器<br>
+    · 安装Python/git依赖<br>
+    · 配置环境变量（TUSHARE/CF/FEISHU）<br>
+    · 配置SSH到本地<br>
+    · git clone 仓库
+  </td>
+  <td>Phase 1-5 完成</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-srv">服务器</span></td>
+</tr>
+
+<tr style="background:#1a0d2e;">
+  <td><b>Phase 7</b> <span class="badge-srv">NEW</span></td>
+  <td>
+    <b>双环境适配</b><br>
+    · gen_common.py: ASTRADE_ENV 检测 + 路径适配<br>
+    · deploy.sh: 环境检测 + sync-to-local 钩子<br>
+    · 创建 sync-to-local.sh / push-models.sh<br>
+    · 验证: ASTRADE_ENV=server 全部脚本正常运行
+  </td>
+  <td>Phase 6 完成</td>
+  <td><span class="badge-chg">中</span></td>
+  <td><span class="badge-both">双环境</span></td>
+</tr>
+
+<tr style="background:#1a0d2e;">
+  <td><b>Phase 8</b> <span class="badge-srv">NEW</span></td>
+  <td>
+    <b>并行运行验证</b><br>
+    · 服务器cron + 本地cron 同时运行<br>
+    · 对比输出：缓存/报告/评分<br>
+    · 飞书测试webhook验证<br>
+    · 目标：连续5个交易日输出完全一致
+  </td>
+  <td>Phase 7 完成</td>
+  <td><span class="badge-chg">中</span></td>
+  <td><span class="badge-both">双环境</span></td>
+</tr>
+
+<tr style="background:#1a0d2e;">
+  <td><b>Phase 9</b> <span class="badge-srv">NEW</span></td>
+  <td>
+    <b>切换主力 + 本地降级</b><br>
+    · 服务器飞书webhook切生产<br>
+    · 服务器deploy_cloudflare.py对接production<br>
+    · 本地cron暂停（保留配置）<br>
+    · 验证完整交易日 + 数据同步
+  </td>
+  <td>Phase 8 完成</td>
+  <td><span class="badge-chg">中</span></td>
+  <td><span class="badge-srv">服务器</span></td>
+</tr>
+
+<tr style="background:#1a0d2e;">
+  <td><b>Phase 10</b> <span class="badge-srv">NEW</span></td>
+  <td>
+    <b>持续优化</b><br>
+    · 监控告警（cron失败→飞书通知）<br>
+    · 模型定时重训（可选）<br>
+    · 历史数据归档<br>
+    · 故障自愈（服务器挂了本地自动接手）
+  </td>
+  <td>Phase 9 完成</td>
+  <td><span class="badge-new">低</span></td>
+  <td><span class="badge-srv">服务器</span></td>
+</tr>
+</table>
+
+<div class="alert alert-green" style="margin-top:20px;">
+<b>📊 总时间估算</b><br>
+· Phase 1-5（D方案 · 纯本地）: <b>1天</b> — 核心重构 (2026-06-13 一日完成)<br>
+· Phase 6-9（混合架构迁移）: <b>3-4周</b> — 服务器迁移<br>
+· Phase 10（持续优化）: <b>长期</b> — 运营维护<br>
+· <b>总计: 4-6周从纯本地到服务器主力运行</b>
+</div>
+
+<!-- ==================== 16: 决策记录 ==================== -->
+<h2>16. 关键决策记录 <span class="badge-srv">NEW v3.1</span></h2>
+
+<table>
+<tr><th>#</th><th>决策</th><th>选项A</th><th>选项B</th><th>选择</th><th>理由</th></tr>
+<tr>
+  <td>1</td>
+  <td>飞书推送</td>
+  <td>服务器 → 本地转发 → 飞书</td>
+  <td><b>服务器 → 飞书（直推）</b></td>
+  <td><span class="badge-srv">B</span></td>
+  <td>直推最快、最可靠，避免本地离线导致推送失败</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Hermes复盘位置</td>
+  <td>服务器</td>
+  <td>本地（等同步后再跑）</td>
+  <td><span class="badge-srv">A</span></td>
+  <td>服务器跑完直接推送，本地可加载JSON做二次深度复盘</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>服务器运行方式</td>
+  <td>FastAPI + cron</td>
+  <td><b>纯cron + 脚本</b></td>
+  <td><span class="badge-srv">B</span></td>
+  <td>无外部API需求；纯cron最简单可靠；可选加健康检查端点</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>数据同步频率</td>
+  <td>实时同步</td>
+  <td><b>每日16:05批量</b></td>
+  <td><span class="badge-srv">B</span></td>
+  <td>实时无必要；每天收盘后一次性同步最高效</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>报告HTML同步</td>
+  <td>服务器→本地rsync HTML</td>
+  <td><b>不主动同步（CF访问）</b></td>
+  <td><span class="badge-srv">B</span></td>
+  <td>报告已在CF Pages公开；本地Obsidian通过CF链接引用</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>模型训练位置</td>
+  <td>服务器训练</td>
+  <td><b>本地训练 → push服务器</b></td>
+  <td><span class="badge-local">B</span></td>
+  <td>本地有交互环境+GPU；初期保留本地训练流程不变</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>环境切换方式</td>
+  <td>不同分支/代码库</td>
+  <td><b>环境变量 ASTRADE_ENV</b></td>
+  <td><span class="badge-srv">B</span></td>
+  <td>同一套代码，环境变量控制行为，维护最简单</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>数据源 (source of truth)</td>
+  <td>服务器</td>
+  <td><b>本地（持久存储）</b></td>
+  <td><span class="badge-local">B</span></td>
+  <td>服务器/tmp可丢失；本地git+文件是永久归属</td>
+</tr>
+</table>
+
+<!-- ==================== APPENDIX ==================== -->
+<h2>附录A: 服务器目录结构</h2>
+
+<pre>
+/data/astrade/                      ← ASTRADE_DATA_DIR
+├── config/
+│   └── stocks.json                 ← git同步
+├── data/
+│   ├── stock_history.json          ← 运行时生成，同步到本地
+│   ├── research_cache.json         ← 运行时生成，同步到本地
+│   └── macro_cache.json            ← 运行时生成
+├── daily-report-html/              ← 报告输出目录（deploy_cloudflare.py部署源）
+│   ├── premarket-YYYY-MM-DD.html
+│   ├── midday-YYYY-MM-DD.html
+│   ├── daily-combined-YYYY-MM-DD.html
+│   ├── dashboard.html
+│   └── index.html
+├── models/                         ← 从本地push过来
+│   ├── random_forest_optimized.pkl
+│   ├── random_forest_v2.pkl
+│   ├── rf_cross_section.pkl
+│   ├── rf_stock_model.pkl
+│   └── ridge_direction.pkl
+├── reviews/                        ← 复盘JSON，同步到本地
+│   └── closing-review-YYYY-MM-DD.json
+├── scripts/                        ← git同步
+│   ├── gen_report.py
+│   ├── gen_common.py
+│   ├── deploy.sh
+├── deploy_cloudflare.py
+│   ├── sync-to-local.sh
+│   ├── stock_analysis.py
+│   ├── researcher.py
+│   ├── calc_sector_leaders.py
+│   └── templates/
+├── utils/                          ← git同步
+│   └── kalman_filter.py
+├── .env                            ← 手动配置（不入git）
+└── logs/                           ← cron日志
+    └── daily-cycle.log
+</pre>
+
+<h2>附录B: 环境变量速查表</h2>
+
+<table>
+<tr><th>变量名</th><th>必需</th><th>服务器</th><th>本地</th><th>说明</th></tr>
+<tr><td><code>ASTRADE_ENV</code></td><td>是</td><td>server</td><td>local（默认）</td><td>运行环境标识</td></tr>
+<tr><td><code>ASTRADE_DATA_DIR</code></td><td>服务器</td><td>/data/astrade</td><td>—</td><td>持久化数据根目录</td></tr>
+<tr><td><code>TUSHARE_TOKEN</code></td><td>是</td><td>✓</td><td>✓</td><td>Tushare API密钥</td></tr>
+<tr><td><code>CLOUDFLARE_API_TOKEN</code></td><td>是</td><td>✓</td><td>✓（紧急）</td><td>Cloudflare部署Token</td></tr>
+<tr><td><code>FEISHU_WEBHOOK</code></td><td>是</td><td>生产webhook</td><td>测试webhook</td><td>飞书推送地址</td></tr>
+<tr><td><code>ASTRADE_LOCAL_HOST</code></td><td>服务器</td><td>macbook.local</td><td>—</td><td>本地机器地址（同步用）</td></tr>
+<tr><td><code>ASTRADE_LOCAL_USER</code></td><td>服务器</td><td>shisan</td><td>—</td><td>本地SSH用户名</td></tr>
+<tr><td><code>ASTRADE_SERVER_HOST</code></td><td>本地</td><td>—</td><td>your-server.com</td><td>服务器地址（push用）</td></tr>
+</table>
+
+<!-- ==================== 附录C ==================== -->
+<h2>附录C: 详细改造实施计划 <span class="badge-new">v3.1追加</span></h2>
+
+<p><b>使用说明：</b>以下按 Phase 1→10 顺序执行。每步包含具体文件、改动内容、验收标准和回滚方案。标 <span class="badge-local">本地</span> 的当天可完成，标 <span class="badge-srv">服务器</span> 的需等环境就绪。</p>
+
+<!-- ──────────── Phase 1 ──────────── -->
+<h3>Phase 1: 卡尔曼替换MRD <span class="badge-new">✅ 已完成 2026-06-13</span></h3>
+
+<div class="alert alert-green" style="margin:8px 0;">
+<b>目标：</b>用卡尔曼滤波偏离度替换现有的 turn×3 换手率代理MRD。不改权重、不改接口、不改统一模型维度。<br>
+<b>状态：</b>`calc_mrd()` 已删除，`calc_kalman_deviation()` 已上线。`get_model_summary()` 输出中 `mrd` 字段已替换为 `kalman`。验证通过。
+</div>
+
+<h4>1.1 修改 stock_analysis.py</h4>
+<table>
+<tr><th>改动</th><th>位置</th><th>代码变更</th><th>行数</th></tr>
+<tr>
+  <td>新增函数</td>
+  <td><code>calc_kalman_deviation(code, history)</code></td>
+  <td><pre>
+def calc_kalman_deviation(code, history):
+    from utils.kalman_filter import get_kalman_levels
+    closes = [d['close'] for d in history.get(code,{}).get('days',[])]
+    if len(closes) < 5:
+        return {'kalman_dev': 0, 'smoothed_price': closes[-1] if closes else 0,
+                'trend': 0, 'support': 0, 'resistance': 0, 'signal': '数据不足'}
+    levels = get_kalman_levels(closes)
+    cp = closes[-1]
+    sp = levels['price']
+    dev = (cp - sp) / sp * 100
+    return {
+        'kalman_dev': round(dev, 2),
+        'smoothed_price': round(sp, 2),
+        'trend': round(levels['trend'], 4),
+        'support': round(levels['support'], 2),
+        'resistance': round(levels['resistance'], 2),
+        'signal': '超卖反弹' if dev < -8 else (
+                  '超买回调' if dev > 8 else (
+                  '偏高·关注压力' if dev > 4 else (
+                  '偏低·关注支撑' if dev < -4 else '正常')))
+    }</pre></td>
+  <td>~30行</td>
+</tr>
+<tr>
+  <td>修改引用</td>
+  <td><code>calc_combined_signals()</code></td>
+  <td>将 <code>mrd = calc_mrd(code, history)</code> 改为 <code>kalman = calc_kalman_deviation(code, history)</code></td>
+  <td>1行</td>
+</tr>
+<tr>
+  <td>修改引用</td>
+  <td><code>get_model_summary()</code></td>
+  <td>将 <code>signals['mrd']['mrd_20']</code> 改为 <code>signals['kalman']['kalman_dev']</code></td>
+  <td>1行</td>
+</tr>
+<tr>
+  <td>删除旧函数</td>
+  <td><code>calc_mrd()</code></td>
+  <td>删除整个函数定义（约20行）</td>
+  <td>-20行</td>
+</tr>
+</table>
+
+<h4>1.2 修改缓存输出</h4>
+<p>在 <code>stock_analysis.py</code> 的 <code>calc_all_new_signals()</code> 或 <code>format_model_summary_text()</code> 中：<br>
+将引用 <code>mrd</code> 字段的地方全部改为 <code>kalman</code>。确保下游 gen_*.py 读取 cache 时不报 KeyError。</p>
+
+<h4>1.3 验收标准</h4>
+<pre>
+cd /Users/shisan/.openclaw/workspace
+python3 -c "
+from utils.kalman_filter import get_kalman_levels
+import json
+
+# 用真实数据验证
+with open('data/stock_history.json') as f:
+    hist = json.load(f)
+stock = list(hist['stocks'].values())[0]
+closes = stock['closes']
+levels = get_kalman_levels(closes)
+print('平滑价:', levels['price'])
+print('趋势:', levels['trend'])
+print('支撑:', levels['support'])
+print('压力:', levels['resistance'])
+print('偏离:', (closes[-1]-levels['price'])/levels['price']*100)
+"
+
+# 验证 stock_analysis.py 能正常跑完全流程
+python3 scripts/stock_analysis.py --json > /dev/null && echo 'OK'
+</pre>
+
+<h4>1.4 回滚方案</h4>
+<p>恢复 <code>calc_mrd()</code> 函数，还原 <code>calc_combined_signals()</code> 和 <code>get_model_summary()</code> 中的引用，将 <code>kalman</code> 字段改回 <code>mrd</code>。</p>
+
+<!-- ──────────── Phase 2 ──────────── -->
+<h3>Phase 2: 合并报告脚本 <span class="badge-new">✅ 已完成 v1 (2026-06-13)</span></h3>
+
+<div class="alert alert-green" style="margin:8px 0;">
+<b>目标：</b>11个 gen_*.py → gen_report.py + gen_common.py。<br>
+<b>v1 实现：</b>gen_common.py（共享工具库）+ gen_report.py（统一入口，通过 --mode 分发）。<br>
+当前 gen_report.py 各模式通过 subprocess 委托旧 gen_* 脚本运行，保留全部现有逻辑。<br>
+<b>下一步：</b>逐步将各模式的生成逻辑内化到 gen_report.py 中，旧脚本移至 _legacy/。
+</div>
+
+<h4>2.1 创建 gen_common.py（~400行）</h4>
+<table>
+<tr><th>模块</th><th>函数/常量</th><th>来源（从哪个gen脚本提取）</th></tr>
+<tr><td>数据加载</td><td><code>load_cache()</code>, <code>load_watchlist()</code>, <code>load_predictions()</code>, <code>load_research()</code>, <code>load_history()</code>, <code>load_template(mode)</code></td><td>所有 gen_* 公共</td></tr>
+<tr><td>格式化</td><td><code>fmt_pct(v)</code>, <code>fmt_price(v)</code>, <code>fmt_volume(v)</code>, <code>s(val, fmt)</code></td><td>各gen独立实现的格式函数，统一</td></tr>
+<tr><td>HTML组件</td><td><code>rate_html(rank)</code>, <code>score_class(val)</code>, <code>opt_color(str)</code>, <code>class_for_change(v)</code>, <code>color_for_trend(label)</code>, <code>build_stock_row(s)</code>, <code>build_sector_card(s)</code>, <code>build_index_card(idx)</code>, <code>build_alert_section(alerts)</code>, <code>build_footer()</code></td><td>gen_premarket_report.py, gen_midday_report.py, gen_closing_report.py</td></tr>
+<tr><td>模板渲染</td><td><code>render_html(template_path, replacements)</code>, <code>save_report(html, mode, date_str)</code>, <code>validate_output(mode, html)</code></td><td>所有gen各自写模板填充，统一</td></tr>
+<tr><td>板块元数据</td><td><code>sector_order</code>, <code>sector_display</code>, <code>sector_icons</code></td><td>gen_premarket_report.py</td></tr>
+<tr><td>数据提取</td><td><code>get_rank(code)</code>, <code>get_sector(code)</code>, <code>get_daily_change(code)</code></td><td>各gen重复实现</td></tr>
+<tr><td>环境适配</td><td><code>get_data_dir()</code>, <code>resolve_path(relative)</code>（支持ASTRADE_ENV）</td><td>新增：双环境兼容</td></tr>
+</table>
+
+<h4>2.2 创建 gen_report.py（~600行）</h4>
+<pre>
+#!/usr/bin/env python3
+"""
+D方案 · 统一报告生成器
+用法: python3 gen_report.py --mode {premarket|premarket-adv|midday|midday-adv|closing|closing-adv|weekly|weekly-adv|dashboard|index|snapshot|review}
+"""
+import argparse
+from gen_common import (...)
+
+def run_premarket():       # ← 从 gen_premarket_report.py 迁移
+    # 加载数据、取外盘、取北向、计算板块、填充模板
+    ...
+
+def run_premarket_adv():   # ← 从 gen_premarket_advanced.py 迁移
+    # 四象限信号、配对策略、进阶版报告
+    ...
+
+def run_midday():          # ← 从 gen_midday_report.py 迁移
+    # 取实时行情、计算异动
+    ...
+
+def run_closing():         # ← 从 gen_closing_report.py 迁移（最大脚本1078行）
+    # 指数获取、RF方向预测、个股验证
+    ...
+
+def run_weekly():          # ← 从 gen_weekly_report.py 迁移
+    # 周度汇总
+    ...
+
+def run_dashboard():       # ← 从 gen_dashboard.py 迁移
+    # 扫描 daily-report-html/ 生成报告中心
+    ...
+
+def run_index():           # ← 从 gen_index.py 迁移
+    ...
+
+def run_snapshot():        # ← 从 gen_daily_snapshot.py 迁移
+    ...
+
+def run_review():          # ← 从 gen_daily_review.py + hermes_review.py 迁移
+    # 对比预判vs实际，输出结构化的JSON复盘
+    ...
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', required=True, choices=[...])
+    parser.add_argument('--date', default=None)
+    parser.add_argument('--deploy', action='store_true')
+    args = parser.parse_args()
+    
+    mode_map = {
+        'premarket': run_premarket, 'premarket-adv': run_premarket_adv,
+        'midday': run_midday, 'midday-adv': lambda: (run_midday(), run_midday_adv()),
+        'closing': run_closing, 'closing-adv': lambda: (run_closing(), run_closing_adv()),
+        'weekly': run_weekly, 'weekly-adv': lambda: (run_weekly(), run_weekly_adv()),
+        'dashboard': run_dashboard, 'index': run_index,
+        'snapshot': run_snapshot, 'review': run_review,
+    }
+    mode_map[args.mode]()
+</pre>
+
+<h4>2.3 迁移验证策略（逐个模式验证）</h4>
+<table>
+<tr><th>顺序</th><th>模式</th><th>验证方式</th><th>预期</th></tr>
+<tr><td>1</td><td>premarket</td><td>运行新旧脚本，对比输出的HTML是否一致</td><td>HTML结构一致，数据一致</td></tr>
+<tr><td>2</td><td>premarket-adv</td><td>同上</td><td>HTML一致</td></tr>
+<tr><td>3</td><td>midday</td><td>同上（需盘中数据）</td><td>HTML一致</td></tr>
+<tr><td>4</td><td>closing</td><td>同上（最大脚本，重点验证）</td><td>HTML一致</td></tr>
+<tr><td>5</td><td>weekly</td><td>周日验证</td><td>HTML一致</td></tr>
+<tr><td>6</td><td>dashboard</td><td>对比输出文件列表</td><td>dashboard 与旧版一致</td></tr>
+<tr><td>7</td><td>snapshot + review</td><td>运行看有无报错</td><td>JSON输出完整</td></tr>
+</table>
+
+<h4>2.4 回滚方案</h4>
+<p>旧11个 gen_*.py 脚本 <b>不移除</b>，只移到 <code>scripts/_legacy/</code> 目录。如果新脚本某个模式报错，cron prompt 改回调用旧脚本即可。稳定运行5个交易日后才删除 _legacy。</p>
+
+<!-- ──────────── Phase 3 ──────────── -->
+<h3>Phase 3: 统一部署流程 <span class="badge-new">✅ 已完成 (2026-06-13)</span></h3>
+
+<h4>3.1 创建 deploy.sh</h4>
+<pre>
+#!/usr/bin/env bash
+# D方案 · 统一部署脚本
+# 在 09:15 / 12:00 / 16:00 由 daily-cycle 触发
+
+set -e
+WORKSPACE="$(cd "$(dirname "$0")/.." && pwd)"
+
+cd "$WORKSPACE/daily-report-html"
+
+# 1. 计算行业龙头
+python3 "$WORKSPACE/scripts/calc_sector_leaders.py" 2>&1 | tail -1
+
+# 2. 生成 Dashboard + Index
+python3 "$WORKSPACE/scripts/gen_report.py" --mode dashboard 2>&1 | tail -1
+python3 "$WORKSPACE/scripts/gen_report.py" --mode index 2>&1 | tail -1
+
+# 3. Cloudflare Pages 部署
+CLOUDFLARE_API_TOKEN=*** -c "
+import json
+# deploy_cloudflare.py 自动读取 token
+    print(json.load(f)[0]['api_token'])" 2>/dev/null)
+export CLOUDFLARE_API_TOKEN
+python3 scripts/deploy_cloudflare.py 2>&1 | tail -2
+</pre>
+
+<h4>3.2 修改 gh-pages-sync.sh</h4>
+<p>重命名为 <code>scripts/gh-pages-sync.sh.legacy</code> 备份，新建的 <code>gh-pages-sync.sh</code> 改为调用 <code>deploy.sh</code>（兼容旧cron）。</p>
+
+<h4>3.3 验收标准</h4>
+<pre>
+bash scripts/deploy.sh  # 执行成功，cloudflare 返回 Success
+curl -s -o /dev/null -w "%{http_code}" https://daily-report-3ai.pages.dev  # 返回 200
+</pre>
+
+<h4>3.4 回滚方案</h4>
+<p>恢复 gh-pages-sync.sh.legacy → gh-pages-sync.sh，cron 改回旧调用方式。</p>
+
+<!-- ──────────── Phase 4 ──────────── -->
+<h3>Phase 4: 复盘JSON化 <span class="badge-new">✅ 已完成 (2026-06-13)</span></h3>
+
+<div class="alert alert-blue" style="margin:8px 0;">
+<b>说明：</b>hermes_review.py 现已支持JSON输出，收盘复盘同步生成 reviews/closing-review-*.json 和 /tmp/review-structured.json。
+</div>
+
+<h4>4.1 输出格式约定</h4>
+<pre>
+# /tmp/review-structured.json (或 reviews/closing-review-YYYY-MM-DD.json)
+{
+  "date": "2026-06-13",
+  "accuracy": {
+    "correct": 4,
+    "total": 6,
+    "rate": 0.667
+  },
+  "sectors": [
+    {
+      "name": "通信/电子",
+      "pred": "↑",
+      "prob": 65,
+      "actual_pct": 2.3,
+      "correct": true
+    }
+  ],
+  "hermes_notes": "今日……",
+  "lessons": [
+    {
+      "type": "correction",
+      "rule": "北向连续+40亿→评分+10~15分",
+      "confidence": "high"
+    }
+  ],
+  "generated_at": "2026-06-13T16:15:00+08:00"
+}
+</pre>
+
+<h4>4.2 集成到 gen_report.py</h4>
+<p><code>gen_report.py --mode review</code> 调用初一的复盘逻辑，输出JSON。飞书推送时读取JSON字段渲染推送文本。</p>
+
+<!-- ──────────── Phase 5 ──────────── -->
+<h3>Phase 5: 调度精简+文件名统一 <span class="badge-new">✅ 已完成 (2026-06-13)</span></h3>
+
+<h4>5.1 创建 daily-cycle.md</h4>
+<p>在 <code>scripts/taskflows/daily-cycle.md</code> 新建统一调度文件，包含以下 section：</p>
+<pre>
+# D方案 · 统一调度 daily-cycle
+
+## premarket-data (09:00)
+采集 → 分析 → gen_report.py premarket → gen_report.py premarket-adv → 不发飞书、不部署
+
+## premarket-push (09:15)
+飞书推送盘前简报 + deploy.sh
+
+## midday (12:00)
+实时行情 → gen_report.py midday + midday-adv → 飞书推送 + deploy.sh
+
+## closing-data (15:30)
+采集 → gen_report.py closing + closing-adv → snapshot → review → 不部署
+
+## closing-push (16:00)
+飞书推送 + deploy.sh（唯一收盘部署）
+
+## closing-review (18:00)
+飞书推送复盘摘要
+
+## weekly (周日12:00)
+gen_report.py weekly + weekly-adv → 飞书推送 + deploy.sh
+</pre>
+
+<h4>5.2 旧taskflow处理</h4>
+<p>6个旧taskflow移到 <code>scripts/taskflows/_legacy/</code> 备份。cron prompt 改为引用 daily-cycle.md。</p>
+
+<h4>5.3 文件名统一</h4>
+<p>扫描 <code>daily-report-html/</code> 中的旧格式文件（YYYYMMDD），统一重命名为 YYYY-MM-DD 格式。对已存档的旧报告只做映射记录，不重命名（避免破坏历史链接）。</p>
+
+<!-- ──────────── Phase 6-10 ──────────── -->
+<h3>Phase 6-10: 服务器迁移 <span class="badge-srv">服务器 · 3-4周</span></h3>
+
+<p>Phase 6-10 的详细步骤在 <b>第12节 迁移路径</b> 中已描述。以下是补充的行动清单：</p>
+
+<table>
+<tr><th>Phase</th><th>行动项</th><th>具体操作</th></tr>
+<tr>
+  <td><b>6</b> 服务器搭建</td>
+  <td>
+    · 安装 Python 3.10+<br>
+    · Git clone 仓库，安装依赖<br>
+    · 配置 .env 环境变量<br>
+    · 配置 cron（从本地cron清单复制）
+  </td>
+  <td><pre>
+git clone git@github.com:shisan/daily-report.git /data/astrade
+cd /data/astrade
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+# 配置环境变量
+cat > .env << EOF
+ASTRADE_ENV=server
+ASTRADE_DATA_DIR=/data/astrade
+TUSHARE_TOKEN=xxx
+CLOUDFLARE_API_TOKEN=xxx
+FEISHU_WEBHOOK=https://open.feishu.cn/open-apis/bot/v2/hook/xxx
+ASTRADE_LOCAL_HOST=macbook.local
+ASTRADE_LOCAL_USER=shisan
+EOF
+# 配置cron
+crontab scripts/crontab.server
+</pre></td>
+</tr>
+<tr>
+  <td><b>7</b> 双环境适配</td>
+  <td>
+    · gen_common.py 加 ASTRADE_ENV 判断<br>
+    · 路径处理：本地用 ~/workspace，服务器用 /data/astrade<br>
+    · 所有文件读写走 resolve_path() 统一函数<br>
+    · 敏感信息走环境变量（.env），不入git
+  </td>
+  <td><pre>
+# gen_common.py 新增
+import os
+ENV = os.environ.get('ASTRADE_ENV', 'local')
+
+def resolve_path(relative):
+    if ENV == 'server':
+        base = os.environ.get('ASTRADE_DATA_DIR', '/data/astrade')
+    else:
+        base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base, relative)
+</pre></td>
+</tr>
+<tr>
+  <td><b>8</b> 并行运行</td>
+  <td>
+    · 服务器用测试webhook推送到飞书<br>
+    · 对比5个交易日输出<br>
+    · 修复差异
+  </td>
+  <td>无代码变更，纯验证和微调</td>
+</tr>
+<tr>
+  <td><b>9</b> 切换主力</td>
+  <td>
+    · 服务器webhook切生产<br>
+    · 本地cron暂停<br>
+    · 首次全量数据同步
+  </td>
+  <td><pre>
+# 本地执行：暂停cron
+openclaw cron update --job-id premaket-data --enabled false
+openclaw cron update --job-id midday --enabled false
+openclaw cron update --job-id closing-data --enabled false
+# ... 暂停所有报告相关cron
+
+# 首次全量同步到本地
+ssh shisan@server "bash /data/astrade/scripts/pull-to-local.sh"
+</pre></td>
+</tr>
+<tr>
+  <td><b>10</b> 持续优化</td>
+  <td>
+    · 故障自愈（服务器→本地5分钟切换）<br>
+    · cron失败告警到飞书<br>
+    · 数据归档清理
+  </td>
+  <td>长期运维项</td>
+</tr>
+</table>
+
+<!-- ──────────── 时间线 ──────────── -->
+<h3>实施时间线总览</h3>
+
+<pre>
+今天 (6/13 周六) ─── 🎉 D方案5个Phase全部完成！
+    Phase 1-5 ✅✅✅✅✅
+
+6/14 (周日) ─── 周复盘首次通过 gen_report.py --mode weekly 运行
+    (新架构首飞)
+
+6/15 (周一) ─── 🎂 十三哥生日！
+    当天不动代码，可执行Phase 2的部分准备工作
+
+6/15-6/19 (下周) ─── Phase 2 合并脚本
+    逐模式迁移、验证
+
+6/20-6/21 (下周末) ─── Phase 3 部署+ Phase 4 复盘JSON化
+    非交易日，安全验证
+
+6/22 (周一) ─── Phase 5 调度精简+文件名统一
+    新架构首次完整交易日运行
+
+6/23-7/3 ─── Phase 6-8 服务器迁移+并行运行
+    搭服务器 → 适配 → 验证
+
+7/6 (周一) ─── Phase 9 切换主力
+    服务器正式扛活
+
+7/6+ ─── Phase 10 持续优化
+</pre>
+
+<div class="alert alert-blue" style="margin:16px 0;">
+<b>🎉 当前进度：</b>Phase 1-5 ✅ 全部已完成（2026-06-13）。明天周日周复盘首次验证新架构。
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div style="margin-top:40px;padding:16px;background:#161b22;border-radius:8px;text-align:center;">
+<p style="color:#8b949e;font-size:13px;">
+  📍 D方案 · 新架构设计 v3.1 | 生成日期: 2026-06-13 | 标签: architecture-v3.1-d-plan server-migration
+</p>
+<p style="color:#8b949e;font-size:12px;">
+  基于 D方案 v3.0 + 十三哥混合架构需求 · 同步至 Obsidian 02-研究/
+</p>
+<p style="color:#58a6ff;font-size:12px;">
+  🖥️ 服务器主力 + 💻 本地备份/开发 | 同一套代码 · 环境变量切换 · 5分钟紧急回滚
+</p>
+</div>
+
+</body>
+</html>

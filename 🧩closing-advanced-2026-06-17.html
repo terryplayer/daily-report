@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>收盘进阶版 · 2026-06-17 周三</title>
+
+<style>
+  /* ========== 深色主题基础样式 ========== */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+
+  /* ========== 板块容器 ========== */
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+
+  /* ========== 预警/提示框 ========== */
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+
+  /* ========== 方向颜色 ========== */
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral { color: #d29922; }
+  .muted { color: #8b949e; }
+
+  /* ========== 标签 ========== */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+
+  /* ========== 网格布局 ========== */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  /* ========== 数据面板 ========== */
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+
+  /* ========== 进度条/强度 ========== */
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+
+  /* ========== 元信息 ========== */
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+
+  /* ========== 底部 ========== */
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+
+  /* ========== 空数据占位 ========== */
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+</style>
+
+
+
+<style>
+  h1 { color: #f85149; }
+  .verify-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .verify-table th { background:#161b22; color:#58a6ff; padding:6px 8px; text-align:left; border-bottom:2px solid #30363d; }
+  .verify-table td { padding:6px 8px; border-bottom:1px solid #21262d; vertical-align:middle; }
+</style>
+<style>
+  /* 收盘主题色：红色 */
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 12px 0; }
+  .verify-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .verify-row:last-child { border-bottom: none; }
+  .stock-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .stock-row:last-child { border-bottom: none; }
+  .prev-card { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px; }
+</style>
+
+<style>
+  .quadrant-box { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px; text-align: center; }
+</style>
+
+</head>
+<body>
+
+
+<h1>🧩 收盘进阶版</h1>
+<div class="meta">
+  <span class="meta-item">📅 <strong>2026-06-17 周三</strong></span>
+  <span class="meta-item">🕐 <strong>00:08 CST</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 完全用新流程引擎</span>
+</div>
+
+
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📊 收盘汇总</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <div class="summary-grid">
+    
+    <div class="data-card">
+      <div class="label">上证指数</div>
+      
+      <div class="value neutral">—</div>
+      <div class="sub">—</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">深证成指</div>
+      
+      <div class="value neutral">—</div>
+      <div class="sub">—</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">创业板指</div>
+      
+      <div class="value neutral">—</div>
+      <div class="sub">—</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">科创50</div>
+      
+      <div class="value neutral">—</div>
+      <div class="sub">—</div>
+      
+    </div>
+    
+  </div>
+  <div style="display:flex;gap:16px;font-size:12px;color:#8b949e;margin-top:4px;">
+    <span>全日成交 — 亿</span>
+    <span>涨停 — 只</span>
+    <span>跌停 — 只</span>
+  </div>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 板块复盘</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <table>
+    <thead>
+      <tr><th>板块</th><th>今日涨跌</th><th>RS</th><th>5日动量</th><th>信号</th></tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+  </table>
+  
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🎯 预测验证</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+
+  
+  <div class="no-data">— 预测验证数据依赖 prediction_ledger（预计6/22后生效）</div>
+  
+</section>
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓评分</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <div class="no-data">— 持仓评分数据暂未更新</div>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>⚠️ 风险预警</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <div class="no-data">— 今日暂无风险预警</div>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔮 次日预判</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <div class="grid">
+    <div class="prev-card">
+      <div class="label">方向</div>
+      <div class="value flat" style="font-size:20px;font-weight:700;margin-top:4px;">震荡</div>
+      <div class="sub" style="margin-top:2px;">置信度 50%</div>
+    </div>
+    <div class="prev-card">
+      <div class="label">关键位置</div>
+      <div style="margin-top:4px;">
+        <span style="font-size:12px;">支撑 </span><span class="support" style="color:#3fb950;font-weight:700;">—</span>
+        <span style="font-size:12px;margin-left:12px;">压力 </span><span class="resist" style="color:#f85149;font-weight:700;">—</span>
+      </div>
+      <div class="sub" style="margin-top:6px;font-size:12px;color:#8b949e;">次日预判基于收盘数据生成</div>
+    </div>
+  </div>
+  
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🧭 四象限定位</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  
+  <div class="no-data">— 四象限定位数据暂不可用（预计上线：8/8）</div>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔗 配对追踪</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  
+  <div class="no-data">— 配对追踪数据暂不可用（预计上线：6/22）</div>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🤖 ML验证</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  
+  <div class="no-data">— ML验证数据暂不可用</div>
+  
+</section>
+
+
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 股票报告 | 2026-06-17 周三</p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+
+</body>
+</html>

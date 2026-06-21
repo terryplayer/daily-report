@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘前标准版 · 2026-06-15 周一</title>
+<style>
+  /* ========== 深色主题基础样式 ========== */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+
+  /* ========== 板块容器 ========== */
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+
+  /* ========== 预警/提示框 ========== */
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+
+  /* ========== 方向颜色 ========== */
+  .up, .bullish { color: #3fb950; }
+  .down, .bearish { color: #f85149; }
+  .neutral { color: #d29922; }
+  .muted { color: #8b949e; }
+
+  /* ========== 标签 ========== */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #0d2a17; color: #3fb950; }
+  .tag-down { background: #2d0a0a; color: #f85149; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+
+  /* ========== 网格布局 ========== */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  /* ========== 数据面板 ========== */
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+
+  /* ========== 进度条/强度 ========== */
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #3fb950; }
+  .strength-bar-fill.down { background: #f85149; }
+  .strength-bar-fill.neutral { background: #d29922; }
+
+  /* ========== 元信息 ========== */
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+
+  /* ========== 底部 ========== */
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+
+  /* ========== 空数据占位 ========== */
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+</style>
+<style>
+  .overseas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 12px 0; }
+  .matrix-card { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px; }
+  .matrix-card .dim-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+  .matrix-card .dim-label { color: #8b949e; }
+  .matrix-card .score { font-weight: 600; }
+  .stock-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .stock-row:last-child { border-bottom: none; }
+  .stock-row .code { color: #8b949e; font-size: 11px; }
+  .stock-row .name { flex: 1; font-weight: 600; }
+  .sector-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+  .risk-level { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  <span class="meta-item">📅 <strong>2026-06-15 周一</strong></span>
+  <span class="meta-item">🏷️ <strong>盘前标准版</strong></span>
+  <span class="meta-item">🕐 <strong>09:15 CST</strong></span>
+<span class="meta-item">📌 v<strong>1.0</strong></span></div>
+
+<div class="alert alert-info" style="margin-top:8px;">
+  <strong>📋 盘前标准版</strong> — 今天会发生什么。隔夜信息消化 + 多空预判 + 操作框架搭建。
+</div>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🌍 隔夜外盘</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="overseas-grid">
+    <div class="data-card">
+      <div class="label">道琼斯</div>
+      <div class="value up">+0.82%</div>
+      <div class="sub">38,642</div>
+    </div>
+    <div class="data-card">
+      <div class="label">纳斯达克</div>
+      <div class="value up">+1.35%</div>
+      <div class="sub">17,189</div>
+    </div>
+    <div class="data-card">
+      <div class="label">标普500</div>
+      <div class="value up">+0.95%</div>
+      <div class="sub">5,123</div>
+    </div>
+    <div class="data-card">
+      <div class="label">A50期货</div>
+      <div class="value up">+0.32%</div>
+      <div class="sub">13,521</div>
+    </div>
+  </div>
+<p style="font-size:12px;color:#8b949e;margin-top:4px;">美股三大指数集体收涨，科技股领涨。中概股多数走高。</p></section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>📈 大盘预判</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">今日方向</div>
+      <div class="value up">
+        偏多
+      </div>
+      <div class="sub">置信度 65%</div>
+      <div style="margin-top:8px;font-size:12px;">
+        支撑 <span class="support" style="color:#3fb950">4020</span>
+        压力 <span class="resist" style="color:#f85149">4100</span>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="label">北向资金</div>
+      <div class="value up">+41亿</div>
+      <div class="sub">连续净流入</div>
+    </div>
+  </div>
+<p style="font-size:12px;color:#8b949e;margin-top:6px;">📌 北向连续3日净流入，技术面RS=58偏多，半导体板块动量领先</p></section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>📊 统一模型评分矩阵</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>板块</th><th>RS</th><th>动量</th><th>卡尔曼</th><th>BBW</th><th>多因子</th><th>综合</th><th>配置建议</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>科技/半导体</strong></td>
+        <td class="up">82</td>
+        <td class="up">75</td>
+        <td class="up">3.2</td>
+        <td class="up">68</td>
+        <td class="up">72</td>
+        <td class="up" style="font-weight:700">74</td>
+        <td><span class="tag tag-up">增配</span></td>
+      </tr>
+      <tr>
+        <td><strong>通信/电子</strong></td>
+        <td class="down">35</td>
+        <td class="down">28</td>
+        <td class="down">-5.1</td>
+        <td class="down">42</td>
+        <td class="down">38</td>
+        <td class="down" style="font-weight:700">32</td>
+        <td><span class="tag tag-down">减配</span></td>
+      </tr>
+      <tr>
+        <td><strong>AI/数字应用</strong></td>
+        <td class="up">55</td>
+        <td class="up">62</td>
+        <td class="up">1.8</td>
+        <td class="up">55</td>
+        <td class="up">58</td>
+        <td class="flat" style="font-weight:700">56</td>
+        <td><span class="tag tag-neutral">持有</span></td>
+      </tr>
+      <tr>
+        <td><strong>消费</strong></td>
+        <td class="down">48</td>
+        <td class="down">45</td>
+        <td class="down">-0.5</td>
+        <td class="up">50</td>
+        <td class="up">52</td>
+        <td class="flat" style="font-weight:700">49</td>
+        <td><span class="tag tag-neutral">持有</span></td>
+      </tr>
+      <tr>
+        <td><strong>能源/公用</strong></td>
+        <td class="down">42</td>
+        <td class="down">38</td>
+        <td class="down">-2.1</td>
+        <td class="down">45</td>
+        <td class="down">40</td>
+        <td class="flat" style="font-weight:700">41</td>
+        <td><span class="tag tag-neutral">持有</span></td>
+      </tr>
+      <tr>
+        <td><strong>化工/材料</strong></td>
+        <td class="up">68</td>
+        <td class="up">72</td>
+        <td class="up">4.5</td>
+        <td class="up">60</td>
+        <td class="up">65</td>
+        <td class="up" style="font-weight:700">66</td>
+        <td><span class="tag tag-up">增配</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-muted" style="margin-top:8px;padding:8px 12px;font-size:12px;">
+    <strong>简评：</strong>科技/半导体和化工/材料双主线领跑，通信/电子持续承压，整体建议科技偏多配置。
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>⏰ 今日关注</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>时间</th><th>事件</th><th>影响板块</th><th>预期影响</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="white-space:nowrap;">09:30</td>
+        <td><strong>5月工业增加值公布</strong></td>
+        <td>全部板块</td>
+        <td><span class="tag tag-up">偏多</span></td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap;">10:00</td>
+        <td><strong>央行MLF续作操作</strong></td>
+        <td>金融</td>
+        <td><span class="tag tag-neutral">中性</span></td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap;">14:00</td>
+        <td><strong>华为开发者大会</strong></td>
+        <td>科技/半导体</td>
+        <td><span class="tag tag-up">偏多</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>🧭 板块轮动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">🏆 领涨</div>
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(248,81,73,0.15);color:#f85149;">科技/半导体</span>
+        <span style="color:#8b949e;font-size:12px;">+2.31%</span>
+      </div>
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(248,81,73,0.15);color:#f85149;">化工/材料</span>
+        <span style="color:#8b949e;font-size:12px;">+1.85%</span>
+      </div>
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(248,81,73,0.15);color:#f85149;">AI/数字应用</span>
+        <span style="color:#8b949e;font-size:12px;">+0.92%</span>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="label">📉 领跌</div>
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(63,185,80,0.15);color:#3fb950;">通信/电子</span>
+        <span style="color:#8b949e;font-size:12px;">-1.56%</span>
+      </div>
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(63,185,80,0.15);color:#3fb950;">能源/公用</span>
+        <span style="color:#8b949e;font-size:12px;">-0.43%</span>
+      </div>
+    </div>
+  </div>
+<p style="font-size:12px;color:#8b949e;margin-top:4px;">资金从通信/电子向科技/半导体转移趋势明显，跷跷板效应延续。</p></section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓股票盘前观察</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>板块</th><th>股票</th><th>评级</th><th>评分</th><th>信号</th><th>操作建议</th></tr>
+    </thead>
+    <tbody>
+    <tr style="background:#1c2333;"><td colspan="6" style="font-weight:600;color:#58a6ff;">科技/半导体</td></tr>
+    <tr>
+      <td></td>
+      <td><span class="stock-name">方邦股份</span><span class="code"> 688020</span></td>
+      <td><span class="tag tag-up">A+</span></td>
+      <td class="up">82</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up" style="font-weight:700">买入</span></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><span class="stock-name">瑞华泰</span><span class="code"> 688323</span></td>
+      <td><span class="tag tag-up">A</span></td>
+      <td class="up">76</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-neutral" style="font-weight:700">持有</span></td>
+    </tr>
+    <tr style="background:#1c2333;"><td colspan="6" style="font-weight:600;color:#58a6ff;">通信/电子</td></tr>
+    <tr>
+      <td></td>
+      <td><span class="stock-name">天孚通信</span><span class="code"> 300394</span></td>
+      <td><span class="tag tag-down">C</span></td>
+      <td class="down">32</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down" style="font-weight:700">卖出</span></td>
+    </tr>
+    <tr style="background:#1c2333;"><td colspan="6" style="font-weight:600;color:#58a6ff;">化工/材料</td></tr>
+    <tr>
+      <td></td>
+      <td><span class="stock-name">铜冠铜箔</span><span class="code"> 301217</span></td>
+      <td><span class="tag tag-up">A</span></td>
+      <td class="up">74</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-neutral" style="font-weight:700">持有</span></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>⚔️ 操作策略</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">总体建议</div>
+      <div class="value flat">适度做多</div>
+      <div class="sub">北向资金持续流入+技术面偏多，但通信板块承压需要控制总仓位。</div>
+    </div>
+    <div class="data-card">
+      <div class="label">仓位控制</div>
+      <div class="value">65%</div>
+      <div class="sub">建议仓位</div>
+    </div>
+  </div>
+  <div style="margin-top:8px;">
+    <h4 style="font-size:13px;color:#f0883e;margin-bottom:6px;">具体建议</h4>
+    <div style="padding:4px 0;font-size:13px;">· 增配科技/半导体、化工/材料板块</div>
+    <div style="padding:4px 0;font-size:13px;">· 减配通信/电子、适当控制消费仓位</div>
+    <div style="padding:4px 0;font-size:13px;">· 关注10:00 MLF操作对市场流动性的影响</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>⚠️ 预警信号</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="alert alert-warning" style="margin:4px 0;padding:8px 12px;font-size:12px;">
+    <strong>板块分化：</strong>科技/半导体 vs 通信/电子板块分化达到8.2pp，注意跷跷板效应
+  </div>
+  <div class="alert alert-info" style="margin:4px 0;padding:8px 12px;font-size:12px;">
+    <strong>北向信号：</strong>北向资金连续3日净流入超30亿，情绪权重建议上修至30%
+  </div>
+</section>
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 股票报告 | 2026-06-15 周一</p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+</body>
+</html>

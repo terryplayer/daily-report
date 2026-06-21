@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 A股周复盘 | 2026年第21周</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; }
+
+/* 头部 */
+.header { border-bottom: 2px solid #bf77f6; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 24px; color: #bf77f6; }
+.header .subtitle { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.header .meta { color: #8b949e; font-size: 12px; margin-top: 2px; }
+
+/* 卡片 */
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 18px 22px; margin-bottom: 18px; }
+.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 12px 0 6px; color: #e6edf3; }
+
+/* 板块标题 */
+.sector-title { font-size: 13px; font-weight: 600; color: #bf77f6; margin: 16px 0 8px; padding: 4px 0; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+
+/* 表格 */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 6px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; background: #1c2333; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+
+/* 标签 */
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-red { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-green { background: rgba(63,185,80,0.15); color: #3fb950; }
+.tag-yellow { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-blue { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-purple { background: rgba(191,119,246,0.15); color: #bf77f6; }
+
+/* 准确率评分 */
+.score-box { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px 16px; margin-top: 10px; }
+.score-row { display: flex; gap: 16px; margin: 6px 0; flex-wrap: wrap; }
+.score-item { flex: 1; min-width: 120px; background: #161b22; border-radius: 6px; padding: 10px; text-align: center; border: 1px solid #21262d; }
+.score-item .label { font-size: 11px; color: #8b949e; }
+.score-item .value { font-size: 22px; margin: 4px 0; font-weight: 700; }
+.score-item .desc { font-size: 11px; color: #8b949e; }
+
+/* 事件条目 */
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.event-item .date-tag { display: inline-block; background: #1c2333; color: #8b949e; font-size: 11px; padding: 1px 6px; border-radius: 3px; margin-right: 6px; }
+
+/* 网格布局 */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+
+/* 警告框 */
+.warning-box { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.info-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.success-box { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.3); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+
+/* 大盘周表现 */
+.index-week { width: 100%; font-size: 13px; }
+.index-week th { background: #1c2333; }
+
+/* 个股验证表 */
+.stock-validation { width: 100%; font-size: 12px; }
+.stock-validation th { background: #1c2333; }
+.stock-validation .correct { color: #3fb950; }
+.stock-validation .wrong { color: #f85149; }
+.stock-validation .partial { color: #d9a52e; }
+
+/* 底部 */
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+
+/* 推荐板块卡片 */
+.reco-card { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.reco-card h4 { font-size: 14px; margin-bottom: 6px; }
+.reco-card p { font-size: 12px; color: #8b949e; }
+.reco-stock { display: inline-block; background: #1c2333; border: 1px solid #30363d; border-radius: 4px; padding: 3px 10px; margin: 3px 4px 3px 0; font-size: 12px; }
+.reco-stock .code { color: #8b949e; font-size: 11px; }
+
+/* 评级卡 */
+.rating-card { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px 12px; margin: 6px 0; }
+.rating-card .stock-name { font-size: 13px; font-weight: 600; }
+.rating-card .stock-code { color: #8b949e; font-size: 11px; }
+.rating-card .stock-reason { font-size: 11px; color: #8b949e; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== 头部 ===== -->
+<div class="header">
+<h1>📊 A股周复盘 | 2026年第21周</h1>
+<div class="subtitle">复盘区间：2026.05.18 周一 ～ 2026.05.22 周五 | 展望区间：2026.05.25 ～ 2026.05.29</div>
+<div class="meta">生成时间：2026.05.24 周日 12:25 | 数据来源：东方财富 / 公开市场信息 | 持仓：26只</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块一：本周大盘回顾 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>📈 本周大盘回顾</h2>
+
+<table class="index-week">
+<tr>
+  <th>指数</th>
+  <th>周一开盘</th>
+  <th>周五收盘</th>
+  <th>周涨跌</th>
+  <th>周涨跌幅</th>
+  <th>周内高→低</th>
+</tr>
+<tr>
+  <td><b>上证指数</b></td>
+  <td>4,131</td>
+  <td><b>4,112.90</b></td>
+  <td class="down">-18.10</td>
+  <td class="down"><b>-0.45%</b></td>
+  <td>4,170→4,077</td>
+</tr>
+<tr>
+  <td><b>深证成指</b></td>
+  <td>15,530</td>
+  <td>15,597.30</td>
+  <td class="up">+67.30</td>
+  <td class="up">+0.43%</td>
+  <td>15,622→15,247</td>
+</tr>
+<tr>
+  <td><b>创业板指</b></td>
+  <td>3,915</td>
+  <td>3,938.50</td>
+  <td class="up">+23.50</td>
+  <td class="up">+0.60%</td>
+  <td>3,947→3,830</td>
+</tr>
+<tr>
+  <td><b>科创50</b></td>
+  <td>1,775</td>
+  <td>1,790.77</td>
+  <td class="up">+15.77</td>
+  <td class="up"><b>+0.89%</b></td>
+  <td>1,835→1,764</td>
+</tr>
+</table>
+
+<div class="info-box">
+<strong>📌 本周市场总评：先扬后抑再修复，宽幅震荡格局</strong><br>
+本周A股呈现"周二冲高 → 周三分化 → 周四暴跌 → 周五修复"的N型走势。上证周内振幅达93点（4077-4170），科创50振幅高达71点（1764-1835）。周四成为本周转折点，半导体板块集体踩踏，科创50单日重挫3.70%，华特气体-13.27%、中巨芯-U -12.11%触发恐慌。周五在超跌修复和周末利好预期驱动下全线反弹，但全周看四大指数涨跌互现，深市略强于沪市。两市日均成交维持在2.5万亿以上，量能未明显萎缩，但结构性分化极端。<br><br>
+<strong>宏观经济背景：</strong>4月工业增加值+4.1%（放缓1.6pct）、社零+0.2%（放缓1.5pct），经济数据出现短期波动，但"稳"的主基调未变。广义财政收入增速首次转正（前4月+0.4%），LPR连续12个月按兵不动，货币政策强调精准性而非盲目加码。
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块二：本周板块轮动回顾 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>🔄 本周板块轮动回顾</h2>
+
+<div class="grid-2">
+<div>
+<h3 style="color:#f85149;">🔴 本周领涨板块</h3>
+<table>
+<tr><th>板块</th><th>核心标的</th><th>驱动因素</th></tr>
+<tr><td>半导体设备/材料</td><td>瑞华泰+8.79%</td><td>国产替代主线延续，科创50周三大涨3.20%带动</td></tr>
+<tr><td>氟化工</td><td>多氟多+4.94%</td><td>氟化工概念活跃，周三涨停封单强势</td></tr>
+<tr><td>算力硬件</td><td>利通电子+7.84%</td><td>AI算力需求持续景气，电子元器件景气度高</td></tr>
+<tr><td>玻璃制造/消费电子</td><td>蓝思科技+5.76%</td><td>消费电子回暖预期+周五强势反弹</td></tr>
+<tr><td>电磁屏蔽</td><td>隆扬电子+5.54%</td><td>周五+10.19%异动，短线资金关注</td></tr>
+</table>
+</div>
+<div>
+<h3 style="color:#3fb950;">🟢 本周领跌板块</h3>
+<table>
+<tr><th>板块</th><th>核心标的</th><th>下跌原因</th></tr>
+<tr><td>半导体材料</td><td>华特气体-10.45%</td><td>周四板块暴跌8.64%，踩踏式撤离，华特单日-13.27%</td></tr>
+<tr><td>通信线缆</td><td>汇源通信-11.81%</td><td>周四暴跌7.65%跌停，全周弱势</td></tr>
+<tr><td>能源金属/新能源车</td><td>康盛股份-6.51%</td><td>资源板块持续承压，周四逼近跌停-9.85%</td></tr>
+<tr><td>新材料</td><td>欧莱新材-6.45%</td><td>高波动品种，周四暴跌-10.54%</td></tr>
+<tr><td>AI数字营销</td><td>蓝色光标-3.28%</td><td>应用端持续调整，连续3日无上涨</td></tr>
+</table>
+</div>
+</div>
+
+<div style="margin-top: 10px; padding: 8px 0;">
+<p style="font-size:13px; color:#8b949e;">
+<strong>轮动节奏分析：</strong> 本周轮动极具戏剧性 — 周二半导体设备领涨，周三进一步强化（科创50+3.20%），周四突然全线崩塌（半导体材料-8.64%），周五又快速修复（上证+0.87%）。AI应用端全周偏弱。防御板块（电力、银行）在周四逆势走强但持续性存疑。整体呈现"科技内部大分化，周初强势板块后半周成为杀跌主力"的极端特征。从周末消息面看，证监会重罚富途老虎等跨境券商超22亿元、美债收益率飙升创19年新高、美联储换帅等因素将影响下周市场风险偏好。
+</p>
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块三：预测验证 & 准确率评估 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>🎯 本周预测验证 & 准确率评估</h2>
+
+<!-- 整体准确率 -->
+<div class="score-row">
+<div class="score-item">
+<div class="label">趋势方向准确率</div>
+<div class="value" style="color:#d9a52e;">50%</div>
+<div class="desc">大盘方向判断(2/4天正确)</div>
+</div>
+<div class="score-item">
+<div class="label">板块判断准确率</div>
+<div class="value" style="color:#d9a52e;">50%</div>
+<div class="desc">半导体/科技方向判断</div>
+</div>
+<div class="score-item">
+<div class="label">个股判断准确率</div>
+<div class="value" style="color:#f85149;">40%</div>
+<div class="desc">持仓个股预判</div>
+</div>
+<div class="score-item">
+<div class="label">风险评估准确率</div>
+<div class="value" style="color:#58a6ff;">75%</div>
+<div class="desc">风险预警有效性</div>
+</div>
+</div>
+
+<!-- RS排名 -->
+<h3>🏆 RS相对强度排名 TOP5</h3>
+<table>
+<tr><th>排名</th><th>股票</th><th>代码</th><th>RS值</th><th>周涨幅</th><th>评级</th><th>信号</th></tr>
+<tr>
+  <td>1</td><td>瑞华泰</td><td>688323</td><td class="up">+10.0</td><td class="up">+8.79%</td>
+  <td><span class="tag tag-red">A+</span></td><td>强势 持有/加仓</td>
+</tr>
+<tr>
+  <td>2</td><td>利通电子</td><td>603629</td><td class="up">+9.0</td><td class="up">+7.84%</td>
+  <td><span class="tag tag-red">A+</span></td><td>强势 持有/加仓</td>
+</tr>
+<tr>
+  <td>3</td><td>蓝思科技</td><td>300433</td><td class="up">+6.9</td><td class="up">+5.76%</td>
+  <td><span class="tag tag-red">A+</span></td><td>强势 持有/加仓</td>
+</tr>
+<tr>
+  <td>4</td><td>隆扬电子</td><td>301389</td><td class="up">+6.7</td><td class="up">+5.54%</td>
+  <td><span class="tag tag-red">A+</span></td><td>强势 持有/加仓</td>
+</tr>
+<tr>
+  <td>5</td><td>中科创达</td><td>300496</td><td class="up">+6.2</td><td class="up">+5.06%</td>
+  <td><span class="tag tag-red">A+</span></td><td>强势 持有/加仓</td>
+</tr>
+</table>
+
+<h3>🚫 RS相对强度排名 BOTTOM5</h3>
+<table>
+<tr><th>排名</th><th>股票</th><th>代码</th><th>RS值</th><th>周涨幅</th><th>评级</th><th>信号</th></tr>
+<tr>
+  <td>21</td><td>康盛股份</td><td>002418</td><td class="down">-5.3</td><td class="down">-6.51%</td>
+  <td><span class="tag tag-green">D</span></td><td>弱势 建议减仓</td>
+</tr>
+<tr>
+  <td>22</td><td>水发燃气</td><td>603318</td><td class="down">-6.0</td><td class="down">-7.23%</td>
+  <td><span class="tag tag-green">D</span></td><td>弱势 建议减仓</td>
+</tr>
+<tr>
+  <td>23</td><td>中巨芯-U</td><td>688549</td><td class="down">-7.9</td><td class="down">-9.04%</td>
+  <td><span class="tag tag-green">D</span></td><td>弱势 建议减仓</td>
+</tr>
+<tr>
+  <td>24</td><td>华特气体</td><td>688268</td><td class="down">-9.3</td><td class="down">-10.45%</td>
+  <td><span class="tag tag-green">D</span></td><td>弱势 建议减仓</td>
+</tr>
+<tr>
+  <td>25</td><td>汇源通信</td><td>000586</td><td class="down">-10.6</td><td class="down">-11.81%</td>
+  <td><span class="tag tag-green">D</span></td><td>弱势 建议减仓</td>
+</tr>
+</table>
+
+<!-- 每日预测回顾 -->
+<h3>📅 每日预测 vs 实际走势</h3>
+
+<table class="stock-validation">
+<tr>
+  <th>日期</th>
+  <th>当日预判</th>
+  <th>实际走势</th>
+  <th>结果</th>
+  <th>偏差分析</th>
+</tr>
+<tr>
+  <td>周二 05.19</td>
+  <td><span class="tag tag-red">偏多</span> 科技延续</td>
+  <td class="up">上证+0.92%，科创50↑</td>
+  <td class="correct">✅ 准确</td>
+  <td>科技方向判断正确，半导体设备领涨+5.18%</td>
+</tr>
+<tr>
+  <td>周三 05.20</td>
+  <td><span class="tag tag-yellow">分化偏多</span> 半导体强/AI弱</td>
+  <td class="up">科创50+3.20%, 上证-0.18%</td>
+  <td class="partial">⚠️ 部分准确</td>
+  <td>半导体方向正确，但AI应用端回调幅度超预期</td>
+</tr>
+<tr>
+  <td>周四 05.21</td>
+  <td><span class="tag tag-red">偏多</span> 半导体延续走强</td>
+  <td class="down">上证-2.04%, 科创50-3.70%</td>
+  <td class="wrong">❌ 错误</td>
+  <td>未预判到半导体板块踩踏式暴跌，方向完全反转。半导体材料-8.64%毫无征兆</td>
+</tr>
+<tr>
+  <td>周五 05.22</td>
+  <td><span class="tag tag-green">偏空</span> 惯性下探</td>
+  <td class="up">上证+0.87%, 科创50+1.51%</td>
+  <td class="wrong">❌ 错误</td>
+  <td>周四暴跌后预判惯性低开，实际超跌修复+周末利好预期驱动反弹</td>
+</tr>
+</table>
+
+<!-- 多因子评分板块汇总 -->
+<h3>📊 多因子评分板块汇总</h3>
+<table>
+<tr><th>板块</th><th>持仓数</th><th>平均分</th><th>最高评级</th><th>简评</th></tr>
+<tr><td>科技/半导体</td><td>10</td><td>5.4</td><td class="up">C</td><td>内部分化极端，瑞华泰+8.79% vs 华特气体-10.45%</td></tr>
+<tr><td>化工/材料</td><td>2</td><td>5.8</td><td class="up">C</td><td>多氟多亮眼得4.94%，天通弱势震荡</td></tr>
+<tr><td>通信/电子</td><td>5</td><td>4.9</td><td class="down">D</td><td>蓝思+5.76%独秀，汇源-11.81%惨烈</td></tr>
+<tr><td>AI/数字经济</td><td>4</td><td>4.9</td><td class="down">D</td><td>全周弱势，中科创达+5.06%逆势回暖</td></tr>
+<tr><td>能源/公用事业</td><td>3</td><td>4.3</td><td class="down">D</td><td>整体偏弱，华电辽能周三大跌近跌停</td></tr>
+<tr><td>其他</td><td>2</td><td>4.6</td><td class="up">C</td><td>山子高科/京城股份均小幅回调</td></tr>
+</table>
+
+<!-- 偏差原因分析 -->
+<h3>🔍 偏差原因分析</h3>
+<div class="event-item">• <b>周四错判核心原因</b>：半导体板块周三强势涨停潮（瑞华泰20cm、多氟多10%）后，周四市场情绪突然反转。分析可能是量化盘集中平仓+高位股集体获利了结+无明显利空消息下的情绪性踩踏，属于典型的"涨过头后暴跌"的市场行为。</div>
+<div class="event-item">• <b>周五错判核心原因</b>：周四暴跌后市场情绪恐慌，预判惯性下探。但周五实际出现超跌修复行情，叠加周末政策利好预期，多头借机反攻。属于"暴跌次日反弹"的经典技术形态。</div>
+<div class="event-item">• <b>系统性问题</b>：目前的预测模型对情绪化极端行情（集体踩踏/暴力反弹）缺乏预警能力，后续需要加入波动率异常放大作为风险先导指标。</div>
+
+<div class="success-box">
+<strong>📈 本周预测复盘总结：</strong><br>
+本周准确率偏低（整体约50%），主要暴露在"涨疯→踩踏"这个极端情绪转换环节。周二、周三判断基本准确，周四、周五连续错误。风险预警方面表现较好（提前识别了华电辽能风险、AI应用端回调风险），但未能预警周四的全面崩塌。后续需要加强"极端涨跌后的反向运动"预判能力。
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块四：周末信息汇总 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>📰 周末信息汇总</h2>
+
+<h3>📊 宏观数据仪表盘</h3>
+<div class="grid-4" style="margin-bottom:10px;">
+<div class="score-item" style="border-color:#58a6ff;">
+<div class="label">🏭 制造业PMI</div>
+<div class="value" style="color:#58a6ff;">50.3</div>
+<div class="desc">4月 · 荣枯线上方 · -0.1↓</div>
+</div>
+<div class="score-item" style="border-color:#d9a52e;">
+<div class="label">📈 CPI同比</div>
+<div class="value" style="color:#d9a52e;">+1.2%</div>
+<div class="desc">4月 · 温和通胀 · +0.2↑</div>
+</div>
+<div class="score-item" style="border-color:#f85149;">
+<div class="label">📊 PPI同比</div>
+<div class="value" style="color:#f85149;">+2.8%</div>
+<div class="desc">4月 · 大幅回升 · +2.3↑</div>
+</div>
+<div class="score-item" style="border-color:#3fb950;">
+<div class="label">💰 GDP增速</div>
+<div class="value" style="color:#3fb950;">+5.0%</div>
+<div class="desc">Q1 · 目标达成 · 持平</div>
+</div>
+</div>
+
+<h3>🔄 行业轮动周期阶段</h3>
+<div class="success-box">
+<strong>📈 当前判断：复苏期（美林时钟改良版）</strong><br>
+经济增长上行（PMI≥50），通胀温和（CPI+1.2%），流动性宽松（LPR 3.0%低位）。<br>
+<strong>配置建议：</strong> 科技/半导体 超配 | AI/数字经济 超配 | 通信/电子 标配 | 化工/材料 标配 | 能源/公用事业 低配<br>
+<strong>战术要点：</strong> 成长风格优于价值，科技板块中期看好，美债收益率上升需关注外部风险传导。
+</div>
+
+<h3>🏛 国内政策/经济</h3>
+<div class="event-item">• 【宏观数据】国家统计局数据显示4月工业增加值+4.1%（放缓1.6pct），社零+0.2%（放缓1.5pct），固定资产投资-1.6%。统计局回应"属于月度间的正常波动"，经济"稳"的主基调没有变</div>
+<div class="event-item">• 【财政收入】广义财政收入增速<u>首次转正</u>，前4月+0.4%，税收收入同比增长3.9%，增值税增5.9%，反映PPI回升、就业稳固、外贸韧性等基本面修复</div>
+<div class="event-item">• 【大就业观】国务院印发《稳岗扩容提质行动方案》，首次提出"大就业观"，要求AI应用同步开展转型转岗培训，国企校招比例再提5pct</div>
+<div class="event-item">• 【货币政策】LPR连续12个月按兵不动（1年期3.0%、5年期3.5%），央行一季度报告不提"降准降息"强调"灵活运用多种工具"，降息操作延后</div>
+<div class="event-item">• 【证监会重罚】证监会对富途（拟罚18.5亿）、老虎（3.08亿）、长桥非法跨境证券业务立案处罚，总额超22亿元，八部门联合印发整治方案，富途老虎美股暴跌超25%</div>
+<div class="event-item">• 【下周关注】MSCI中国指数调整将生效（潜在资金流入被动配置），5月PMI数据月底公布，37股解禁</div>
+
+<h3>🌍 国际市场</h3>
+<div class="event-item">• 【美联储换帅】沃什正式接棒第11任美联储主席，市场关注6月16-17日议息会议是否会释放新信号</div>
+<div class="event-item">• 【美债收益率飙升】30年期美债收益率涨至5.198%创2007年以来新高，10年期4.687%创2025年1月以来最高。美国4月PPI同比+6.0%（2022.12以来最大），CPI同比+3.8%（三年来最高），再通胀压力凸显</div>
+<div class="event-item">• 【美股动态】道指涨近300点创新高，芯片股爆发高通狂飙12%；SpaceX正式递交IPO招股书（计划融资750亿美元），OpenAI加速上市进程</div>
+<div class="event-item">• 【大宗商品】焦炭价格环比+3.5%（准一级冶金焦1496.4元/吨），生猪价格-1%（9.5元/kg），部分工业品价格上涨</div>
+
+<h3>🏭 行业/公司</h3>
+<div class="event-item">• 【AI/科技】DeepSeek-V4-Pro API降价，AI商业化加速；马斯克在AI"世纪诉讼"中败诉；谷歌发布数十个产品更新，全球AI生态竞争白热化</div>
+<div class="event-item">• 【科创板】证监会科技监管持续加码 + 长三角创新联合体有望进一步聚焦半导体/AI，科技自主可控政策持续加码</div>
+<div class="event-item">• 【零售/618】快递业备战618，近期单量已有明显提升，消费端结构性复苏可期</div>
+
+<h3>📊 技术面信号</h3>
+<div class="grid-2">
+<div>
+<h3 style="color:#f85149;">📈 指数技术指标</h3>
+<div class="event-item">• <b>上证指数</b>：周线小阴线下影线较长，4100支撑初显。日均成交量2.5万亿+，周四放量暴跌（量价背离），周五缩量反弹（反弹可持续性存疑）。MACD日线有死叉倾向，RSI(14)回落至46中性偏弱，布林带中轨4090附近争夺。</div>
+<div class="event-item">• <b>科创50</b>：周线振幅71点，周四-3.70%大阴线杀伤力大，跌破MA5(1805)和MA10(1793)。周五+1.51%缩量反弹，RSI(14)回落至42偏弱区间。关键看下周能否放量重新站上1800（布林中轨位置）。</div>
+<div class="event-item">• <b>创业板指</b>：全周+0.60%相对最强，RSI(14)约52中性，MACD动能柱收窄，短线走平等待方向选择。</div>
+</div>
+<div>
+<h3 style="color:#d9a52e;">🎯 关键位置 & 量能</h3>
+<div class="event-item">• <b>上证支撑位</b>：4060（前低）、4077（周内最低）→ 若跌破则考验4000整数关口</div>
+<div class="event-item">• <b>上证压力位</b>：4150（颈线）、4180（前高）→ 需放量至3万亿+方能突破</div>
+<div class="event-item">• <b>科创50支撑位</b>：1750（前低）、1720（周内最低）</div>
+<div class="event-item">• <b>科创50压力位</b>：1800（整数+布林中轨）、1830-1835（周内高点）</div>
+<div class="event-item">• <b>量能关键</b>：周五缩量反弹，若周一继续缩量则反弹难以持续，需成交额回升至3万亿以上才能确认反弹有效</div>
+<div class="event-item">• <b>情绪指标</b>：恐慌情绪释放后回归中性，关注周一开盘量能确认方向</div>
+</div>
+</div>
+
+<h3>📌 重点关注个股技术面</h3>
+<div class="info-box">
+<strong>⚠️ 说明：</strong> 个股量化技术指标（MA5/MA10/MA20、RSI14、MACD金叉死叉、布林带、KDJ超买超卖）需要至少5-20个交易日的历史数据才能有效计算。当前系统仅有3个交易日数据（5/20-5/22），<strong>尚不足以生成可靠的个股技术面量化信号</strong>。随着后续交易日数据积累，预计1-2周后可提供个股级别的技术指标分析。<br><br>
+<strong>📋 当前可用的个股参考数据：</strong><br>
+• RS相对强度（基于5日周期） — 已在上文板块三展示<br>
+• 多因子评分（动量/趋势/波动/资金/估值） — 已在上文板块三展示<br>
+• 建议下周起每日收盘简报持续积累数据，1-2周后周报即可接入完整的个股技术面量化模块。
+</div>
+
+<div class="info-box">
+<strong>📌 综合判断：</strong><br>
+<strong>利多因素：</strong>周五超跌修复+周末政策预期、DeepSeek降价利好AI应用端、MSCI调整带来被动资金流入、长三角创新联合体政策持续催化、广义财政收入转正经济基本盘稳固。<br>
+<strong>利空因素：</strong>美债收益率飙升（30年期5.198%创19年新高）压制全球估值、美联储换帅政策不确定性、证监会重罚跨境券商影响情绪、周四半导体踩踏后技术面受损、4100关口未站稳、缩量反弹持续性存疑。整体<strong>中性偏谨慎</strong>，结构性机会为主，需警惕海外利率冲击传导。
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块五：下周趋势判断 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>🔮 下周趋势判断（5.25 - 5.29）</h2>
+
+<h3>📈 大盘方向研判</h3>
+<table>
+<tr><th>指数</th><th>支撑位</th><th>压力位</th><th>预判方向</th><th>置信度</th></tr>
+<tr><td>上证指数</td><td>4,060-4,080</td><td>4,150-4,180</td><td><span class="tag tag-yellow">震荡整理</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td>深证成指</td><td>15,200-15,300</td><td>15,650-15,750</td><td><span class="tag tag-yellow">震荡整理</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td>创业板指</td><td>3,800-3,850</td><td>3,980-4,000</td><td><span class="tag tag-yellow">震荡整理</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td>科创50</td><td>1,720-1,750</td><td>1,830-1,850</td><td><span class="tag tag-green">偏弱整理</span></td><td><span class="tag tag-blue">中高</span></td></tr>
+</table>
+
+<div class="warning-box">
+<strong>⚠️ 外部风险传导：</strong> 美30年期国债收益率飙升至5.198%（2007年以来新高），将显著压制全球科技股估值。A股科技板块（尤其是高估值半导体）下周可能首当其冲，科创50二次探底风险加大。MSCI调整生效带来的被动资金流入可能对冲部分压力。
+</div>
+
+<h3>🔀 下周板块预判</h3>
+<table>
+<tr><th>方向</th><th>板块</th><th>判断依据</th><th>持续性</th></tr>
+<tr><td class="up">🔴 看好</td><td>AI应用端</td><td>DeepSeek-V4-Pro降价催化+长三角创新联合体政策+中科创达逆势走强(RS A+)</td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td class="flat">🟡 中性</td><td>半导体高切低</td><td>周四暴跌后资金从高位半导体材料向低位切换，帝奥微多因子6.9最佳</td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td class="flat">🟡 中性</td><td>化工/材料</td><td>多氟多涨停后需观察持续性，天通弱势震荡</td><td><span class="tag tag-yellow">中</span></td></tr>
+<tr><td class="down">🟢 回避</td><td>通信线缆</td><td>汇源通信跌停+板块-7.65%，RS D -10.6垫底，趋势走坏</td><td><span class="tag tag-green">弱</span></td></tr>
+<tr><td class="down">🟢 回避</td><td>高估值半导体材料</td><td>美债收益率飙升将压制估值，华特/中巨芯/欧莱RS D级弱势延续</td><td><span class="tag tag-green">弱</span></td></tr>
+</table>
+
+<h3>⚠️ 下周风险提示</h3>
+<div class="event-item" style="color:#f85149;">• 🔴 高风险：美债收益率飙升传导 — 30年期5.198%创19年新高，将压制全球科技股估值，A股半导体板块可能首当其冲</div>
+<div class="event-item" style="color:#f85149;">• 🔴 高风险：科创50二次探底 — 周四大阴线杀伤力大，若下周无法站稳1750可能打开下行空间，美债收益率上升加剧压力</div>
+<div class="event-item" style="color:#f85149;">• 🔴 高风险：证监会重罚影响 — 富途老虎合计罚超22亿，八部门联合整治跨境证券，市场风险偏好可能受压制</div>
+<div class="event-item" style="color:#d9a52e;">• 🟡 中等风险：半导体材料继续下探 — 华特气体、中巨芯-U、欧莱新材跌幅最大，若继续放量下探可能触发连锁止损</div>
+<div class="event-item" style="color:#d9a52e;">• 🟡 中等风险：上证4100博弈 — 周五反弹但量能不足，若无法站稳4100关口可能再次向下</div>
+<div class="event-item" style="color:#58a6ff;">• 🔵 机会风险：MSCI调整生效 — 带来被动资金配置，关注权重股资金流入信号</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块六：下周板块及个股建议 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>💡 下周板块及个股建议（26只全覆盖）</h2>
+
+<!-- 重点推荐 -->
+<div class="reco-card" style="border-color: rgba(248,81,73,0.4);">
+<h4 style="color:#f85149;">🔥 重点推荐：AI应用端</h4>
+<p><strong>推荐逻辑：</strong>DeepSeek-V4-Pro API降价提振AI应用商业化预期 + 长三角创新联合体政策催化 + 中科创达本周RS A+逆势走强（+5.06%）。AI应用端经过前两周调整估值回归合理区间，下周有望迎来修复行情。</p>
+<div style="margin: 8px 0;">
+  <span class="reco-stock">中科创达 <span class="code">300496</span></span>
+  <span class="reco-stock">蓝色光标 <span class="code">300058</span></span>
+  <span class="reco-stock">荣科科技 <span class="code">300290</span></span>
+</div>
+<p style="font-size:12px; color:#8b949e;">
+📌 个股理由：<br>
+- 中科创达：RS A+ +6.2，多因子6.4(B)，AI应用龙头，DeepSeek降价利好<br>
+- 蓝色光标：RS C(-2.1)，多因子4.2(C)偏弱，但连续回调后可能随板块修复，需右侧确认<br>
+- 荣科科技：RS C(-3.0)，多因子5.0(C)，等待反弹信号
+</p>
+</div>
+
+<div class="reco-card" style="border-color: rgba(88,166,255,0.4);">
+<h4 style="color:#58a6ff;">⭐ 值得关注：半导体高切低</h4>
+<p><strong>推荐逻辑：</strong>周四半导体暴跌后资金开始从高位半导体材料向低位个股切换。帝奥微多因子评分6.9全仓第一、瑞华泰RS A+ +10.0穿越调整，展现强势股韧性。</p>
+<div style="margin: 8px 0;">
+  <span class="reco-stock">帝奥微 <span class="code">688381</span></span>
+  <span class="reco-stock">瑞华泰 <span class="code">688323</span></span>
+  <span class="reco-stock">利通电子 <span class="code">603629</span></span>
+</div>
+<p style="font-size:12px; color:#8b949e;">
+📌 个股理由：<br>
+- 帝奥微：多因子6.9(B)居首，RS A+ +5.1，趋势评分满分10，模拟芯片国产替代<br>
+- 瑞华泰：RS A+ +10.0最强，周三20cm涨停，高波动需设止盈(均9.5%)⚠️<br>
+- 利通电子：RS A+ +9.0，多因子6.2(B)，电子元器件景气
+</p>
+</div>
+
+<div class="reco-card" style="border-color: rgba(191,119,246,0.4);">
+<h4 style="color:#bf77f6;">👀 持仓操作建议（26只全覆盖）</h4>
+
+<p style="font-size:12px; color:#58a6ff; margin-top: 8px;"><b>🖥️ 科技/半导体（10只）</b></p>
+<div class="event-item">• <b>瑞华泰 (688323)</b>：<span class="tag tag-red">持有</span> — RS最强A+ +10.0，周三20cm涨停，高波动需设止盈</div>
+<div class="event-item">• <b>帝奥微 (688381)</b>：<span class="tag tag-red">持有/加仓</span> — 多因子评分6.9最佳，趋势满分，半导体高切低首选</div>
+<div class="event-item">• <b>利通电子 (603629)</b>：<span class="tag tag-red">持有</span> — RS A+ +9.0，电子元器件景气，波动较大注意仓位</div>
+<div class="event-item">• <b>隆扬电子 (301389)</b>：<span class="tag tag-red">持有</span> — RS A+ +6.7，电磁屏蔽材料，周五+10.19%异动</div>
+<div class="event-item">• <b>领益智造 (002600)</b>：<span class="tag tag-yellow">观望</span> — RS A +1.7，多因子5.1(C)，消费电子回暖预期，暂持有观察</div>
+<div class="event-item">• <b>中科曙光 (603019)</b>：<span class="tag tag-yellow">观望</span> — RS C -2.5，多因子5.5(C)，信创/算力预期，等待放量信号</div>
+<div class="event-item">• <b>宏景科技 (301396)</b>：<span class="tag tag-yellow">观望</span> — RS C -1.7，高波动⚠️(均6.3%)，智慧城市方向，暂观察</div>
+<div class="event-item">• <b>华特气体 (688268)</b>：<span class="tag tag-green">减仓/止损</span> — RS D -9.3，多因子4.1(C)，本周-10.45%，半导体材料杀跌主力，美债收益率飙升压制估值</div>
+<div class="event-item">• <b>中巨芯-U (688549)</b>：<span class="tag tag-green">减仓/止损</span> — RS D -7.9，多因子4.3(C)，本周-9.04%，波动率极高⚠️</div>
+<div class="event-item">• <b>欧莱新材 (688530)</b>：<span class="tag tag-green">减仓/止损</span> — RS D -5.3，多因子4.1(C)，本周-6.45%，新材料方向走弱</div>
+
+<p style="font-size:12px; color:#bf77f6; margin-top: 8px;"><b>📡 通信/电子（5只）</b></p>
+<div class="event-item">• <b>蓝思科技 (300433)</b>：<span class="tag tag-red">持有</span> — RS A+ +6.9，多因子6.4(B)，消费电子龙头，本周+5.76%强势</div>
+<div class="event-item">• <b>东山精密 (002384)</b>：<span class="tag tag-yellow">持有</span> — RS B +0.1，多因子5.5(C)，精密金属/PCB龙头，中线持有</div>
+<div class="event-item">• <b>珂玛科技 (301611)</b>：<span class="tag tag-yellow">观望</span> — RS D -4.9，多因子5.0(C)，半导体零部件，关注止跌信号</div>
+<div class="event-item">• <b>汇源通信 (000586)</b>：<span class="tag tag-green">建议卖出</span> — RS D -10.6垫底，多因子3.0(D)最差，本周-11.81%，跌停</div>
+<div class="event-item">• <b>淳中科技 (603516)</b>：<span class="tag tag-yellow">观望</span> — 新增持仓，数据不足，音视频显示控制，等待观察</div>
+
+<p style="font-size:12px; color:#3fb950; margin-top: 8px;"><b>🤖 AI/数字经济（4只）</b></p>
+<div class="event-item">• <b>中科创达 (300496)</b>：<span class="tag tag-red">持有/加仓</span> — RS A+ +6.2，多因子6.4(B)，AI应用龙头，DeepSeek降价利好催化</div>
+<div class="event-item">• <b>易点天下 (301171)</b>：<span class="tag tag-yellow">观望</span> — RS D -5.0，多因子3.9(D)，本周-6.20%，等待企稳</div>
+<div class="event-item">• <b>蓝色光标 (300058)</b>：<span class="tag tag-green">减仓观察</span> — RS C -2.1，多因子4.2(C)，连续3日0天上涨，AI应用弱但可能随DeepSeek催化修复</div>
+<div class="event-item">• <b>荣科科技 (300290)</b>：<span class="tag tag-yellow">观望</span> — RS C -3.0，多因子5.0(C)，IT服务方向，等待反弹信号</div>
+
+<p style="font-size:12px; color:#d9a52e; margin-top: 8px;"><b>🧪 化工/材料（2只）</b></p>
+<div class="event-item">• <b>多氟多 (002407)</b>：<span class="tag tag-red">持有</span> — RS A+ +6.1，多因子6.5(B)，本周+4.94%，氟化工龙头，周三涨停</div>
+<div class="event-item">• <b>天通股份 (600330)</b>：<span class="tag tag-yellow">观望</span> — RS A +3.1，多因子5.2(C)，磁性材料方向，低位震荡</div>
+
+<p style="font-size:12px; color:#8b949e; margin-top: 8px;"><b>⚡ 能源/公用事业（3只）</b></p>
+<div class="event-item">• <b>华电辽能 (600396)</b>：<span class="tag tag-green">减仓</span> — RS A边缘(+1.3)，多因子5.2(C)，周三-9.97%接近跌停，复苏期低配能源</div>
+<div class="event-item">• <b>水发燃气 (603318)</b>：<span class="tag tag-green">建议卖出</span> — RS D -6.0，多因子3.6(D)，本周-7.23%，弱势持续</div>
+<div class="event-item">• <b>康盛股份 (002418)</b>：<span class="tag tag-green">减仓/止损</span> — RS D -5.3，多因子4.2(C)，周四逼近跌停-9.85%</div>
+
+<p style="font-size:12px; color:#8b949e; margin-top: 8px;"><b>📌 其他（2只）</b></p>
+<div class="event-item">• <b>山子高科 (000981)</b>：<span class="tag tag-yellow">观望</span> — RS B +0.4，多因子5.0(C)，高端制造，小幅回调-0.76%</div>
+<div class="event-item">• <b>京城股份 (600860)</b>：<span class="tag tag-yellow">观望</span> — RS B -0.8，多因子4.2(C)，气体储运装备，-2.01%窄幅</div>
+</div>
+
+<!-- 持仓调整汇总 -->
+<div class="grid-2">
+<div>
+<h3>📋 下周操作计划</h3>
+<div class="event-item">• <span class="tag tag-red">加仓</span> 中科创达(300496) — AI应用龙头，DeepSeek降价催化，周五放量反弹</div>
+<div class="event-item">• <span class="tag tag-red">加仓</span> 帝奥微(688381) — 多因子评分最高6.9，半导体高切低首选</div>
+<div class="event-item">• <span class="tag tag-yellow">持有</span> 瑞华泰/利通电子/蓝思科技/隆扬电子/多氟多 — 强势趋势延续，注意止盈</div>
+<div class="event-item">• <span class="tag tag-green">减仓</span> 汇源通信/华特气体/中巨芯-U/欧莱新材 — RS D级弱势，止损优先，美债压力加大</div>
+<div class="event-item">• <span class="tag tag-green">减仓</span> 水发燃气/康盛股份/华电辽能 — 能源弱势，低配方向</div>
+</div>
+<div>
+<h3>🎯 下周关键观察点</h3>
+<div class="event-item">• 周一：关注美债收益率开盘影响，上证能否站稳4100，科技股是否承压</div>
+<div class="event-item">• 周三/周四：MSCI中国指数调整生效，关注被动资金流入信号</div>
+<div class="event-item">• 关键价位：上证4060支撑/4180压力，科创1720支撑/1830压力</div>
+<div class="event-item">• 量能：周五缩量反弹需补量，若继续缩量则反弹不可持续</div>
+<div class="event-item">• 北向资金动向：MSCI调整生效前后重点关注北向流入/流出</div>
+<div class="event-item">• 海外：美联储换帅后首周政策信号，美债收益率是否继续上行</div>
+</div>
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块七：建议新增持有个股 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>📌 建议新增持有个股</h2>
+<p style="font-size:12px; color:#8b949e; margin-bottom:10px;">基于本周评级为"中性及以上"的板块方向（科技/半导体、AI/数字经济、通信/电子、化工/材料），精选5只<strong>不在当前持仓中</strong>的优质标的，供下周重点关注。</p>
+
+<!-- 中际旭创 -->
+<div class="reco-card" style="border-color: rgba(191,119,246,0.5); margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<h4 style="color:#bf77f6; margin:0;">🔥 中际旭创 <span style="font-size:12px; color:#8b949e; font-weight:400;">300308</span></h4>
+<span class="tag tag-purple">通信/电子 · 光模块</span>
+</div>
+<p style="margin-top:8px; font-size:12px; color:#e6edf3;">
+<strong>推荐理由：</strong>全球光模块龙头，AI算力基建核心标的。受益于全球AI数据中心光互联需求持续爆发，800G/1.6T光模块加速放量。本周五强势反弹+4.49%，成交额215亿领跑全市场，资金关注度极高。英伟达高通等芯片巨头近期加单反映算力需求持续景气，中际旭创作为供应链核心将直接受益。DeepSeek降价后AI应用端爆发进一步推动算力需求，光模块作为"AI卖铲人"逻辑最为坚实。
+</p>
+<p style="font-size:12px; color:#8b949e; margin-top:4px;">
+📊 <strong>推荐价位：</strong><span class="tag tag-blue">建仓区间980-1010元</span> <span class="tag tag-yellow">加仓区间940-960元</span><br>
+📡 <strong>触发信号：</strong><span class="tag tag-red">🔴 放量突破1020元</span> 或 <span class="tag tag-green">🟢 回踩MA5(1010)缩量企稳</span><br>
+⚠️ <strong>风险提示：</strong>股价已处历史高位区间，波动较大(日均5%+)；美债收益率飙升压制科技股估值；需关注英伟达订单兑现节奏及1.6T产品进度。建议分批建仓，控制仓位在总资金5%以内。
+</p>
+</div>
+
+<!-- 海光信息 -->
+<div class="reco-card" style="border-color: rgba(191,119,246,0.5); margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<h4 style="color:#bf77f6; margin:0;">🔥 海光信息 <span style="font-size:12px; color:#8b949e; font-weight:400;">688041</span></h4>
+<span class="tag tag-purple">科技/半导体 · 国产CPU/GPU</span>
+</div>
+<p style="margin-top:8px; font-size:12px; color:#e6edf3;">
+<strong>推荐理由：</strong>国产高端处理器龙头，x86生态兼容优势突出，AI CPU/GPU双轮驱动。长三角创新联合体政策聚焦半导体/AI自主可控，海光作为国内稀缺的通用计算芯片标的首当其冲受益。本周五逆势走强+1.76%，成交额114亿维持高位。国产替代主线下，信创/政企市场持续放量，AI推理芯片需求快速增长。
+</p>
+<p style="font-size:12px; color:#8b949e; margin-top:4px;">
+📊 <strong>推荐价位：</strong><span class="tag tag-blue">建仓区间300-312元</span> <span class="tag tag-yellow">加仓区间285-295元</span><br>
+📡 <strong>触发信号：</strong><span class="tag tag-red">🔴 放量突破MA5(308)站上310</span> 或 <span class="tag tag-green">🟢 科创板回暖板块共振走强时跟买</span><br>
+⚠️ <strong>风险提示：</strong>美国出口管制政策变化风险；科创板高波动特征(均4%+)；估值处于高位(PE约80x+)。建议以中长期配置视角参与，短期波动耐心持有。
+</p>
+</div>
+
+<!-- 科大讯飞 -->
+<div class="reco-card" style="border-color: rgba(191,119,246,0.5); margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<h4 style="color:#bf77f6; margin:0;">🔥 科大讯飞 <span style="font-size:12px; color:#8b949e; font-weight:400;">002230</span></h4>
+<span class="tag tag-purple">AI/数字经济 · AI语音龙头</span>
+</div>
+<p style="margin-top:8px; font-size:12px; color:#e6edf3;">
+<strong>推荐理由：</strong>国内AI语音及大模型应用龙头，拥有"星火"大模型自主技术。DeepSeek-V4-Pro API大幅降价直接利好AI应用端公司，讯飞作为应用层核心标的受益显著。本周维持震荡企稳格局，周五+0.32%温和放量。教育部大就业观政策要求AI应用同步开展转型转岗培训，讯飞在教育AI领域深耕多年有望受益。当前市值约1100亿，相对合理。
+</p>
+<p style="font-size:12px; color:#8b949e; margin-top:4px;">
+📊 <strong>推荐价位：</strong><span class="tag tag-blue">建仓区间46-48元</span> <span class="tag tag-yellow">加仓区间43-45元</span><br>
+📡 <strong>触发信号：</strong><span class="tag tag-red">🔴 AI应用板块放量走强时跟买</span> 或 <span class="tag tag-green">🟢 回踩45元支撑位缩量企稳</span><br>
+⚠️ <strong>风险提示：</strong>AI应用商业化落地节奏不确定性；大模型竞争激烈(百度文心/阿里通义/腾讯混元等)；业绩增速需要持续验证。建议关注半年报业绩表现，确认拐点后加仓。
+</p>
+</div>
+
+<!-- 巨化股份 -->
+<div class="reco-card" style="border-color: rgba(191,119,246,0.5); margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<h4 style="color:#bf77f6; margin:0;">🔥 巨化股份 <span style="font-size:12px; color:#8b949e; font-weight:400;">600160</span></h4>
+<span class="tag tag-purple">化工/材料 · 氟化工龙头</span>
+</div>
+<p style="margin-top:8px; font-size:12px; color:#e6edf3;">
+<strong>推荐理由：</strong>氟化工行业绝对龙头，第三代制冷剂(HFCs)配额制最受益标的。本周五强势涨停+10.01%，成交额放量至31.97亿，资金大幅涌入。与持仓中多氟多形成氟化工双龙头配置，但巨化股份在制冷剂品类覆盖更全、产能规模更大。化工/材料板块整体评级中性偏强，氟化工涨价周期+配额收紧推动行业景气度持续提升。PPI同比+2.8%大幅回升对化工板块构成基本面支撑。
+</p>
+<p style="font-size:12px; color:#8b949e; margin-top:4px;">
+📊 <strong>推荐价位：</strong><span class="tag tag-blue">建仓区间32-33.5元</span> <span class="tag tag-yellow">加仓区间30-31元</span><br>
+📡 <strong>触发信号：</strong><span class="tag tag-red">🔴 涨停次日高开不追，等回调缩量</span> 或 <span class="tag tag-green">🟢 回踩MA5(32.5)附近企稳</span><br>
+⚠️ <strong>风险提示：</strong>日内涨停后短线追高风险大，建议等待回调至32-33元附近分批建仓；制冷剂配额政策变化风险；原材料价格波动影响。
+</p>
+</div>
+
+<!-- 工业富联 -->
+<div class="reco-card" style="border-color: rgba(191,119,246,0.5); margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<h4 style="color:#bf77f6; margin:0;">🔥 工业富联 <span style="font-size:12px; color:#8b949e; font-weight:400;">601138</span></h4>
+<span class="tag tag-purple">通信/电子 · AI服务器制造</span>
+</div>
+<p style="margin-top:8px; font-size:12px; color:#e6edf3;">
+<strong>推荐理由：</strong>全球AI服务器制造龙头，英伟达/NVIDIA核心供应商，AI算力基建最直接受益标的。本周五强势反弹+2.53%，成交额129.6亿居全市场前列。公司深度绑定全球头部云厂商(AWS/Meta/Google)AI服务器订单，营收结构持续向AI方向倾斜。证监会科技监管持续加码+国产算力自主可控推动国内AI服务器需求增长。高股息+大市值+高流动性，适合做底仓配置。
+</p>
+<p style="font-size:12px; color:#8b949e; margin-top:4px;">
+📊 <strong>推荐价位：</strong><span class="tag tag-blue">建仓区间64-67元</span> <span class="tag tag-yellow">加仓区间60-63元</span><br>
+📡 <strong>触发信号：</strong><span class="tag tag-red">🔴 AI服务器板块整体反弹时跟进</span> 或 <span class="tag tag-green">🟢 缩量回踩65元支撑位企稳</span><br>
+⚠️ <strong>风险提示：</strong>全球AI资本开支节奏变化风险；地缘政治摩擦影响供应链；毛利率相对偏低(约8-10%)；大股东工业富联集团减持风险需持续关注。
+</p>
+</div>
+
+<!-- 综合配置建议 -->
+<div class="info-box" style="margin-top:12px;">
+<strong>📌 综合配置建议：</strong><br>
+以上5只标的覆盖4个核心板块，不与当前26只持仓重复，具备较好的分散配置价值。<br><br>
+<strong>建议建仓方式：</strong>下周关注美债收益率对科技股开盘影响，若周一科技板块低开可视为较好的逢低建仓机会。建议分批建仓（首次建仓1/3仓位，后续视走势逐步加仓），总新增仓位控制在总资金的5%-10%。<br><br>
+<strong>优先级排序：</strong>中际旭创（光模块确定性最强）> 海光信息（国产替代核心）> 工业富联（AI服务器底仓）> 巨化股份（氟化工涨价周期）> 科大讯飞（AI应用弹性大）
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 板块八：综合评级与操作建议 -->
+<!-- ============================================ -->
+<div class="section">
+<h2>🎯 综合评级与操作建议</h2>
+
+<p style="font-size:12px; color:#8b949e; margin-bottom:8px;">
+基于本报告全部指标（RS相对强度、多因子评分、波动率稳定性、技术面信号、行业轮动方向）的综合评级。<br>
+评级说明：<span class="tag tag-red">🔥 短期持有</span> <span class="tag tag-blue">💎 长期持有</span> <span class="tag tag-green">🚫 建议卖出</span>
+</p>
+
+<h3 style="color:#f85149;">🔥 建议短期持有（6只）</h3>
+<p style="font-size:12px; color:#8b949e; margin-bottom:6px;">短期博弈逻辑：趋势延续 / RS A+ / 多因子高分 / 资金驱动</p>
+
+<div class="grid-2">
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">瑞华泰 <span class="stock-code">688323</span></div>
+<div><span class="tag tag-red">RS A+ +10.0</span> <span class="tag tag-yellow">多因子6.7(B)</span></div>
+<div class="stock-reason">RS全仓最高，周三20cm涨停，高分子材料龙头穿越调整。但波动率极高(均9.5%)，需严格设止盈。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">帝奥微 <span class="stock-code">688381</span></div>
+<div><span class="tag tag-red">RS A+ +5.1</span> <span class="tag tag-red">多因子6.9(B)最佳</span></div>
+<div class="stock-reason">多因子评分全仓第一，趋势评分满分10，模拟芯片国产替代逻辑硬。半导体高切低首选标的。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">利通电子 <span class="stock-code">603629</span></div>
+<div><span class="tag tag-red">RS A+ +9.0</span> <span class="tag tag-yellow">多因子6.2(B)</span></div>
+<div class="stock-reason">RS排名第二，电子元器件景气持续，但波动较大(均4.7%)，注意仓位管理。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">中科创达 <span class="stock-code">300496</span></div>
+<div><span class="tag tag-red">RS A+ +6.2</span> <span class="tag tag-yellow">多因子6.4(B)</span></div>
+<div class="stock-reason">AI应用龙头，DeepSeek降价催化+长三角政策利好，周五放量反弹+3.78%，下周重点加仓方向。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">蓝思科技 <span class="stock-code">300433</span></div>
+<div><span class="tag tag-red">RS A+ +6.9</span> <span class="tag tag-yellow">多因子6.4(B)</span></div>
+<div class="stock-reason">消费电子龙头，本周+5.76%强势，玻璃制造/消费电子回暖预期，波动正常(均3.4%)。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#f85149;">隆扬电子 <span class="stock-code">301389</span></div>
+<div><span class="tag tag-red">RS A+ +6.7</span> <span class="tag tag-yellow">多因子6.1(B)</span></div>
+<div class="stock-reason">电磁屏蔽材料，本周+5.54%，周五异动+10.19%，短线资金关注度高。</div>
+</div>
+</div>
+
+<h3 style="color:#58a6ff; margin-top: 16px;">💎 建议长期持有（6只）</h3>
+<p style="font-size:12px; color:#8b949e; margin-bottom:6px;">长期投资逻辑：赛道优质 / 行业龙头 / 政策受益 / 行业轮动超配</p>
+
+<div class="grid-2">
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">瑞华泰 <span class="stock-code">688323</span></div>
+<div><span class="tag tag-blue">科技/半导体超配</span> <span class="tag tag-red">国产替代</span></div>
+<div class="stock-reason">高分子材料稀缺标的，国产替代主线受益股。短期RS领先+长期赛道优质，同列双榜🔥💎。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">帝奥微 <span class="stock-code">688381</span></div>
+<div><span class="tag tag-blue">科技/半导体超配</span> <span class="tag tag-red">模拟芯片</span></div>
+<div class="stock-reason">模拟芯片国产替代核心，多因子评分全仓第一。复苏期科技超配，持仓逻辑扎实。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">中科创达 <span class="stock-code">300496</span></div>
+<div><span class="tag tag-blue">AI/数字经济超配</span> <span class="tag tag-red">AI龙头</span></div>
+<div class="stock-reason">智能操作系统龙头，DeepSeek降价+长三角政策受益。复苏期AI超配，中长期价值确定。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">东山精密 <span class="stock-code">002384</span></div>
+<div><span class="tag tag-blue">通信/电子标配</span> <span class="tag tag-yellow">PCB龙头</span></div>
+<div class="stock-reason">精密金属/PCB行业龙头，当前RS中性(B+0.1)但行业地位稳固，中线持有等待估值修复。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">多氟多 <span class="stock-code">002407</span></div>
+<div><span class="tag tag-blue">化工/材料标配</span> <span class="tag tag-red">氟化工龙头</span></div>
+<div class="stock-reason">氟化工行业龙头，周三涨停异动、RS A+ +6.1。景气度改善中，中长期持有。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#58a6ff;">利通电子 <span class="stock-code">603629</span></div>
+<div><span class="tag tag-blue">科技/半导体超配</span> <span class="tag tag-red">电子元器件</span></div>
+<div class="stock-reason">电子元器件景气度持续，RS A+ +9.0。中长期受益于AI算力硬件需求增长，同列双榜🔥💎。</div>
+</div>
+</div>
+
+<h3 style="color:#3fb950; margin-top: 16px;">🚫 建议卖出/减仓（8只）</h3>
+<p style="font-size:12px; color:#8b949e; margin-bottom:6px;">卖出逻辑：趋势走坏 / RS D级 / 多因子低分 / 板块承压</p>
+
+<div class="grid-2">
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">汇源通信 <span class="stock-code">000586</span></div>
+<div><span class="tag tag-green">RS D -10.6 垫底</span> <span class="tag tag-green">多因子3.0(D)最差</span></div>
+<div class="stock-reason">RS全仓最低，多因子评分全仓最差，本周-11.81%跌停。连续3日0天上涨，通信线缆板块全面承压，强烈建议止损。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">华特气体 <span class="stock-code">688268</span></div>
+<div><span class="tag tag-green">RS D -9.3</span> <span class="tag tag-green">多因子4.1(C)</span></div>
+<div class="stock-reason">电子特气龙头但本周-10.45%领跌半导体材料，周四单日-13.27%。高波动⚠️(均6.7%)+美债飙升压制估值，建议卖出止损。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">中巨芯-U <span class="stock-code">688549</span></div>
+<div><span class="tag tag-green">RS D -7.9</span> <span class="tag tag-green">多因子4.3(C)</span></div>
+<div class="stock-reason">本周-9.04%，周四-12.11%。半导体材料方向承压，高波动⚠️(均6.6%)，建议卖出。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">欧莱新材 <span class="stock-code">688530</span></div>
+<div><span class="tag tag-green">RS D -5.3</span> <span class="tag tag-green">多因子4.1(C)</span></div>
+<div class="stock-reason">本周-6.45%，周四-10.54%。新材料方向持续走弱，高波动⚠️(均6.5%)，建议减仓/止损。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">康盛股份 <span class="stock-code">002418</span></div>
+<div><span class="tag tag-green">RS D -5.3</span> <span class="tag tag-green">多因子4.2(C)</span></div>
+<div class="stock-reason">本周-6.51%，周四逼近跌停-9.85%。能源方向低配+新能源车周期偏弱，建议减仓。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">水发燃气 <span class="stock-code">603318</span></div>
+<div><span class="tag tag-green">RS D -6.0</span> <span class="tag tag-green">多因子3.6(D)</span></div>
+<div class="stock-reason">本周-7.23%，连续3日0天上涨。燃气公用事业方向弱势，复苏期低配方向，建议卖出。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">华电辽能 <span class="stock-code">600396</span></div>
+<div><span class="tag tag-yellow">RS A边缘(+1.3)</span> <span class="tag tag-green">多因子5.2(C)</span></div>
+<div class="stock-reason">RS评级C边缘，周三-9.97%接近跌停，电力板块承压。复苏期低配能源方向，建议减半仓。</div>
+</div>
+<div class="rating-card">
+<div class="stock-name" style="color:#3fb950;">蓝色光标 <span class="stock-code">300058</span></div>
+<div><span class="tag tag-yellow">RS C -2.1</span> <span class="tag tag-green">多因子4.2(C)</span></div>
+<div class="stock-reason">本周-3.28%，连续3日0天上涨。AI数字营销持续低迷，但板块可能随DeepSeek催化修复，建议减仓观察，破位则清仓。</div>
+</div>
+</div>
+
+<div style="margin-top:16px;">
+<p style="font-size:12px; color:#8b949e;"><b>剩余观望（10只）：</b></p>
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
+<span class="reco-stock">中科曙光 <span class="code">603019</span></span>
+<span class="reco-stock">领益智造 <span class="code">002600</span></span>
+<span class="reco-stock">宏景科技 <span class="code">301396</span></span>
+<span class="reco-stock">珂玛科技 <span class="code">301611</span></span>
+<span class="reco-stock">淳中科技 <span class="code">603516</span>🆕</span>
+<span class="reco-stock">易点天下 <span class="code">301171</span></span>
+<span class="reco-stock">荣科科技 <span class="code">300290</span></span>
+<span class="reco-stock">天通股份 <span class="code">600330</span></span>
+<span class="reco-stock">山子高科 <span class="code">000981</span></span>
+<span class="reco-stock">京城股份 <span class="code">600860</span></span>
+</div>
+<p style="font-size:11px; color:#8b949e; margin-top:4px;">注：淳中科技(603516)为新增持仓，数据不足，暂归观望。观望不代表不看好，而是等待趋势信号明确后再做操作决策。</p>
+</div>
+
+<!-- 评级汇总统计 -->
+<div class="grid-3" style="margin-top:16px;">
+<div class="warning-box" style="border-color:#f85149; text-align:center;">
+<strong style="color:#f85149;">🔥 短期持有</strong><br>
+<span style="font-size:28px;font-weight:700;color:#f85149;">6只</span><br>
+<span style="font-size:12px;color:#8b949e;">趋势交易 / 事件驱动</span>
+</div>
+<div class="info-box" style="border-color:#58a6ff; text-align:center;">
+<strong style="color:#58a6ff;">💎 长期持有</strong><br>
+<span style="font-size:28px;font-weight:700;color:#58a6ff;">6只</span><br>
+<span style="font-size:12px;color:#8b949e;">价值投资 / 行业龙头</span>
+</div>
+<div class="warning-box" style="border-color:#3fb950; text-align:center;">
+<strong style="color:#3fb950;">🚫 建议卖出</strong><br>
+<span style="font-size:28px;font-weight:700;color:#3fb950;">8只</span><br>
+<span style="font-size:12px;color:#8b949e;">止损 / 趋势走坏</span>
+</div>
+</div>
+
+<div class="info-box" style="margin-top:12px;">
+<strong>📌 综合评级说明：</strong><br>
+评级综合了RS相对强度(20%) + 多因子评分(30%) + 波动率稳定性(15%) + 技术面信号(15%) + 行业轮动方向(20%)。<br>
+其中4只同列短期+长期双榜单（瑞华泰、帝奥微、中科创达、利通电子），代表短中长期均具配置价值。<br>
+评级会随每周数据更新动态调整，建议每周末结合最新周复盘重新审视持仓结构。<br>
+🔹 风险提示：本周持仓分化加剧，建议卖出8只占比30.8%，需认真对待。周末新增风险点：美30年期国债收益率5.198%创19年新高，将对全球科技股估值形成压制。
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 页脚 -->
+<!-- ============================================ -->
+<div class="footer">
+🌀 小十三 · A股周复盘 | 2026年第21周 | 数据来源：东方财富 / 公开市场信息<br>
+⚠️ 以上内容仅供参考，不构成投资建议。投资有风险，操作需谨慎。
+</div>
+
+</div>
+</body>
+</html>

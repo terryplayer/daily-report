@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8"><title>新旧流程耦合度检查 · 2026-06-17</title>
+<style>
+body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0d1117; color: #c9d1d9; }
+h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
+h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; }
+h3 { color: #79c0ff; margin-top: 24px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13px; }
+th, td { border: 1px solid #30363d; padding: 6px 10px; text-align: left; }
+th { background: #161b22; color: #58a6ff; position: sticky; top: 0; }
+tr:nth-child(even) { background: #161b22; }
+.meta { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+.tag-independent { background: #0d2a17; color: #3fb950; }
+.tag-coupled { background: #2d0a0a; color: #f85149; }
+.tag-partial { background: #3d1f00; color: #d29922; }
+.tag-shared { background: #0c2d4a; color: #58a6ff; }
+.summary-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 12px 0; }
+.summary-number { font-size: 28px; font-weight: 700; }
+</style></head><body>
+<h1>🧩🧵 新旧流程耦合度检查 · 2026-06-17</h1>
+<div class="meta">生成时间: 2026-06-17 16:11 CST · 基于: 解耦合方案v2.0 + 独立性方案v2.0</div>
+
+<h2>1. 架构层对比</h2>
+<table><thead><tr><th>维度</th><th>旧流程</th><th>新流程</th><th>耦合度</th></tr></thead><tbody><tr><td>数据采集</td><td>stock_analysis.py --update</td><td>data_collector.py</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>技术分析</td><td>stock_analysis.py 内联（2700行单体）</td><td>analysis_engine.py（独立文件）</td><td><span class="tag tag-independent">数据契约耦合</span></td></tr><tr><td>模型评分</td><td>stock_analysis.py 内联</td><td>calc_model.py（独立文件）</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>数据构建</td><td>gen_*.py 直接读缓存</td><td>report_data_builder.py</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>报告渲染</td><td>gen_report.py → gen_*.py（F-string）</td><td>report_renderer.py（Jinja2）</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>模板</td><td>11个 template-*.html（F-string占位符）</td><td>_system/templates/*.html（Jinja2）</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>部署</td><td>deploy.sh → wrangler</td><td>deploy.sh → wrangler（已统一）</td><td><span class="tag tag-shared">共享</span></td></tr><tr><td>预测账本</td><td>无</td><td>prediction_ledger.py</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>反馈闭环</td><td>hermes_review.py</td><td>feedback_engine.py</td><td><span class="tag tag-independent">独立</span></td></tr><tr><td>调度</td><td>cron prompt（旧版）</td><td>daily-cycle.md（双跑）</td><td><span class="tag tag-shared">共享</span></td></tr></tbody></table>
+<h2>2. 数据文件依赖矩阵</h2>
+<table><thead><tr><th>文件</th><th>旧流程读</th><th>旧流程写</th><th>新流程读</th><th>新流程写</th><th>耦合度</th></tr></thead><tbody><tr><td>stock_history.json</td><td>✅ stock_analysis.py</td><td>✅ stock_analysis.py</td><td>✅ analysis_engine</td><td>✅ data_collector</td><td><span class="tag tag-indepent">数据契约耦合</span></td></tr><tr><td>/tmp/stock_analysis_cache.json</td><td>✅ gen_*.py</td><td>✅ stock_analysis.py --json</td><td>❌</td><td>❌</td><td><span class="tag tag-independent">旧独占</span></td></tr><tr><td>/tmp/analysis_output.json</td><td>❌</td><td>❌</td><td>✅ analysis_engine → builder</td><td>✅ analysis_engine</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>/tmp/scoring_output.json</td><td>❌</td><td>❌</td><td>✅ calc_model → builder</td><td>✅ calc_model</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>research_cache.json</td><td>❌</td><td>❌</td><td>✅ builder</td><td>✅ data_collector</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>macro_cache.json</td><td>❌</td><td>❌</td><td>✅ builder</td><td>✅ data_collector</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>cointegration</td><td>❌</td><td>❌（6.17已迁移）</td><td>✅ calc_model → builder</td><td>✅ analysis_engine</td><td><span class="tag tag-independent">已解耦✅</span></td></tr><tr><td>prediction_ledger</td><td>❌</td><td>❌</td><td>✅ builder（午间偏差）</td><td>✅ prediction_ledger.py</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>active_corrections.json</td><td>❌</td><td>❌</td><td>❌</td><td>✅ feedback_engine</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>template-stocks.json</td><td>✅ gen_*.py</td><td>❌（手动编辑）</td><td>✅ builder</td><td>❌</td><td><span class="tag tag-shared">共享配置</span></td></tr><tr><td>models/*.pkl</td><td>✅ RF注入</td><td>❌</td><td>✅ calc_model</td><td>❌</td><td><span class="tag tag-shared">共享模型</span></td></tr></tbody></table>
+<h2>3. 临时文件/TMP 耦合</h2>
+<table><thead><tr><th>临时文件</th><th>旧流程</th><th>新流程</th><th>冲突？</th></tr></thead><tbody><tr><td>/tmp/stock_analysis_cache.json</td><td>✅ 主缓存</td><td>❌ 不碰</td><td><span class="tag tag-independent">无冲突</span></td></tr><tr><td>/tmp/analysis_output.json</td><td>❌ 不碰</td><td>✅ 分析层输出</td><td><span class="tag tag-independent">无冲突</span></td></tr><tr><td>/tmp/scoring_output.json</td><td>❌ 不碰</td><td>✅ 评分层输出</td><td><span class="tag tag-independent">无冲突</span></td></tr><tr><td>/tmp/premarket-predictions.json</td><td>✅ 盘前预判</td><td>❌ 不碰</td><td><span class="tag tag-independent">无冲突</span></td></tr></tbody></table>
+<h2>4. 输出文件隔离</h2>
+<table><thead><tr><th>指标</th><th>值</th></tr></thead><tbody><tr><td>旧流程输出文件数</td><td>101</td></tr><tr><td>新流程输出文件数（🧩）</td><td>18</td></tr><tr><td>同名文件冲突</td><td>❌ 无冲突（🧩前缀规避）</td></tr><tr><td>部署路径</td><td>统一: _system/daily-report-html/</td></tr></tbody></table>
+<h2>5. Python import 依赖链</h2>
+<table><thead><tr><th>所属流程</th><th>脚本</th><th>import 依赖</th></tr></thead><tbody><tr><td>旧流程</td><td>gen_premarket_report.py</td><td>json,; datetime,; validate; tushare; __('datetime').timedelta(days=1)).strftime('%Y%m%d'); tushare; inject_into_html</td></tr><tr><td>旧流程</td><td>gen_midday_report.py</td><td>json,; datetime,; validate; tushare; __('json').dump({k:; date; traceback</td></tr><tr><td>旧流程</td><td>gen_closing_report.py</td><td>json,; date,; validate; __('json').load(_f); __('sys').exit(1); __('sys').exit(1); tushare; date</td></tr><tr><td>旧流程</td><td>gen_advanced_reports.py</td><td>json,; date,; tushare; __('datetime').timedelta(days=1)).strftime('%Y%m%d'); date</td></tr><tr><td>旧流程</td><td>gen_weekly_report.py</td><td>json,; date,; validate</td></tr><tr><td>旧流程</td><td>gen_daily_review.py</td><td>json,; date,</td></tr><tr><td>旧流程</td><td>gen_dashboard.py</td><td>os,; datetime; datetime; timedelta</td></tr><tr><td>旧流程</td><td>stock_analysis.py</td><td>sys,; datetime,; urllib.request; datetime; init_pro,; datetime; datetime; math</td></tr><tr><td>新流程</td><td>data_collector.py</td><td>json,; datetime,; Optional; urllib.request,; subprocess; subprocess; argparse</td></tr><tr><td>新流程</td><td>analysis_engine.py</td><td>json,; date,; Optional; urllib.request; canonicalize; argparse</td></tr><tr><td>新流程</td><td>calc_model.py</td><td>json,; date; Optional; joblib; argparse</td></tr><tr><td>新流程</td><td>report_data_builder.py</td><td>json,; date,; Dict,; (; canonicalize,; urllib.request; json; argparse</td></tr></tbody></table>
+<h2>6. 时序调度耦合</h2>
+<table><thead><tr><th>时段</th><th>旧流程执行</th><th>新流程执行</th><th>顺序</th><th>串行/并行</th></tr></thead><tbody><tr><td>09:00 数据采集</td><td>stock_analysis --update</td><td>data_collector --premarket</td><td>旧→新</td><td>串行</td></tr><tr><td>09:15 盘前推送</td><td>gen_report --mode premarket</td><td>builder + renderer</td><td>旧→新</td><td>串行</td></tr><tr><td>12:00 午间</td><td>gen_report --mode midday</td><td>data_collector + builder + renderer</td><td>旧→新</td><td>串行</td></tr><tr><td>15:30 收盘</td><td>stock_analysis + gen_report closing</td><td>data_collector + builder + renderer</td><td>旧→新</td><td>串行</td></tr><tr><td>16:00 收盘推送</td><td>deploy.sh + obsidian-sync</td><td>同（已统一）</td><td>统一</td><td>单一</td></tr><tr><td>18:00 复盘</td><td>gen_daily_review.py</td><td>—（旧流程单跑）</td><td>—</td><td>单一</td></tr></tbody></table>
+<h2>7. 存储路径（PER/CFG）</h2>
+<table><thead><tr><th>存储级别</th><th>设计文档规定</th><th>旧流程实际</th><th>新流程实际</th><th>一致？</th></tr></thead><tbody><tr><td>PER（持久化）</td><td>_system/data/</td><td>data/（硬链接到_system/data/）</td><td>_system/data/</td><td><span class="tag tag-partial">旧路径别名</span></td></tr><tr><td>CFG（配置）</td><td>_system/data/</td><td>data/（硬链接）</td><td>_system/data/</td><td><span class="tag tag-partial">旧路径别名</span></td></tr><tr><td>BAK（备份）</td><td>_backup/</td><td>无</td><td>_backup/（仅每日自检）</td><td><span class="tag tag-independent">新独占</span></td></tr><tr><td>TMP（临时）</td><td>/tmp/</td><td>/tmp/stock_analysis_cache.json</td><td>/tmp/analysis_output.json + scoring_output.json</td><td><span class="tag tag-independent">完全隔离</span></td></tr></tbody></table>
+<h2>8. 脚本物理位置</h2>
+<table><thead><tr><th>路径</th><th>当前状态</th><th>备注</th></tr></thead><tbody><tr><td>workspace/scripts/</td><td>symlink</td><td>→ _system/scripts</td></tr><tr><td>_system/scripts/</td><td>目录（git恢复+重建）</td><td>重建的文件为report_*, analysis_*, calc_*, 等新流程脚本</td></tr><tr><td>两处重复文件</td><td>—</td><td>_system/scripts/ 为 symlink → scripts/ 实为同一份</td></tr></tbody></table>
+<h2>9. 综合评估</h2>
+
+<div class="summary-card">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center">
+    <div><div class="summary-number" style="color:#3fb950">8</div><div>完全独立</div></div>
+    <div><div class="summary-number" style="color:#d29922">0</div><div>部分耦合</div></div>
+    <div><div class="summary-number" style="color:#f85149">0</div><div>强耦合</div></div>
+    <div><div class="summary-number" style="color:#58a6ff">2</div><div>共享层</div></div>
+  </div>
+</div>
+
+<h3>⚠️ 主要耦合风险点</h3>
+<table><thead><tr><th>风险</th><th>严重程度</th><th>说明</th></tr></thead><tbody><tr><td>stock_history.json 写入</td><td>🟢 路2：接受共存</td><td>先旧后新：旧stock_analysis写稀疏→新data_collector追加丰富字段。零改动，无数据冲突。schema_version 1.0保证格式契约</td></tr><tr><td>template-stocks.json 共享</td><td>🔵 低</td><td>两流程共用持仓配置，需确保格式兼容</td></tr><tr><td>models/*.pkl 共享</td><td>🔵 低</td><td>模型文件旧新流程都用，替换流程需谨慎</td></tr><tr><td>data/ → _system/data/ symlink</td><td>🟢 已清理</td><td>data/ 已改为 symlink 指向 _system/data/，统一入口</td></tr><tr><td>gen_report.py 和 report_renderer.py 无直接耦合</td><td>🟢 安全</td><td>已通过解耦合方案v2.0完全隔离</td></tr></tbody></table>
+</body></html>

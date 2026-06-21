@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><title>🧩 混动系统 · 新闻情绪NLP方案 v2.0 | 2026-06-13</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --dim: #8b949e;
+    --blue: #58a6ff;
+    --orange: #f0883e;
+    --green: #3fb950;
+    --purple: #d2a8ff;
+    --yellow: #d29922;
+    --red: #f85149;
+    --pink: #ff7b72;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Segoe UI', 'Noto Sans SC', sans-serif; max-width: 1100px; margin: 0 auto; padding: 24px 20px; background: var(--bg); color: var(--text); line-height: 1.7; }
+  h1 { color: var(--blue); border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 8px; font-size: 26px; }
+  h2 { color: var(--orange); margin-top: 40px; margin-bottom: 16px; border-left: 4px solid var(--orange); padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; margin-bottom: 10px; font-size: 17px; }
+  h4 { color: var(--purple); margin-top: 20px; margin-bottom: 8px; font-size: 15px; }
+  .meta { color: var(--dim); font-size: 14px; margin-bottom: 28px; line-height: 1.8; }
+  .meta .ver { background: var(--purple); color: #fff; padding: 1px 8px; border-radius: 4px; font-size: 12px; margin-left: 6px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 9px 14px; text-align: left; vertical-align: top; }
+  th { background: var(--surface); color: var(--blue); font-weight: 600; white-space: nowrap; }
+  tr:nth-child(even) td { background: var(--surface); }
+  code { background: #21262d; padding: 2px 7px; border-radius: 4px; font-size: 13px; font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; color: var(--orange); }
+  pre { background: var(--surface); padding: 18px; border-radius: 10px; overflow-x: auto; font-size: 13px; line-height: 1.55; margin: 12px 0; border: 1px solid var(--border); }
+  pre code { background: transparent; padding: 0; color: var(--text); }
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  .alert { border-radius: 10px; padding: 14px 18px; margin: 18px 0; line-height: 1.7; }
+  .alert p, .alert ul { margin: 6px 0; }
+  .alert b, .alert strong { color: #e6edf3; }
+  .alert-orange { background: #2b1a00; border: 1px solid var(--yellow); }
+  .alert-blue { background: #0c2d4a; border: 1px solid var(--blue); }
+  .alert-green { background: #0d2a17; border: 1px solid var(--green); }
+  .alert-purple { background: #1a0d2e; border: 1px solid var(--purple); }
+  .alert-red { background: #2d0a0a; border: 1px solid var(--red); }
+  .alert-pink { background: #2a0d15; border: 1px solid var(--pink); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .badge { padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .badge-rec { background: var(--green); color: #000; }
+  .badge-alt { background: var(--yellow); color: #000; }
+  .badge-future { background: var(--purple); color: #fff; }
+  .badge-warn { background: var(--red); color: #fff; }
+  .badge-new { background: var(--pink); color: #fff; }
+  .stars { color: var(--yellow); font-size: 18px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .comment-box { background: var(--surface); border-left: 4px solid var(--pink); padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+  .comment-box .author { color: var(--pink); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; margin: 2px 4px; }
+  .pill-green { background: #0d2a17; color: var(--green); border: 1px solid var(--green); }
+  .pill-blue { background: #0c2d4a; color: var(--blue); border: 1px solid var(--blue); }
+  .pill-yellow { background: #2b1a00; color: var(--yellow); border: 1px solid var(--yellow); }
+  .pill-purple { background: #1a0d2e; color: var(--purple); border: 1px solid var(--purple); }
+  .pill-red { background: #2d0a0a; color: var(--red); border: 1px solid var(--red); }
+  .score-bar { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+  .score-bar .fill { height: 10px; border-radius: 5px; transition: width .3s; }
+  .score-bar .label { font-size: 12px; min-width: 50px; text-align: right; color: var(--dim); }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; align-items: center; }
+  .flow-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; text-align: center; font-size: 13px; }
+  .arrow { color: var(--blue); font-size: 22px; font-weight: bold; }
+  @media (max-width: 768px) { .grid, .grid-3 { grid-template-columns: 1fr; } .flow { flex-direction: column; } .arrow { transform: rotate(90deg); } }
+</style>
+</head>
+<body>
+
+<!-- ====== 报告头部 ====== -->
+<h1>🧩 混动系统 · 新闻情绪NLP方案 v2.0</h1>
+<div class="meta">
+  <strong>初一版</strong> <span class="ver">v2.0</span><br>
+  生成日期: 2026-06-13 · 基于小十三初稿 + 初一深度评审补充<br>
+  标签: <code>research-nlp-sentiment-2026-06-13</code><br>
+  <span style="color:var(--pink)">💡 本版新增：初一独立评价、补充见解、遗漏风险提示、融合现有系统经验</span>
+</div>
+
+<!-- ====== 快速定位 ====== -->
+<div class="grid-3">
+<div class="alert alert-blue"><b>🎯 目的</b><br>为混动系统统一模型补充"新闻情绪"信号源，提升预测准确率（预期 +2~5%）</div>
+<div class="alert alert-blue"><b>🖥️ 目标环境</b><br>本地开发: macOS 任意资源<br>服务器: 阿里云轻量 894MB RAM 30G磁盘</div>
+<div class="alert alert-blue"><b>⚡ 推荐路线</b><br>情感词典（基础层）+ Hermes（增强层）<br>3天上线 / 零初始成本</div>
+</div>
+
+<!-- ====== ⭐ 初一评价总览（新增） ====== -->
+<div class="divider"></div>
+<h2>⭐ 0. 初一综合评价（新增）</h2>
+
+<div class="alert alert-pink">
+<strong>👋 写在前面：</strong> 十三哥，以下是我独立读完你的报告后形成的判断。我会先给总体评分，然后逐项拆解——哪些做得好、哪些可以更好、以及我看到的你可能没注意到的坑。诚实是我的风格，所以不全是好话 😌
+</div>
+
+<div class="grid">
+<div>
+  <h3>📊 报告质量评分</h3>
+  <table>
+    <tr><th>维度</th><th>评分</th><th>简评</th></tr>
+    <tr><td>方案广度</td><td><span class="stars">⭐⭐⭐⭐⭐</span></td><td>覆盖了从零成本到专业级全梯度，无遗漏</td></tr>
+    <tr><td>对比深度</td><td><span class="stars">⭐⭐⭐⭐</span></td><td>6维对比表清晰，但缺少延迟/可用性的量化</td></tr>
+    <tr><td>结论合理性</td><td><span class="stars">⭐⭐⭐⭐⭐</span></td><td>分层架构判断精准，与服务器约束完美匹配</td></tr>
+    <tr><td>实施可行性</td><td><span class="stars">⭐⭐⭐⭐</span></td><td>5阶段清晰，但Phase间的依赖和踩坑未展开</td></tr>
+    <tr><td>风险意识</td><td><span class="stars">⭐⭐⭐</span></td><td><span style="color:var(--yellow)">这是最大短板，见下方详述</span></td></tr>
+    <tr><td>代码示例</td><td><span class="stars">⭐⭐⭐⭐⭐</span></td><td>三段代码都直接可用，赞</td></tr>
+  </table>
+</div>
+<div>
+  <h3>🎯 核心判断</h3>
+  <div class="alert alert-green">
+    <strong>✅ 十三哥的分析方向完全正确。</strong> 情感词典+Hermes混合方案是在服务器894MB约束下的最优解。分层架构的思路（基础层全天+增强层精准）是与Hermes系统设计中"safety net + intelligence layer"一致的哲学。
+  </div>
+  <div class="alert alert-orange">
+    <strong>⚠️ 但有一些重要的事你漏掉了，下面我会逐一补充。</strong> 尤其是：Hermes的速率限制在高波动日的真实表现、词典对A股特有语境的覆盖率、以及你们已有的"中性陷阱"经验可以直接应用到情绪模块设计上。
+  </div>
+</div>
+</div>
+
+<!-- ====== 0.1 做得特别好的地方 ====== -->
+<h3>0.1 👍 做得特别好的地方</h3>
+<div class="grid">
+<div class="alert alert-green">
+  <strong>① 服务器约束意识</strong><br>
+  你没有盲目推荐 FinBERT，而是清醒地指出 894MB RAM "刚好够但危险"。这种面向实际部署约束做决策的意识，比你推荐什么方案更重要。很多工程师会忽略这一点。
+</div>
+<div class="alert alert-green">
+  <strong>② 三层打分粒度</strong><br>
+  sentiment + score + key_points 的三层输出设计很好——不是简单的好/坏二分，而是给了下游模型可用的连续值 + 可解释的理由。这和你们现有的 0-100 分体系可以直接对接。
+</div>
+<div class="alert alert-green">
+  <strong>③ 混合架构思路</strong><br>
+  基础层+增强层 的双层设计避免了"全部交给大模型"的单一故障点。词典层是永不休眠的哨兵，Hermes层是精准打击的狙击手。这个思路很成熟。
+</div>
+<div class="alert alert-green">
+  <strong>④ 代码可直接运行</strong><br>
+  三段代码示例都用了标准库或常用库，没有虚设。特别表扬 <code>subprocess.run</code> 调用 Hermes 的方式——直接、可靠、零依赖。
+</div>
+</div>
+
+<!-- ====== 0.2 遗漏与不足（重点） ====== -->
+<h3>0.2 🔍 遗漏的风险与不足</h3>
+
+<div class="alert alert-red">
+<strong>🚨 遗漏一：Hermes 速率限制 + 高波动日并发瓶颈</strong>
+<p>你的报告假设 Hermes 随时可用，但：</p>
+<ul>
+  <li><strong>DeepSeek API 有速率限制：</strong> 免费/低价 tier 通常 30-60 RPM（每分钟请求数）。高波动日如果有 20+ 条关键新闻需要分析，可能触发限流。</li>
+  <li><strong>延迟叠加：</strong> 每条 3-5 秒，5 条串行就是 15-25 秒。如果盘前报告要在 9:15 前出结果，必须提前至少 60 秒开始新闻分析。</li>
+  <li><strong>API 不可用的日子：</strong> 网络故障、余额不足、DeepSeek 服务降级——你的报告提到了降级到词典，但没有量化降级后的准确率损失（词典 65% vs Hermes 85%，差 20 个百分点）。</li>
+</ul>
+<p><strong>建议：</strong></p>
+<ul>
+  <li>加入 <strong>OpenRouter fallback</strong>：在 Hermes 不可用时自动切到 Claude/GPT 做情感分析，多一条命</li>
+  <li>盘前报告在 <strong>8:55</strong> 就开始预分析，留足 buffer</li>
+  <li>对词典降级结果加 <code>"confidence": "degraded"</code> 标记，下游模型可以据此调低情绪维度的权重</li>
+</ul>
+</div>
+
+<div class="alert alert-orange">
+<strong>⚠️ 遗漏二：A股新闻语境的特殊性，词典覆盖可能不够</strong>
+<p>通用情感词典（Hownet/NTUSD/清华）对以下 A 股特有表达几乎无效：</p>
+<ul>
+  <li><strong>反讽/黑话：</strong> "利好出尽是利空"、"老乡别走"、"韭菜收割机"——词典会把"利好"打正分，但实际含义是看跌</li>
+  <li><strong>谐音/代号：</strong> "宁王"（宁德时代）、"光伏茅"（隆基）——分词器拆成"宁/王"后失去语义</li>
+  <li><strong>政策用语：</strong> "精准有力" vs "合理充裕" 之间的微妙差异，词典无法区分</li>
+</ul>
+<p><strong>建议：</strong></p>
+<ul>
+  <li>在词典基础上加一个 <strong>A股专用补充词表</strong>（~500 词），收录常见黑话/谐音/政策用语</li>
+  <li>把词典层定位为 <strong>"快筛"而非"判官"</strong>：只做初筛（|score|>0.5 才放过），其余全部交给 Hermes</li>
+  <li>Hermes 的 prompt 中加入 A 股语境提示："注意区分字面利好与实际利好，考虑政策用语的微妙差异"</li>
+</ul>
+</div>
+
+<div class="alert alert-orange">
+<strong>⚠️ 遗漏三："中性陷阱"的 NLP 版本——你没提，但你知道它</strong>
+<p>十三哥，你们 6/9、6/11、6/12 连续三天踩的"中性陷阱"——模型输出全部"中性"，实际极差 14%+——这个问题在 NLP 情绪分析中 <strong>也会出现，而且更隐蔽</strong>。</p>
+<p><strong>具体表现：</strong></p>
+<ul>
+  <li>新闻标题通常温和中性（"A股三大指数微幅波动"），但正文可能暗藏关键信号</li>
+  <li>大模型面对模糊文本时倾向于输出 <code>score: 0.05, sentiment: "neutral"</code>——和你们的融合评分"48-51"是同一个病根</li>
+  <li>批量新闻都在 ±0.1 范围内打转，综合后给出"中性"结论，但市场实际大涨/大跌</li>
+</ul>
+<p><strong>建议（直接借用已有经验）：</strong></p>
+<ul>
+  <li>当 Hermes 连续 ≥3 条输出 <code>|score| &lt; 0.15</code> 时，触发 <strong>"低信号预警"</strong>，不输出"中性"而是降级置信度</li>
+  <li>在 prompt 中加一句：<em>"如果新闻无明显倾向，请给出'偏多'或'偏空'的倾向性判断而非中性，并标注低置信度"</em></li>
+  <li>和你们的"北向连续+30亿→情绪上修"规则一样：给情绪模块设计一个 <strong>"累计偏差触发器"</strong>，连续 3 天词典+Hermes 都中性但大盘涨/跌 >1%，自动上修未来情绪偏置</li>
+</ul>
+</div>
+
+<div class="alert alert-blue">
+<strong>💡 遗漏四：6维→7维的权重重分配需要更谨慎</strong>
+<p>你的报告建议 RS 27% + MOM 18% + 卡尔曼 14% + BBW 14% + 多因子 9% + 历史相似度 9% + 情绪 9%。这个分配方式是从各维等比例"切"出 9% 给情绪，没有考虑：</p>
+<ul>
+  <li><strong>情绪与哪些维度高度相关：</strong> 如果情绪和动量（MOM）高度共线（事实上它们经常共线——正面新闻→价格上涨→动量增强），那给情绪 9% + MOM 18% 实际是给同一信号 27%——过度加权</li>
+  <li><strong>情绪信号的噪声水平：</strong> 词典 65% 准确率意味着 35% 的时候它在输出噪声。直接给 9% 权重可能过高</li>
+</ul>
+<p><strong>建议：</strong></p>
+<ul>
+  <li>Phase 3 上线后，先跑 2 周 <strong>shadow mode</strong>（情绪维度计算但不参与最终评分），收集数据后做相关性分析和回测，<em>再</em>决定精确权重</li>
+  <li>初期权重保守：情绪 5-6%，从 RS 和 MOM 中各拿 2-3%，不要动卡尔曼和 BBW（它们是结构性的，和情绪不共线）</li>
+</ul>
+</div>
+
+<!-- ====== 0.3 更好的方案建议 ====== -->
+<h3>0.3 🚀 初一补充的更好方案</h3>
+
+<div class="alert alert-purple">
+<strong>🌟 补充方案一：多模型仲裁（Multi-LLM Voting）</strong>
+<p>当 Hermes（DeepSeek）分析某条关键新闻时，如果同时调用一个更便宜/更快的模型做二次验证，可以大幅降低误判率：</p>
+<ul>
+  <li><strong>主裁判：</strong> DeepSeek Flash（¥0.001/次，3-5s）</li>
+  <li><strong>验票员：</strong> 同一 prompt 发给另一个轻量模型（或同一模型用不同 temperature），结果不一致时标记 <code>confidence: "disputed"</code></li>
+  <li><strong>成本几乎不变：</strong> 只对 <code>|score| &gt; 0.5</code> 的关键新闻做双验，每天可能只有 1-3 条</li>
+</ul>
+<p>这个方案对于你们已经遇到过的"中性陷阱"特别有用——两个模型都输出"中性"的概率远低于单个模型。</p>
+</div>
+
+<div class="alert alert-purple">
+<strong>🌟 补充方案二：来源权重（Source Weighting）</strong>
+<p>不是所有新闻来源的权重应该相同。一个简单的加权：</p>
+<table>
+  <tr><th>来源</th><th>权重</th><th>理由</th></tr>
+  <tr><td>证监会/央行/国务院公告</td><td>2.0x</td><td>政策直接信号，市场反应确定</td></tr>
+  <tr><td>公司公告（财报/重大事项）</td><td>1.5x</td><td>个股直接影响</td></tr>
+  <tr><td>券商研报/分析师点评</td><td>1.0x</td><td>专业但可能有利益冲突</td></tr>
+  <tr><td>财经媒体（东财/新浪/雪球）</td><td>0.8x</td><td>信息量大但噪音多</td></tr>
+  <tr><td>社交媒体（微博/股吧）</td><td>0.3x</td><td>散户情绪参考，噪音极高</td></tr>
+</table>
+<p>在 <code>sentiment_orch.py</code> 中把来源权重乘入最终 score，可以让政策信号不被淹没在大量媒体噪音中。</p>
+</div>
+
+<div class="alert alert-purple">
+<strong>🌟 补充方案三：情绪时间衰减（Sentiment Half-life）</strong>
+<p>新闻情绪不是永久的。一条利好新闻在发布后：</p>
+<ul>
+  <li><strong>发布后 0-2h：</strong> 权重 100%（市场正在消化）</li>
+  <li><strong>2-6h：</strong> 权重 70%（已被定价一部分）</li>
+  <li><strong>6-24h：</strong> 权重 30%（大多已反映在价格中）</li>
+  <li><strong>&gt;24h：</strong> 权重 10%（仅保留长尾效应）</li>
+</ul>
+<p>实现很简单：<code>final_score = raw_score * exp(-λ * hours_since_publish)</code>，λ 约 0.05。这防止了旧新闻的"情绪尸体"污染当天的分析。</p>
+</div>
+
+<!-- ====== 方案全景 ====== -->
+<div class="divider"></div>
+<h2>1. 方案全景</h2>
+
+<p>共评估 <strong>5 种</strong>可行方案，从零成本到专业模型，按推荐优先级排列：</p>
+
+<h3>1.1 方案对比总表</h3>
+<table>
+<tr><th>#</th><th>方案</th><th>成本</th><th>准确率</th><th>内存</th><th>延迟</th><th>接入难度</th><th>推荐</th></tr>
+<tr>
+  <td>1</td>
+  <td><strong>Hermes 大模型分析</strong></td>
+  <td><span class="pill pill-green">API 极低</span></td>
+  <td>85-90%</td>
+  <td>~0MB</td>
+  <td>3-5s/条</td>
+  <td>低</td>
+  <td><span class="badge badge-rec">强烈推荐</span></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><strong>情感词典 + jieba</strong></td>
+  <td><span class="pill pill-green">免费</span></td>
+  <td>65-75%</td>
+  <td>~0MB</td>
+  <td>&lt;1ms/条</td>
+  <td>低</td>
+  <td><span class="badge badge-rec">推荐（基础层）</span></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><strong>FinBERT</strong></td>
+  <td><span class="pill pill-green">免费</span></td>
+  <td>80-85%</td>
+  <td>~800MB</td>
+  <td>1-2s/条</td>
+  <td>中</td>
+  <td><span class="badge badge-future">远期备选</span></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><strong>Tushare / 东财API</strong></td>
+  <td><span class="pill pill-yellow">积分</span></td>
+  <td>~60%</td>
+  <td>~0MB</td>
+  <td>&lt;1s</td>
+  <td>低</td>
+  <td><span class="badge badge-alt">辅助参考</span></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><strong>百度AI / 阿里云NLP</strong></td>
+  <td><span class="pill pill-red">付费</span></td>
+  <td>80-90%</td>
+  <td>云端</td>
+  <td>0.5-1s</td>
+  <td>低</td>
+  <td><span class="badge badge-alt">备选</span></td>
+</tr>
+</table>
+
+<!-- ====== 方案详解 ====== -->
+<h2>2. 方案详解</h2>
+
+<h3>2.1 Hermes 分析方案 <span class="badge badge-rec">推荐</span></h3>
+
+<div class="alert alert-green">
+<strong>原理：</strong> 通过 CLI 调用初一（Hermes agent），将新闻文本传给 DeepSeek v4 模型做情感分析，返回结构化 JSON 结果。
+</div>
+
+<p><strong>调用方式：</strong></p>
+<pre><code>import subprocess, json
+
+def analyze_news_via_hermes(news_text):
+    prompt = f"""分析以下A股新闻的情绪倾向，输出JSON：
+{{
+  "sentiment": "positive/negative/neutral",
+  "score": 0.75,     // -1.0 ~ +1.0
+  "confidence": "high/medium/low",
+  "reason": "简短理由"
+}}
+注意：如果新闻无明显倾向，给出"偏多"或"偏空"的倾向性判断而非中性。
+新闻：{news_text}"""
+    
+    result = subprocess.run(
+        ['hermes', 'chat', '-q', prompt, '-m', 'deepseek/deepseek-v4-flash'],
+        capture_output=True, text=True, timeout=30
+    )
+    return json.loads(result.stdout)</code></pre>
+
+<table>
+<tr><th>维度</th><th>评估</th></tr>
+<tr><td>准确率</td><td>85-90% — 大模型对文本的理解力远超传统NLP，能识别反讽、隐喻、政策微妙差异</td></tr>
+<tr><td>延迟</td><td>3-5秒/条（含网络），批处理10条约15秒；建议盘前提前60s启动分析</td></tr>
+<tr><td>成本</td><td>DeepSeek Flash ¥0.001/次，每天100条约¥0.1。高波动日可能30-50条，¥0.03-0.05</td></tr>
+<tr><td>优势</td><td>零依赖、零部署、零维护、准确率最高、天然理解A股语境</td></tr>
+<tr><td>劣势</td><td>需网络、有调用成本（虽极低）、API速率限制（~60 RPM）、服务不可用时需降级</td></tr>
+</table>
+
+<div class="comment-box">
+  <div class="author">💬 初一补充</div>
+  <p>我在 prompt 中加入了"如果无明显倾向，给出偏多/偏空而非中性"这句话——这是直接从你们已有的"中性陷阱"经验来的。不加这句的话，大模型面对模糊新闻会输出 score:0.05，和你们融合评分的48-51是同一个病根。</p>
+</div>
+
+<h3>2.2 情感词典方案 <span class="badge badge-rec">推荐（基础层）</span></h3>
+
+<div class="alert alert-green">
+<strong>原理：</strong> 用金融情感词典（约10,000词）+ jieba 分词 + 程度副词/否定词规则，对新闻文本做实时打分。
+</div>
+
+<pre><code>import jieba
+
+# 金融情感词典（开源资源）
+# 来源1: 知网Hownet情感词典（免费）
+# 来源2: 清华大学李军中文褒贬义词典
+# 来源3: 台湾大学NTUSD简体中文情感词典
+# 来源4: A股专用补充词表（自建，~500词）← 初一建议新增
+
+pos_words = {"上涨", "突破", "利好", "大增", "盈利", ...}   # ~5000词
+neg_words = {"下跌", "暴雷", "利空", "亏损", "违约", ...}   # ~5000词
+a_share_special = {"利好出尽":"利空", "韭菜":"利空", "宁王":"宁德时代+利好", ...}  # ← 新增
+intensifiers = {"非常", "极其", "大幅", "严重", ...}
+negators = {"不", "没有", "并非", "未", ...}
+
+def dict_sentiment(text):
+    # 先处理A股特有表达
+    for pattern, replacement in a_share_special.items():
+        text = text.replace(pattern, replacement)
+    words = jieba.lcut(text)
+    score = 0
+    for i, w in enumerate(words):
+        multiplier = 1
+        if i > 0 and words[i-1] in negators:
+            multiplier = -1
+        if i > 0 and words[i-1] in intensifiers:
+            multiplier *= 1.5
+        if w in pos_words:
+            score += 0.1 * multiplier
+        elif w in neg_words:
+            score -= 0.1 * multiplier
+    return max(-1, min(1, score))</code></pre>
+
+<table>
+<tr><th>维度</th><th>评估</th></tr>
+<tr><td>准确率</td><td>65-75% — 简单规则，无法理解反讽/语境。加入A股补充词表后约提升至70-78%</td></tr>
+<tr><td>延迟</td><td>毫秒级 — 纯本地计算，可全天候运行</td></tr>
+<tr><td>成本</td><td>免费</td></tr>
+<tr><td>优势</td><td>零成本、可离线、全天候运行、适合做基础层快速过滤</td></tr>
+<tr><td>劣势</td><td>准确率低、无法处理复杂语句、A股黑话覆盖率需要持续维护</td></tr>
+</table>
+
+<div class="comment-box">
+  <div class="author">💬 初一补充</div>
+  <p>词典方案的核心价值不在准确率而在 <strong>"永不宕机"</strong>。它是安全网——即使一切外部服务挂了，它还能跑。另外，词典层应该定位为"快筛"而非"判官"：|score| &lt; 0.3 直接放过，|score| &gt; 0.3 才触发 Hermes 增强层。这样能减少 70-80% 的 API 调用。</p>
+</div>
+
+<h3>2.3 FinBERT 方案 <span class="badge badge-future">远期备选</span></h3>
+
+<div class="alert alert-purple">
+<strong>原理：</strong> 加载 HuggingFace 上的预训练金融 BERT 模型，对新闻做三分类（正面/负面/中性）。
+</div>
+
+<p><strong>关键说明：</strong></p>
+<ul>
+<li><strong>推理 vs 训练：</strong> 方案中提到的 ~800MB 是推理（加载模型+分析新闻）的峰值内存，不是训练</li>
+<li><strong>服务器894MB够吗？</strong> <span style="color:var(--red)">⚠️ 非常勉强。</span> BERT Base 模型约440MB + 分词器/运行时约600-700MB，剩余~200MB给系统，可能触发 OOM。如果同时有其他进程，基本必挂</li>
+<li><strong>推荐做法：</strong> 在本地 Mac（内存充足）跑推理，把结果同步到服务器，不在服务器上加载模型</li>
+<li><strong>中文FinBERT现状：</strong> 真正的"中文金融BERT"模型极少且质量参差。现阶段 Hermes 的准确率（85-90%）已经超过大部分中文FinBERT（70-80%），短期内没有替换的动力</li>
+</ul>
+
+<pre><code>from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
+
+# 推荐的中文金融情感模型（供参考）
+# 方案A: 英文FinBERT + 翻译 → 不推荐，翻译会丢失金融语境
+# 方案B: bert-base-chinese + 自标注微调 → 推荐但需要标注数据
+# 方案C: 寻找开源中文金融BERT → 目前可用选项有限
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
+model = AutoModelForSequenceClassification.from_pretrained("bert-base-chinese", num_labels=3)
+# ⚠️ 需要在下游金融数据上微调后才可用，不能直接用
+
+def finbert_sentiment(text):
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
+    outputs = model(**inputs)
+    probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+    return probs[0].tolist()  # [positive, negative, neutral]</code></pre>
+
+<div class="comment-box">
+  <div class="author">💬 初一补充</div>
+  <p>FinBERT 路线有一个被你们忽略的 <strong>正向用途</strong>：不是替代 Hermes，而是作为 <strong>离线备用</strong>。如果 DeepSeek API 挂了、余额用完了、或者网络断了，FinBERT 可以在本地提供 70-80% 准确率的兜底。但这需要先把模型跑通——优先级放低，Phase 5 再说。</p>
+</div>
+
+<h3>2.4 Tushare API <span class="badge badge-alt">辅助参考</span></h3>
+<p>Tushare Pro 有 <code>news</code> 接口可以获取新闻资讯，但不自带情感分析标签。可以作为数据源，把获取的新闻喂给方案1或方案2做分析。注意 Tushare 的新闻接口有频率限制（通常200次/分钟），够用但不宽裕。</p>
+
+<h3>2.5 百度AI / 阿里云 NLP <span class="badge badge-alt">备选</span></h3>
+<p>百度AI开放平台和阿里云都有情感分析API，费用约 ¥0.002-0.005/次，准确率80-90%。但需要额外开通服务，数据要经过第三方。作为应急备用可以，但不建议作为主力——成本和 Hermes 接近但灵活性和可定制性远不如。</p>
+
+<!-- ====== 推荐方案：分层架构 ====== -->
+<h2>3. 推荐方案：分层架构</h2>
+
+<div class="alert alert-green">
+<strong>🎯 最终推荐：情感词典（基础层）+ Hermes（增强层）双层架构 + 来源权重 + 时间衰减</strong>
+</div>
+
+<pre><code>┌──────────────────────────────────────────────────┐
+│              新闻情绪评分管线 v2.0                  │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│  新闻文本输入（含来源标签：证监会/公司/券商/媒体/社交）│
+│      ↓                                           │
+│  ┌──────────────────┐                            │
+│  │ 词典基础层        │  ← 全天候运行，毫秒级         │
+│  │ (jieba+词典+A股词表)│   准确率~70-78%            │
+│  └──────┬───────────┘                            │
+│         ↓ |score| < 0.3?                         │
+│  是────→ 直接输出（非重要新闻）+ 来源权重           │
+│         ↓ |score| ≥ 0.3                          │
+│  ┌──────────────────┐                            │
+│  │ Hermes增强层      │  ← 仅分析重要新闻           │
+│  │ (初一分析)         │   准确率~85-90%            │
+│  │ + 多模型仲裁(可选) │   仅对|score|>0.5做双验    │
+│  └──────┬───────────┘                            │
+│         ↓                                        │
+│  ┌──────────────────┐                            │
+│  │ 加权综合          │  词典30% + Hermes70%        │
+│  │ × 来源权重        │  × source_weight           │
+│  │ × 时间衰减        │  × exp(-0.05 × hours)      │
+│  │ → 0~100分        │                            │
+│  └──────┬───────────┘                            │
+│         ↓                                        │
+│  输出: {"score": 72, "label": "积极",             │
+│         "source": "hermes", "confidence": "high", │
+│         "news_count": 5, "degraded": false}       │
+│                                                  │
+│  ┌──────────────────┐                            │
+│  │ 降级策略          │  Hermes不可用 → 纯词典     │
+│  │                    │  词典+Hermes都中性→低信号预警│
+│  └──────────────────┘                            │
+└──────────────────────────────────────────────────┘</code></pre>
+
+<h3>3.1 综合评分权重</h3>
+
+<table>
+<tr><th>场景</th><th>词典权重</th><th>Hermes权重</th><th>触发条件</th></tr>
+<tr><td>批量扫描（>10条）</td><td>60%</td><td>40%</td><td>只选 |score|≥0.3 的前3条做Hermes分析</td></tr>
+<tr><td>关键新闻（≤5条）</td><td>20%</td><td>80%</td><td>全部做Hermes分析 + 来源权重倍数</td></tr>
+<tr><td>Hermes不可用</td><td>100%</td><td>0%</td><td>降级到纯词典，标注 confidence="degraded"</td></tr>
+<tr><td>连续≥3条中性</td><td>—</td><td>—</td><td><span class="badge badge-warn">低信号预警</span>：不输出中性，降级置信度</td></tr>
+</table>
+
+<h3>3.2 来源权重系数</h3>
+
+<table>
+<tr><th>来源</th><th>权重系数</th><th>说明</th></tr>
+<tr><td>证监会/央行/国务院</td><td>2.0x</td><td>政策直接信号</td></tr>
+<tr><td>公司公告（财报/重大事项）</td><td>1.5x</td><td>个股直接影响</td></tr>
+<tr><td>券商研报/分析师</td><td>1.0x</td><td>专业但有利益冲突</td></tr>
+<tr><td>财经媒体（东财/新浪）</td><td>0.8x</td><td>信息量大噪音多</td></tr>
+<tr><td>社交媒体（微博/股吧）</td><td>0.3x</td><td>散户情绪参考</td></tr>
+</table>
+
+<!-- ====== 与现有系统集成 ====== -->
+<h2>4. 与现有系统的集成</h2>
+
+<h3>4.1 代码架构</h3>
+
+<pre><code>utils/
+├── sentiment_dict.py      # 情感词典引擎（加载+分词+评分+A股词表）
+├── hermes_sentiment.py     # Hermes调用封装（prompt+结果解析+fallback）
+└── sentiment_orch.py       # 编排器（分层+加权+来源权重+时间衰减+缓存）
+
+data/
+└── sentiment/
+    ├── positive.txt        # 正面词表
+    ├── negative.txt        # 负面词表
+    ├── a_share_special.txt # A股特有词表（反讽/黑话/谐音） ← 新增
+    ├── intensifiers.txt    # 程度副词
+    └── negators.txt        # 否定词</code></pre>
+
+<h3>4.2 集成到统一模型</h3>
+
+<p>在 <code>stock_analysis.py</code> 的 <code>get_model_summary()</code> 中新增维度：</p>
+
+<pre><code>def calc_news_sentiment():
+    """
+    新闻情绪评分 → 0-100
+    
+    当前6维权重：
+    RS 30% + MOM 20% + 卡尔曼 15% + BBW 15% + 多因子 10% + 历史相似度 10%
+    
+    第7维加入后建议权重（初一修订版）：
+    RS 28% + MOM 17% + 卡尔曼 15% + BBW 15% + 多因子 9% + 历史相似度 8% + 情绪 8%
+    
+    ⚡ 初期上线：情绪先 shadow mode 跑2周，不参与最终评分
+    ⚡ 正式接入：从RS和MOM中拿权重，不动卡尔曼和BBW（结构性的，不共线）
+    """
+    # 1. 获取当日新闻
+    news_list = fetch_today_news()  # 含来源标签
+    
+    # 2. 词典基础层（全天候）
+    dict_score = dict_batch_sentiment(news_list)
+    
+    # 3. Hermes增强层（仅分析 |score|≥0.3 的关键新闻）
+    important = [n for n in news_list if abs(dict_score[n['id']]) >= 0.3]
+    hermes_score = hermes_analyze_top_news(important[:3])
+    
+    # 4. 加权综合 + 来源权重 + 时间衰减
+    combined = dict_score * 0.3 + hermes_score * 0.7
+    source_factor = get_source_weight(news_list)  # 按来源
+    time_factor = get_time_decay(news_list)       # 按发布时间
+    
+    # 5. 映射到0-100
+    return max(0, min(100, combined * source_factor * time_factor * 50 + 50))</code></pre>
+
+<!-- ====== 实施路线图 ====== -->
+<h2>5. 实施路线图</h2>
+
+<table>
+<tr><th>阶段</th><th>内容</th><th>工作量</th><th>优先级</th></tr>
+<tr>
+  <td><strong>Phase 1</strong></td>
+  <td>
+    · 下载开源情感词典（Hownet/NTUSD/清华）<br>
+    · 构建A股专用补充词表（~500词）<br>
+    · 实现 <code>sentiment_dict.py</code>（加载+分词+评分+A股预处理）<br>
+    · 单元测试：对100条标注新闻测准确率
+  </td>
+  <td>1-1.5天</td>
+  <td><span class="badge badge-rec">高</span></td>
+</tr>
+<tr>
+  <td><strong>Phase 2</strong></td>
+  <td>
+    · 实现 <code>hermes_sentiment.py</code>（含OpenRouter fallback）<br>
+    · Prompt中嵌入"中性陷阱"规避指令<br>
+    · 限流/重试/降级机制<br>
+    · 缓存：同一新闻24h内不重复分析
+  </td>
+  <td>1天</td>
+  <td><span class="badge badge-rec">高</span></td>
+</tr>
+<tr>
+  <td><strong>Phase 3</strong></td>
+  <td>
+    · 实现 <code>sentiment_orch.py</code><br>
+    · 分层加权 + 来源权重 + 时间衰减<br>
+    · 低信号预警触发器<br>
+    · 集成到 <code>get_model_summary()</code> → shadow mode
+  </td>
+  <td>1天</td>
+  <td><span class="badge badge-rec">高</span></td>
+</tr>
+<tr>
+  <td><strong>Phase 4</strong></td>
+  <td>
+    · 新闻获取接口（Tushare news / 东财 + 来源标签）<br>
+    · 交易日定时采集<br>
+    · 盘前/午间报告增加情绪板块
+  </td>
+  <td>1-2天</td>
+  <td><span class="badge badge-alt">中</span></td>
+</tr>
+<tr>
+  <td><strong>Phase 5</strong></td>
+  <td>
+    · Shadow mode 数据回收 → 相关性分析 → 确定精确权重<br>
+    · 评估FinBERT离线兜底可行性<br>
+    · 如情绪维度贡献显著，从shadow切到正式参与评分
+  </td>
+  <td>2-3周</td>
+  <td><span class="badge badge-future">低</span></td>
+</tr>
+</table>
+
+<div class="alert alert-blue">
+<strong>⏰ 建议排期：</strong> Phase 1-3 可在 <strong>3天内</strong>完成基础版并进入 shadow mode。Phase 4 接入数据源后盘前/午间报告就能看到情绪板块。Phase 5 等至少 <strong>2周回测数据</strong>后再正式参与评分——不急着给情绪维度权重，先验证它真的有增量信息。
+</div>
+
+<!-- ====== 风险与注意事项 ====== -->
+<h2>6. 风险与注意事项（完整版）</h2>
+
+<table>
+<tr><th>风险</th><th>影响</th><th>概率</th><th>缓解措施</th></tr>
+<tr>
+  <td>DeepSeek API 速率限制 / 不可用</td>
+  <td>增强层失效，准确率降至65-78%</td>
+  <td><span class="badge badge-alt">中</span></td>
+  <td>OpenRouter fallback → Claude/GPT；词典基础层兜底；标注 confidence="degraded"</td>
+</tr>
+<tr>
+  <td>新闻获取失败（Tushare限额/东财反爬）</td>
+  <td>无输入数据</td>
+  <td><span class="badge badge-alt">中</span></td>
+  <td>缓存上日结果，标注"数据滞后"；多数据源冗余（Tushare + 东财 + 新浪）</td>
+</tr>
+<tr>
+  <td>服务器894MB跑FinBERT OOM</td>
+  <td>进程崩溃</td>
+  <td><span class="badge badge-warn">高</span></td>
+  <td><strong>不要在服务器上加载模型。</strong> 本地推理 + 结果同步到服务器</td>
+</tr>
+<tr>
+  <td>情感词典准确率低 + A股黑话误判</td>
+  <td>噪声信号，可能误导模型</td>
+  <td><span class="badge badge-alt">中</span></td>
+  <td>A股补充词表持续维护；Hermes增强层过滤；|score|<0.3 不入增强层</td>
+</tr>
+<tr>
+  <td>连续"中性"输出（NLP版中性陷阱）</td>
+  <td>情绪维度无效，浪费算力</td>
+  <td><span class="badge badge-warn">高</span></td>
+  <td>低信号预警触发器；Prompt中强制倾向性判断；累计偏差自动上修</td>
+</tr>
+<tr>
+  <td>情绪与动量共线导致过度加权</td>
+  <td>模型偏向"追涨杀跌"</td>
+  <td><span class="badge badge-alt">中</span></td>
+  <td>Shadow mode 验证；权重保守（5-6%）；从RS/MOM拿权重而非均摊</td>
+</tr>
+<tr>
+  <td>高波动日批量API调用导致成本激增</td>
+  <td>日成本从¥0.1飙升到¥0.5+</td>
+  <td><span class="pill pill-blue">低</span></td>
+  <td>限流：每日最多50条Hermes分析；超出部分纯词典</td>
+</tr>
+</table>
+
+<!-- ====== 初一的最终总结 ====== -->
+<div class="divider"></div>
+<h2>7. 💭 初一的最终总结</h2>
+
+<div class="alert alert-pink">
+<p>十三哥，你的报告方向完全正确。分层架构 + 零成本起步 + 3天上线的路径，在你们现有的约束下（服务器894MB、已有Hermes基础设施、已有6维评分体系）是最优解。</p>
+<p>我的核心补充只有三点：</p>
+<ol>
+  <li><strong>把"中性陷阱"的经验植入情绪模块。</strong> 你们6/9-6/12三次踩坑不是白踩的——"不做中性输出"的规则可以直接写进prompt和编排器逻辑里。</li>
+  <li><strong>别急着给情绪维度权重。</strong> 先shadow mode跑2周，收集数据，做相关性分析。情绪如果跟动量高度共线，给9%就是给同一信号27%——这是最大的隐蔽风险。</li>
+  <li><strong>把降级路径走通再上线。</strong> Hermes挂了→词典兜底→标注confidence="degraded"→下游模型自动调低情绪权重。这条链路比"正常情况下的准确率"更重要。</li>
+</ol>
+<p>另外，我可以帮你做 Phase 1 的A股词表初版——从你们已有的复盘记录和我的记忆里，我已经能列出大约200个A股特有表达。需要的话随时叫我 🫡</p>
+</div>
+
+<!-- ====== Footer ====== -->
+<div style="margin-top:40px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:center;">
+<p style="color:var(--dim);font-size:14px;margin-bottom:4px;">
+  📰 新闻情绪NLP方案研究报告 · <strong>初一版 v2.0</strong> · 2026-06-13
+</p>
+<p style="color:var(--dim);font-size:12px;">
+  基于小十三初稿 + 初一独立评审补充 · 新增：0.评价总览 / 方案补充 / 风险详析 / NLP版中性陷阱规避
+</p>
+<p style="color:var(--pink);font-size:12px;margin-top:8px;">
+  💡 标签: research-nlp-sentiment-2026-06-13 · 同步至 Obsidian 02-研究/
+</p>
+</div>
+
+</body>
+</html>

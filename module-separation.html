@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><title>🧩 混动系统 · 计算与模型独立性方案 v2.0 | 2026-06-13</title>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; }
+  h3 { color: #79c0ff; margin-top: 28px; }
+  h4 { color: #d2a8ff; }
+  .meta { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; }
+  tr:nth-child(even) { background: #161b22; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  .alert { background: #3d1f00; border: 1px solid #d29922; border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .alert-blue { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-green { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-purple { background: #1a0d2e; border: 1px solid #d2a8ff; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-collect { background: #1f6feb; color: #fff; }
+  .tag-anal { background: #2ea043; color: #fff; }
+  .tag-score { background: #a371f7; color: #fff; }
+  .tag-split { background: #d29922; color: #000; }
+  .tag-move { background: #f85149; color: #fff; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .flow-item { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 140px; text-align: center; }
+  .flow-item .label { font-size: 12px; color: #8b949e; }
+  .flow-item .name { font-size: 14px; font-weight: 600; color: #f0f6fc; }
+  .arrow { font-size: 24px; color: #30363d; align-self: center; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) { .grid, .flow { grid-template-columns: 1fr; flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+
+<h1>🧩 混动系统 · 计算与模型独立性方案 v2.0</h1>
+<div class="meta">
+  <span>生成日期: 2026-06-13</span> ·
+  <span>讨论: 小十三 + 初一</span> ·
+  <span>标签: architecture-module-separation-v2-2026-06-13</span>
+</div>
+
+<div class="flow">
+  <div class="flow-item"><div class="label">①</div><div class="name">数据采集</div><div class="label">data_collector.py</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">②</div><div class="name">计算分析</div><div class="label">analysis_engine.py<br><span style="font-size:11px;color:#8b949e">不可训练</span></div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">③</div><div class="name">模型评分</div><div class="label">calc_model.py<br><span style="font-size:11px;color:#8b949e">可训练</span></div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">④</div><div class="name">报告生成</div><div class="label">gen_report.py</div></div>
+  <div class="arrow">→</div>
+  <div class="flow-item"><div class="label">⑤</div><div class="name">部署上线</div><div class="label">deploy.sh</div></div>
+</div>
+
+<div class="grid">
+<div class="alert alert-blue"><b>🎯 核心原则</b><br>按<b>"可训练 vs 不可训练"</b>拆分。<br>· 数据采集：原始数据获取，无计算<br>· 计算分析：固定公式，同输入同输出<br>· 模型评分：参数可通过历史数据优化</div>
+<div class="alert alert-blue"><b>📁 文件独立</b><br>· data_collector.py（采集）<br>· analysis_engine.py（分析）<br>· calc_model.py（评分）<br>三个模块各有独立入口、独立输出、独立测试</div>
+</div>
+
+<!-- ==================== 1 ==================== -->
+<h2>1. 分类标准</h2>
+
+<h3>1.1 三层划分</h3>
+<table>
+<tr><th>层</th><th>文件</th><th>判定规则</th><th>示例</th></tr>
+<tr>
+  <td><span class="tag tag-collect">采集</span></td>
+  <td>data_collector.py</td>
+  <td>从外部API获取原始数据，落地到本地文件。不含计算逻辑</td>
+  <td>新浪行情fetch / Tushare日线 / 研究员采集 / 宏观数据</td>
+</tr>
+<tr>
+  <td><span class="tag tag-anal">分析</span></td>
+  <td>analysis_engine.py</td>
+  <td>参数取值通过经典公式或统计推断确定，同输入同输出</td>
+  <td>MA/RSI/MACD/布林/KDJ、动量/BBW/卡尔曼、RS排名</td>
+</tr>
+<tr>
+  <td><span class="tag tag-score">评分</span></td>
+  <td>calc_model.py</td>
+  <td>参数取值需通过历史数据回测确定最优值</td>
+  <td>统一模型权重、RF模型.pkl、阈值映射、评分工具</td>
+</tr>
+</table>
+
+<h3>1.2 边界案例处理</h3>
+<table>
+<tr><th>边界项</th><th>当前归属</th><th>建议</th><th>理由</th></tr>
+<tr><td>多因子6维权重</td><td>硬编码在stock_analysis.py</td><td><span class="tag tag-move">→评分</span></td><td>可通过历史回测优化</td></tr>
+<tr><td>RS分档阈值(A+/A/B/C/D)</td><td>硬编码</td><td><span class="tag tag-move">→评分</span></td><td>等级区间可被回测优化</td></tr>
+<tr><td>卡尔曼噪声协方差</td><td>代码写死</td><td><span class="tag tag-anal">留分析</span></td><td>当前没问题，未来如需调优再留接口</td></tr>
+<tr><td>RS计算窗口(5日)</td><td>硬编码</td><td><span class="tag tag-anal">留分析</span></td><td>经典参数</td></tr>
+<tr><td>ARIMA(p,d,q)拟合</td><td>未实现</td><td><span class="tag tag-anal">→分析</span></td><td>统计推断，非ML训练</td></tr>
+<tr><td>DCF估值</td><td>未实现</td><td><span class="tag tag-anal">→分析</span></td><td>纯公式，无参数可训练</td></tr>
+<tr><td>相对估值</td><td>未实现</td><td><span class="tag tag-split">拆分</span></td><td>百分位计算→分析；阈值映射→评分</td></tr>
+<tr><td>配对策略</td><td>未实现</td><td><span class="tag tag-split">拆分</span></td><td>协整检验→分析；z-score阈值→评分</td></tr>
+</table>
+
+<!-- ==================== 2 ==================== -->
+<h2>2. 模块设计</h2>
+
+<h3>2.1 数据采集 → data_collector.py（新建，~400行）</h3>
+
+<div class="alert" style="border-color:#1f6feb;">
+<b>职责：</b>从外部API采集原始数据，落地到 data/ 目录。<b>不含任何计算逻辑</b>。
+</div>
+
+<table>
+<tr><th>源</th><th>采集内容</th><th>产出文件</th><th>触发</th></tr>
+<tr><td>新浪财经</td><td>实时行情（93只持仓的close/change_pct/volume）</td><td>data/stock_history.json</td><td>09:00/12:00/15:30</td></tr>
+<tr><td>Tushare Pro</td><td>日线数据、daily_basic、涨跌停</td><td>data/stock_history.json 补充</td><td>09:00</td></tr>
+<tr><td>研究员(researcher.py)</td><td>北向资金、融资余额、PCR、资金流</td><td>data/research_cache.json</td><td>09:00（盘前）</td></tr>
+<tr><td>宏观(macro_fetch.py)</td><td>PMI/CPI/PPI/GDP/社融</td><td>data/macro_cache.json</td><td>按需</td></tr>
+<tr><td>隔夜外盘</td><td>美股/美债/美元/A50</td><td>data/overseas_cache.json</td><td>09:00（盘前）</td></tr>
+</table>
+
+<pre>
+输出: data/*.json（原始数据文件，未经任何计算加工）
+
+data/
+├── stock_history.json    ← 93只持仓K线（最新收盘价/成交量）
+├── research_cache.json   ← 北向/融资/PCR/资金流原始值
+├── macro_cache.json      ← 宏观指标原始值
+├── oversea_cache.json    ← 隔夜外盘原始值（可选）
+└── tushare_token.txt     ← API凭据（不采集）
+</pre>
+
+<h3>2.2 计算分析 → analysis_engine.py（新建，~600行）</h3>
+
+<div class="alert" style="border-color:#2ea043;">
+<b>职责：</b>读取采集层的原始数据，产出量化指标。<b>所有函数确定性计算，同输入同输出</b>。
+</div>
+
+<table>
+<tr><th>类别</th><th>函数/模块</th><th colspan="2">来源</th></tr>
+<tr><td rowspan="3">技术指标</td><td>calc_ma / calc_rsi / calc_macd / calc_bollinger / calc_kdj</td><td colspan="2">从 stock_analysis.py 搬</td></tr>
+<tr><td>get_tech_signals / calc_all_tech_signals</td><td colspan="2">搬</td></tr>
+<tr><td>calc_momentum / calc_bbw / calc_kalman_deviation</td><td colspan="2">搬</td></tr>
+<tr><td>RS+波动</td><td>calc_rs / calc_volatility_alerts / calc_combined_signals</td><td colspan="2">搬</td></tr>
+<tr><td>板块</td><td>calc_sector_rotation</td><td colspan="2">搬</td></tr>
+<tr><td>演进·统计</td><td>协整 / Hurst / 马尔可夫 / STL / PCA / K-means</td><td colspan="2">新模块</td></tr>
+<tr><td>演进·宏微观</td><td>美林时钟 / ARIMA / DCF</td><td colspan="2">新模块</td></tr>
+<tr><td>演进·原始值</td><td>估值百分位 / PCR原始值 / 融资变化率</td><td colspan="2">新模块（计算层只产出原始值）</td></tr>
+</table>
+
+<pre>
+输入: data/stock_history.json + data/research_cache.json + data/macro_cache.json
+输出: /tmp/analysis_output.json（结构化指标数据）
+
+{
+  "meta": {"version": "1.0", "trade_date": "2026-06-12", "sources": ["sina","tushare","researcher"]},
+  "benchmark": {"code": "000001", "change_pct": 1.2, "technical": {...}},
+  "stocks": {
+    "600519": {
+      "price": {"close": 1580, "change_pct": 2.1},
+      "technical": {"ma5": 1560, "rsi": 62, "macd": {...}},
+      "statistical": {"momentum": "偏强", "bbw": 0.15, "kalman_dev": -2.3},
+      "rs": {"value": 78, "rank": 12},
+      "research_raw": {"hurst": 0.62, "valuation_percentile": 85, "pcr_raw": 0.8, "margin_raw": 1.2}
+    }
+  },
+  "sectors": {...},
+  "macro": {"pmi": 50.8, "cpi": 0.3, "rotation_phase": "复苏"}
+}
+</pre>
+
+<h3>2.3 模型评分 → calc_model.py（新建，~500行）</h3>
+
+<div class="alert" style="border-color:#a371f7;">
+<b>职责：</b>读取分析层的量化指标 + 已训练好的模型文件，产出综合评分。<b>所有参数可训练优化</b>。
+</div>
+
+<table>
+<tr><th>类别</th><th>函数/模块</th><th colspan="2">来源</th></tr>
+<tr><td>评分工具</td><td>normalize_score / score_to_signal / score_to_action</td><td colspan="2">从 stock_analysis.py 搬</td></tr>
+<tr><td rowspan="3">统一模型</td><td>calc_unified_model(analysis_output)</td><td colspan="2">替代 get_model_summary（权重可训练）</td></tr>
+<tr><td>calc_multi_factor_score(analysis_output)</td><td colspan="2">搬（权重提到配置层）</td></tr>
+<tr><td>calc_historical_similarity(analysis_output)</td><td colspan="2">搬（FAISS参数可调）</td></tr>
+<tr><td>ML模型</td><td>rf_predict / ridge_predict</td><td colspan="2">搬（读取 models/*.pkl）</td></tr>
+<tr><td>演进·映射</td><td>估值百分位→评分 / PCR→情绪 / 融资→情绪</td><td colspan="2">新模块（阈值可训练）</td></tr>
+<tr><td>演进·复杂</td><td>四象限融合评分 / 自适应权重 / 配对z-score</td><td colspan="2">新模块</td></tr>
+</table>
+
+<pre>
+输入: /tmp/analysis_output.json + models/*.pkl
+输出: /tmp/scoring_output.json（结构化评分数据）
+
+{
+  "meta": {"version": "1.0", "trade_date": "...", "models_used": ["rf_v2.pkl", "ridge.pkl"]},
+  "stocks": {
+    "600519": {
+      "unified": {"score": 72, "signal": "偏多", "action": "持有",
+                  "dimensions": {"rs":85, "momentum":70, "kalman":65, "bbw":60, "multi_factor":78, "historical":68, "sentiment":72}},
+      "ml_predictions": {"rf_direction": "up", "rf_confidence": 0.72},
+      "fusion_score": 68
+    }
+  },
+  "summary": {"market_outlook": "偏多", "top_picks": [...], "risk_alerts": [...]}
+}
+</pre>
+
+<h3>2.4 兼容层</h3>
+<p>保留 <code>/tmp/stock_analysis_cache.json</code>（三模块合并输出）作为兼容层，由 data_collector + analysis_engine + calc_model 联合生成。等下游消费者全部迁移后再移除。</p>
+
+<!-- ==================== 3 ==================== -->
+<h2>3. 模块归属（完整版）</h2>
+
+<h3>3.0 已有模块归属</h3>
+<table>
+<tr><th>模块</th><th>当前文件</th><th>归属</th></tr>
+<tr><td>新浪行情采集（fetch_via_sina）</td><td><b>data_collector.py</b> ✅</td><td><span class="tag tag-collect">采集</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>Tushare数据补充</td><td><b>data_collector.py</b> ✅</td><td><span class="tag tag-collect">采集</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>研究员采集（researcher.py）</td><td><b>data_collector.py</b> ✅</td><td><span class="tag tag-collect">采集</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>宏观数据（macro_fetch.py）</td><td><b>data_collector.py</b> ✅</td><td><span class="tag tag-collect">采集</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>技术指标（MA/RSI/MACD/布林/KDJ）</td><td><b>analysis_engine.py</b> ✅</td><td><span class="tag tag-anal">分析</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>统计信号（动量/BBW/卡尔曼偏离）</td><td><b>analysis_engine.py</b> ✅</td><td><span class="tag tag-anal">分析</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>卡尔曼噪声协方差</td><td><b>analysis_engine.py</b> ✅</td><td><span class="tag tag-anal">分析</span>（留分析侧）<span class="badge-new">已独立</span></td></tr>
+<tr><td>RS计算窗口(5日)</td><td>stock_analysis.py</td><td><span class="tag tag-anal">分析</span>（经典参数）</td></tr>
+<tr><td>RS排名/波动预警/板块轮动</td><td><b>analysis_engine.py</b> ✅</td><td><span class="tag tag-anal">分析</span> <span class="badge-new">已独立</span></td></tr>
+<tr><td>RS分档阈值(A+/A/B/C/D)</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">→评分</span>（区间可优化）<span class="badge-new">已独立</span></td></tr>
+<tr><td>统一模型6维评分</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">评分</span>（权重可训练）<span class="badge-new">已独立</span></td></tr>
+<tr><td>多因子评分</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">评分</span>（权重提到配置层）<span class="badge-new">已独立</span></td></tr>
+<tr><td>随机森林预测</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">评分</span>（models/rf_*.pkl）<span class="badge-new">已独立</span></td></tr>
+<tr><td>历史相似度（FAISS）</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">评分</span>（检索参数可调）<span class="badge-new">已独立</span></td></tr>
+<tr><td>评分阈值(score_to_signal/action)</td><td><b>calc_model.py</b> ✅</td><td><span class="tag tag-score">评分</span>（阈值可调）<span class="badge-new">已独立</span></td></tr>
+</table>
+
+<h3>3.1 采集层 — 4个</h3>
+<table>
+<tr><th>时间</th><th>任务</th><th>说明</th></tr>
+<tr><td>每日</td><td><span class="tag tag-collect">采集</span> 新浪行情采集</td><td>data_collector.py 已独立 ✅</td></tr>
+<tr><td>每日</td><td><span class="tag tag-collect">采集</span> Tushare数据补充</td><td>data_collector.py 已独立 ✅</td></tr>
+<tr><td>每日</td><td><span class="tag tag-collect">采集</span> 研究员数据采集</td><td>data_collector.py 已独立 ✅</td></tr>
+<tr><td>按需</td><td><span class="tag tag-collect">采集</span> 宏观数据</td><td>data_collector.py 已独立 ✅</td></tr>
+</table>
+
+<h3>3.2 分析层（不可训练）— 15个</h3>
+<table>
+<tr><th>时间</th><th>任务</th><th>说明</th></tr>
+<tr><td>6/22</td><td><span class="tag tag-anal">分析</span> 协整配对检验</td><td>ADF/Johansen检验</td></tr>
+<tr><td>6/18</td><td><span class="tag tag-anal">分析</span> 协整第二组</td><td>长电↔华特</td></tr>
+<tr><td>6/29</td><td><span class="tag tag-anal">分析</span> Hurst指数</td><td>固定算法计算H值</td></tr>
+<tr><td>6/29</td><td><span class="tag tag-anal">分析</span> 马尔可夫链</td><td>固定转移概率计算</td></tr>
+<tr><td>6/29</td><td><span class="tag tag-anal">分析</span> STL时序分解</td><td>固定STL分解</td></tr>
+<tr><td>7/7</td><td><span class="tag tag-anal">分析</span> PCA主成分分析</td><td>固定降维算法</td></tr>
+<tr><td>7/7</td><td><span class="tag tag-anal">分析</span> K-means聚类</td><td>固定聚类算法</td></tr>
+<tr><td>7/21</td><td><span class="tag tag-anal">分析</span> 美林时钟</td><td>固定周期定位</td></tr>
+<tr><td>7/21</td><td><span class="tag tag-anal">分析</span> ARIMA/GARCH</td><td>统计推断，非ML训练</td></tr>
+<tr><td>8/18</td><td><span class="tag tag-anal">分析</span> DCF估值模型</td><td>纯公式</td></tr>
+<tr><td>—</td><td><span class="tag tag-anal">分析</span> 估值百分位计算</td><td>新模块，原始值计算</td></tr>
+<tr><td>—</td><td><span class="tag tag-anal">分析</span> PCR原始值计算</td><td>新模块</td></tr>
+<tr><td>—</td><td><span class="tag tag-anal">分析</span> 融资余额变化率</td><td>新模块</td></tr>
+</table>
+
+<h3>3.3 评分层（可训练）— 14个</h3>
+<table>
+<tr><th>时间</th><th>任务</th><th>说明</th></tr>
+<tr><td>6/25</td><td><span class="tag tag-score">评分</span> Ridge回归建模</td><td>ML模型训练</td></tr>
+<tr><td>6/25</td><td><span class="tag tag-split">拆分</span> 相对估值模型</td><td>百分位→分析；映射阈值→评分</td></tr>
+<tr><td>7/7</td><td><span class="tag tag-score">评分</span> PCR→情绪映射</td><td>恐慌/贪婪阈值可调</td></tr>
+<tr><td>7/9</td><td><span class="tag tag-score">评分</span> 融资余额→情绪</td><td>杠杆阈值可调</td></tr>
+<tr><td>7/9</td><td><span class="tag tag-score">评分</span> 主力资金流分析</td><td>资金流向阈值可调</td></tr>
+<tr><td>6/22</td><td><span class="tag tag-split">拆分</span> 配对策略上线</td><td>协整→分析；z-score阈值→评分</td></tr>
+<tr><td>7/28</td><td><span class="tag tag-score">评分</span> Fama-French五因子</td><td>因子暴露系数可训练</td></tr>
+<tr><td>7/28</td><td><span class="tag tag-score">评分</span> 时序模型整合上线</td><td>接入评分框架</td></tr>
+<tr><td>8/8</td><td><span class="tag tag-score">评分</span> 四象限融合评分</td><td>象限权重可训练</td></tr>
+<tr><td>8/25</td><td><span class="tag tag-score">评分</span> 自适应权重</td><td>动态权重训练</td></tr>
+<tr><td>每季度</td><td><span class="tag tag-score">评分</span> RF模型自动重训</td><td>模型文件更新</td></tr>
+<tr>
+  <td>—</td><td><span class="tag tag-score">评分</span> 新闻情绪·Hermes分析</td><td><b>utils/hermes_sentiment.py</b> <span class="badge-new">✅ 已独立</span></td>
+</tr>
+</table>
+
+<h3>3.4 5个精调版</h3>
+<p>Hurst精调 / 卡尔曼精调 / 马尔可夫精调 / STL精调 / ARIMA精调 → 全部分析侧参数调优</p>
+
+<h3>3.5 独立服务与运维（不属于三层）</h3>
+<table>
+<tr><th>服务</th><th>文件</th><th>说明</th></tr>
+<tr><td>数据服务</td><td>data_service.py</td><td>HTTP API，提供数据查询修改接口</td></tr>
+<tr><td>每日自检</td><td>daily_check.py</td><td>系统健康检查（凌晨1:00）</td></tr>
+<tr><td>每日备份</td><td>daily_check.py</td><td>自动打包 backup-YYYYMMDD.tar.gz</td></tr>
+<tr><td>同步脚本</td><td>push-to-server / pull-from-server</td><td>本地↔服务器数据同步</td></tr>
+</table>
+
+<!-- ==================== 4 ==================== -->
+<h2>4. 数据流+接口</h2>
+
+<pre>
+  data_collector.py（采集原始数据·不可训练）
+        ↓
+  data/stock_history.json + research_cache.json + macro_cache.json
+        ↓
+  analysis_engine.py（计算指标·不可训练）
+        ↓
+  /tmp/analysis_output.json    ← 结构化指标，schema v1.0
+        ↓
+  calc_model.py（模型评分·可训练） ← 读取 analysis_output + models/*.pkl
+        ↓
+  /tmp/scoring_output.json     ← 结构化评分，schema v1.0
+        ↓
+  gen_report.py --mode xxx     ← 读取两个 output，生成 HTML
+        ↓
+  deploy.sh → Cloudflare Pages（部署上线）
+</pre>
+
+<h3>4.1 接口契约</h3>
+<div class="alert alert-green">
+<b>先定义 schema 再动代码。</b> 三者之间的数据结构必须在拆分前定义好，确保拆分后上下游不受影响。
+</div>
+
+<pre>
+第1层接口: data/ → analysis_engine.py
+  数据文件格式: stock_history.json / research_cache.json / macro_cache.json
+  schema 版本: 当前已有，稳定
+
+第2层接口: analysis_engine.py → calc_model.py  
+  中间文件: /tmp/analysis_output.json
+  schema 版本: v1.0（需设计）
+  说明: 所有消费者不变，新增一个 analysis_output.json 作为评分模块的输入
+
+第3层接口: calc_model.py → gen_report.py
+  中间文件: /tmp/scoring_output.json
+  schema 版本: v1.0（需设计）
+  说明: 原有 /tmp/stock_analysis_cache.json 保留作为兼容层
+</pre>
+
+<!-- ==================== 5 ==================== -->
+<h2>5. 实施路线图</h2>
+<table>
+<tr><th>Phase</th><th>内容</th><th>工日</th><th>备注</th></tr>
+<tr><td><b>0</b> 定契约</td><td><span class="badge-new">✅ 已完成 6/13</span><br>schemas/analysis_output.schema.json<br>schemas/scoring_output.schema.json<br>utils/validate_schema.py<br><br><span class="badge-chg">发现:</span> rank字段类型不统一(schema期望int, 当前系统输出str)</td><td>无</td><td><b>低</b></td></tr>
+<tr><td><b>1</b> 拆采集层</td><td><span class="badge-new">✅ 已完成 6/13</span><br>scripts/data_collector.py 已创建<br>支持: sina/tushare/researcher/macro 四种模式<br>stock_analysis.py 保留兼容调用<br><br><span class="badge-chg">发现:</span> fetch_overseas()仍在gen_premarket_report.py中, 后续需移入data_collector</td><td>Phase 0</td><td><b>低</b></td></tr>
+<tr><td><b>2</b> 拆分析层</td><td><span class="badge-new">✅ v1 已完成 6/13</span><br>scripts/analysis_engine.py 已创建<br>93只股票, 38KB输出<br>输出: /tmp/analysis_output.json<br><br><span class="badge-chg">待完成:</span> 函数体逐步从stock_analysis.py搬入</td><td>Phase 1 + 0</td><td><b>低</b></td></tr>
+<tr><td><b>3</b> 拆评分层</td><td><span class="badge-new">✅ v1 已完成 6/13</span><br>scripts/calc_model.py 已创建<br>93只评分, 43KB输出<br>权重可配置: schemas/model_weights.json<br>支持: --weights 外部覆盖<br><br><span class="badge-chg">待完成:</span> 函数体逐步从stock_analysis.py搬入</td><td>Phase 2</td><td><b>低</b></td></tr>
+<tr><td><b>4</b> 演进·分析侧</td><td><span class="badge-new">进行中</span><br>✅ 新闻情绪·词典引擎 (utils/sentiment_dict.py)<br>⬜ 协整/Hurst/马尔可夫/STL/估值百分位<br>⬜ PCA/K-means/ARIMA/DCF/美林时钟<br><br><span class="badge-chg">待扩展:</span> 词典仅~70词, 需补充Hownet/NTUSD等开源词典</td><td>Phase 2</td><td><b>低</b></td></tr>
+<tr><td><b>5</b> 演进·评分侧</td><td><span class="badge-new">进行中</span><br>✅ 新闻情绪·Hermes分析 (utils/hermes_sentiment.py)<br>⬜ Hermes复盘 / 盘前预判 / PCR映射 / 融资映射<br>⬜ Ridge / Fama-French / 四象限 / 自适应权重</td><td>Phase 3</td><td><b>中</b></td></tr>
+<tr><td><b>6</b> 双向部署</td><td>服务器跑采集+分析；本地跑训练；模型文件推送管线</td><td>1天</td><td>双环境分工正式落地</td></tr>
+</table>
+
+<!-- ==================== 6 ==================== -->
+<h2>6. 双环境分工</h2>
+<table>
+<tr><th>模块</th><th>本地</th><th>服务器</th></tr>
+<tr><td>data_collector.py</td><td>✅ 开发调试</td><td>✅ 主力运行（cron 09:00/15:30）</td></tr>
+<tr><td>analysis_engine.py</td><td>✅ 开发调试</td><td>✅ 主力运行（cron 接采集后）</td></tr>
+<tr><td>calc_model.py（推理）</td><td>✅</td><td>✅（需有 .pkl）</td></tr>
+<tr><td>calc_model.py（训练）</td><td>✅ 主力</td><td>❌</td></tr>
+<tr><td>models/*.pkl</td><td>✅ 训练产出</td><td>✅ 接收推送</td></tr>
+<tr><td>演进·采集/分析侧</td><td>✅ 开发</td><td>✅ 运行</td></tr>
+<tr><td>演进·评分侧</td><td>✅ 开发+训练</td><td>✅ 推理</td></tr>
+</table>
+
+<!-- ==================== 7 ==================== -->
+<h2>7. 初一关键建议汇总</h2>
+<table>
+<tr><th>#</th><th>建议</th><th>优先级</th></tr>
+<tr><td>1</td><td><b>先定 schema 再动刀</b> — 接口契约是第一优先级</td><td>🥇</td></tr>
+<tr><td>2</td><td><b>分三层独立拆</b> — 采集→分析→评分，按依赖顺序</td><td>🥇</td></tr>
+<tr><td>3</td><td>ARIMA/DCF → 分析侧（不是评分）</td><td>🥈</td></tr>
+<tr><td>4</td><td>估值/配对 → 拆分（分析+评分两层）</td><td>🥈</td></tr>
+<tr><td>5</td><td>多因子权重提到可训练配置层</td><td>🥈</td></tr>
+<tr><td>6</td><td>RS分档阈值→评分侧</td><td>🥈</td></tr>
+<tr><td>7</td><td>保留 stock_analysis_cache.json 兼容层</td><td>🥉</td></tr>
+<tr><td>8</td><td>每 Phase 完成后用 validate_schema.py 校验输出</td><td>🥉</td></tr>
+</table>
+
+<div style="margin-top:40px;padding:16px;background:#161b22;border-radius:8px;text-align:center;">
+<p style="color:#8b949e;font-size:13px;">
+  🧩 混动系统 · 计算与模型独立性方案 v2 | 生成日期: 2026-06-13
+</p>
+<p style="color:#8b949e;font-size:12px;">
+  讨论: 小十三 + 初一 | 标签: architecture-module-separation-v2-2026-06-13
+</p>
+</div>
+
+</body>
+</html>

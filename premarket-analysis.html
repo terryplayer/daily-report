@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><title>🧩 混动系统 · 盘前标准版改造分析 v1.1 | 2026-06-13</title>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; }
+  h3 { color: #79c0ff; margin-top: 24px; }
+  .meta { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; }
+  th { background: #161b22; color: #58a6ff; }
+  tr:nth-child(even) { background: #161b22; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-done { background: #3fb950; color: #000; }
+  .tag-partial { background: #d29922; color: #000; }
+  .tag-miss { background: #f85149; color: #fff; }
+  .tag-plan { background: #a371f7; color: #fff; }
+  .flow { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; align-items: center; }
+  .flow-item { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 10px 14px; text-align: center; flex: 1; min-width: 120px; }
+  .flow-item .name { font-size: 13px; font-weight: 600; }
+  .flow-item .label { font-size: 11px; color: #8b949e; }
+  .arr { font-size: 20px; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width:768px){ .grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<h1>🧩 混动系统 · 盘前标准版改造分析 v1.1</h1>
+<div class="meta">
+  <span>生成日期: 2026-06-13</span> · <span>讨论: 小十三 + 初一</span> ·
+  <span>参考报告: premarket-2026-06-12.html（旧）/ 盘前标准版_新_v5.html（新）</span>
+</div>
+
+<h2>1. 总体数据流对比</h2>
+
+<h3>1.1 旧流程（当前生产环境）</h3>
+<div class="flow">
+  <div class="flow-item"><div class="name">stock_analysis.py</div><div class="label">--json 输出</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">旧缓存</div><div class="label">191KB, 15+字段<br>rs_ranking/multi_factor/tech...</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">gen_premarket_report.py</div><div class="label">501行, 读取缓存+生成HTML</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">盘前报告</div><div class="label">37KB, 295行<br>7个section, 完整表格</div></div>
+</div>
+
+<h3>1.2 新流程（改造中）</h3>
+<div class="flow">
+  <div class="flow-item"><div class="name">analysis_engine.py<br>+ calc_model.py</div><div class="label">新流程引擎</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">新缓存</div><div class="label">analysis_output(38KB)<br>+ scoring_output(43KB)</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">gen_report_new.py</div><div class="label">v5, 注入式模板渲染</div></div>
+  <div class="arr">→</div>
+  <div class="flow-item"><div class="name">盘前报告</div><div class="label">18KB, 231行<br>6个section, 部分数据</div></div>
+</div>
+
+<p><b>核心差异：</b>旧脚本501行，自己计算支撑压力/事件生成/评分汇总；新脚本目标是只做渲染，计算逻辑放在上游 analysis_engine 和 calc_model 中。</p>
+
+<h2>2. Section逐模块分析</h2>
+
+<h3>2.1 🌍 隔夜外围市场</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>research_cache.json → overnight_markets / north_bound / margin</td><td>analysis_output.json → research_raw.overnight_markets / north_bound</td></tr>
+<tr><td><b>展示内容</b></td><td>4行完整表格：道琼斯/纳斯达克/北向资金/融资买入，每行含涨跌幅颜色+对A股影响</td><td>3行表格：道琼斯/纳斯达克/北向资金 ✅，格式已匹配</td></tr>
+<tr><td><b>数据缺失</b></td><td>—</td><td>缺融资买入数据（research_raw缺margin字段）</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">analysis_engine.py 的 research_raw 补充 margin 字段（从 research_cache.json.margin 读取）</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-partial">基本完成，缺融资买入</span></td></tr>
+</table>
+
+<h3>2.2 📊 A股大盘预判</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>stock_history.json → benchmark（收盘价）<br>stock_analysis.py → 支撑压力位计算<br>get_model_summary() → 统一模型概率</td><td>analysis_output.json → benchmark（已回溯）<br>scoring_output.json → market_outlook</td></tr>
+<tr><td><b>展示内容</b></td><td>4指数×5列表格：上证/深证/创业板/科创50，每列含压力位/支撑位/趋势/模型概率</td><td>1指数×3列：仅上证指数收盘价/涨跌幅/趋势</td></tr>
+<tr><td><b>数据缺失</b></td><td>—</td><td>❌ 仅上证指数，缺深证/创业板/科创50<br>❌ 缺压力位/支撑位计算<br>❌ 缺模型概率</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">analysis_engine.py 计算基准指数压力位/支撑位（基于MA均线或卡尔曼值）<br>scoring_output.summary 补充 market_prob 字段（模型概率）</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-miss">严重缺失</span></td></tr>
+</table>
+
+<h3>2.3 📅 今日关注</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>north_bound（北向资金）→ 生成资金事件<br>sector_momentum（板块）→ 生成行业事件<br>volatility_alerts（波动异动）→ 生成异动事件</td><td>scoring_output.json → summary.top_picks</td></tr>
+<tr><td><b>展示内容</b></td><td>4条事件（资金/行业/异动×2），每条含影响板块和个股</td><td>仅3只评分最高股票代码和评分，无分类无事件描述</td></tr>
+<tr><td><b>缺失</b></td><td>—</td><td>❌ 缺事件生成逻辑<br>❌ 缺波动异动检测</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">gen_report_new.py 根据 analysis_output 中的 research_raw/north_bound、板块动量、波动预警生成今日关注事件</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-miss">严重缺失</span></td></tr>
+</table>
+
+<h3>2.4 🧭 板块提示与行业轮动</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>multi_factor_scores（6维评分）→ 综合/RS/动量/MRD/多因子/轮动<br>sector_ranking → 板块排名<br>WATCHLIST_FULL → 持仓</td><td>scoring_output.stocks → 各股票评分的板块均值</td></tr>
+<tr><td><b>展示内容</b></td><td>7列完整评分表：综合/RS/动量/MRD/多因子/轮动/配置建议 + 强势个股列表</td><td>仅板块平均评分，无维度分解、无配置建议、无强势个股</td></tr>
+<tr><td><b>缺失</b></td><td>—</td><td>❌ 缺6维评分分解<br>❌ 缺配置建议（增配/标配/低配）<br>❌ 缺强势个股列表</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">analysis_engine.py 输出板块维度的技术指标均值；calc_model.py 输出按板块汇总的各维度评分+配置建议</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-miss">严重缺失</span></td></tr>
+</table>
+
+<h3>2.5 ⚠️ 行业联动预警</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>sector_correlation.json → 板块联动系数<br>高联动板块中的异常波动</td><td>❌ 完全无数据</td></tr>
+<tr><td><b>展示内容</b></td><td>高联动板块预警（如有触发）</td><td>❌ 无此section</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-partial">旧版有，但仅在大盘异常时触发</span></td><td><span class="tag-plan">归入演进路线图</span></td></tr>
+</table>
+
+<h3>2.6 📋 持仓股票盘前观察</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>rs_ranking / multi_factor_scores / tech_signals / stock_momentum 等全部缓存字段</td><td>analysis_output.stocks（价格/统计/RS）+ scoring_output.stocks（评分/信号）</td></tr>
+<tr><td><b>展示内容</b></td><td>按板块分组 + 8列表格：名称/代码/评级/MOM/现价/压力位/支撑位/操作建议，每只股票含🔥推荐标记</td><td>按板块分组 + 6列表格：名称/代码/评级/评分/现价/操作建议 ✅，格式已匹配（缺压力/支撑/🔥标记）</td></tr>
+<tr><td><b>缺失</b></td><td>—</td><td>❌ 缺压力位/支撑位计算（卡尔曼滤波）<br>❌ 缺🔥推荐标记<br>❌ 缺个性化操作建议文字</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">利用 analysis_engine 已有的 calc_kalman_deviation 输出支撑压力位；scoring 根据分数生成🔥标记</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-partial">基础版已可用，缺支撑压力</span></td></tr>
+</table>
+
+<h3>2.7 ⚔️ 操作策略</h3>
+<table>
+<tr><th>维度</th><th>旧流程</th><th>新流程</th></tr>
+<tr><td><b>数据源</b></td><td>multi_factor_scores.sector_summary → 各板块评分<br>sector_rotation → 轮动定位<br>north_bound → 北向方向</td><td>scoring.summary.market_outlook → 市场展望</td></tr>
+<tr><td><b>展示内容</b></td><td>4维度表格（市场情绪/↑超配/—标配/↓低配）+ 情绪指数 + 具体说明</td><td>4维度表格 ✅ 格式已匹配</td></tr>
+<tr><td><b>缺失</b></td><td>—</td><td>配置建议基于market_outlook静态模板，未根据板块评分动态调整</td></tr>
+<tr><td><b>修复方案</b></td><td colspan="2">根据 scoring_output.stocks 的板块均值排序动态生成超配/标配/低配</td></tr>
+<tr><td><b>状态</b></td><td><span class="tag-done">旧流程完成</span></td><td><span class="tag-partial">格式已匹配，内容待动态化</span></td></tr>
+</table>
+
+<h2>3. 演进任务关联</h2>
+<table>
+<tr><th>演进任务</th><th>关联section</th><th>旧流程状态</th><th>新流程规划</th></tr>
+<tr><td>卡尔曼滤波（Phase 1 ✅）</td><td>📋 持仓→支撑/压力位</td><td>已实现（旧脚本中直接调用）</td><td>analysis_engine.py 已含calc_kalman_deviation，但未输出到analysis_output.json</td></tr>
+<tr><td>情绪新闻NLP</td><td>📅 今日关注→新闻情绪</td><td>未接入</td><td>utils/sentiment_dict.py已创建，等待接入</td></tr>
+<tr><td>行业联动分析</td><td>⚠️ 联动预警</td><td>已实现（calc_sector_linkage.py）</td><td>演进路线图中</td></tr>
+<tr><td>四象限评分</td><td>🧭 板块轮动</td><td>未接入</td><td>演进计划（8/8）</td></tr>
+<tr><td>配对策略</td><td>📅 今日关注→配对信号</td><td>未接入</td><td>演进计划（6/22）</td></tr>
+<tr><td>Ridge/RF模型</td><td>📊 大盘预判→模型概率</td><td>RF已接入</td><td>calc_model已含，路径就绪</td></tr>
+</table>
+
+<h2>4. 数据/分析/模型调用总表</h2>
+<table>
+<tr><th>Section</th><th>调用的数据</th><th>调用的分析</th><th>调用的模型</th><th>新流程状态</th></tr>
+<tr><td>🌍 外盘</td><td>research_cache</td><td>格式化输出</td><td>—</td><td><span class="tag-partial">缺margin</span></td></tr>
+<tr><td>📊 大盘</td><td>benchmark + 支撑压力</td><td>趋势判断+概率</td><td>统一模型6维评分</td><td><span class="tag-miss">缺支撑压力+多指数</span></td></tr>
+<tr><td>📅 关注</td><td>北向+板块+波动</td><td>事件生成+异常检测</td><td>—</td><td><span class="tag-miss">严重缺失</span></td></tr>
+<tr><td>🧭 板块</td><td>多因子评分+板块排名</td><td>板块评分汇总+维度分解</td><td>统一模型评分</td><td><span class="tag-miss">缺维度分解+配置</span></td></tr>
+<tr><td>⚠️ 联动</td><td>sector_correlation</td><td>联动系数计算</td><td>—</td><td><span class="tag-plan">演进待定</span></td></tr>
+<tr><td>📋 持仓</td><td>全部缓存字段</td><td>按板块分组+评级</td><td>卡尔曼支撑压力+RF</td><td><span class="tag-partial">缺支撑压力位</span></td></tr>
+<tr><td>⚔️ 策略</td><td>评分+轮动+北向</td><td>汇总+推荐</td><td>—</td><td><span class="tag-partial">内容待动态化</span></td></tr>
+</table>
+
+<h2>5. 改造优先级</h2>
+<table>
+<tr><th>优先级</th><th>Section</th><th>改动量</th><th>数据完备性</th><th>说明</th></tr>
+<tr><td>🥇</td><td>🧭 板块轮动</td><td>小</td><td>🟡 部分</td><td>analysis_engine补充板块指标，calc_model补充维度分解</td></tr>
+<tr><td>🥇</td><td>📋 持仓</td><td>中</td><td>🟢 数据齐</td><td>gen_report_new补充支撑压力位显示</td></tr>
+<tr><td>🥈</td><td>📊 大盘预判</td><td>中</td><td>🔴 缺支撑压力</td><td>analysis_engine补充多种指数支撑压力位计算</td></tr>
+<tr><td>🥈</td><td>📅 今日关注</td><td>大</td><td>🔴 缺事件逻辑</td><td>gen_report_new中实现事件生成规则</td></tr>
+<tr><td>🥉</td><td>🌍 外盘</td><td>小</td><td>🟢 基本齐</td><td>补充margin字段到research_raw</td></tr>
+<tr><td>🥉</td><td>⚔️ 策略</td><td>小</td><td>🟡 部分</td><td>根据板块评分动态生成配置建议</td></tr>
+<tr><td>📋</td><td>⚠️ 联动预警</td><td>—</td><td>🔴 演进任务</td><td>归入演进路线图</td></tr>
+</table>
+
+<h2>6. 初一补充：遗漏的5个分析维度</h2>
+<table>
+<tr><th>维度</th><th>说明</th><th>建议</th></tr>
+<tr><td>过渡期数据校验</td><td>新旧流水线并行时同只股票评分分歧</td><td>加validate_consistency(old,new)跑diff</td></tr>
+<tr><td>回退策略</td><td>新流程analysis_engine挂了怎么办</td><td>gen_report_new内置fallback：新缓存不可用时降级到旧缓存+告警</td></tr>
+<tr><td>架构承受力</td><td>gen_report_new持续膨胀到800+行</td><td>加report_data_builder.py中间层，统一schema，gen_report_new只做渲染</td></tr>
+<tr><td>中性陷阱修正</td><td>北向+40亿等硬修正规则是否已写入calc_model</td><td>确认calc_model是否继承旧脚本的中性陷阱修正逻辑</td></tr>
+<tr><td>字段映射表</td><td>旧字段→新字段的精确JSON路径</td><td>补一张完整的字段映射表</td></tr>
+</table>
+
+<h2>7. 实施路线图（基于初一建议调整）</h2>
+<table>
+<tr><th>Phase</th><th>内容</th><th>前置</th></tr>
+<tr><td><b>0</b> 框架加固</td><td>report_data_builder.py + 回退策略 + 校验逻辑</td><td>—</td></tr>
+<tr><td><b>1</b> 大盘+板块(🥇)</td><td>analysis_engine补充多指数+卡尔曼支撑压力；calc_model输出板块维度分解</td><td>Phase 0</td></tr>
+<tr><td><b>2</b> 持仓支撑压力(🥇)</td><td>gen_report_new支持8列+压力支撑+操作建议文字</td><td>Phase 0</td></tr>
+<tr><td><b>3</b> 今日关注(🥈)</td><td>MVP三条事件规则</td><td>Phase 1</td></tr>
+<tr><td><b>4</b> 收尾(🥉)</td><td>外盘融资+策略动态化+字段映射表</td><td>Phase 2</td></tr>
+<tr><td><b>5</b> 演进</td><td>联动预警+四象限+配对策略</td><td>—</td></tr>
+</table>
+
+<h2>8. 总结</h2>
+<div class="grid">
+<div>
+<p><b>✅ 新流程已覆盖：</b></p>
+<ul>
+<li>核心评分数据（93只股票评分/信号/action）</li>
+<li>外盘数据的基本展示（道琼斯/纳斯达克/北向资金）</li>
+<li>持仓表格（按板块分组、含6列）</li>
+<li>市场展望（看多/看空/中性）</li>
+<li>操作策略格式（4维度表格+情绪指数）</li>
+<li>基准指数数据（通过回溯获取）</li>
+<li>数据流合规：research → analysis_engine → analysis_output → gen_report_new</li>
+</ul>
+</div>
+<div>
+<p><b>❌ 新流程缺失：</b></p>
+<ul>
+<li>大盘支撑压力位+多指数（上证/深证/创业板/科创50）</li>
+<li>今日关注事件生成（资金/行业/异动）</li>
+<li>板块6维评分分解（综合/RS/动量/MRD/多因子/轮动）</li>
+<li>波动异动检测</li>
+<li>融资买入数据</li>
+<li>持仓支撑压力位+🔥推荐标记</li>
+<li>策略动态化配置建议</li>
+<li>行业联动预警</li>
+</ul>
+</div>
+</div>
+
+<div style="margin-top:40px;padding:16px;background:#161b22;border-radius:8px;text-align:center;">
+<p style="color:#8b949e;font-size:13px;">🧩 混动系统 · 盘前标准版改造分析 v1.1 | 2026-06-13</p>
+</div>
+
+</body>
+</html>

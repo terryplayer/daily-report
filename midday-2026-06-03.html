@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌤 午间监测 | 2026.06.03 周三</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #58a6ff; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
+.footer { text-align: center; color: #8b949e; font-size: 12px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.stock-card { padding: 10px 12px; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; }
+.stock-name { font-size: 14px; font-weight: 600; }
+.stock-code { color: #8b949e; font-size: 11px; }
+.stock-price { font-size: 16px; font-weight: 700; margin: 4px 0; }
+.stock-detail { color: #8b949e; font-size: 12px; margin-top: 2px; }
+.sector-title { font-size: 14px; font-weight: 600; color: #58a6ff; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+.badge { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
+.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
+.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
+.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+.signal { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px 2px 0 0; }
+.signal-add { background: rgba(248,81,73,0.18); color: #f85149; }
+.signal-hold { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.signal-cut { background: rgba(63,185,80,0.15); color: #3fb950; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.metric-card { background: #0d1117; border: 1px solid #21262d; border-radius: 6px; padding: 10px; text-align: center; }
+.metric-val { font-size: 1.2em; font-weight: 700; }
+.metric-label { font-size: 0.8em; color: #8b949e; margin-top: 2px; }
+.alert-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.alert-item:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>🌤 午间监测 | 2026.06.03 周三</h1>
+<div class="date">数据截至 11:30 上午收盘 | 实时行情 API</div>
+</div>
+
+<!-- 上午盘面 -->
+<div class="section">
+<h2>📊 上午盘面回顾</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-val" style="color:#f85149;">4097.94</div><div class="metric-label" style="color:#f85149;">上证指数 +0.56%</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149;">15951.08</div><div class="metric-label" style="color:#f85149;">深证成指 +2.31%</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149;">9530.30</div><div class="metric-label" style="color:#f85149;">中小100 +1.53%</div></div>
+<div class="metric-card"><div class="metric-val" style="color:#f85149;">4216.74</div><div class="metric-label" style="color:#f85149;">创业板指 <strong>+3.97%</strong></div></div>
+</div>
+<div style="font-size:13px;margin-top:10px;color:#8b949e;">
+  上午三大指数全线大涨！创业板指飙升+3.97%领涨，深证成指+2.31%。通信/电子、半导体板块强势爆发，市场一扫昨日阴霾。个股涨多跌少，科技股全线回暖。上证盘中最低探至4059.91后强势拉升至4101.64后小幅回落。
+</div>
+</div>
+
+<!-- 异动提醒 -->
+<div class="section">
+<h2>⚡ 午间异动提醒（涨跌幅≥5%）</h2>
+<div class="alert-item"><span class="up">🔴 天孚通信 +14.56%</span> — 通信/电子 · 强势领涨，光模块龙头爆发，关注午后延续性</div>
+<div class="alert-item"><span class="up">🔴 飞凯材料 +12.13%</span> — 化工/材料 · 板块核心标的强势放量上攻</div>
+<div class="alert-item"><span class="up">🔴 蓝思科技 +11.86%</span> — 通信/电子 · 大幅放量拉升，突破前高</div>
+<div class="alert-item"><span class="up">🔴 帝奥微 +11.34%</span> — 科技/半导体 · 半导体板块强势领军</div>
+<div class="alert-item"><span class="up">🔴 澜起科技 +10.97%</span> — 科技/半导体 · 芯片龙头大涨突破</div>
+<div class="alert-item"><span class="up">🔴 长电科技 +10.01%</span> — 科技/半导体 · 涨停！封测龙头强势封板</div>
+<div class="alert-item"><span class="up">🔴 珂玛科技 +9.70%</span> — 通信/电子 · 延续昨日强势继续上攻</div>
+<div class="alert-item"><span class="up">🔴 新易盛 +8.94%</span> — 通信/电子 · 光模块三杰齐涨</div>
+<div class="alert-item"><span class="up">🔴 东山精密 +8.49%</span> — 通信/电子 · 昨日涨停后今日续强</div>
+<div class="alert-item"><span class="up">🔴 兆驰股份 +8.35%</span> — 通信/电子 · 放量大涨，板块轮动走强</div>
+<div class="alert-item"><span class="up">🔴 华特气体 +7.97%</span> — 科技/半导体 · 大幅反弹，昨日跌-4.96%今涨+7.97%</div>
+<div class="alert-item"><span class="up">🔴 中恒电气 +7.65%</span> — 能源/公用事业 · 强势突破</div>
+<div class="alert-item"><span class="up">🔴 隆扬电子 +6.95%</span> — 科技/半导体 · 小幅回调后强势反弹</div>
+<div class="alert-item"><span class="up">🔴 铜冠铜箔 +6.20%</span> — 化工/材料 · 锂电材料回暖</div>
+<div class="alert-item"><span class="up">🔴 江海股份 +6.40%</span> — 通信/电子 · 延续昨日涨停强势</div>
+<div class="alert-item"><span class="up">🔴 *ST利源 +5.33%</span> — 其他 · ST股涨停</div>
+<div class="alert-item"><span class="up">🔴 长川科技 +5.20%</span> — 科技/半导体 · 半导体板块集体走强</div>
+<div class="alert-item"><span class="up">🔴 富瀚微 +4.47%</span> — 科技/半导体 · 跟随板块大涨</div>
+<div class="alert-item" style="border-bottom: 1px solid #30363d;"></div>
+<div class="alert-item"><span class="down">🟢 圣阳股份 -8.57%</span> — 化工/材料 · 大幅回调，注意风险</div>
+<div class="alert-item"><span class="down">🟢 长海股份 -5.83%</span> — 化工/材料 · 弱势下行，与大盘背离</div>
+<div class="alert-item"><span class="down">🟢 亿田智能 -3.92%</span> — 其他 · 弱势回调</div>
+<div class="alert-item"><span class="down">🟢 上海建工 -2.33%</span> — 其他 · 与大盘走势背离</div>
+<div class="alert-item"><span class="down">🟢 宏桥控股 -2.19%</span> — 化工/材料 · 弱势调整</div>
+</div>
+
+<!-- 持仓股票午间表现 -->
+<div class="section">
+<h2>📋 持仓股票午间表现</h2>
+<div style="font-size:0.85em;color:#666;margin-bottom:12px;">
+  盘前预判 vs 午间实际 · 🟢绿跌 🔴红涨 | 加减仓信号参考
+</div>
+
+<div class="sector-title">💻 科技/半导体</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">帝奥微</span> <span class="stock-code">688381</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">43.90</span> <span style="font-size:12px;font-weight:400;" class="up">+11.34%</span></div>
+<div class="stock-detail">盘前预判: 🔴 偏强持有<br><span class="signal signal-add">▲ 加仓</span> 强势放量突破，趋势确认<br>实际: 半导体领军标的，放量突破前高</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">澜起科技</span> <span class="stock-code">688008</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">263.01</span> <span style="font-size:12px;font-weight:400;" class="up">+10.97%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-add">▲ 加仓</span> 芯片龙头突破前高<br>实际: 放量大涨，午后关注持续力度</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长电科技</span> <span class="stock-code">600584</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">82.89</span> <span style="font-size:12px;font-weight:400;" class="up">+10.01%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-add">▲ 加仓</span> 涨停！封测龙头强势封板<br>实际: 放量涨停，封单强劲</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华特气体</span> <span class="stock-code">688268</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">158.60</span> <span style="font-size:12px;font-weight:400;" class="up">+7.97%</span></div>
+<div class="stock-detail">盘前预判: 🟢 偏弱关注<br><span class="signal signal-hold">➡ 持有</span> 强势反弹收复失地<br>实际: 昨日跌-4.96%后强势反弹+7.97%，V形反转</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">隆扬电子</span> <span class="stock-code">301389</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">87.70</span> <span style="font-size:12px;font-weight:400;" class="up">+6.95%</span></div>
+<div class="stock-detail">盘前预判: 🔴🔴 强势持有 · 贴近压力<br><span class="signal signal-hold">➡ 持有</span> 强势反弹，关注能否突破前高<br>实际: 昨日回调-1.82%后今日强势反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长川科技</span> <span class="stock-code">300604</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">218.41</span> <span style="font-size:12px;font-weight:400;" class="up">+5.20%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-hold">➡ 持有</span> 跟随板块走强<br>实际: 放量上攻，趋势转强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">富瀚微</span> <span class="stock-code">300613</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">60.99</span> <span style="font-size:12px;font-weight:400;" class="up">+4.47%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 跟随板块走强<br>实际: 温和放量，趋势向好</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">领益智造</span> <span class="stock-code">002600</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">15.29</span> <span style="font-size:12px;font-weight:400;" class="up">+4.23%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-hold">➡ 持有</span> 昨日-8.34%后今日反弹+4.23%<br>实际: 大幅反弹但未收复昨日失地</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">龙腾光电</span> <span class="stock-code">688055</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">5.08</span> <span style="font-size:12px;font-weight:400;" class="up">+4.10%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 放量上攻，趋势转好</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">中巨芯-U</span> <span class="stock-code">688549</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">14.65</span> <span style="font-size:12px;font-weight:400;" class="up">+3.68%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-hold">➡ 持有</span> 昨日-5.03%后反弹+3.68%<br>实际: 反弹但波动依然较大</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">协创数据</span> <span class="stock-code">300857</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">246.44</span> <span style="font-size:12px;font-weight:400;" class="up">+4.63%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和放量走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">电科蓝天（中科曙光）</span> <span class="stock-code">603019</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">88.14</span> <span style="font-size:12px;font-weight:400;" class="up">+2.46%</span></div>
+<div class="stock-detail">盘前预判: 🟢 偏弱关注<br><span class="signal signal-hold">➡ 持有</span> 小幅走强，关注午后89附近阻力<br>实际: 温和上涨，趋势改善</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">利通电子</span> <span class="stock-code">603629</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">199.14</span> <span style="font-size:12px;font-weight:400;" class="up">+1.91%</span></div>
+<div class="stock-detail">盘前预判: 🔴🔴 强势持有 · 压力遇阻<br><span class="signal signal-hold">➡ 持有</span> 昨日-9.81%大幅回调后小幅反弹+1.91%<br>实际: 反弹力度不足，压力仍在</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">欧莱新材</span> <span class="stock-code">688530</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">49.18</span> <span style="font-size:12px;font-weight:400;" class="up">+1.17%</span></div>
+<div class="stock-detail">盘前预判: 🔴 偏强持有<br><span class="signal signal-hold">➡ 持有</span> 小幅反弹，趋势温和<br>实际: 昨日-2.67%后今日小幅反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">宏景科技</span> <span class="stock-code">301396</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span class="up">174.87</span> <span style="font-size:12px;font-weight:400;" class="up">+0.83%</span></div>
+<div class="stock-detail">盘前预判: 🟢🟢 弱势减仓<br><span class="signal signal-hold">➡ 持有</span> 小幅反弹但弱势未改<br>实际: 反弹力度不足，谨慎</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">瑞华泰</span> <span class="stock-code">688323</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span class="up">30.69</span> <span style="font-size:12px;font-weight:400;" class="up">+1.66%</span></div>
+<div class="stock-detail">盘前预判: 🟢🟢 弱势减仓<br><span class="signal signal-cut">▼ 减仓</span> 虽反弹但弱势未改<br>实际: 昨日-8.21%后小幅反弹+1.66%，反弹乏力</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">软通动力</span> <span class="stock-code">301236</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">42.58</span> <span style="font-size:12px;font-weight:400;" class="up">+0.42%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 跟随板块小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">方邦股份</span> <span class="stock-code">688020</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">144.51</span> <span style="font-size:12px;font-weight:400;" class="up">+0.91%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">岩山科技</span> <span class="stock-code">002195</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">7.64</span> <span style="font-size:12px;font-weight:400;" class="down">-0.13%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 横盘震荡</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">拓维信息</span> <span class="stock-code">002261</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">30.25</span> <span style="font-size:12px;font-weight:400;" class="up">+0.70%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+</div>
+
+<div class="sector-title">📡 通信/电子</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">天孚通信</span> <span class="stock-code">300394</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">523.56</span> <span style="font-size:12px;font-weight:400;" class="up">+14.56%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 光模块龙头爆发领涨全场<br>实际: 放量突破520关口</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝思科技</span> <span class="stock-code">300433</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">46.12</span> <span style="font-size:12px;font-weight:400;" class="up">+11.86%</span></div>
+<div class="stock-detail">盘前预判: 🔴 偏强持有<br><span class="signal signal-add">▲ 加仓</span> 放量突破，强势拉升<br>实际: 昨日-3.36%后今日暴涨+11.86%</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">珂玛科技</span> <span class="stock-code">301611</span> <span class="tag tag-d">D</span></div>
+<div class="stock-price"><span class="up">97.93</span> <span style="font-size:12px;font-weight:400;" class="up">+9.70%</span></div>
+<div class="stock-detail">盘前预判: 🟢🟢 弱势减仓<br><span class="signal signal-hold">➡ 持有</span> 强势反转！昨日-4.83%后今日暴涨+9.70%<br>实际: V形反转，关注午后延续性</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">新易盛</span> <span class="stock-code">300502</span> <span class="tag tag-aplus">A+</span></div>
+<div class="stock-price"><span class="up">813.80</span> <span style="font-size:12px;font-weight:400;" class="up">+8.94%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 光模块龙头突破800关口<br>实际: 放量上攻，趋势强劲</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">东山精密</span> <span class="stock-code">002384</span> <span class="tag tag-a">A</span></div>
+<div class="stock-price"><span class="up">228.84</span> <span style="font-size:12px;font-weight:400;" class="up">+8.49%</span></div>
+<div class="stock-detail">盘前预判: 🔴 偏强持有<br><span class="signal signal-add">▲ 加仓</span> 昨日涨停后今日续强+8.49%<br>实际: 强势延续，关注午后封板</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">兆驰股份</span> <span class="stock-code">002429</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">12.72</span> <span style="font-size:12px;font-weight:400;" class="up">+8.35%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 放量大涨突破<br>实际: 通信电子板块内轮动走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">江海股份</span> <span class="stock-code">002484</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">88.80</span> <span style="font-size:12px;font-weight:400;" class="up">+6.40%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察 · 昨日涨停<br><span class="signal signal-add">▲ 加仓</span> 延续涨停强势+6.40%<br>实际: 午后关注能否封板</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">硕贝德</span> <span class="stock-code">300322</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">29.53</span> <span style="font-size:12px;font-weight:400;" class="up">+3.14%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">深圳华强</span> <span class="stock-code">000062</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">34.50</span> <span style="font-size:12px;font-weight:400;" class="up">+2.92%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">商络电子</span> <span class="stock-code">300975</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">43.91</span> <span style="font-size:12px;font-weight:400;" class="up">+1.15%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-hold">➡ 持有</span> 温和上涨</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">淳中科技</span> <span class="stock-code">603516</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">111.90</span> <span style="font-size:12px;font-weight:400;" class="up">+0.98%</span></div>
+<div class="stock-detail">盘前预判: ⚪ 中性观察<br><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">汇源通信</span> <span class="stock-code">000586</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">16.71</span> <span style="font-size:12px;font-weight:400;" class="down">-0.18%</span></div>
+<div class="stock-detail">盘前预判: 🟢 偏弱关注<br><span class="signal signal-hold">➡ 持有</span> 横盘微跌，昨日涨停后正常整理</div>
+</div>
+</div>
+
+<div class="sector-title">🧪 化工/材料</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">飞凯材料</span> <span class="stock-code">300398</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">39.84</span> <span style="font-size:12px;font-weight:400;" class="up">+12.13%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 板块领涨，放量突破</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">铜冠铜箔</span> <span class="stock-code">301217</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">110.05</span> <span style="font-size:12px;font-weight:400;" class="up">+6.20%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 锂电材料回暖，放量突破</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">诺德股份</span> <span class="stock-code">600110</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">12.36</span> <span style="font-size:12px;font-weight:400;" class="up">+4.39%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 跟随板块回暖</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">天通股份</span> <span class="stock-code">600330</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">32.88</span> <span style="font-size:12px;font-weight:400;" class="up">+2.75%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">菲利华</span> <span class="stock-code">300395</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">122.50</span> <span style="font-size:12px;font-weight:400;" class="up">+2.51%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">和顺科技</span> <span class="stock-code">301237</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">62.58</span> <span style="font-size:12px;font-weight:400;" class="up">+2.04%</span></div>
+<div class="stock-detail">盘前预判: 🟢 偏弱关注<br><span class="signal signal-hold">➡ 持有</span> 小幅反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">盛屯矿业</span> <span class="stock-code">600711</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">12.83</span> <span style="font-size:12px;font-weight:400;" class="up">+1.74%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">山东玻纤</span> <span class="stock-code">605006</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">17.13</span> <span style="font-size:12px;font-weight:400;" class="up">+1.66%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">多氟多</span> <span class="stock-code">002407</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">33.56</span> <span style="font-size:12px;font-weight:400;" class="up">+1.39%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">天华新能</span> <span class="stock-code">300390</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">82.20</span> <span style="font-size:12px;font-weight:400;" class="up">+1.11%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">德福科技</span> <span class="stock-code">301511</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">125.76</span> <span style="font-size:12px;font-weight:400;" class="down">-0.99%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 微跌，与板块方向略有背离</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">宏桥控股</span> <span class="stock-code">002379</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">20.59</span> <span style="font-size:12px;font-weight:400;" class="down">-2.19%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 弱势调整与大盘背离</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">长海股份</span> <span class="stock-code">300196</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">25.03</span> <span style="font-size:12px;font-weight:400;" class="down">-5.83%</span></div>
+<div class="stock-detail"><span class="signal signal-cut">▼ 减仓</span> 大幅回调与大盘背离<br>实际: 板块走强背景下的逆势大跌，需警惕</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">圣阳股份</span> <span class="stock-code">002580</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">24.65</span> <span style="font-size:12px;font-weight:400;" class="down">-8.57%</span></div>
+<div class="stock-detail"><span class="signal signal-cut">▼ 减仓</span> 大幅回调，与大盘方向背离严重<br>实际: 放量下跌，注意风险</div>
+</div>
+</div>
+
+<div class="sector-title">🤖 AI/数字经济</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中科创达</span> <span class="stock-code">300496</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">64.84</span> <span style="font-size:12px;font-weight:400;" class="up">+1.84%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 温和反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">易点天下</span> <span class="stock-code">301171</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">45.35</span> <span style="font-size:12px;font-weight:400;" class="up">+0.38%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 弱势反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">完美世界</span> <span class="stock-code">002624</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">13.42</span> <span style="font-size:12px;font-weight:400;" class="up">+0.75%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅反弹</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蓝色光标</span> <span class="stock-code">300058</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">16.84</span> <span style="font-size:12px;font-weight:400;" class="down">-1.46%</span></div>
+<div class="stock-detail">盘前预判: 🟢 偏弱关注<br><span class="signal signal-hold">➡ 持有</span> 大盘大涨背景下逆势下跌，控制仓位</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">荣科科技</span> <span class="stock-code">300290</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">10.48</span> <span style="font-size:12px;font-weight:400;" class="down">-0.66%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 微跌</div>
+</div>
+</div>
+
+<div class="sector-title">⚡ 能源/公用事业</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">中恒电气</span> <span class="stock-code">002364</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">56.27</span> <span style="font-size:12px;font-weight:400;" class="up">+7.65%</span></div>
+<div class="stock-detail"><span class="signal signal-add">▲ 加仓</span> 放量突破，电力设备走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">华电辽能</span> <span class="stock-code">600396</span> <span class="tag tag-b">B</span></div>
+<div class="stock-price"><span class="up">20.07</span> <span style="font-size:12px;font-weight:400;" class="up">+3.45%</span></div>
+<div class="stock-detail">盘前预判: 🔴 偏强持有<br><span class="signal signal-hold">➡ 持有</span> 持续走强，趋势良好</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">水发燃气</span> <span class="stock-code">603318</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">9.22</span> <span style="font-size:12px;font-weight:400;" class="up">+1.88%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">中国西电</span> <span class="stock-code">601179</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="down">16.28</span> <span style="font-size:12px;font-weight:400;" class="down">-1.57%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 与大盘方向背离</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">康盛股份</span> <span class="stock-code">002418</span> <span class="tag tag-c">C</span></div>
+<div class="stock-price"><span class="up">4.61</span> <span style="font-size:12px;font-weight:400;" class="up">+1.10%</span></div>
+<div class="stock-detail"><span class="signal signal-hold">➡ 持有</span> 小幅走强</div>
+</div>
+</div>
+
+<div class="sector-title">其他</div>
+<div class="grid-2">
+<div class="stock-card">
+<div><span class="stock-name">*ST利源</span> <span class="stock-code">002501</span></div>
+<div class="stock-price"><span class="up">1.58</span> <span style="font-size:12px;font-weight:400;" class="up">+5.33%</span></div>
+<div class="stock-detail">ST股涨停</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">恒润股份</span> <span class="stock-code">603985</span></div>
+<div class="stock-price"><span class="up">23.48</span> <span style="font-size:12px;font-weight:400;" class="up">+3.44%</span></div>
+<div class="stock-detail">温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">航天彩虹</span> <span class="stock-code">002389</span></div>
+<div class="stock-price"><span class="up">19.25</span> <span style="font-size:12px;font-weight:400;" class="up">+0.21%</span></div>
+<div class="stock-detail">横盘</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">东方财富</span> <span class="stock-code">300059</span></div>
+<div class="stock-price"><span class="up">19.09</span> <span style="font-size:12px;font-weight:400;" class="up">+0.95%</span></div>
+<div class="stock-detail">小幅走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">常山药业</span> <span class="stock-code">300255</span></div>
+<div class="stock-price"><span class="up">38.79</span> <span style="font-size:12px;font-weight:400;" class="up">+0.15%</span></div>
+<div class="stock-detail">横盘</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">京城股份</span> <span class="stock-code">600860</span></div>
+<div class="stock-price"><span class="down">9.18</span> <span style="font-size:12px;font-weight:400;" class="down">-0.65%</span></div>
+<div class="stock-detail">微跌</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">襄阳轴承</span> <span class="stock-code">000678</span></div>
+<div class="stock-price"><span class="down">12.08</span> <span style="font-size:12px;font-weight:400;" class="down">-0.66%</span></div>
+<div class="stock-detail">微跌</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">贵州茅台</span> <span class="stock-code">600519</span></div>
+<div class="stock-price"><span class="down">1280.86</span> <span style="font-size:12px;font-weight:400;" class="down">-2.02%</span></div>
+<div class="stock-detail">权重股回调，与大盘背离</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">上海建工</span> <span class="stock-code">600170</span></div>
+<div class="stock-price"><span class="down">2.52</span> <span style="font-size:12px;font-weight:400;" class="down">-2.33%</span></div>
+<div class="stock-detail">弱势盘跌</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">蜀道装备</span> <span class="stock-code">300540</span></div>
+<div class="stock-price"><span class="up">25.76</span> <span style="font-size:12px;font-weight:400;" class="up">+1.22%</span></div>
+<div class="stock-detail">温和走强</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">博瑞医药</span> <span class="stock-code">688166</span></div>
+<div class="stock-price"><span class="down">49.40</span> <span style="font-size:12px;font-weight:400;" class="down">-1.04%</span></div>
+<div class="stock-detail">微跌</div>
+</div>
+<div class="stock-card">
+<div><span class="stock-name">法尔胜</span> <span class="stock-code">000890</span></div>
+<div class="stock-price"><span class="up">11.34</span> <span style="font-size:12px;font-weight:400;" class="up">+1.61%</span></div>
+<div class="stock-detail">温和走强</div>
+</div>
+</div>
+</div>
+
+<!-- 偏差对比 -->
+<div class="section">
+<h2>📐 盘前预判 vs 午间实际</h2>
+<div style="font-size:13px;color:#8b949e;">
+<p><strong>大盘方向</strong>：盘前预判偏谨慎（支撑4,050-4,070，整体偏弱），实际上证+0.56%、创业板+3.97%，<span class="up">大幅超出预期</span>。</p>
+<p><strong>通信/电子</strong>：盘前提示"已持有继续持有、不追涨"，实际板块全面爆发天孚+14.56%、蓝思+11.86%、东山+8.49%，<span class="up">延续强势超预期</span>。</p>
+<p><strong>科技/半导体</strong>：盘前建议"去弱留强、利通电子减仓"，实际帝奥微+11.34%、澜起+10.97%、长电涨停，<span class="up">板块全面回暖</span>。利通电子+1.91%反弹力度不足，减仓判断仍然适用。</p>
+<p><strong>化工/材料</strong>：盘前提示"弱势标的减仓"，实际飞凯+12.13%领涨、铜冠+6.20%，但长海-5.83%、圣阳-8.57%继续弱势，<span class="down">板块分化严重</span>。</p>
+<p><strong>AI/数字经济</strong>：盘前提示"控制仓位"，实际蓝色光标继续-1.46%，板块整体小幅反弹但弱于大盘，<span class="down">预判正确</span>。</p>
+</div>
+</div>
+
+<div class="footer">
+  🌀 小十三 · 午间监测 · 2026.06.03 周三<br>
+  数据仅供参考，不构成投资建议
+</div>
+
+</div>
+</body>
+</html>

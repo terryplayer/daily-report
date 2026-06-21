@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周报标准版 · </title>
+<style>
+  /* ========== 深色主题基础样式 ========== */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+
+  /* ========== 板块容器 ========== */
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+
+  /* ========== 预警/提示框 ========== */
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+
+  /* ========== 方向颜色 ========== */
+  .up, .bullish { color: #3fb950; }
+  .down, .bearish { color: #f85149; }
+  .neutral { color: #d29922; }
+  .muted { color: #8b949e; }
+
+  /* ========== 标签 ========== */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #0d2a17; color: #3fb950; }
+  .tag-down { background: #2d0a0a; color: #f85149; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+
+  /* ========== 网格布局 ========== */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  /* ========== 数据面板 ========== */
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+
+  /* ========== 进度条/强度 ========== */
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #3fb950; }
+  .strength-bar-fill.down { background: #f85149; }
+  .strength-bar-fill.neutral { background: #d29922; }
+
+  /* ========== 元信息 ========== */
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+
+  /* ========== 底部 ========== */
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+
+  /* ========== 空数据占位 ========== */
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+</style>
+<style>
+  /* 周报主题色：粉色 */
+  h1 { color: #f778ba; }
+</style>
+</head>
+<body>
+
+<h1>🧩 weekly</h1><div class="meta">
+  <span class="meta-item">📅 <strong></strong></span>
+  <span class="meta-item">🏷️ <strong>weekly</strong></span>
+  <span class="meta-item">🕐 <strong>16:37 CST</strong></span>
+</div>
+
+<div class="alert alert-info" style="margin-top:8px;">
+  <strong>📈 周报标准版</strong> — 这周趋势是什么，下周怎么准备。周度汇总 + 预测验证 + 持仓建议。
+</div>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📈 本周大盘回顾</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 本周大盘数据暂未更新</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 周板块轮动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 周板块数据暂未更新</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>🎯 预测验证 · 周度</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 周度预测验证数据依赖 prediction_ledger（预计6/22后生效）</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>📰 周末信息</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 周末信息暂未更新</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔮 下周趋势</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 下周趋势暂未更新</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>💡 持仓建议</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 持仓建议暂未更新</div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h3>🏆 综合评级</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="no-data">— 综合评级暂未更新</div>
+</section>
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 股票报告 | </p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+</body>
+</html>

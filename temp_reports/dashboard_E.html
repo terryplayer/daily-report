@@ -1,0 +1,743 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📋 E-赛博霓虹 · 配色预览</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;line-height:1.6}
+.container{max-width:960px;margin:0 auto}
+h1{font-size:20px;color:#e6edf3;border-bottom:2px solid #30363d;padding-bottom:12px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+h1 span{font-size:12px;color:#8b949e;font-weight:400}
+.stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.stat-card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:12px 16px;flex:1;min-width:100px;text-align:center}
+.stat-val{font-size:18px;font-weight:700;color:#e6edf3}
+.stat-label{font-size:11px;color:#8b949e;margin-top:2px}
+.stat-val.p{color:#58a6ff}.stat-val.m{color:#56d4dd}.stat-val.c{color:#f85149}.stat-val.w{color:#f778ba}
+.date-group{margin-bottom:20px}
+.date-header{font-size:13px;color:#e6edf3;font-weight:700;padding:8px 12px;background:#1c2333;border-radius:6px 6px 0 0;border:1px solid #30363d;border-bottom:none;display:flex;justify-content:space-between;align-items:center}
+.date-header .day{font-size:12px;color:#8b949e;font-weight:400}
+.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border:1px solid #30363d;border-top:none;border-radius:0 0 8px 8px;padding:8px;background:#161b22}
+.report-card{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;text-decoration:none;color:#e6edf3;transition:all 0.15s}
+.report-card:hover{border-color:#58a6ff;transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.report-icon{font-size:20px;width:28px;text-align:center}
+.report-info{flex:1;min-width:0}
+.report-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.report-meta{font-size:11px;color:#8b949e;margin-top:1px}
+.report-badge{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.badge-advanced{background:rgba(247,120,186,0.2);color:#f778ba}
+.badge-standard{background:rgba(63,185,80,0.2);color:#3fb950}
+.filter-bar{margin-bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #30363d;background:#0d1117;color:#8b949e}
+.filter-btn:hover{border-color:#58a6ff;color:#e6edf3}
+.filter-btn.active{background:#58a6ff;color:#fff;border-color:#58a6ff}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:24px;padding-top:12px;border-top:1px solid #21262d}
+</style>
+</head>
+<body><div class="container">
+<h1>📋 股票报告中心 <span>E-赛博霓虹 · 配色预览</span></h1>
+<div style="display:flex;gap:4px;margin-bottom:16px">
+<div style="flex:1;background:linear-gradient(135deg,#2a0a2a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周一</div>
+<div style="flex:1;background:linear-gradient(135deg,#0a1a3a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周二</div>
+<div style="flex:1;background:linear-gradient(135deg,#1a0a3a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周三</div>
+<div style="flex:1;background:linear-gradient(135deg,#0a2a2a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周四</div>
+<div style="flex:1;background:linear-gradient(135deg,#0a2a1a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周五</div>
+<div style="flex:1;background:linear-gradient(135deg,#2a1a0a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周六</div>
+<div style="flex:1;background:linear-gradient(135deg,#1a1a2a,#0a0a14);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:600">周日</div>
+</div>
+<div class="stats">
+<div class="stat-card" style="background:linear-gradient(135deg,#1a1f2e,#161b22)"><div class="stat-val">51</div><div class="stat-label">报告总数</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,#1a2333,#161b22)"><div class="stat-val p">15</div><div class="stat-label">盘前简报</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,#1a2d2d,#161b22)"><div class="stat-val m">10</div><div class="stat-label">午间监测</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,#2d1c1c,#161b22)"><div class="stat-val c">17</div><div class="stat-label">收盘简报</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,#2d1c2d,#161b22)"><div class="stat-val w">9</div><div class="stat-label">周复盘</div></div>
+</div>
+<div class="filter-bar">
+<button class="filter-btn active" data-filter="all">全部</button>
+<button class="filter-btn" data-filter="premarket">盘前</button>
+<button class="filter-btn" data-filter="midday">午间</button>
+<button class="filter-btn" data-filter="closing">收盘</button>
+<button class="filter-btn" data-filter="weekly">周复盘</button>
+<button class="filter-btn" data-filter="advanced">进阶版</button>
+<button class="filter-btn" data-filter="standard">标准版</button>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a1a2a,#0a0a14)">2026-06-07 <span class="day">周日</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:0 · 📈周复:2</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="weekly-review-2026-06-07.html" class="report-card" data-type="weekly" data-version="standard" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 23KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="weekly-advanced-2026-06-07.html" class="report-card" data-type="weekly" data-version="advanced" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘 <span style="font-size:10px;color:#f85149;font-weight:700">●NEW</span></div>
+<div class="report-meta"><span class="report-badge badge-advanced">进阶</span> · 13KB</div>
+</div></a>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#2a1a0a,#0a0a14)">2026-06-06 <span class="day">周六</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:0 · 📈周复:0</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a1a,#0a0a14)">2026-06-05 <span class="day">周五</span><span style="font-size:11px;color:#8b949e">📋盘前:2 · 🌤午间:2 · 📊收盘:2 · 📈周复:1</span></div>
+<div class="report-grid">
+<a href="premarket-2026-06-05.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 29KB</div>
+</div></a>
+<a href="midday-2026-06-05.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 49KB</div>
+</div></a>
+<a href="daily-combined-2026-06-05.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 59KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="premarket-advanced-20260605.html" class="report-card" data-type="premarket" data-version="advanced" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-advanced">进阶</span> · 14KB</div>
+</div></a>
+<a href="midday-advanced-20260605.html" class="report-card" data-type="midday" data-version="advanced" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-advanced">进阶</span> · 8KB</div>
+</div></a>
+<a href="closing-advanced-20260605.html" class="report-card" data-type="closing" data-version="advanced" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-advanced">进阶</span> · 14KB</div>
+</div></a>
+<a href="weekly-advanced-20260605.html" class="report-card" data-type="weekly" data-version="advanced" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘</div>
+<div class="report-meta"><span class="report-badge badge-advanced">进阶</span> · 13KB</div>
+</div></a>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a2a,#0a0a14)">2026-06-04 <span class="day">周四</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-06-04.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 26KB</div>
+</div></a>
+<a href="midday-2026-06-04.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 43KB</div>
+</div></a>
+<a href="daily-combined-2026-06-04.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 52KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a0a3a,#0a0a14)">2026-06-03 <span class="day">周三</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-06-03.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 36KB</div>
+</div></a>
+<a href="midday-2026-06-03.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 37KB</div>
+</div></a>
+<a href="daily-combined-2026-06-03.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 53KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a1a3a,#0a0a14)">2026-06-02 <span class="day">周二</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-06-02.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 28KB</div>
+</div></a>
+<a href="midday-2026-06-02.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 25KB</div>
+</div></a>
+<a href="daily-combined-2026-06-02.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 45KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#2a0a2a,#0a0a14)">2026-06-01 <span class="day">周一</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-06-01.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 26KB</div>
+</div></a>
+<a href="midday-2026-06-01.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 27KB</div>
+</div></a>
+<a href="daily-combined-2026-06-01.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 39KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a1a2a,#0a0a14)">2026-05-31 <span class="day">周日</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:0 · 📈周复:1</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="weekly-review-2026-05-31.html" class="report-card" data-type="weekly" data-version="standard" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 36KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#2a1a0a,#0a0a14)">2026-05-30 <span class="day">周六</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:0 · 📊收盘:0 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-30.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 22KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a1a,#0a0a14)">2026-05-29 <span class="day">周五</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-29.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 26KB</div>
+</div></a>
+<a href="midday-2026-05-29.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 25KB</div>
+</div></a>
+<a href="daily-combined-2026-05-29.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 50KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a2a,#0a0a14)">2026-05-28 <span class="day">周四</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-28.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 18KB</div>
+</div></a>
+<a href="midday-2026-05-28.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 16KB</div>
+</div></a>
+<a href="daily-combined-2026-05-28.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 21KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a0a3a,#0a0a14)">2026-05-27 <span class="day">周三</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:1 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-27.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 18KB</div>
+</div></a>
+<a href="midday-2026-05-27.html" class="report-card" data-type="midday" data-version="standard" style="border-left:3px solid #56d4dd">
+<div class="report-icon">🌤</div>
+<div class="report-info">
+<div class="report-name">午间监测</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 17KB</div>
+</div></a>
+<a href="daily-combined-2026-05-27.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 19KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a1a3a,#0a0a14)">2026-05-26 <span class="day">周二</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:0 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-26.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 18KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="daily-combined-2026-05-26.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 27KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#2a0a2a,#0a0a14)">2026-05-25 <span class="day">周一</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:0 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-25.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 18KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="daily-combined-2026-05-25.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 27KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a1a2a,#0a0a14)">2026-05-24 <span class="day">周日</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:0 · 📈周复:1</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="weekly-review-2026-05-24.html" class="report-card" data-type="weekly" data-version="standard" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 58KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#2a1a0a,#0a0a14)">2026-05-23 <span class="day">周六</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:0 · 📈周复:0</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a1a,#0a0a14)">2026-05-22 <span class="day">周五</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:0 · 📊收盘:1 · 📈周复:1</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-22.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 17KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="daily-combined-2026-05-22.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 24KB</div>
+</div></a>
+<a href="weekly-review-2026-05-22.html" class="report-card" data-type="weekly" data-version="standard" style="border-left:3px solid #f778ba">
+<div class="report-icon">📈</div>
+<div class="report-info">
+<div class="report-name">周复盘</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 42KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#0a2a2a,#0a0a14)">2026-05-21 <span class="day">周四</span><span style="font-size:11px;color:#8b949e">📋盘前:1 · 🌤午间:0 · 📊收盘:1 · 📈周复:0</span></div>
+<div class="report-grid">
+<a href="premarket-2026-05-21.html" class="report-card" data-type="premarket" data-version="standard" style="border-left:3px solid #58a6ff">
+<div class="report-icon">📋</div>
+<div class="report-info">
+<div class="report-name">盘前简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 18KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="daily-combined-2026-05-21.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 17KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="date-group">
+<div class="date-header" style="background:linear-gradient(135deg,#1a0a3a,#0a0a14)">2026-05-20 <span class="day">周三</span><span style="font-size:11px;color:#8b949e">📋盘前:0 · 🌤午间:0 · 📊收盘:2 · 📈周复:0</span></div>
+<div class="report-grid">
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<a href="daily-combined-2026-05-20.html" class="report-card" data-type="closing" data-version="standard" style="border-left:3px solid #f85149">
+<div class="report-icon">📊</div>
+<div class="report-info">
+<div class="report-name">收盘简报</div>
+<div class="report-meta"><span class="report-badge badge-standard">标准</span> · 16KB</div>
+</div></a>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#ffcc00">⏳</div>
+<div class="report-info"><div class="report-name" style="color:#ffcc00;font-size:11px">待更新</div></div></div>
+<div class="report-card report-card-empty" style="cursor:default;background:#0d1117">
+<div class="report-icon" style="color:#8b949e">—</div>
+<div class="report-info"><div class="report-name" style="color:#8b949e;font-size:11px">无报告</div></div></div>
+</div>
+</div>
+<div class="footer">🌀 混动系统 · 配色预览</div>
+</div></body></html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><body>
+<h2>🔍 市场全景诊断</h2>
+<div id="out"></div>
+<script>
+async function test(){
+  const out=document.getElementById('out');
+  function log(msg){out.innerHTML+=msg+'<br>'}
+  
+  log('1. 测试 API 连通性...');
+  try{
+    let r=await fetch('/data/today?page=1&size=1');
+    let d=await r.json();
+    log('✅ API 正常: '+d._meta.total+' 只股票');
+    log('   数据日期: '+(d._meta.fetched_at||'?').slice(0,10));
+  }catch(e){
+    log('❌ API 失败: '+e.message);
+    log('   浏览器可能无法连接 localhost:18790');
+    log('   💡 试试直接在地址栏打开: /data/today?code=000001');
+  }
+  
+  log('2. 测试 Watchlist API...');
+  try{
+    let r=await fetch('/watchlist');
+    let d=await r.json();
+    log('✅ Watchlist 正常: '+d.codes.length+' 只持仓');
+  }catch(e){
+    log('❌ Watchlist 失败: '+e.message);
+  }
+  
+  log('3. 浏览器信息: '+navigator.userAgent);
+}
+test();
+</script></body></html>

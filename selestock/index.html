@@ -1,0 +1,422 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📊 市场全景 · 动态版</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif;background:#0d1117;color:#e6edf3;padding:24px}
+.container{max-width:1440px;margin:0 auto}
+h1{color:#58a6ff;font-size:24px;font-weight:700;margin-bottom:2px;letter-spacing:-0.3px}
+.sub{color:#8b949e;font-size:13px;margin-bottom:20px}
+.ctl{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.ctl select,.ctl input{background:#161b22;color:#e6edf3;border:1px solid #30363d;padding:7px 14px;border-radius:8px;font-size:13px;outline:none;cursor:pointer;transition:border-color .15s}
+.ctl select:hover,.ctl input:hover{border-color:#58a6ff}
+.ctl select:focus,.ctl input:focus{border-color:#1f6feb;box-shadow:0 0 0 2px rgba(31,111,235,.2)}
+.ctl select{min-width:110px;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+.ctl input{flex:1;min-width:140px;cursor:text}
+.tw{overflow-x:auto;border:1px solid #30363d;border-radius:10px;background:#161b22;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+th,td{padding:2px 4px}
+thead{position:sticky;top:0;z-index:1}
+/* 列宽控制：关键列设最小宽度防止挤压 */
+td:nth-child(2){min-width:68px}  /* 代码 */
+td:nth-child(3){min-width:64px}  /* 名称 */
+td:nth-child(5){min-width:56px}  /* 涨跌幅 */
+td:nth-child(17){min-width:50px}  /* 标签列 */
+th{background:#1c2333;color:#8b949e;font-weight:600;padding:9px 10px;text-align:center;border-bottom:1px solid #30363d;cursor:pointer;position:sticky;top:0;z-index:1;user-select:none;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+th:hover{color:#58a6ff;background:#222a3a}
+td{padding:7px 8px;text-align:center;border-bottom:1px solid #21262d;font-size:12px;line-height:1.4}
+tr:hover td{background:#1a2744}
+.up{color:#f85149;font-weight:600}.dn{color:#3fb950;font-weight:600}.gd{color:#d9a52e}.gy{color:#8b949e}
+.pag{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:16px;flex-wrap:wrap}
+.pag button{background:#161b22;color:#c9d1d9;border:1px solid #30363d;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;transition:all .12s}
+.pag button:hover{background:#1c2333;border-color:#58a6ff;color:#58a6ff}
+.pag .act{background:#1f6feb;border-color:#1f6feb;color:#fff;font-weight:600}
+.cnt{color:#8b949e;font-size:12px;margin-left:4px}
+.ft{text-align:center;color:#8b949e;font-size:11px;margin-top:24px;padding-top:16px;border-top:1px solid #21262d;letter-spacing:.3px}
+.status-bar{display:flex;gap:12px;font-size:11px;color:#8b949e;margin-bottom:12px;flex-wrap:wrap}
+.status-item{padding:4px 12px;border-radius:6px;background:#161b22;border:1px solid #30363d}
+.status-item .val{color:#58a6ff;font-weight:600}
+.loading{text-align:center;padding:60px;color:#8b949e;font-size:15px}
+.loading .spinner{display:inline-block;width:28px;height:28px;border:3px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:s .7s linear infinite;margin-bottom:10px}
+@keyframes s{to{transform:rotate(360deg)}}
+.wb{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;border:none;transition:all .12s}
+.wb-hld{background:#3fb95022;color:#3fb950;cursor:default}
+.wb-un{background:#8b949e22;color:#8b949e}
+.wb-add{background:#58a6ff22;color:#58a6ff}
+.wb-add:hover{background:#58a6ff44}
+.wb-rm{background:#f8514922;color:#f85149}
+.wb-rm:hover{background:#f8514944}
+.wb-loading{opacity:0.5;pointer-events:none}
+.r1{color:#f85149;font-weight:700}.r2{color:#d9a52e;font-weight:700}.r3{color:#58a6ff;font-weight:700}
+.zg{background:#3fb95011}.zy{background:#d9a52e11}.zr{background:#f8514911}</style></head><body><div class=container>
+<h1>📊 市场全景 · 动态版</h1>
+<div class=status-bar id=status><span class=status-item>📡 <span class=val id=srcLabel>加载中...</span></span><span class=status-item>📅 <span class=val id=dateLabel>--</span></span><span class=status-item>📊 <span class=val id=totalLabel>--</span></span><span class=status-item><a href="#" onclick="exportExcel();return false" style="color:#58a6ff;text-decoration:none;font-size:12px" id=exportBtn>📥 导出数据</a></span></div>
+<div class=ctl>
+<select id=holdSel onchange="cp=1;go()"><option value=all>📋 全部股票</option><option value=hold>🔴 仅持仓</option><option value=unhold>⚪ 非持仓</option></select>
+<select id=secSel onchange="updateSubSec();cp=1;go()"><option value=>🏭 行业主板块</option></select>
+<select id=subSecSel onchange="cp=1;go()"><option value=>🔬 细分行业</option></select>
+<select id=mktSel onchange="cp=1;go()"><option value=>📈 市场板块</option></select>
+<select id=gf onchange="cp=1;go()"><option value=>全部等级</option></select>
+<input id=si placeholder="🔍 代码/名称..." oninput="cp=1;go()" style=flex:1>
+<button onclick="toggleLeader()" id=leaderBtn class=wb style="background:#21262d;color:#8b949e;border:1px solid #30363d">🏆 龙头</button>
+<button onclick="clearFilters()" class=wb style="background:#21262d;color:#8b949e;border:1px solid #30363d;padding:4px 10px;font-size:12px">🗑️ 清除筛选</button>
+<span class=cnt id=cn>0条</span></div>
+<div id=loading class=loading><div class=spinner></div><br>加载数据中...</div>
+<div class=tw id=tw style=display:none><table><thead><tr id=th></tr></thead><tbody id=tb></tbody></table></div>
+<div class=pag id=pg></div><p class=ft>🌀 市场全景 · 数据来自 API</p></div>
+<script>
+var API='',PS=50,ALL=[],cp=1,sk=null,sa=false,sfs=[],wh={},FIELDS={},META={},secMap={},subToMain={},LEADERS={},leaderFilter=false;
+
+function toggleLeader(){
+  leaderFilter=!leaderFilter;
+  document.getElementById('leaderBtn').style.background=leaderFilter?'#d2992244':'#21262d';
+  document.getElementById('leaderBtn').style.borderColor=leaderFilter?'#d2992266':'#30363d';
+  cp=1;go();
+}
+
+function clearFilters(){
+  document.getElementById('holdSel').value='all';
+  document.getElementById('secSel').value='';
+  document.getElementById('subSecSel').innerHTML='<option value=>🔬 细分行业</option>';
+  document.getElementById('subSecSel').value='';
+  document.getElementById('mktSel').value='';
+  document.getElementById('gf').value='';
+  document.getElementById('si').value='';
+  cp=1;
+  go();
+}
+
+function getGrade(s){
+  var v=Math.abs(s.f3||0);
+  if(v>=8)return'A+';if(v>=5)return'A';if(v>=3)return'B';if(v>=1)return'C';return'D';
+}
+
+function industrySec(s){
+  var c=s.code;
+  // 持仓优先用 watchlist 定义
+  var wl={'688549':'科技/半导体','688268':'科技/半导体','600584':'科技/半导体','300604':'科技/半导体',
+    '300613':'科技/半导体','300857':'科技/半导体','301236':'科技/半导体','688008':'科技/半导体',
+    '688020':'科技/半导体','688055':'科技/半导体','688818':'科技/半导体','688381':'科技/半导体',
+    '688323':'科技/半导体','688530':'科技/半导体','301389':'科技/半导体','002600':'科技/半导体',
+    '603629':'科技/半导体','301396':'科技/半导体','603019':'科技/半导体','002195':'科技/半导体',
+    '002261':'科技/半导体','688662':'科技/半导体','300433':'通信/电子','000586':'通信/电子',
+    '002384':'通信/电子','301611':'通信/电子','603516':'通信/电子','300975':'通信/电子',
+    '002484':'通信/电子','002429':'通信/电子','300322':'通信/电子','300394':'通信/电子',
+    '300502':'通信/电子','300496':'AI/数字经济','301171':'AI/数字经济','300058':'AI/数字经济',
+    '300290':'AI/数字经济','002624':'AI/数字经济','300027':'AI/数字经济','600330':'化工/材料',
+    '002407':'化工/材料','300196':'化工/材料','605006':'化工/材料','301217':'化工/材料',
+    '002379':'化工/材料','300390':'化工/材料','300395':'化工/材料','300398':'化工/材料',
+    '301237':'化工/材料','301511':'化工/材料','600110':'化工/材料','600711':'化工/材料',
+    '603799':'化工/材料','002340':'化工/材料','002580':'化工/材料','002716':'化工/材料',
+    '000887':'化工/材料','000830':'化工/材料','002130':'化工/材料','603318':'能源/公用事业',
+    '600396':'能源/公用事业','002418':'能源/公用事业','601179':'能源/公用事业','002364':'能源/公用事业',
+    '002498':'能源/公用事业','601012':'能源/公用事业'};
+  if(wl[c])return wl[c];
+  // 非持仓用 f100 映射
+  var f100=s.f100;
+  if(f100){
+    var m=subToMain;
+    if(m[f100])return m[f100];
+  }
+  return'其他';
+}
+
+function marketSec(s){
+  var c=s.code;
+  if(c.length<6)return'其他';
+  var p=c.charAt(0);var p2=c.charAt(1);var p3=c.charAt(2);
+  if(p==='6'&&(p2==='8'&&(p3==='8'||p3==='9')))return'科创板';
+  if(p==='3'&&(p2==='0'&&(p3==='0'||p3==='1')))return'创业板';
+  if(p==='6')return'沪市主板';
+  if(p==='0'||p==='2'||p==='3')return'深市主板';
+  if(p==='8'||p==='4')return'北交所';
+  return'其他';
+}
+
+function buildAllSubSec(){
+  var sel=document.getElementById('subSecSel');
+  sel.innerHTML='<option value>🔬 细分行业</option>';
+  var subSec={};
+  ALL.forEach(function(s){var sec=s.f100||'其他';subSec[sec]=1});
+  Object.keys(subSec).sort().forEach(function(s){
+    var o=document.createElement('option');o.value=s;o.textContent=s;
+    sel.appendChild(o);
+  });
+}
+
+function updateSubSec(){
+  var mainSec=document.getElementById('secSel').value;
+  var sel=document.getElementById('subSecSel');
+  sel.innerHTML='<option value>🔬 细分行业</option>';
+  if(!mainSec||mainSec==='其他'){
+    buildAllSubSec();
+  }else{
+    var subs=secMap[mainSec]||[];
+    subs.sort().forEach(function(s){
+      var o=document.createElement('option');o.value=s;o.textContent=s;
+      sel.appendChild(o);
+    });
+  }
+}
+
+function exportExcel(){
+  var btn=document.getElementById('exportBtn');
+  var old=btn.textContent;
+  btn.textContent='⏳ 生成中...';
+  btn.style.pointerEvents='none';
+  
+  // 收集当前筛选后的股票代码
+  var codes=ALL.filter(function(s){
+    var holdMode=document.getElementById('holdSel').value;
+    if(holdMode==='hold' && !wh[s.code])return false;
+    if(holdMode==='unhold' && wh[s.code])return false;
+    var sec=document.getElementById('secSel').value;
+    if(sec && industrySec(s)!==sec)return false;
+    var kw=document.getElementById('si').value.trim().toLowerCase();
+    if(kw && (s.code||'').indexOf(kw)===-1 && (s.f14||'').toLowerCase().indexOf(kw)===-1)return false;
+    return true;
+  }).map(function(s){return s.code});
+  
+  // POST 到后端
+  var xhr=new XMLHttpRequest();
+  xhr.open('POST','/data/export',true);
+  xhr.responseType='blob';
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.onload=function(){
+    if(xhr.status===200){
+      var blob=xhr.response;
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url;
+      a.download='股票数据_'+new Date().toISOString().slice(0,10)+'.xlsx';
+      a.click();
+      URL.revokeObjectURL(url);
+    }else{
+      xhr.response.text().then(function(t){alert('导出失败: '+t)});
+    }
+    btn.textContent=old;
+    btn.style.pointerEvents='';
+  };
+  xhr.onerror=function(){alert('导出请求失败');btn.textContent=old;btn.style.pointerEvents=''};
+  xhr.send(JSON.stringify({codes:codes}));
+}
+
+async function init(){
+  try{
+    var r=await fetch('/data/today?page=1&size=10000');
+    var d=await r.json();
+    if(d.error)throw new Error(d.error);
+    META=d._meta;FIELDS=d.fields;
+    document.getElementById('srcLabel').textContent=META.source||'tushare';
+    if(META.is_fallback){
+      document.getElementById('dateLabel').textContent=(META.latest_date||'--')+' ⚠️';
+      document.getElementById('dateLabel').title=META.fallback_hint||'';
+      // 追加降级提示条
+      var fb=document.createElement('span');
+      fb.className='status-item';
+      fb.id='fbHint';
+      fb.style.color='#d9a52e';
+      fb.innerHTML='⏳ <span class=val>'+META.latest_date+'数据（19:00采集后更新）</span>';
+      document.getElementById('status').appendChild(fb);
+    }else{
+      document.getElementById('dateLabel').textContent=META.fetched_at?META.fetched_at.slice(0,10):'--';
+    }
+    document.getElementById('totalLabel').textContent=META.total+'只';
+    
+    ALL=Object.values(d.stocks);
+    
+    // 行业主板块 → 细分行业 映射
+    secMap={
+      '科技/半导体':['半导体','元器件','IT设备','软件服务','电器仪表'],
+      '通信/电子':['通信设备','元器件','IT设备','汽车配件'],
+      'AI/数字经济':['软件服务','互联网','广告包装','文教休闲','影视音像','出版业'],
+      '化工/材料':['化工原料','塑料','小金属','农药化肥','染料涂料','矿物制品','玻璃',
+                   '陶瓷','橡胶','造纸','纺织','化纤','钢加工','特种钢','铜','铝',
+                   '其他建材','化工机械','纺织机械','林业'],
+      '能源/公用事业':['电气设备','环境保护','建筑工程','航空','运输设备','供气供热',
+                     '新型电力','火力发电','煤炭开采','汽车整车','水力发电','石油开采',
+                     '石油加工','石油贸易','水务','港口','机场','铁路','公路',
+                     '水运','空运','船舶','摩托车'],
+      '其他':[]
+    };
+    
+    // f100 → 主板块 反向映射
+    for(var main in secMap){
+      if(main==='其他')continue;
+      var subs=secMap[main];
+      for(var i=0;i<subs.length;i++){
+        subToMain[subs[i]]=main;
+      }
+    }
+    
+    // 行业主板块下拉
+    var indSec={};
+    ALL.forEach(function(s){var n=industrySec(s);indSec[n]=1});
+    var secSel=document.getElementById('secSel');
+    Object.keys(indSec).sort().forEach(function(s){
+      var o=document.createElement('option');o.value=s;o.textContent=s;
+      secSel.appendChild(o);
+    });
+    
+    // 细分行业下拉（初始：全部细分行业）
+    buildAllSubSec();
+    
+    // 市场板块下拉
+    var mktSec={};
+    ALL.forEach(function(s){var n=marketSec(s);mktSec[n]=1});
+    var mktSel=document.getElementById('mktSel');
+    Object.keys(mktSec).sort().forEach(function(s){
+      var o=document.createElement('option');o.value=s;o.textContent=s;
+      mktSel.appendChild(o);
+    });
+    
+    // 等级
+    ['A+','A','B','C','D'].forEach(function(g){
+      var o=document.createElement('option');o.value=g;o.textContent=g;
+      document.getElementById('gf').appendChild(o);
+    });
+    
+    // Watchlist
+    try{
+      var wr=await fetch('/watchlist');
+      var wd=await wr.json();
+      wd.codes.forEach(function(c){wh[c]=1});
+    }catch(e){}
+    try{
+      var lr=await fetch('/data/leaders');
+      var ld=await lr.json();
+      LEADERS=ld.leaders||{};
+    }catch(e){}
+    
+    document.getElementById('loading').style.display='none';
+    document.getElementById('tw').style.display='';
+    go();
+  }catch(e){
+    document.getElementById('loading').innerHTML='<span style=color:#f85149>❌ 加载失败: '+e.message+'</span>';
+  }
+}
+
+function go(){
+  var all=ALL;
+  
+  // 行业板块过滤
+  var sec=document.getElementById('secSel').value;
+  if(sec)all=all.filter(function(s){return industrySec(s)===sec});
+  
+  // 细分行业过滤
+  var subSec=document.getElementById('subSecSel').value;
+  if(subSec)all=all.filter(function(s){return(s.f100||'其他')===subSec});
+  
+  // 市场板块过滤
+  var mkt=document.getElementById('mktSel').value;
+  if(mkt)all=all.filter(function(s){return marketSec(s)===mkt});
+  
+  // 股票筛选
+  var holdMode=document.getElementById('holdSel').value;
+  if(holdMode==='hold')all=all.filter(function(s){return wh[s.code]});
+  if(holdMode==='unhold')all=all.filter(function(s){return!wh[s.code]});
+  
+  // 搜索
+  var kw=document.getElementById('si').value.trim().toLowerCase();
+  if(kw)all=all.filter(function(s){
+    return(s.code||'').indexOf(kw)!==-1||(s.f14||'').toLowerCase().indexOf(kw)!==-1;
+  });
+  
+  // 等级
+  var gr=document.getElementById('gf').value;
+  if(gr)all=all.filter(function(s){return getGrade(s)===gr});
+  
+  // 龙头筛选
+  if(leaderFilter)all=all.filter(function(s){return LEADERS[s.code]});
+  
+  document.getElementById('cn').textContent=all.length+'条';
+  var tp=Math.ceil(all.length/PS)||1;
+  if(cp>tp)cp=tp;
+  var start=(cp-1)*PS;
+  var pg=all.slice(start,start+PS);
+  
+  var hds=['排名','代码','名称','最新价','涨跌幅%','成交额(亿)','换手率%','量比','市盈率','市净率','主力净流入','等级','主板块','细分行业','市场','持仓','标签'];  
+  function leaderLabel(code){
+    var ld=LEADERS[code];if(!ld)return '<td><\/td>';
+    var c={1:'#d29922',2:'#58a6ff',3:'#8b949e'}[ld.tier]||'#8b949e';
+    var l={1:'🏆龙头',2:'💎核心',3:'📌关注'}[ld.tier]||'';
+    return '<td style="white-space:nowrap"><span style="color:'+c+';font-weight:'+(ld.tier===1?'700':'400')+'">'+l+'<\/span><\/td>';
+  }
+  document.getElementById('th').innerHTML=hds.map(function(h){return'<th onclick=sortBy("'+h+'")>'+h+'</th>'}).join('');
+  
+  document.getElementById('tb').innerHTML=pg.map(function(s,i){
+    return'<tr>'+hds.map(function(h){return h==='标签'?leaderLabel(s.code):cell(h,s,start+i+1)}).join('')+'</tr>';
+  }).join('');
+  
+  var pb='';var st=Math.max(1,cp-7);var en=Math.min(tp,st+15);
+  if(cp>1)pb+='<button onclick="cp='+(cp-1)+';go()">◀</button>';
+  for(var i=st;i<=en;i++)pb+='<button class='+(i===cp?'act':'')+' onclick="cp='+i+';go()">'+i+'</button>';
+  if(cp<tp)pb+='<button onclick="cp='+(cp+1)+';go()">▶</button>';
+  document.getElementById('pg').innerHTML=pb+'<span style=color:#8b949e;font-size:11px;margin-left:6px> 共'+tp+'页</span>';
+}
+
+function cell(h,s,i){
+  if(h==='排名')return'<td class='+(i===1?'r1':i===2?'r2':i===3?'r3':'')+'>'+i+'</td>';
+  if(h==='代码')return'<td style=color:#e6edf3>'+(s.code||'')+'</td>';;
+  if(h==='名称')return'<td style=color:#e6edf3;font-weight:600>'+(s.f14||'—')+'</td>';;
+  if(h==='最新价')return'<td style=color:#d4a0a0;font-weight:600>'+(s.f2!==null&&s.f2!==undefined?s.f2.toFixed(2):'—')+'</td>';;
+  if(h==='涨跌幅%'){
+    var v=s.f3;
+    return'<td class='+(v>0?'up':v<0?'dn':'gd')+'>'+(v!==null&&v!==undefined?(v>0?'+':'')+v.toFixed(2)+'%':'—')+'</td>';
+  }
+  if(h==='成交额(亿)')return'<td style=color:#d4a373>'+(s.f20!==null?s.f20.toFixed(2):'—')+'</td>';;
+  if(h==='换手率%')return'<td style=color:#d4c87a>'+(s.f62!==null?s.f62.toFixed(2):'—')+'</td>';;
+  if(h==='量比')return'<td style=color:#8bc9a3>'+(s.f168!==null?s.f168.toFixed(2):'—')+'</td>';;
+  if(h==='市盈率')return'<td style=color:#8ab4d6>'+(s.f175!==null&&s.f175>0?s.f175.toFixed(2):'—')+'</td>';;
+  if(h==='市净率')return'<td style=color:#7c8db5>'+(s.f23!==null?s.f23.toFixed(2):'—')+'</td>';;
+  if(h==='主力净流入'){
+    var v=s.f193;
+    if(v===null||v===undefined)return'<td>—</td>';
+    return'<td class='+(v>0?'up':v<0?'dn':'gd')+'>'+(v>0?'+':'')+v.toFixed(0)+'</td>';
+  }
+  if(h==='等级'){
+    var g=getGrade(s);
+    var gc={'A+':'#f85149','A':'#d9a52e','B':'#58a6ff','C':'#8b949e','D':'#3fb950'};
+    return'<td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:'+gc[g]+'22;color:'+gc[g]+'">'+g+'</span></td>';
+  }
+  if(h==='主板块')return'<td style=color:#ffa657>'+(industrySec(s)||'其他')+'</td>';;
+  if(h==='细分行业')return'<td style=color:#b1bac4>'+(s.f100||'—')+'</td>';;
+  if(h==='市场')return'<td style=color:#7fc1b5>'+(marketSec(s)||'其他')+'</td>';;
+  if(h==='持仓'){
+    var isH=wh[s.code];
+    return'<td>'+(isH
+      ?'<span class="wb wb-hld">🔴 已持仓</span><span class="wb wb-rm" onclick=toggleHold("'+s.code+'","'+(s.f14||'')+'",0)>➖</span>'
+      :'<span class="wb wb-un">⚪ 未持仓</span><span class="wb wb-add" onclick=toggleHold("'+s.code+'","'+(s.f14||'')+'",1)>➕</span>')+'</td>';}
+  return'<td>—</td>';
+}
+
+var sortDir={};
+function sortBy(h){
+  sortDir[h]=!sortDir[h];
+  var dir=sortDir[h]?1:-1;
+  var m={'排名':'rank','代码':'code','名称':'f14','最新价':'f2','涨跌幅%':'f3','成交额(亿)':'f20','换手率%':'f62','量比':'f168','市盈率':'f175','市净率':'f23','主力净流入':'f193','等级':'grade','主板块':'rank','细分行业':'f100','市场':'rank'};
+  var f=m[h];
+  if(!f)return;
+  ALL.sort(function(a,b){
+    var va=a[f],vb=b[f];
+    if(typeof va==='number'&&typeof vb==='number')return(va-vb)*dir;
+    return String(va).localeCompare(String(vb))*dir;
+  });
+  cp=1;go();
+}
+
+function toggleHold(code,name,add){
+  var btns=document.querySelectorAll('.wb');
+  btns.forEach(function(b){b.classList.add('wb-loading')});
+  var url='/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);
+  fetch(url,{method:add?'POST':'DELETE'}).then(function(r){return r.json()}).then(function(){
+    if(add)wh[code]=1;else delete wh[code];
+    go();
+    btns.forEach(function(b){b.classList.remove('wb-loading')});
+  }).catch(function(e){
+    alert('操作失败');
+    btns.forEach(function(b){b.classList.remove('wb-loading')});
+  });
+}
+
+init();
+</script></body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>📊 市场全景 · 简版</title>
+<style>
+body{font-family:-apple-system, sans-serif;background:#0d1117;color:#c9d1d9;padding:20px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+th{background:#1c2333;color:#8b949e;padding:6px 8px;text-align:center;cursor:pointer}
+td{padding:4px 6px;text-align:center;border-bottom:1px solid #21262d}
+tr:hover td{background:#1a2744}
+.up{color:#f85149}.dn{color:#3fb950}
+#s{text-align:center;padding:40px;color:#8b949e}
+</style></head><body>
+<h1 style="color:#58a6ff;font-size:20px">📊 市场全景 · 简版</h1>
+<p id=s>加载中...</p>
+<div id=t style=display:none>
+<select id=gf onchange="go()"><option value=>全部</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+<input id=si placeholder="代码/名称" oninput="go()" style="background:#161b22;color:#c9d1d9;border:1px solid #30363d;padding:4px 8px;border-radius:4px">
+<span id=cn style="color:#8b949e;font-size:12px;margin-left:8px"></span>
+<table><thead id=th></thead><tbody id=tb></tbody></table>
+<div id=pg style="text-align:center;margin-top:10px;color:#8b949e;font-size:12px"></div>
+</div>
+<script>
+const PS=50;let ALL=[],cp=1;
+
+async function init(){
+  try{
+    let r=await fetch('/data/today?page=1&size=5000');
+    let d=await r.json();
+    if(d.error)throw new Error(d.error);
+    ALL=Object.values(d.stocks);
+    document.getElementById('s').style.display='none';
+    document.getElementById('t').style.display='';
+    go();
+  }catch(e){
+    document.getElementById('s').innerHTML='❌ '+e.message;
+  }
+}
+
+function go(){
+  let kw=document.getElementById('si').value.trim().toLowerCase();
+  let gr=document.getElementById('gf').value;
+  let fl=ALL;
+  if(kw)fl=fl.filter(s=>(s.code||'').includes(kw)||(s.f14||'').toLowerCase().includes(kw));
+  if(gr)fl=fl.filter(s=>getGrade(s)===gr);
+  
+  document.getElementById('cn').textContent=fl.length+'条';
+  let tp=Math.ceil(fl.length/PS)||1;
+  if(cp>tp)cp=tp;
+  let s=(cp-1)*PS,pg=fl.slice(s,s+PS);
+  
+  let h=['排名','代码','名称','最新价','涨跌幅%','成交额(亿)','换手率%','量比','等级'];
+  document.getElementById('th').innerHTML=h.map(h=>'<th onclick="sortBy(\''+h+'\')">'+h+'</th>').join('');
+  document.getElementById('tb').innerHTML=pg.map((s,i)=>'<tr>'+h.map(h=>cell(h,s,i+1)).join('')+'</tr>').join('');
+  
+  let p='';let st=Math.max(1,cp-7),en=Math.min(tp,st+15);
+  if(cp>1)p+='<button onclick="cp='+(cp-1)+';go()">◀</button>';
+  for(let i=st;i<=en;i++)p+='<button style="background:'+(i===cp?'#1f6feb':'#161b22')+';color:#c9d1d9;border:1px solid #30363d;padding:3px 8px;border-radius:4px;cursor:pointer;margin:2px" onclick="cp='+i+';go()">'+i+'</button>';
+  if(cp<tp)p+='<button onclick="cp='+(cp+1)+';go()">▶</button>';
+  document.getElementById('pg').innerHTML=p+' 共'+tp+'页';
+}
+
+function cell(h,s,i){
+  let r=i+cp*PS-PS;
+  if(h==='排名')return '<td>'+(r)+'</td>';
+  if(h==='代码')return '<td>'+s.code+'</td>';
+  if(h==='名称')return '<td>'+(s.f14||'')+'</td>';
+  if(h==='最新价')return '<td>'+(s.f2!==null?s.f2.toFixed(2):'—')+'</td>';
+  if(h==='涨跌幅%')return '<td class='+(s.f3>0?'up':s.f3<0?'dn':'')+'>'+(s.f3>0?'+':'')+(s.f3!==null?s.f3.toFixed(2)+'%':'—')+'</td>';
+  if(h==='成交额(亿)')return '<td>'+(s.f20!==null?s.f20.toFixed(2):'—')+'</td>';
+  if(h==='换手率%')return '<td>'+(s.f62!==null?s.f62.toFixed(2):'—')+'</td>';
+  if(h==='量比')return '<td>'+(s.f168!==null?s.f168.toFixed(2):'—')+'</td>';
+  if(h==='等级')return '<td>'+getGrade(s)+'</td>';
+  return '<td>—</td>';
+}
+function getGrade(s){let v=Math.abs(s.f3||0);if(v>=8)return'A+';if(v>=5)return'A';if(v>=3)return'B';if(v>=1)return'C';return'D'}
+function sortBy(h){let m={'排名':'rank','代码':'code','名称':'f14','最新价':'f2','涨跌幅%':'f3','成交额(亿)':'f20','换手率%':'f62','量比':'f168'};let f=m[h];if(!f)return;ALL.sort((a,b)=>{let va=a[f],vb=b[f];return typeof va==='number'&&typeof vb==='number'?vb-va:String(vb).localeCompare(String(va))});cp=1;go()}
+init();
+</script></body></html>

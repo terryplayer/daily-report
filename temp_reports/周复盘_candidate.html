@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📈 周复盘（临） | 2026.06.01-06.03</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  background:linear-gradient(160deg,#0b0e14 0%,#111820 40%,#161b22 100%);
+  color:#e6edf3;
+  padding:28px 20px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale
+}
+.container{max-width:900px;margin:0 auto}
+
+/* ---- 标题 ---- */
+h1{
+  font-size:22px;color:#f778ba;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg,#f778ba,#d938b0,transparent) 1;
+  padding-bottom:12px;margin-bottom:16px;
+  letter-spacing:0.8px;font-weight:800
+}
+h2{
+  font-size:15px;color:#f778ba;
+  margin:12px 0 10px;padding-left:0;
+  font-weight:700;letter-spacing:0.4px;
+  display:flex;align-items:center;gap:6px
+}
+h3{font-size:13px;color:#f778ba;margin:10px 0 4px;font-weight:600}
+
+/* ---- 板块卡片 ---- */
+.section{
+  background:linear-gradient(180deg,#161b22 0%,#1a2030 100%);
+  border:1px solid #2d333b;
+  border-radius:12px;
+  padding:18px 20px;
+  margin-bottom:16px;
+  font-size:13px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  transition:all 0.25s ease
+}
+.section:hover{
+  border-color:#f778ba44;
+  box-shadow:0 6px 24px rgba(247,120,186,0.08)
+}
+
+/* ---- 表格 ---- */
+table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  font-size:12px;margin-bottom:6px;
+  border-radius:8px;overflow:hidden
+}
+th{
+  background:linear-gradient(180deg,#21262d,#2a2f38);
+  color:#959da5;
+  padding:8px 10px;
+  text-align:left;
+  font-weight:700;
+  font-size:10.5px;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  border-bottom:2px solid #363c45;
+  white-space:nowrap
+}
+td{
+  padding:7px 10px;
+  border-bottom:1px solid #252b33;
+  white-space:nowrap;
+  font-size:12px;
+  vertical-align:middle
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(55,62,71,0.5)}
+
+/* ---- 颜色 ---- */
+.up{color:#ff6b6b;font-weight:700}
+.down{color:#56d364;font-weight:700}
+.flat{color:#e6b422;font-weight:600}
+
+/* ---- 标签 ---- */
+.tag{display:inline-block;padding:2px 10px;border-radius:5px;font-size:10px;font-weight:700;margin-right:2px;letter-spacing:0.3px}
+.tag-aplus{background:rgba(248,81,73,0.25);color:#ff6b6b}
+.tag-a{background:rgba(217,165,46,0.25);color:#e6b422}
+.tag-b{background:rgba(88,166,255,0.25);color:#79b8ff}
+.tag-c{background:rgba(139,148,158,0.25);color:#959da5}
+.tag-d{background:rgba(63,185,80,0.25);color:#56d364}
+
+/* ---- 指数格栅 ---- */
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px}
+.metric-card{
+  background:linear-gradient(180deg,#0d1117 0%,#161b22 100%);
+  border:1px solid #2d333b;
+  border-radius:10px;
+  padding:14px 8px;
+  text-align:center;
+  transition:all 0.3s ease
+}
+.metric-card:hover{
+  border-color:#f778ba66;
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(247,120,186,0.12)
+}
+.metric-val{font-size:22px;font-weight:800;letter-spacing:0.5px}
+.metric-label{font-size:11px;color:#8b949e;margin-top:4px;font-weight:500}
+
+/* ---- 统计行 ---- */
+.stat-line{font-size:13px;margin:8px 0;line-height:1.7}
+
+/* ---- 汇总卡片 ---- */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.summary-card{
+  border-radius:10px;padding:14px 10px;text-align:center;
+  transition:all 0.3s ease
+}
+.summary-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+.summary-card .num{font-size:28px;font-weight:800;letter-spacing:0.5px}
+.summary-card .lbl{font-size:12px;margin-top:4px;font-weight:600;letter-spacing:0.3px}
+
+/* ---- 底部 ---- */
+.footer{
+  text-align:center;color:#6e7681;
+  font-size:11px;margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid #21262d;
+  letter-spacing:0.3px
+}
+.banner{
+  background:linear-gradient(90deg,#f778ba,#d938b0,#b845a0);
+  color:#fff;text-align:center;
+  padding:6px;border-radius:8px;
+  font-size:11px;margin-bottom:12px;
+  font-weight:600;letter-spacing:0.5px;
+  box-shadow:0 2px 8px rgba(247,120,186,0.2)
+}
+
+/* ---- 子标题 ---- */
+.sub-hdr{font-size:13px;font-weight:700;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid #2d333b;letter-spacing:0.3px}
+
+/* ---- 响应式 ---- */
+@media(max-width:600px){
+  .metric-grid,.summary-grid{grid-template-columns:repeat(2,1fr)}
+  body{padding:14px 10px}
+  td,th{padding:4px 6px;font-size:11px}
+  .metric-val{font-size:18px}
+  .summary-card .num{font-size:22px}
+}</style></head><body><div class="container">
+<div class="banner">⚠️ 临时样板 · 统一模型 v1 · 非实际报告</div>
+<h1>📈 周复盘 · 2026.05.27-06.02</h1>
+
+<div class="section">
+<h2>📈 一、本周大盘回顾</h2>
+<div class="metric-grid">
+  <div class="metric-card"><div class="metric-val" style="color:#f85149">4,083.97</div><div class="metric-label">上证指数 +0.22%</div></div>
+  <div class="metric-card"><div class="metric-val" style="color:#f85149">15,704.71</div><div class="metric-label">深证成指 +0.73%</div></div>
+  <div class="metric-card"><div class="metric-val" style="color:#f85149">4,122.99</div><div class="metric-label">创业板指 +1.65%</div></div>
+  <div class="metric-card"><div class="metric-val" style="color:#f85149">1,726.18</div><div class="metric-label">科创50 +2.11%</div></div>
+</div>
+
+<p style="font-size:12px;font-weight:600;margin:10px 0 6px">📅 本周逐日复盘</p>
+<table>
+<tr><th>日期</th><th>上证指数</th><th>涨跌幅</th><th>市场特征</th></tr>
+<tr><td>周三 5/27</td><td>4,093.73</td><td class="up">+0.87%</td><td style="color:#8b949e">华电+4.86%延续强势，电力板块迎夏季用电高峰</td></tr>
+<tr><td>周四 5/28</td><td>4,098.64</td><td class="up">+0.12%</td><td style="color:#8b949e">微幅震荡，科技分化开始，商络+12.72%暴涨</td></tr>
+<tr><td>周五 5/29</td><td>4,068.57</td><td class="down">-0.73%</td><td style="color:#8b949e">科技股集体杀跌，科创50暴跌，通信/电子领跌</td></tr>
+<tr><td>周一 6/1</td><td>4,063.72</td><td class="down">-0.12%</td><td style="color:#8b949e">窄幅震荡，北向资金净流入，人气低迷</td></tr>
+<tr><td>周二 6/2</td><td>4,075.10</td><td class="up">+0.43%</td><td style="color:#8b949e">通信电子集体爆发，东山精密/汇源通信涨停</td></tr>
+</table>
+
+<p style="font-size:12px;font-weight:600;margin:10px 0 6px">📊 周度对比</p>
+<table>
+<tr><th>指数</th><th>上周五(5/29)</th><th>周末(6/2)</th><th>周涨跌幅</th></tr>
+<tr><td>上证指数</td><td>4,068.57</td><td>4,075.10</td><td class="up">+0.16%</td></tr>
+<tr><td>深证成指</td><td>15,575.13</td><td>15,591.13</td><td class="up">+0.10%</td></tr>
+<tr><td>创业板指</td><td>4,037.95</td><td>4,055.87</td><td class="up">+0.44%</td></tr>
+<tr><td>科创50</td><td>1,751.32</td><td>1,690.56</td><td class="down">-3.47%</td></tr>
+</table>
+<p style="margin-top:6px;font-size:12px;color:#8b949e">📌 本周大盘窄幅震荡，科创50继续走弱周跌-3.47%。上证在4,060-4,100区间整理，周二通信电子集体爆发带动指数回升。</p>
+</div>
+
+<div class="section">
+<h2>🔄 二、本周板块轮动回顾</h2>
+
+<p style="font-size:12px;font-weight:600;color:#f85149">🔴 领涨方向</p>
+<table>
+<tr><th>板块</th><th>代表个股</th><th>区间涨幅</th><th>驱动因素</th></tr>
+<tr><td>📡 通信/电子</td><td>商络电子</td><td class="up">+15.81%</td><td style="color:#8b949e">通信板块集体爆发</td></tr>
+<tr><td>💻 科技/半导体</td><td>软通动力</td><td class="up">+26.95%</td><td style="color:#8b949e">华为生态+鸿蒙PC</td></tr>
+<tr><td>📡 通信/电子</td><td>江海股份</td><td class="up">+12.22%</td><td style="color:#8b949e">超级电容方向</td></tr>
+<tr><td>📡 通信/电子</td><td>深圳华强</td><td class="up">+14.57%</td><td style="color:#8b949e">独立行情</td></tr>
+<tr><td>🤖 AI/数字</td><td>易点天下</td><td class="up">+16.04%</td><td style="color:#8b949e">AI出海概念</td></tr>
+</table>
+
+<p style="font-size:12px;font-weight:600;color:#3fb950;margin-top:10px">🟢 弱势方向</p>
+<table>
+<tr><th>板块</th><th>代表个股</th><th>区间跌幅</th><th>驱动因素</th></tr>
+<tr><td>💻 科技/半导体</td><td>帝奥微</td><td class="down">-16.16%</td><td style="color:#8b949e">半导体持续回调</td></tr>
+<tr><td>📡 通信/电子</td><td>硕贝德</td><td class="down">-11.17%</td><td style="color:#8b949e">通信回调</td></tr>
+<tr><td>💻 科技/半导体</td><td>长电科技</td><td class="down">-11.37%</td><td style="color:#8b949e">封测龙头回调</td></tr>
+<tr><td>🧪 化工/材料</td><td>山东玻纤</td><td class="down">-17.12%</td><td style="color:#8b949e">玻纤周期下行</td></tr>
+<tr><td>🤖 AI/数字</td><td>蓝色光标</td><td class="down">-3.16%</td><td style="color:#8b949e">AI板块持续低迷</td></tr>
+</table>
+
+<p style="margin-top:6px;font-size:12px;color:#8b949e">⚠️ 轮动特征：通信电子全面爆发成本周主线，科技半导体内部分化加剧。资金从科技/半导体撤出转向通信电子方向。AI/数字经济持续低迷，化工材料弱势延续。</p>
+</div>
+
+<div class="section">
+<h2>🎯 三、预测验证 & 准确率评估</h2>
+<div class="stat-line"><b>板块准确率：<span class="up">100%</span></b>（4个有方向判断全部正确）· <b>个股准确率：<span class="up">80%</span></b>（5只个股4/5正确）</div>
+
+<p style="font-size:12px;font-weight:600;margin:8px 0 4px">📊 板块预测验证</p>
+<table style="margin-top:4px;">
+<tr><th>板块</th><th>方向</th><th>准确</th><th>准确率</th><th>说明</th></tr>
+<tr><td>📡 通信/电子</td><td style="color:#f85149">↑强势</td><td>1</td><td><b>100%</b></td><td style="color:#8b949e">板块均涨+3.2%领涨全场</td></tr>
+<tr><td>💻 科技/半导体</td><td style="color:#f85149">↑偏强</td><td>1</td><td><b>100%</b></td><td style="color:#8b949e">华特涨停+20%，板块+1.9%</td></tr>
+<tr><td>⚡ 能源/公用</td><td style="color:#f85149">↑强势</td><td>1</td><td><b>100%</b></td><td style="color:#8b949e">华电涨停+10%，板块+3.1%</td></tr>
+<tr><td>🤖 AI/数字</td><td style="color:#3fb950">↓弱势</td><td>1</td><td><b>100%</b></td><td style="color:#8b949e">AI -1.0%板块最弱</td></tr>
+<tr><td>🧪 化工/材料</td><td style="color:#d9a52e">—分化</td><td>—</td><td>⚪</td><td style="color:#8b949e">飞凯+8.64% vs 圣阳-9.83%</td></tr>
+</table>
+
+<p style="font-size:12px;font-weight:600;margin:10px 0 4px">📈 个股预测验证</p>
+<table style="margin-top:4px;">
+<tr><th>个股</th><th>代码</th><th>方向</th><th>实际涨跌</th><th>结果</th></tr>
+<tr><td>华特气体</td><td>688268</td><td style="color:#f85149">↑偏强</td><td style="color:#f85149">+20.00%</td><td>✅ 超预期</td></tr>
+<tr><td>华电辽能</td><td>600396</td><td style="color:#f85149">↑强势</td><td style="color:#f85149">+10.00%</td><td>✅ 精准</td></tr>
+<tr><td>珂玛科技</td><td>301611</td><td style="color:#f85149">↑偏强</td><td style="color:#f85149">+9.56%</td><td>✅ 精准</td></tr>
+<tr><td>圣阳股份</td><td>002580</td><td style="color:#3fb950">↓弱势</td><td style="color:#3fb950">-9.83%</td><td>✅ 预警准确</td></tr>
+<tr><td>蓝色光标</td><td>300058</td><td style="color:#3fb950">↓偏弱</td><td style="color:#3fb950">-3.16%</td><td>✅ 正确</td></tr>
+</table>
+
+<p style="margin-top:6px;font-size:12px;color:#8b949e">💡 RS排名质量：A+等级个股（华电+10%涨停、珂玛+9.56%）精准识别强势。D等级个股（圣阳-9.83%）准确预警风险。偏差率约12.5%。</p>
+</div>
+
+<div class="section">
+<h2>📰 四、周末重大信息汇总</h2>
+
+<p style="font-size:12px;font-weight:600;color:#58a6ff">🌏 海外市场</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">🔥 美股三大指数小幅收涨，科技股分化。戴尔+32%、超微+14%。美联储利率预期维持不变。</p>
+
+<p style="font-size:12px;font-weight:600;color:#58a6ff;margin-top:8px">🏠 国内市场</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">📊 5月PMI 50.0，连续第5个月扩张但边际回落。北向资金周度净流入约37.6亿。</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">💡 通信电子板块集体爆发成本周主线，华特+20%、珂玛+9.56%领涨。</p>
+
+<p style="font-size:12px;font-weight:600;color:#58a6ff;margin-top:8px">📈 宏观周期</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">当前处于 复苏期（PMI 50.0），经济扩张+通胀温和→成长风格占优。</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">配置建议：超配通信/电子、能源/公用 | 标配科技/半导体 | 低配AI/数字</p>
+</div>
+
+<div class="section">
+<h2>🔮 五、下周趋势判断</h2>
+<table>
+<tr><th>指数</th><th>支撑位</th><th>压力位</th><th>技术信号</th></tr>
+<tr><td>上证指数</td><td class="support" style="color:#3fb950;font-weight:600">4,050</td><td class="resist" style="color:#f85149;font-weight:600">4,100</td><td style="color:#8b949e">窄幅震荡，MACD待修复</td></tr>
+<tr><td>深证成指</td><td class="support" style="color:#3fb950;font-weight:600">15,500</td><td class="resist" style="color:#f85149;font-weight:600">15,800</td><td style="color:#8b949e">偏强整理</td></tr>
+<tr><td>创业板指</td><td class="support" style="color:#3fb950;font-weight:600">4,050</td><td class="resist" style="color:#f85149;font-weight:600">4,150</td><td style="color:#8b949e">周线收阳，反弹动能存续</td></tr>
+<tr><td>科创50</td><td class="support" style="color:#3fb950;font-weight:600">1,680</td><td class="resist" style="color:#f85149;font-weight:600">1,750</td><td style="color:#8b949e">连续走弱，关注支撑</td></tr>
+</table>
+
+<p style="font-size:12px;font-weight:600;margin:10px 0 4px;color:#f85149">🔴 看多方向</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">• 通信/电子 — 板块均涨+3.2%领涨，珂玛/天孚/蓝思等龙头强势</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">• 能源/公用 — 华电辽能涨停，夏季用电高峰预期催化</p>
+
+<p style="font-size:12px;font-weight:600;margin:8px 0 4px;color:#3fb950">🟢 看空/谨慎</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">• AI/数字 — 板块评分最低，蓝色光标持续走弱</p>
+<p style="font-size:12px;color:#8b949e;margin-left:12px">• 化工/材料 — 圣阳-9.83%接近跌停，内部分化加剧</p>
+</div>
+
+<div class="section">
+<div class="section">
+<h2>💡 六、下周板块及个股建议</h2>
+
+<p class="sub-hdr" style="color:#f85149">🔥 短期持有</p>
+<table>
+<colgroup><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:8%"><col style="width:10%"><col style="width:10%"><col style="width:30%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>MOM</th><th>MRD</th><th>建议</th></tr>
+<tr><td style="color:#fff">华电辽能</td><td style="color:#fff">600396</td><td class="up">+10.00%</td><td style="color:#fff">A+</td><td style="color:#fff">100</td><td style="color:#fff">+7.9%</td><td style="color:#f85149">🔥 持有·设止盈22.5</td></tr>
+<tr><td style="color:#fff">珂玛科技</td><td style="color:#fff">301611</td><td class="up">+9.56%</td><td style="color:#fff">A+</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#f85149">🔥 持有·逢回调低吸</td></tr>
+<tr><td style="color:#fff">天孚通信</td><td style="color:#fff">300394</td><td class="up">+8.84%</td><td style="color:#fff">A</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#f85149">🔥 持有·光模块龙头</td></tr>
+<tr><td style="color:#fff">华特气体</td><td style="color:#fff">688268</td><td class="up">+20.00%</td><td style="color:#fff">A+</td><td style="color:#fff">60</td><td style="color:#fff">-4.8%</td><td style="color:#d9a52e">⚪ 持有·高开减仓</td></tr>
+</table>
+
+<p class="sub-hdr" style="color:#58a6ff;margin-top:10px">💎 长期持有</p>
+<table>
+<colgroup><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:8%"><col style="width:10%"><col style="width:10%"><col style="width:30%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>MOM</th><th>MRD</th><th>建议</th></tr>
+<tr><td style="color:#fff">澜起科技</td><td style="color:#fff">688008</td><td class="up">+7.13%</td><td style="color:#fff">A</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#58a6ff">💎 持有·半导体龙头</td></tr>
+<tr><td style="color:#fff">蓝思科技</td><td style="color:#fff">300433</td><td class="up">+7.66%</td><td style="color:#fff">A</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#58a6ff">💎 持有·消费电子</td></tr>
+<tr><td style="color:#fff">东山精密</td><td style="color:#fff">002384</td><td class="up">+6.19%</td><td style="color:#fff">A</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#58a6ff">💎 持有·电子领涨</td></tr>
+<tr><td style="color:#fff">飞凯材料</td><td style="color:#fff">300398</td><td class="up">+8.64%</td><td style="color:#fff">A</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#58a6ff">💎 持有·化工领涨</td></tr>
+</table>
+
+<p class="sub-hdr" style="color:#3fb950;margin-top:10px">🚫 建议卖出/减仓</p>
+<table>
+<colgroup><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:8%"><col style="width:10%"><col style="width:10%"><col style="width:30%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>MOM</th><th>MRD</th><th>建议</th></tr>
+<tr><td style="color:#fff">圣阳股份</td><td style="color:#fff">002580</td><td class="down">-9.83%</td><td style="color:#fff">D</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#3fb950">🟢 建议止损</td></tr>
+<tr><td style="color:#fff">长海股份</td><td style="color:#fff">300196</td><td class="down">-6.06%</td><td style="color:#fff">D</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#3fb950">🟢 减仓</td></tr>
+<tr><td style="color:#fff">蓝色光标</td><td style="color:#fff">300058</td><td class="down">-3.16%</td><td style="color:#fff">C</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#3fb950">🟢 减仓·AI最弱</td></tr>
+<tr><td style="color:#fff">方邦股份</td><td style="color:#fff">688020</td><td class="down">-3.28%</td><td style="color:#fff">C</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#3fb950">🟢 减仓</td></tr>
+<tr><td style="color:#fff">亿田智能</td><td style="color:#fff">300911</td><td class="down">-6.04%</td><td style="color:#fff">D</td><td style="color:#fff">50</td><td style="color:#fff">—</td><td style="color:#3fb950">🟢 建议减仓</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🏆 七、综合评级与操作建议</h2>
+<p style="font-size:12px;color:#8b949e;margin-bottom:8px">基于RS相对强度、多因子评分、波动预警、技术面信号、MOM动量、MRD偏离度等模型综合评定</p>
+
+<div class="summary-grid">
+  <div class="summary-card" style="background:#0d1117;border:1px solid #f85149">
+    <div class="num" style="color:#f85149">5</div>
+    <div class="lbl" style="color:#f85149">🔥 短期持有</div>
+  </div>
+  <div class="summary-card" style="background:#0d1117;border:1px solid #58a6ff">
+    <div class="num" style="color:#58a6ff">4</div>
+    <div class="lbl" style="color:#58a6ff">💎 长期持有</div>
+  </div>
+  <div class="summary-card" style="background:#0d1117;border:1px solid #3fb950">
+    <div class="num" style="color:#3fb950">5</div>
+    <div style="font-size:11px;color:#3fb950;margin-top:2px">🚫 建议卖出/减仓</div>
+  </div>
+</div>
+<p style="font-size:12px;color:#8b949e;margin-bottom:8px">基于RS相对强度、多因子评分、波动预警、技术面信号、MOM动量、MRD偏离度等模型综合评定</p>
+
+<p class="sub-hdr" style="color:#f85149;margin-top:10px">🔥 短期持有（持有观察，设好止盈止损）</p>
+<table>
+<colgroup><col style="width:14%"><col style="width:9%"><col style="width:9%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:12%"><col style="width:24%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>多因子</th><th>MOM</th><th>MRD</th><th>信号</th><th>建议</th></tr>
+<tr><td>华电辽能</td><td>600396</td><td class="up">+10.00%</td><td><span class="tag tag-aplus">A+</span></td><td>6.1</td><td>100</td><td>+7.9%</td><td><span class="tag tag-aplus">📈强势</span></td><td >🔥 持有·设止盈22.5</td></tr>
+<tr><td>华特气体</td><td>688268</td><td class="up">+20.00%</td><td><span class="tag tag-aplus">A+</span></td><td>6.2</td><td>60</td><td>-4.8%</td><td><span class="tag tag-aplus">📈涨停</span></td><td >⚪ 持有·高开减仓</td></tr>
+<tr><td>珂玛科技</td><td>301611</td><td class="up">+9.56%</td><td><span class="tag tag-aplus">A+</span></td><td>5.5</td><td>50</td><td>—</td><td><span class="tag tag-a">📈偏强</span></td><td >🔥 持有·逢回调低吸</td></tr>
+<tr><td>天孚通信</td><td>300394</td><td class="up">+8.84%</td><td><span class="tag tag-a">A</span></td><td>5.4</td><td>50</td><td>—</td><td><span class="tag tag-a">📈偏强</span></td><td >🔥 持有·光模块龙头</td></tr>
+<tr><td>飞凯材料</td><td>300398</td><td class="up">+8.64%</td><td><span class="tag tag-a">A</span></td><td>5.8</td><td>50</td><td>—</td><td><span class="tag tag-a">📈偏强</span></td><td >🔥 持有·化工领涨</td></tr>
+</table>
+
+<p class="sub-hdr" style="color:#58a6ff;margin-top:12px">💎 长期持有（核心持仓，阶段性关注）</p>
+<table>
+<colgroup><col style="width:14%"><col style="width:9%"><col style="width:9%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:12%"><col style="width:24%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>多因子</th><th>MOM</th><th>MRD</th><th>信号</th><th>建议</th></tr>
+<tr><td>澜起科技</td><td>688008</td><td class="up">+7.13%</td><td><span class="tag tag-a">A</span></td><td>5.2</td><td>50</td><td>—</td><td><span class="tag tag-b">⚪中性</span></td><td >💎 持有·半导体龙头</td></tr>
+<tr><td>蓝思科技</td><td>300433</td><td class="up">+7.66%</td><td><span class="tag tag-a">A</span></td><td>5.0</td><td>50</td><td>—</td><td><span class="tag tag-b">⚪中性</span></td><td >💎 持有·消费电子</td></tr>
+<tr><td>东山精密</td><td>002384</td><td class="up">+6.19%</td><td><span class="tag tag-a">A</span></td><td>5.1</td><td>50</td><td>—</td><td><span class="tag tag-a">📈偏强</span></td><td >💎 持有·电子领涨</td></tr>
+<tr><td>江海股份</td><td>002484</td><td class="up">+4.95%</td><td><span class="tag tag-b">B</span></td><td>4.8</td><td>50</td><td>—</td><td><span class="tag tag-b">⚪中性</span></td><td >💎 持有·超级电容</td></tr>
+</table>
+
+<p class="sub-hdr" style="color:#3fb950;margin-top:12px">🚫 建议卖出/减仓（去弱留强）</p>
+<table>
+<colgroup><col style="width:14%"><col style="width:9%"><col style="width:9%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:12%"><col style="width:24%"></colgroup>
+<tr><th>个股</th><th>代码</th><th>本周涨跌</th><th>RS</th><th>多因子</th><th>MOM</th><th>MRD</th><th>信号</th><th>建议</th></tr>
+<tr><td>圣阳股份</td><td>002580</td><td class="down">-9.83%</td><td><span class="tag tag-d">D</span></td><td>2.4</td><td>50</td><td>—</td><td><span class="tag tag-d">📉弱势</span></td><td >🟢 建议止损</td></tr>
+<tr><td>长海股份</td><td>300196</td><td class="down">-6.06%</td><td><span class="tag tag-d">D</span></td><td>3.1</td><td>50</td><td>—</td><td><span class="tag tag-d">📉弱势</span></td><td >🟢 减仓</td></tr>
+<tr><td>蓝色光标</td><td>300058</td><td class="down">-3.16%</td><td><span class="tag tag-c">C</span></td><td>3.5</td><td>50</td><td>—</td><td><span class="tag tag-c">📉偏弱</span></td><td >🟢 减仓·AI最弱</td></tr>
+<tr><td>方邦股份</td><td>688020</td><td class="down">-3.28%</td><td><span class="tag tag-c">C</span></td><td>3.6</td><td>50</td><td>—</td><td><span class="tag tag-c">📉偏弱</span></td><td >🟢 减仓</td></tr>
+<tr><td>亿田智能</td><td>300911</td><td class="down">-6.04%</td><td><span class="tag tag-d">D</span></td><td>3.2</td><td>50</td><td>—</td><td><span class="tag tag-d">📉弱势</span></td><td >🟢 建议减仓</td></tr>
+</table>
+
+<p style="margin-top:10px;font-size:12px;color:#8b949e">📊 持仓评级分布：🔥短期持有 5只 · 💎长期持有 4只 · 🚫建议卖出/减仓 5只</p>
+<p style="margin-top:4px;font-size:12px;color:#8b949e">⚠️ 总结：本周通信电子+能源公用双主线明确，科技半导体分化需精选。建议保留华电、珂玛、天孚等强势股，对圣阳、亿田等持续走弱股果断减仓。整体仓位建议5-6成。</p>
+</div>
+<div class="footer">🌀 周复盘 · 统一模型v1</div></div></body></html>

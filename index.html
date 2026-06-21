@@ -3,124 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌀 小十三 · 每日简报</title>
+<title>🌀 小十三的智能管理系统</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#0d1117; color:#e6edf3; padding:40px 20px; }
-.container { max-width:600px; margin:0 auto; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#0d1117;color:#e6edf3;padding:32px 20px;min-height:100vh
+}
+.container{max-width:800px;margin:0 auto}
 
-/* header */
-h1 { color:#58a6ff; font-size:26px; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
-.subtitle { color:#8b949e; font-size:13px; margin-bottom:28px; }
+/* ─── 顶栏 ─── */
+.header{
+  text-align:center;padding:28px 0 20px;
+  border-bottom:1px solid #21262d;margin-bottom:24px
+}
+.header h1{
+  font-size:20px;font-weight:700;color:#e6edf3;letter-spacing:0.5px;
+  display:flex;align-items:center;justify-content:center;gap:8px
+}
+.header .subtitle{
+  font-size:12px;color:#8b949e;margin-top:6px;
+  display:flex;align-items:center;justify-content:center;gap:4px
+}
 
-/* cards */
-.card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:16px 20px; margin-bottom:12px; }
-.card h2 { font-size:15px; color:#f0f6fc; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-.card h2 .badge { font-size:11px; background:#1f6feb; color:#fff; padding:1px 8px; border-radius:8px; font-weight:400; }
+/* ─── 板块网格 ─── */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
 
-/* date row */
-.date-group { border-bottom:1px solid #21262d; padding:10px 0; }
-.date-group:last-child { border-bottom:none; }
-.date-label { font-size:14px; color:#f0f6fc; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
-.date-label .tag { font-size:11px; font-weight:400; padding:1px 6px; border-radius:4px; }
-.tag-today { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb44; }
-.tag-new { background:#3fb95022; color:#3fb950; border:1px solid #3fb95044; }
-.report-links { display:flex; gap:8px; flex-wrap:wrap; }
-.report-links a { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8b949e; text-decoration:none; padding:4px 10px; border-radius:6px; transition:all .2s; border:1px solid #21262d; }
-.report-links a:hover { color:#f0f6fc; background:#21262d; border-color:#30363d; }
-.report-links a.pm { color:#d29922; }
-.report-links a.pm:hover { background:#d2992211; border-color:#d2992244; }
-.report-links a.dc { color:#3fb950; }
-.report-links a.dc:hover { background:#3fb95011; border-color:#3fb95044; }
-.report-links a.wr { color:#bc8cff; }
-.report-links a.wr:hover { background:#bc8cff11; border-color:#bc8cff44; }
-.latest-label { font-size:12px; color:#8b949e; margin-left:8px; }
+/* ─── 父卡片（七色光谱顶边渐变） ─── */
+.card{
+  background:#161b22;border-radius:8px;border:1px solid #30363d;
+  overflow:hidden;position:relative;padding-top:4px
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
 
-/* weekly special row */
-.weekly-row { padding:8px 0; border-bottom:1px solid #21262d; }
-.weekly-row:last-child { border-bottom:none; }
-.weekly-row a { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; color:#e6edf3; text-decoration:none; border-radius:6px; transition:background .2s; }
-.weekly-row a:hover { background:#21262d; }
-.weekly-row .version { font-size:12px; color:#8b949e; }
+.card-study::before{background:linear-gradient(90deg,#f85149,#f0883e)}
+.card-stock::before{background:linear-gradient(90deg,#d29922,#3fb950)}
+.card-work::before{background:linear-gradient(90deg,#56d4dd,#58a6ff)}
+.card-tool::before{background:linear-gradient(90deg,#58a6ff,#bc8cff)}
 
-.footer { text-align:center; color:#8b949e; font-size:12px; margin-top:32px; padding-top:16px; border-top:1px solid #21262d; line-height:1.8; }
+.card-header{
+  padding:14px 16px 10px;display:flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:600;color:#e6edf3
+}
+.card-header .icon{font-size:18px}
+
+/* ─── 子卡片 4x1 网格 ─── */
+.sub-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;
+  padding:0 12px 12px
+}
+@media(max-width:560px){.sub-grid{grid-template-columns:1fr 1fr}}
+
+.sub-card{
+  background:#0d1117;border-radius:6px;border:1px solid #21262d;
+  padding:6px 8px 10px;text-align:center;text-decoration:none;position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  transition:border-color 0.15s,background 0.15s
+}
+.sub-card:hover{background:#1c2333}
+.sub-card .sub-icon{font-size:16px}
+.sub-card .sub-label{font-size:11px;color:#8b949e;line-height:1.3}
+
+/* 有真实链接的子卡片：顶部渐变色条 */
+.sub-card.link-active::before{content:'';position:absolute;top:0;left:4px;right:4px;height:2px;border-radius:0 0 2px 2px}
+.sub-card.link-active:hover{border-color:#30363d;background:#1c2333}
+.sub-card.link-active .sub-label{color:#e6edf3}
+
+.sub-card.link-blue::before{background:linear-gradient(90deg,#58a6ff,#56d4dd)}
+.sub-card.link-blue .sub-label{color:#58a6ff}
+
+.sub-card.link-gold::before{background:linear-gradient(90deg,#d29922,#f0c27a)}
+.sub-card.link-gold .sub-label{color:#d29922}
+
+/* ─── 底部 ─── */
+.footer{text-align:center;color:#30363d;font-size:12px;padding-top:20px;border-top:1px solid #21262d;line-height:2}
+.footer a{color:#58a6ff;text-decoration:none;font-size:12px}
+.footer a:hover{text-decoration:underline}
+
+/* ─── 欢迎语横幅 ─── */
+.welcome{
+  background:#161b22;border:1px solid #30363d;border-radius:8px;
+  padding:12px 20px;margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;font-size:13px;color:#8b949e
+}
+.welcome .time{color:#30363d;font-size:12px}
 </style>
 </head>
 <body>
 <div class="container">
 
-<h1>🌀 小十三 · 每日简报</h1>
-<p class="subtitle">A股持仓分析 · 盘前 & 收盘 · 周复盘</p>
-
-<!-- 周复盘 -->
-<div class="card">
-<h2>📋 周复盘</h2>
-<div class="weekly-row">
-  <a href="weekly-review-2026-05-24.html">
-    <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">完整版</span></span>
-    <span class="version">完整版 →</span>
-  </a>
-</div>
-<div class="weekly-row">
-  <a href="weekly-review-2026-05-22.html">
-    <span>2026 年第 21 周 <span style="font-size:12px;color:#8b949e;font-weight:400;">周五版</span></span>
-    <span class="version">周五版 →</span>
-  </a>
-</div>
+<div class="header">
+  <h1>🌀 小十三的智能管理系统</h1>
+  <div class="subtitle">学习 · 股票 · 工作 · 工具</div>
 </div>
 
-<!-- 日期分类 -->
-<div class="card">
-<h2>📅 按日期 <span class="badge">最新在前</span></h2>
+<div class="welcome" id="welcomeBanner">
+  <span style="font-size:16px">👋</span>
+  <span id="greetingText">十三哥，早上好！</span>
+  <span style="color:#8b949e" id="todayDate">--</span>
+  <span class="time" id="todayTime" style="margin-left:auto"></span>
+</div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.26 周二 <span class="tag tag-today">今日</span></div>
-  <div class="report-links">
-    <a href="premarket-2026-05-26.html" class="pm">📋 盘前简报</a>
+<div class="grid">
+
+<!-- 📚 学习 — 红橙 -->
+<div class="card card-study">
+  <div class="card-header"><span class="icon">📚</span> 学习</div>
+  <div class="sub-grid">
+    <a href="#" class="sub-card"><span class="sub-icon">📖</span><span class="sub-label">知识笔记</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">🎓</span><span class="sub-label">学习目标</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">📝</span><span class="sub-label">测验考试</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">🎬</span><span class="sub-label">TED推荐</span></a>
   </div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.25 周一</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-25.html" class="pm">📋 盘前简报</a>
+<!-- 📈 股票 — 黄绿 -->
+<div class="card card-stock">
+  <div class="card-header"><span class="icon">📈</span> 股票</div>
+  <div class="sub-grid">
+    <a href="/dashboard" class="sub-card link-active link-blue"><span class="sub-icon">📊</span><span class="sub-label">报告中心</span></a>
+    <a href="http://8.137.53.96:8000" class="sub-card link-active link-gold"><span class="sub-icon">🔍</span><span class="sub-label">市场全景</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">📋</span><span class="sub-label">持仓看板</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">📈</span><span class="sub-label">复盘策略</span></a>
   </div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.22 周五</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-22.html" class="pm">📋 盘前简报</a>
-    <a href="daily-combined-2026-05-22.html" class="dc">📊 收盘汇总</a>
+<!-- 💼 工作 — 青蓝 -->
+<div class="card card-work">
+  <div class="card-header"><span class="icon">💼</span> 工作</div>
+  <div class="sub-grid">
+    <a href="#" class="sub-card"><span class="sub-icon">📅</span><span class="sub-label">日程任务</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">💻</span><span class="sub-label">项目看板</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">🤖</span><span class="sub-label">AI工具箱</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">⏰</span><span class="sub-label">定时任务</span></a>
   </div>
 </div>
 
-<div class="date-group">
-  <div class="date-label">2026.05.21 周四</div>
-  <div class="report-links">
-    <a href="premarket-2026-05-21.html" class="pm">📋 盘前简报</a>
-    <a href="daily-combined-2026-05-21.html" class="dc">📊 收盘汇总</a>
-  </div>
-</div>
-
-<div class="date-group">
-  <div class="date-label">2026.05.20 周三</div>
-  <div class="report-links">
-    <a href="daily-combined-2026-05-20.html" class="dc">📊 收盘汇总</a>
+<!-- 🔧 工具 — 蓝紫 -->
+<div class="card card-tool">
+  <div class="card-header"><span class="icon">🔧</span> 工具</div>
+  <div class="sub-grid">
+    <a href="#" class="sub-card"><span class="sub-icon">🌐</span><span class="sub-label">常用链接</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">🐍</span><span class="sub-label">开发环境</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">📡</span><span class="sub-label">数据服务</span></a>
+    <a href="#" class="sub-card"><span class="sub-icon">⚙️</span><span class="sub-label">系统状态</span></a>
   </div>
 </div>
 
 </div>
 
-<!-- 说明 -->
-<div class="card" style="background:#0d1117;border-color:#21262d;">
-<p style="font-size:13px;color:#8b949e;line-height:1.8;">
-简报每日自动生成 · 盘前 9:15 · 收盘 16:00<br>
-数据仅供参考，不构成投资建议
-</p>
+<div class="footer">
+🌀 小十三的智能管理系统 · <a href="/dashboard">报告中心</a> · <a href="https://github.com/terryplayer/daily-report">GitHub</a>
 </div>
 
-<p class="footer">🌀 小十三 · 每日自动更新 · <a href="https://github.com/terryplayer/daily-report" style="color:#8b949e;">GitHub</a></p>
 </div>
+
+<script>
+(function(){
+  var now=new Date();
+  var y=now.getFullYear(),m=('0'+(now.getMonth()+1)).slice(-2),d=('0'+now.getDate()).slice(-2);
+  var weekdays=['日','一','二','三','四','五','六'];
+  var wd=weekdays[now.getDay()];
+  document.getElementById('todayDate').textContent=y+'-'+m+'-'+d+' 周'+wd;
+
+  var h=now.getHours(),mi=('0'+now.getMinutes()).slice(-2);
+  var greet='晚上好';
+  if(h<6)greet='夜深了';else if(h<9)greet='早上好';else if(h<12)greet='上午好';
+  else if(h<14)greet='中午好';else if(h<18)greet='下午好';
+  document.getElementById('greetingText').textContent='十三哥，'+greet+'！';
+  document.getElementById('todayTime').textContent=h+':'+mi;
+})();
+</script>
 </body>
 </html>

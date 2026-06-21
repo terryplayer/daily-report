@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>午间标准版 · 2026-06-17 周三</title>
+
+<style>
+  /* ========== 深色主题基础样式 ========== */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+  pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+
+  /* ========== 板块容器 ========== */
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+
+  /* ========== 预警/提示框 ========== */
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+
+  /* ========== 方向颜色 ========== */
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral { color: #d29922; }
+  .muted { color: #8b949e; }
+
+  /* ========== 标签 ========== */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+
+  /* ========== 网格布局 ========== */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  /* ========== 数据面板 ========== */
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+
+  /* ========== 进度条/强度 ========== */
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+
+  /* ========== 元信息 ========== */
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+
+  /* ========== 底部 ========== */
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+
+  /* ========== 空数据占位 ========== */
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+</style>
+
+
+<style>
+  /* 午间主题色：青色 */
+  h1 { color: #56d4dd; }
+</style>
+<style>
+  .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 12px 0; }
+  .heat-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .heat-row:last-child { border-bottom: none; }
+  .heat-bar { height: 6px; border-radius: 3px; flex: 1; max-width: 200px; }
+  .deviation-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+  .stock-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .stock-row:last-child { border-bottom: none; }
+</style>
+
+</head>
+<body>
+
+
+<h1>🧩 午间标准版</h1>
+<div class="meta">
+  <span class="meta-item">📅 <strong>2026-06-17 周三</strong></span>
+  <span class="meta-item">🕐 <strong>21:36 CST</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 完全用新流程引擎</span>
+</div>
+
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📊 指数概况</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <div class="index-grid">
+    
+    <div class="data-card">
+      <div class="label">上证指数</div>
+      
+      <div class="value up">
+        0.4
+      </div>
+      <div class="sub">4108.08</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">深证成指</div>
+      
+      <div class="value up">
+        1.31
+      </div>
+      <div class="sub">15880.95</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">创业板指</div>
+      
+      <div class="value up">
+        1.56
+      </div>
+      <div class="sub">4167.05</div>
+      
+    </div>
+    
+    <div class="data-card">
+      <div class="label">科创50</div>
+      
+      <div class="value up">
+        4.69
+      </div>
+      <div class="sub">1840.82</div>
+      
+    </div>
+    
+  </div>
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">半日成交 4108.08 亿</p>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔥 板块热度</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <table>
+    <thead>
+      <tr><th>板块</th><th>半日涨跌</th><th>热度</th><th>领涨股</th></tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+      <td><strong>通信/电子</strong></td>
+      <td class="up">1.92</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:48.0%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td><strong>AI/数字经济</strong></td>
+      <td class="up">1.26</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:31.5%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td><strong>化工/材料</strong></td>
+      <td class="down">-1.14</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:28.499999999999996%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td><strong>其他</strong></td>
+      <td class="up">0.84</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:21.0%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td><strong>科技/半导体</strong></td>
+      <td class="down">-0.24</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:6.0%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td><strong>能源/公用事业</strong></td>
+      <td class="down">-0.21</td>
+      <td>
+        <div class="strength-bar"><div class="strength-bar-fill down" style="width:5.25%"></div></div>
+      </td>
+      <td>—</td>
+    </tr>
+    
+    </tbody>
+  </table>
+  
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📐 偏差矩阵</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <table>
+    <thead>
+      <tr><th>板块</th><th>盘前预测</th><th>半日实际</th><th>偏差</th><th>状态</th></tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+      <td><strong>通信/电子</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="up">1.92</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>AI/数字经济</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="up">1.26</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>化工/材料</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="down">-1.14</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>其他</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="up">0.84</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>科技/半导体</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="down">-0.24</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>能源/公用事业</strong></td>
+      <td><span class="deviation-tag tag-down">—</span></td>
+      <td class="down">-0.21</td>
+      <td class="flat">0</td>
+      <td><span class="tag tag-neutral">待验证</span></td>
+    </tr>
+    
+    </tbody>
+  </table>
+  
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>⚡ 板块异动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <table>
+    <thead>
+      <tr><th>时间</th><th>板块</th><th>异动方向</th><th>触发原因</th></tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+      <td style="white-space:nowrap;">盘中</td>
+      <td><strong>通信/电子</strong></td>
+      <td class="flat">偏强</td>
+      <td style="font-size:12px;color:#8b949e;">通信/电子板块涨+1.9%</td>
+    </tr>
+    
+    <tr>
+      <td style="white-space:nowrap;">盘中</td>
+      <td><strong>AI/数字经济</strong></td>
+      <td class="flat">偏强</td>
+      <td style="font-size:12px;color:#8b949e;">AI/数字经济板块涨+1.3%</td>
+    </tr>
+    
+    <tr>
+      <td style="white-space:nowrap;">盘中</td>
+      <td><strong>化工/材料</strong></td>
+      <td class="flat">偏弱</td>
+      <td style="font-size:12px;color:#8b949e;">化工/材料板块跌-1.1%</td>
+    </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓动态</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <table>
+    <thead>
+      <tr><th>股票</th><th>半日涨跌</th><th>评分</th><th>盘前信号</th><th>半日信号</th><th>建议</th></tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+      <td><strong>菲利华</strong><span class="code" style="color:#8b949e;font-size:11px;"> 300395</span></td>
+      <td class="down">-6.01</td>
+      <td class="flat">42.2</td>
+      <td><span class="tag tag-neutral">中性</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>彤程新材</strong><span class="code" style="color:#8b949e;font-size:11px;"> 603650</span></td>
+      <td class="down">-5.59</td>
+      <td class="flat">54.2</td>
+      <td><span class="tag tag-neutral">中性</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>汉缆股份</strong><span class="code" style="color:#8b949e;font-size:11px;"> 002498</span></td>
+      <td class="up">5.15</td>
+      <td class="up">91.3</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>帝奥微</strong><span class="code" style="color:#8b949e;font-size:11px;"> 688381</span></td>
+      <td class="down">-4.68</td>
+      <td class="down">33.3</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(63,185,80,0.15);color:#3fb950">观察</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>和顺科技</strong><span class="code" style="color:#8b949e;font-size:11px;"> 301237</span></td>
+      <td class="down">-4.67</td>
+      <td class="down">17.0</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(63,185,80,0.15);color:#3fb950">观察</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>珂玛科技</strong><span class="code" style="color:#8b949e;font-size:11px;"> 301611</span></td>
+      <td class="up">4.34</td>
+      <td class="up">87.5</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>阳光电源</strong><span class="code" style="color:#8b949e;font-size:11px;"> 300274</span></td>
+      <td class="down">-4.33</td>
+      <td class="flat">41.6</td>
+      <td><span class="tag tag-neutral">中性</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>汇源通信</strong><span class="code" style="color:#8b949e;font-size:11px;"> 000586</span></td>
+      <td class="up">4.3</td>
+      <td class="up">100.0</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>中巨芯-U</strong><span class="code" style="color:#8b949e;font-size:11px;"> 688549</span></td>
+      <td class="up">4.13</td>
+      <td class="up">100.0</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>中百集团</strong><span class="code" style="color:#8b949e;font-size:11px;"> 000759</span></td>
+      <td class="up">4.07</td>
+      <td class="up">98.9</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>中国西电</strong><span class="code" style="color:#8b949e;font-size:11px;"> 601179</span></td>
+      <td class="down">-4.01</td>
+      <td class="down">13.6</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(63,185,80,0.15);color:#3fb950">观察</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>贵州茅台</strong><span class="code" style="color:#8b949e;font-size:11px;"> 600519</span></td>
+      <td class="up">3.73</td>
+      <td class="up">93.0</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>蓝思科技</strong><span class="code" style="color:#8b949e;font-size:11px;"> 300433</span></td>
+      <td class="up">3.68</td>
+      <td class="up">86.7</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>国际复材</strong><span class="code" style="color:#8b949e;font-size:11px;"> 301526</span></td>
+      <td class="up">3.45</td>
+      <td class="up">94.6</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>行云科技</strong><span class="code" style="color:#8b949e;font-size:11px;"> 300209</span></td>
+      <td class="up">3.42</td>
+      <td class="flat">51.1</td>
+      <td><span class="tag tag-neutral">中性</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>利通电子</strong><span class="code" style="color:#8b949e;font-size:11px;"> 603629</span></td>
+      <td class="down">-3.33</td>
+      <td class="down">22.2</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(63,185,80,0.15);color:#3fb950">观察</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>南大光电</strong><span class="code" style="color:#8b949e;font-size:11px;"> 300346</span></td>
+      <td class="down">-3.33</td>
+      <td class="down">31.8</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(63,185,80,0.15);color:#3fb950">观察</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>云南锗业</strong><span class="code" style="color:#8b949e;font-size:11px;"> 002428</span></td>
+      <td class="down">-3.23</td>
+      <td class="flat">55.8</td>
+      <td><span class="tag tag-neutral">中性</span></td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>兆驰股份</strong><span class="code" style="color:#8b949e;font-size:11px;"> 002429</span></td>
+      <td class="up">3.22</td>
+      <td class="up">100.0</td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    <tr>
+      <td><strong>山东玻纤</strong><span class="code" style="color:#8b949e;font-size:11px;"> 605006</span></td>
+      <td class="up">3.21</td>
+      <td class="down">29.6</td>
+      <td><span class="tag tag-down">偏空</span></td>
+      <td><span class="tag tag-up">偏多</span></td>
+      <td><span class="tag" style="font-weight:700;background:rgba(88,166,255,0.15);color:#58a6ff">持有</span></td>
+    </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 股票报告 | 2026-06-17 周三</p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+
+</body>
+</html>

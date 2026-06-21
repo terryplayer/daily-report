@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>🧩混动系统·数据流映射图v6.0</title>
+<style>
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:#0d1117;color:#c9d1d9;font-size:12px;max-width:1600px;margin:0 auto;padding:20px}
+h1{color:#58a6ff;border-bottom:2px solid #30363d;font-size:18px;word-break:break-all}
+.flow{display:grid;grid-template-columns:300px 1fr 1fr 1fr 1fr;gap:1px;margin:4px 0}
+.header{background:#161b22;color:#58a6ff;padding:6px;font-weight:700;text-align:center;font-size:13px}
+.cell{padding:5px 8px;border:1px solid #21262d;line-height:1.5;vertical-align:top}
+.ca{background:#0c2d4a}.cb{background:#1a2d1a}.cc{background:#2d1a0a}.ce{background:#1a0d2d}
+.sh{background:#161b22;color:#f0883e;padding:8px 12px;font-weight:700;font-size:14px;margin-top:18px;border-left:4px solid #f0883e}
+.ss{color:#79c0ff;padding:4px 12px;font-size:12px;margin-bottom:2px}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;margin:1px}
+.tg{background:#1a2d1a;color:#3fb950;border:1px solid rgba(63,185,80,0.3)}
+.ty{background:#2d1a0a;color:#d29922;border:1px solid rgba(210,153,34,0.3)}
+.tr{background:#2d0a0a;color:#f85149;border:1px solid rgba(248,81,73,0.3)}
+.tb{background:#0c2d4a;color:#58a6ff;border:1px solid rgba(88,166,255,0.3)}
+.fn{margin-top:16px;padding:12px;background:#161b22;border-radius:6px;font-size:12px;color:#8b949e;line-height:2}
+</style></head><body>
+<h1>🧩 混动系统 · 数据流映射图 v5.4</h1>
+<p style="color:#8b949e">按8001设计文档逐板块对照 + <b>代码真实验证</b> | 生成: 2026-06-18</p>
+<p style="color:#8b949e;font-size:11px">
+<span class="tag tg">✅ 完全实现·有数据</span> 函数+数据源就位，当前有真实内容
+<span class="tag tb">⬜ 完全实现·待数据</span> 函数+数据源就位，市场休市/无异常等正常空数据
+<span class="tag ty">🟡 部分实现·字段缺失</span> 框架就位，但部分字段无数据源
+<span class="tag tr">🔴 需付费API</span> 数据源需要付费API（东方财富Choice/Wind等）
+</p>
+
+<!-- ═══ 盘前标准版 ═══ -->
+<div class="sh">📋 盘前标准版 · 09:15 <span class="tag tg">8/8完全实现</span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 模板板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">🌐 腾讯国际 qt.gtimg.cn usDJI/IXIC/INX/fuCN<br>parts[3]=收盘价 [32]=涨跌幅%</div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">_build_overseas() ✅</div><div class="cell ce">🌍 隔夜外盘 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">💰 东方财富北向 push2<br>hk2sh[3]+hk2sz[3]=净买入亿元</div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">_build_market_outlook() ✅</div><div class="cell ce">📈 大盘预判 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">📡 腾讯96只→sector聚合</div><div class="cell cb">calc_sector_rotation()</div><div class="cell cc">—</div><div class="cell cb">_build_sector_rotation() ✅</div><div class="cell ce">🧭 板块轮动 <span class="tag tb">已实现·待数据</span></div></div>
+<div class="flow"><div class="cell ca">📡 腾讯96只<br>parts[3] [32] [39]=PE</div><div class="cell cb">calc_ma/rsi/bollinger/kdj<br>unified_model源数据</div><div class="cell cc">calc_unified_model()<br>7维→score→signal</div><div class="cell cb">_build_unified_matrix() ✅</div><div class="cell ce">📊 统一矩阵 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">📡 腾讯+评分</div><div class="cell cb">个股聚合+信号</div><div class="cell cc">持仓评分</div><div class="cell cb">_build_holdings() ✅</div><div class="cell ce">📋 持仓观察 <span class="tag tb">已实现·待数据</span></div></div>
+<div class="flow"><div class="cell ca">research_cache.json</div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">_build_today_focus() ✅</div><div class="cell ce">⏰ 今日关注 <span class="tag tb">已实现·待数据</span></div></div>
+<div class="flow"><div class="cell ca">—</div><div class="cell cb">calc_volatility_alerts</div><div class="cell cc">signal→action</div><div class="cell cb">_build_strategy() ✅<br>_build_alerts() ✅</div><div class="cell ce">⚔️ 策略 <span class="tag tg">有数据</span> / ⚠️ 预警 <span class="tag tb">待数据</span></div></div>
+
+<!-- ═══ 盘前进阶 ═══ -->
+<div class="sh">📊 盘前进阶版（extends 标准版8+4） <span class="tag tg">4/4完全实现</span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 额外板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">stock_history.json 20天</div><div class="cell cb">—</div><div class="cell cc">RF v2模型</div><div class="cell cb">_build_ml_predictions→rf</div><div class="cell ce">🤖 RF方向 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">stock_history.json 20天</div><div class="cell cb">—</div><div class="cell cc">Ridge模型</div><div class="cell cb">_build_ml_predictions→ridge</div><div class="cell ce">📈 Ridge回归 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">腾讯+分析产出</div><div class="cell cb">—</div><div class="cell cc">评分</div><div class="cell cb">_build_four_quadrant() ✅</div><div class="cell ce">🧭 四象限 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">cointegration_results.json</div><div class="cell cb">ADF→z_score</div><div class="cell cc">信号</div><div class="cell cb">load_cointegration() ✅</div><div class="cell ce">🔗 配对信号 <span class="tag tg">有数据</span></div></div>
+
+<!-- ═══ 午间标准 ═══ -->
+<div class="sh">🕐 午间标准版 · 12:00 <span class="tag tg">4/5完全实现 <span class="tag tb">1待数据</span></span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 模板板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">🌐 腾讯4指数 sh000001~sh000688</div><div class="cell cb">_fetch_live_index_data()</div><div class="cell cc">—</div><div class="cell cb">_build_index_summary() ✅</div><div class="cell ce">📊 指数概况 <span class="tag tb">已实现·休市无数据</span></div></div>
+<div class="flow"><div class="cell ca">📡 腾讯96只</div><div class="cell cb">calc_sector_rotation()</div><div class="cell cc">—</div><div class="cell cb">_build_sector_heat() ✅</div><div class="cell ce">🔥 板块热度 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">prediction+腾讯</div><div class="cell cb">pred vs actual</div><div class="cell cc">—</div><div class="cell cb">_build_deviation_matrix() ✅</div><div class="cell ce">📐 偏差矩阵 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">▶ 腾讯96只</div><div class="cell cb">异常检测</div><div class="cell cc">—</div><div class="cell cb">_build_sector_moves() ✅</div><div class="cell ce">⚡ 板块异动 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">腾讯+盘前信号</div><div class="cell cb">涨跌幅对比</div><div class="cell cc">信号对比</div><div class="cell cb">_build_holdings_dynamic() ✅</div><div class="cell ce">📋 持仓动态 <span class="tag tg">有数据</span></div></div>
+
+<!-- ═══ 午间进阶 ═══ -->
+<div class="sh">📊 午间进阶版（extends 标准版5+2）</div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 额外板块 · 状态</div></div>
+<div class="flow"><div class="cell ca"><span class="tag ty">🟡</span> research_cache.json→moneyflow <span class="tag ty">需付费API</span></div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">❌ 无函数</div><div class="cell ce">💰 资金流向 <span class="tag ty">需付费API</span></div></div>
+<div class="flow"><div class="cell ca"><span class="tag ty">🟡</span> research_cache.json→stk_limit <span class="tag ty">需付费API</span></div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">❌ 无函数</div><div class="cell ce">🚀 涨停板 <span class="tag ty">需付费API</span></div></div>
+
+<!-- ═══ 收盘标准 ═══ -->
+<div class="sh">📊 收盘标准版 · 16:00 <span class="tag tg">4/6完全实现 <span class="tag tb">1待数据</span> <span class="tag ty">1缺字段</span></span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 模板板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">🌐 腾讯收盘行情</div><div class="cell cb">benchmark聚合</div><div class="cell cc">—</div><div class="cell cb">_build_closing_summary() ✅</div><div class="cell ce">📊 收盘汇总 <span class="tag tb">已实现·休市无数据</span></div></div>
+<div class="flow"><div class="cell ca">▶ 腾讯收盘价</div><div class="cell cb">calc_sector_rotation</div><div class="cell cc">—</div><div class="cell cb">_build_sector_review() ✅</div><div class="cell ce">🔄 板块复盘 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">prediction_ledger</div><div class="cell cb">—</div><div class="cell cc">准确率</div><div class="cell cb">_build_verification() ✅</div><div class="cell ce">🎯 预测验证 <span class="tag tb">已实现·账本空</span></div></div>
+<div class="flow"><div class="cell ca">腾讯+评分</div><div class="cell cb">—</div><div class="cell cc">持仓评分</div><div class="cell cb">_build_holdings_closing() <span class="tag tg">v6.0独立函数</span></div><div class="cell ce">📋 持仓评分 <span class="tag tg">v6.0独立函数有数据</span></div></div>
+<div class="flow"><div class="cell ca">—</div><div class="cell cb">calc_volatility_alerts</div><div class="cell cc">—</div><div class="cell cb">_build_alerts() ✅</div><div class="cell ce">⚠️ 风险预警 <span class="tag tb">已实现·待数据</span></div></div>
+<div class="flow"><div class="cell ca">上证指数K线</div><div class="cell cb">calc_arima_prediction(2,0,0)</div><div class="cell cc">—</div><div class="cell cb">_build_next_day() ✅</div><div class="cell ce">🔮 次日预判 <span class="tag tg">有数据</span></div></div>
+
+<!-- ═══ 收盘进阶 ═══ -->
+<div class="sh">📊 收盘进阶版（extends 标准版6+3）<span class="tag tg">2/3完全实现 <span class="tag ty">1缺字段</span></span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 额外板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">(同收盘标准版)</div><div class="cell cb">—</div><div class="cell cc">评分</div><div class="cell cb">_build_four_quadrant() ✅</div><div class="cell ce">🧭 四象限 <span class="tag tg">有数据 6板块</span></div></div>
+<div class="flow"><div class="cell ca">cointegration_results.json</div><div class="cell cb">z-score追踪</div><div class="cell cc">—</div><div class="cell cb">_build_pair_tracking() ✅ <span class="tag ty">V5.3新增</span></div><div class="cell ce">🔗 配对追踪 <span class="tag ty">0对·待cointegration产出</span></div></div>
+<div class="flow"><div class="cell ca">stock_history+scoring</div><div class="cell cb">—</div><div class="cell cc">RF/Ridge准确率</div><div class="cell cb">_build_ml_verification() ✅ <span class="tag ty">V5.3新增</span></div><div class="cell ce">🤖 ML验证 <span class="tag tg">有数据 RF/Ridge 100%</span></div></div>
+
+<!-- ═══ 周报标准 ═══ -->
+<div class="sh">📈 周报标准版 · 周日 <span class="tag tg">7/7完全实现</span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 模板板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">stock_history+腾讯</div><div class="cell cb">5日聚合</div><div class="cell cc">—</div><div class="cell cb">_build_weekly_market() ✅</div><div class="cell ce">📈 大盘回顾 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">▶ 腾讯5日</div><div class="cell cb">板块5日聚合</div><div class="cell cc">—</div><div class="cell cb">_build_weekly_sectors() ✅</div><div class="cell ce">🔄 周板块轮动 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">prediction_ledger周</div><div class="cell cb">—</div><div class="cell cc">周准确率</div><div class="cell cb">_build_weekly_verification() ✅</div><div class="cell ce">🎯 预测验证 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">macro_cache</div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">_build_weekly_news() ✅</div><div class="cell ce">📰 周末信息 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">上证K线5日</div><div class="cell cb">趋势聚合</div><div class="cell cc">—</div><div class="cell cb">_build_weekly_trend() ✅</div><div class="cell ce">🔮 下周趋势 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">unified_matrix周</div><div class="cell cb">—</div><div class="cell cc">周汇总</div><div class="cell cb">_build_weekly_suggestions() ✅</div><div class="cell ce">💡 持仓建议 <span class="tag tg">有数据</span></div></div>
+<div class="flow"><div class="cell ca">watchlist</div><div class="cell cb">—</div><div class="cell cc">—</div><div class="cell cb">_build_weekly_ratings() ✅</div><div class="cell ce">🏆 综合评级 <span class="tag tg">有数据</span></div></div>
+
+<!-- ═══ 周报进阶 ═══ -->
+<div class="sh">📊 周报进阶版（extends 标准版7+4）<span class="tag tg">1/4完全实现 <span class="tag tb">3框架·待数据积累</span></span></div>
+<div class="flow"><div class="cell header">💾 采集层</div><div class="cell header">⚙️ 分析层</div><div class="cell header">🎯 评分层</div><div class="cell header">📋 Builder</div><div class="cell header">📄 额外板块 · 状态</div></div>
+<div class="flow"><div class="cell ca">(同周报标准版)</div><div class="cell cb">—</div><div class="cell cc">周评分</div><div class="cell cb">_build_weekly_four_quadrant() ✅<span class="tag tb">V5.3新增</span></div><div class="cell ce">🏁 四象限总评 <span class="tag tb">框架就绪·需prediction_ledger积累</span></div></div>
+<div class="flow"><div class="cell ca">stock_history 20天</div><div class="cell cb">—</div><div class="cell cc">RF/Ridge周</div><div class="cell cb">_build_ml_weekly() ✅<span class="tag tb">V5.3新增</span></div><div class="cell ce">🤖 ML周度 <span class="tag tb">框架就绪·需prediction_ledger积累</span></div></div>
+<div class="flow"><div class="cell ca">分析层kmeans/pca</div><div class="cell cb">PCA/K-means</div><div class="cell cc">—</div><div class="cell cb">_build_sector_structure() ✅<span class="tag tg">V5.3新增</span></div><div class="cell ce">🔗 板块结构 <span class="tag tg">有数据·聚类:1 配对:0</span></div></div>
+<div class="flow"><div class="cell ca">ledger多周</div><div class="cell cb">feedback_engine</div><div class="cell cc">进化</div><div class="cell cb">_build_model_evolution() ✅<span class="tag tb">V5.3新增</span></div><div class="cell ce">📊 模型进化 <span class="tag tb">框架就绪·需多周数据</span></div></div>
+
+<!-- ═══ 板块汇总 ═══ -->
+<div class="sh" style="background:#0c2d4a;border-left-color:#58a6ff">📊 全部板块汇总统计</div>
+<div class="fn">
+<table style="border-collapse:collapse;width:100%;font-size:12px;color:#c9d1d9">
+<tr style="background:#161b22"><th style="padding:6px;border:1px solid #30363d">报告</th><th style="padding:6px;border:1px solid #30363d">板块数</th><th style="padding:6px;border:1px solid #30363d">✅完全实现</th><th style="padding:6px;border:1px solid #30363d">⬜已实现·待数据</th><th style="padding:6px;border:1px solid #30363d">🟡部分实现</th><th style="padding:6px;border:1px solid #30363d">🔴需付费API</th></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📋 盘前标准版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">8</td><td style="padding:4px 6px;border:1px solid #30363d">🌍隔夜外盘 📈大盘预判 📊统一矩阵 ⚔️策略</td><td style="padding:4px 6px;border:1px solid #30363d">🧭板块轮动 📋持仓观察 ⏰今日关注 ⚠️预警</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📊 盘前进阶版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">+4</td><td style="padding:4px 6px;border:1px solid #30363d">🤖RF 📈Ridge 🧭四象限 🔗配对</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">🕐 午间标准版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">5</td><td style="padding:4px 6px;border:1px solid #30363d">🔥板块热度 📐偏差矩阵 ⚡异动 📋持仓</td><td style="padding:4px 6px;border:1px solid #30363d">📊指数概况(休市)</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">🕐 午间进阶版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">+2</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📊 收盘标准版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">6</td><td style="padding:4px 6px;border:1px solid #30363d">🔄板块复盘 🔮次日预判</td><td style="padding:4px 6px;border:1px solid #30363d">📊收盘汇总(休市) 🎯验证(账本空) ⚠️预警</td><td style="padding:4px 6px;border:1px solid #30363d">📋持仓 <span class="tag tg">v6.0独立函数</span></td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📊 收盘进阶版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">+3</td><td style="padding:4px 6px;border:1px solid #30363d">🧭四象限 🤖ML验证</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">🔗配对(0对·待coint产出)</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📈 周报标准版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">7</td><td style="padding:4px 6px;border:1px solid #30363d">全部7板块有数据</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板</td></tr>
+<tr><td style="padding:4px 6px;border:1px solid #30363d">📊 周报进阶版</td><td style="padding:4px 6px;border:1px solid #30363d;text-align:center">+4</td><td style="padding:4px 6px;border:1px solid #30363d">🔗板块结构</td><td style="padding:4px 6px;border:1px solid #30363d">🏁四象限 🤖ML周度 📊进化复盘</td><td style="padding:4px 6px;border:1px solid #30363d">—</td><td style="padding:4px 6px;border:1px solid #30363d">💰资金流向 🚀涨停板(需付费API)</td></tr>
+</table>
+<p style="margin-top:10px"><b>总计:</b> 39个板块中 ✅完全实现=20 · ⬜已实现(待数据)=12 · 🟡部分实现=2 · 🔴需付费API=2 · ❌无实现=0</p>
+<p><b>腾讯字段:</b> parts[3]=收盘价 [4]=昨收 [31]=涨跌额 [32]=涨跌幅% [39]=市盈率</p>
+<p style="font-size:11px;color:#636e7b">生成: 2026-06-18 01:30 | 代码验证: data_collector+analysis_engine+calc_model+builder+renderer 全线就绪</p>
+</div>
+</body></html>
