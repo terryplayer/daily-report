@@ -1,0 +1,13 @@
+# 旧样本/模板文件 → 返回 404
+/premarket_sample.html /404 404
+/closing_sample.html /404 404  
+/midday_sample.html /404 404
+/weekly_sample.html /404 404
+/report.html /404 404
+/report-close-* /404 404
+/template-* /404 404
+/weekly-review-latest /404 404
+/weekly-review-template /404 404
+# 架构文档不对外开放
+/architecture-v3.1 /404 404
+/architecture-v3.1.html /404 404

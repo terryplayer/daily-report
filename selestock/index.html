@@ -62,7 +62,7 @@ tr:hover td{background:#1a2744}
 <span class=cnt id=cn>0条</span></div>
 <div id=loading class=loading><div class=spinner></div><br>加载数据中...</div>
 <div class=tw id=tw style=display:none><table><thead><tr id=th></tr></thead><tbody id=tb></tbody></table></div>
-<div class=pag id=pg></div><p class=ft>🌀 市场全景 · 数据来自 API</p></div>
+<div class=pag id=pg></div>
 <script>
 var API='',PS=50,ALL=[],cp=1,sk=null,sa=false,sfs=[],wh={},FIELDS={},META={},secMap={},subToMain={},LEADERS={},leaderFilter=false;
 
@@ -116,6 +116,46 @@ function industrySec(s){
   if(f100){
     var m=subToMain;
     if(m[f100])return m[f100];
+    // 东财细分行业→主板块映射
+    var em={'半导体':'科技/半导体','软件开发':'科技/半导体','IT服务Ⅱ':'科技/半导体',
+      '计算机设备':'科技/半导体','消费电子':'科技/半导体','光学光电子':'科技/半导体',
+      '元件':'科技/半导体','军工电子Ⅱ':'科技/半导体','电子化学品Ⅱ':'科技/半导体',
+      '自动化设备':'科技/半导体','其他电子Ⅱ':'科技/半导体',
+      '通信设备':'通信/电子','通信服务':'通信/电子',
+      '化学制品':'化工/材料','化学制药':'化工/材料','化学原料':'化工/材料',
+      '化学纤维':'化工/材料','农化制品':'化工/材料','塑料':'化工/材料',
+      '橡胶':'化工/材料','小金属':'化工/材料','金属新材料':'化工/材料',
+      '玻璃玻纤':'化工/材料','造纸':'化工/材料','水泥':'化工/材料',
+      '冶钢原料':'化工/材料','特钢Ⅱ':'化工/材料','普钢':'化工/材料',
+      '工业金属':'化工/材料','贵金属':'化工/材料','能源金属':'化工/材料',
+      '非金属材料Ⅱ':'化工/材料','装修建材':'化工/材料','纺织制造':'化工/材料',
+      '服装家纺':'化工/材料','包装印刷':'化工/材料','化妆品':'化工/材料',
+      '饰品':'化工/材料','家居用品':'化工/材料','文娱用品':'化工/材料','个护用品':'化工/材料',
+      '医疗器械':'化工/材料','医疗服务':'化工/材料','生物制品':'化工/材料',
+      '医药商业':'化工/材料','医疗美容':'化工/材料','动物保健Ⅱ':'化工/材料',
+      '电力':'能源/公用事业','电网设备':'能源/公用事业','光伏设备':'能源/公用事业',
+      '风电设备':'能源/公用事业','电池':'能源/公用事业','燃气Ⅱ':'能源/公用事业',
+      '煤炭开采':'能源/公用事业','环境治理':'能源/公用事业','油服工程':'能源/公用事业',
+      '航运港口':'能源/公用事业','铁路公路':'能源/公用事业','航空机场':'能源/公用事业',
+      '物流':'能源/公用事业','基础建设':'能源/公用事业','工程咨询服务Ⅱ':'能源/公用事业',
+      '专业工程':'能源/公用事业','炼化及贸易':'能源/公用事业',
+      '汽车零部件':'能源/公用事业','商用车':'能源/公用事业','摩托车及其他':'能源/公用事业',
+      '汽车服务':'能源/公用事业','乘用车':'能源/公用事业',
+      '环保设备Ⅱ':'能源/公用事业','通用设备':'能源/公用事业','专用设备':'能源/公用事业',
+      '工程机械':'能源/公用事业','轨交设备Ⅱ':'能源/公用事业','航海装备Ⅱ':'能源/公用事业',
+      '航天装备Ⅱ':'能源/公用事业','航空装备Ⅱ':'能源/公用事业','地面兵装Ⅱ':'能源/公用事业',
+      '其他电源设备Ⅱ':'能源/公用事业','电机Ⅱ':'能源/公用事业','照明设备Ⅱ':'能源/公用事业',
+      '家电零部件Ⅱ':'能源/公用事业','白色家电':'能源/公用事业','黑色家电':'能源/公用事业',
+      '厨卫电器':'能源/公用事业','小家电':'能源/公用事业','其他家电Ⅱ':'能源/公用事业',
+      '种植业':'能源/公用事业','养殖业':'能源/公用事业','渔业':'能源/公用事业',
+      '林业Ⅱ':'能源/公用事业','农产品加工':'能源/公用事业','饲料':'能源/公用事业',
+      '农业综合Ⅱ':'能源/公用事业','饮料乳品':'能源/公用事业','食品加工':'能源/公用事业',
+      '休闲食品':'能源/公用事业','调味发酵品Ⅱ':'能源/公用事业','非白酒':'能源/公用事业','白酒Ⅱ':'能源/公用事业',
+      '游戏Ⅱ':'AI/数字经济','数字媒体':'AI/数字经济','广告营销':'AI/数字经济',
+      '影视院线':'AI/数字经济','出版':'AI/数字经济','互联网电商':'AI/数字经济',
+      '电视广播Ⅱ':'AI/数字经济','教育':'AI/数字经济','旅游及景区':'AI/数字经济',
+      '酒店餐饮':'AI/数字经济','体育Ⅱ':'AI/数字经济'};
+    if(em[f100])return em[f100];
   }
   return'其他';
 }
@@ -147,15 +187,17 @@ function updateSubSec(){
   var mainSec=document.getElementById('secSel').value;
   var sel=document.getElementById('subSecSel');
   sel.innerHTML='<option value>🔬 细分行业</option>';
-  if(!mainSec||mainSec==='其他'){
-    buildAllSubSec();
-  }else{
-    var subs=secMap[mainSec]||[];
-    subs.sort().forEach(function(s){
-      var o=document.createElement('option');o.value=s;o.textContent=s;
-      sel.appendChild(o);
-    });
-  }
+  // 从 ALL 中提取属于该主板块的股票的 f100（东财原始细分行业）
+  var subSec={};
+  ALL.forEach(function(s){
+    if((!mainSec||mainSec==='其他'||industrySec(s)===mainSec) && s.f100){
+      subSec[s.f100]=1;
+    }
+  });
+  Object.keys(subSec).sort().forEach(function(s){
+    var o=document.createElement('option');o.value=s;o.textContent=s;
+    sel.appendChild(o);
+  });
 }
 
 function exportExcel(){
@@ -178,7 +220,7 @@ function exportExcel(){
   
   // POST 到后端
   var xhr=new XMLHttpRequest();
-  xhr.open('POST','/data/export',true);
+  xhr.open('POST',API+'/data/export',true);
   xhr.responseType='blob';
   xhr.setRequestHeader('Content-Type','application/json');
   xhr.onload=function(){
@@ -187,7 +229,7 @@ function exportExcel(){
       var url=URL.createObjectURL(blob);
       var a=document.createElement('a');
       a.href=url;
-      a.download='股票数据_'+new Date().toISOString().slice(0,10)+'.xlsx';
+      var now=new Date();function pad(n){return n<10?'0'+n:''+n} a.download='股票数据_'+now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+'.'+pad(now.getMinutes())+'.'+pad(now.getSeconds())+'.xlsx';
       a.click();
       URL.revokeObjectURL(url);
     }else{
@@ -202,7 +244,7 @@ function exportExcel(){
 
 async function init(){
   try{
-    var r=await fetch('/data/today?page=1&size=10000');
+    var r=await fetch(API+'/data/today?page=1&size=10000');
     var d=await r.json();
     if(d.error)throw new Error(d.error);
     META=d._meta;FIELDS=d.fields;
@@ -218,7 +260,7 @@ async function init(){
       fb.innerHTML='⏳ <span class=val>'+META.latest_date+'数据（19:00采集后更新）</span>';
       document.getElementById('status').appendChild(fb);
     }else{
-      document.getElementById('dateLabel').textContent=META.fetched_at?META.fetched_at.slice(0,10):'--';
+      document.getElementById('dateLabel').textContent=META.fetched_at?META.fetched_at.slice(0,10)+' '+META.fetched_at.slice(11,16):'--';
     }
     document.getElementById('totalLabel').textContent=META.total+'只';
     
@@ -248,11 +290,10 @@ async function init(){
       }
     }
     
-    // 行业主板块下拉
-    var indSec={};
-    ALL.forEach(function(s){var n=industrySec(s);indSec[n]=1});
+    // 行业主板块下拉（自定义排序）
+    var secOrder=['AI/数字经济','科技/半导体','通信/电子','能源/公用事业','化工/材料','其他'];
     var secSel=document.getElementById('secSel');
-    Object.keys(indSec).sort().forEach(function(s){
+    secOrder.forEach(function(s){
       var o=document.createElement('option');o.value=s;o.textContent=s;
       secSel.appendChild(o);
     });
@@ -277,12 +318,12 @@ async function init(){
     
     // Watchlist
     try{
-      var wr=await fetch('/watchlist');
+      var wr=await fetch(API+'/watchlist');
       var wd=await wr.json();
       wd.codes.forEach(function(c){wh[c]=1});
     }catch(e){}
     try{
-      var lr=await fetch('/data/leaders');
+      var lr=await fetch(API+'/data/leaders');
       var ld=await lr.json();
       LEADERS=ld.leaders||{};
     }catch(e){}
@@ -334,7 +375,7 @@ function go(){
   var start=(cp-1)*PS;
   var pg=all.slice(start,start+PS);
   
-  var hds=['排名','代码','名称','最新价','涨跌幅%','成交额(亿)','换手率%','量比','市盈率','市净率','主力净流入','等级','主板块','细分行业','市场','持仓','标签'];  
+  var hds=['排名','代码','名称','最新价','涨跌幅%','成交额(亿)','换手率%','量比','市盈率','市净率','主力净流入','等级','行业主板块','细分行业','市场','持仓','标签'];  
   function leaderLabel(code){
     var ld=LEADERS[code];if(!ld)return '<td><\/td>';
     var c={1:'#d29922',2:'#58a6ff',3:'#8b949e'}[ld.tier]||'#8b949e';
@@ -378,7 +419,7 @@ function cell(h,s,i){
     var gc={'A+':'#f85149','A':'#d9a52e','B':'#58a6ff','C':'#8b949e','D':'#3fb950'};
     return'<td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:'+gc[g]+'22;color:'+gc[g]+'">'+g+'</span></td>';
   }
-  if(h==='主板块')return'<td style=color:#ffa657>'+(industrySec(s)||'其他')+'</td>';;
+  if(h==='行业主板块')return'<td style=color:#ffa657>'+(industrySec(s)||'其他')+'</td>';;
   if(h==='细分行业')return'<td style=color:#b1bac4>'+(s.f100||'—')+'</td>';;
   if(h==='市场')return'<td style=color:#7fc1b5>'+(marketSec(s)||'其他')+'</td>';;
   if(h==='持仓'){
@@ -393,7 +434,7 @@ var sortDir={};
 function sortBy(h){
   sortDir[h]=!sortDir[h];
   var dir=sortDir[h]?1:-1;
-  var m={'排名':'rank','代码':'code','名称':'f14','最新价':'f2','涨跌幅%':'f3','成交额(亿)':'f20','换手率%':'f62','量比':'f168','市盈率':'f175','市净率':'f23','主力净流入':'f193','等级':'grade','主板块':'rank','细分行业':'f100','市场':'rank'};
+  var m={'排名':'rank','代码':'code','名称':'f14','最新价':'f2','涨跌幅%':'f3','成交额(亿)':'f20','换手率%':'f62','量比':'f168','市盈率':'f175','市净率':'f23','主力净流入':'f193','等级':'grade','行业主板块':'rank','细分行业':'f100','市场':'rank'};
   var f=m[h];
   if(!f)return;
   ALL.sort(function(a,b){
@@ -407,7 +448,7 @@ function sortBy(h){
 function toggleHold(code,name,add){
   var btns=document.querySelectorAll('.wb');
   btns.forEach(function(b){b.classList.add('wb-loading')});
-  var url='/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);
+  var url=API+'/watchlist/'+(add?'add?code='+code+'&name='+encodeURIComponent(name):'remove?code='+code);
   fetch(url,{method:add?'POST':'DELETE'}).then(function(r){return r.json()}).then(function(){
     if(add)wh[code]=1;else delete wh[code];
     go();
