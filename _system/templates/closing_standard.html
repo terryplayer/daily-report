@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>收盘标准版 · {{ report_date }}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; margin-top: 36px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral, .flat { color: #d29922; }
+  .muted { color: #8b949e; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+  @media (max-width: 768px) {
+    .grid, .grid-3, .summary-grid { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 768px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
+  .verify-table th { background: #161b22; }
+  .verify-table .col-match { text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>🧩 收盘标准版</h1>
+<div class="meta">
+  <span class="meta-item">📅 <strong>{{ report_date }}</strong></span>
+  <span class="meta-item">🕐 <strong>{{ generated_at }}</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 完全用新流程引擎</span>
+</div>
+
+{# ===== 收盘汇总 ===== #}
+{% if closing_summary %}
+<section class="section">
+  <div class="section-header">
+    <h3>📊 收盘汇总</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="summary-grid">
+    {% for idx_name in ['上证指数','深证成指','创业板指','科创50'] %}
+    {% if idx_name in closing_summary %}
+    {% set idx = closing_summary[idx_name] %}
+    <div class="data-card">
+      <div class="label">{{ idx_name }}</div>
+      {% if idx.change is defined and idx.change != '—' and idx.change is not none %}
+      {% if idx.change > 0 %}<div class="value up">{{ idx.change }}%</div>
+      {% elif idx.change < 0 %}<div class="value down">{{ idx.change }}%</div>
+      {% else %}<div class="value flat">{{ idx.change }}%</div>{% endif %}
+      {% endif %}
+      {% if idx.value and idx.value != '—' %}<div class="sub">{{ idx.value }}</div>{% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <div style="display:flex;gap:16px;font-size:12px;color:#8b949e;margin-top:4px;">
+    <span>全日成交 {{ closing_summary.turnover }} 亿</span>
+    <span>涨停 {{ closing_summary.limit_up }} 只</span>
+    <span>跌停 {{ closing_summary.limit_down }} 只</span>
+  </div>
+</section>
+{% endif %}
+
+{# ===== 板块复盘 ===== #}
+{% if sector_review and sector_review.sectors %}
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 板块复盘</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>今日涨跌</th><th>RS</th><th>5日动量</th><th>信号</th></tr></thead>
+    <tbody>
+    {% for s in sector_review.sectors %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td class="{% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}flat{% endif %}">{% if s.change > 0 %}+{% endif %}{{ s.change }}%</td>
+        <td class="{% if s.rs >= 60 %}up{% elif s.rs >= 40 %}flat{% else %}down{% endif %}">{{ s.rs }}</td>
+        <td class="{% if s.momentum_5d > 0 %}up{% elif s.momentum_5d < 0 %}down{% else %}flat{% endif %}">{{ s.momentum_5d }}%</td>
+        <td><span class="tag {% if s.signal == '↑' %}tag-up{% elif s.signal == '↓' %}tag-down{% else %}tag-neutral{% endif %}">{{ s.signal }}</span></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 预测验证 ===== #}
+{% if verification and verification.data_available %}
+<section class="section">
+  <div class="section-header">
+    <h3>🎯 预测验证</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+
+  {# 大盘方向 #}
+  {% if verification.market %}
+  <h4 style="color:#58a6ff;margin:12px 0 6px;">📍 大盘方向</h4>
+  <table class="verify-table">
+    <thead><tr><th>时机</th><th>预测方向</th><th>实际涨跌</th><th>结果</th><th>说明</th></tr></thead>
+    <tbody>
+      {% if verification.market.midday_actual %}
+      <tr>
+        <td><span class="tag" style="background:rgba(88,166,255,0.12);color:#58a6ff;font-size:11px;">盘前→午间</span></td>
+        <td><span class="tag {% if verification.market.prediction.direction == '偏多' %}tag-up{% elif verification.market.prediction.direction == '偏空' %}tag-down{% else %}tag-neutral{% endif %}">{{ verification.market.prediction.direction }}</span></td>
+        <td class="{% if verification.market.midday_actual.direction == '偏多' %}up{% elif verification.market.midday_actual.direction == '偏空' %}down{% else %}flat{% endif %}">{{ verification.market.midday_actual.change_pct }}</td>
+        <td>{% if verification.market.midday_match %}✅{% else %}❌{% endif %}</td>
+        <td style="font-size:12px;color:#8b949e;">{{ verification.market.midday_deviation }}</td>
+      </tr>
+      {% endif %}
+      <tr>
+        <td><span class="tag" style="background:rgba(88,166,255,0.12);color:#58a6ff;font-size:11px;">盘前→收盘</span></td>
+        <td><span class="tag {% if verification.market.prediction.direction == '偏多' %}tag-up{% elif verification.market.prediction.direction == '偏空' %}tag-down{% else %}tag-neutral{% endif %}">{{ verification.market.prediction.direction }}</span></td>
+        <td class="{% if verification.market.closing_actual.direction == '偏多' %}up{% elif verification.market.closing_actual.direction == '偏空' %}down{% else %}flat{% endif %}">{{ verification.market.closing_actual.change_pct }}</td>
+        <td>{% if verification.market.closing_match %}✅{% else %}❌{% endif %}</td>
+        <td style="font-size:12px;color:#8b949e;">{{ verification.market.closing_deviation }}</td>
+      </tr>
+    </tbody>
+  </table>
+  {% endif %}
+
+  {# 板块轮动验证 #}
+  {% if verification.sectors and verification.sectors.matrix %}
+  <h4 style="color:#58a6ff;margin:16px 0 6px;">🔄 板块轮动验证</h4>
+  <div class="grid" style="margin-bottom:8px;">
+    <div class="data-card">
+      <div class="label">盘前→午间</div>
+      <div class="value up">{{ (verification.sectors.midday_accuracy.rate * 100)|round }}%</div>
+      <div class="sub">{{ verification.sectors.midday_accuracy.correct }}/{{ verification.sectors.midday_accuracy.total }}</div>
+    </div>
+    <div class="data-card">
+      <div class="label">盘前→收盘</div>
+      <div class="value up">{{ (verification.sectors.closing_accuracy.rate * 100)|round }}%</div>
+      <div class="sub">{{ verification.sectors.closing_accuracy.correct }}/{{ verification.sectors.closing_accuracy.total }}</div>
+    </div>
+  </div>
+  <table class="verify-table">
+    <thead><tr><th>板块</th><th>预测</th><th>午间实际</th><th>午间</th><th>收盘实际</th><th>收盘</th><th>趋势</th></tr></thead>
+    <tbody>
+    {% for s in verification.sectors.matrix %}
+      <tr>
+        <td><strong>{{ s.sector }}</strong></td>
+        <td><span class="tag {% if s.prediction.direction == '↑' %}tag-up{% elif s.prediction.direction == '↓' %}tag-down{% else %}tag-neutral{% endif %}">{{ s.prediction.direction }}</span></td>
+        <td class="{% if s.midday.change_pct > 0 %}up{% elif s.midday.change_pct < 0 %}down{% else %}flat{% endif %}">{{ s.midday.change_pct }}</td>
+        <td>
+          {% if s.midday.match %}
+          <span style="color:#3fb950">✅ {{ s.midday.match_signal }}</span>
+          {% else %}
+          <span style="color:#f85149">❌ {{ s.midday.match_signal }}</span>
+          {% endif %}
+        </td>
+        <td class="{% if s.closing.change_pct > 0 %}up{% elif s.closing.change_pct < 0 %}down{% else %}flat{% endif %}">{{ s.closing.change_pct }}</td>
+        <td>
+          {% if s.closing.match %}
+          <span style="color:#3fb950">✅ {{ s.closing.match_signal }}</span>
+          {% else %}
+          <span style="color:#f85149">❌ {{ s.closing.match_signal }}</span>
+          {% endif %}
+        </td>
+        <td style="font-size:12px;">{% if s.trend_note %}<span style="color:#d29922;">⚠ {{ s.trend_note }}</span>{% else %}—{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {# 个股验证概要 #}
+  {% if verification.stocks %}
+  <h4 style="color:#58a6ff;margin:16px 0 6px;">📈 个股验证</h4>
+  <div class="grid" style="margin-bottom:8px;">
+    <div class="data-card">
+      <div class="label">午间个股准确率</div>
+      <div class="value flat">{{ (verification.stocks.midday_accuracy.rate * 100)|round }}%</div>
+      <div class="sub">{{ verification.stocks.midday_accuracy.correct }}/{{ verification.stocks.midday_accuracy.total }}</div>
+    </div>
+    <div class="data-card">
+      <div class="label">收盘个股准确率</div>
+      <div class="value flat">{{ (verification.stocks.closing_accuracy.rate * 100)|round }}%</div>
+      <div class="sub">{{ verification.stocks.closing_accuracy.correct }}/{{ verification.stocks.closing_accuracy.total }}</div>
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ===== 持仓评分 ===== #}
+{% if holdings_score and holdings_score.stocks %}
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓评分</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>名称</th><th>代码</th><th>涨跌幅</th><th>评分</th><th>信号</th><th>操作</th></tr></thead>
+    <tbody>
+    {% for s in holdings_score.stocks %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td><code>{{ s.code }}</code></td>
+        <td class="{% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}flat{% endif %}">{{ s.change_pct }}</td>
+        <td class="{% if s.score >= 60 %}up{% elif s.score >= 40 %}flat{% else %}down{% endif %}">{{ s.score }}</td>
+        <td><span class="{% if s.signal == '偏多' %}up{% elif s.signal == '偏空' %}down{% else %}flat{% endif %}">{{ s.signal }}</span></td>
+        <td>{% if s.action == '买入' %}<span class="tag tag-up">{{ s.action }}</span>{% elif s.action == '卖出' %}<span class="tag tag-down">{{ s.action }}</span>{% else %}<span class="tag tag-neutral">{{ s.action }}</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 预警信号 ===== #}
+{% if alerts and alerts|length > 0 %}
+<section class="section">
+  <div class="section-header">
+    <h3>⚠️ 风险预警</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    {% for a in alerts %}
+    <div class="alert {% if a.level == 'danger' %}alert-danger{% elif a.level == 'warning' %}alert-warning{% else %}alert-info{% endif %}">
+      <strong>{{ a.type }}</strong><br>
+      {{ a.message }}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# ===== 次日预判 ===== #}
+{% if next_day %}
+<section class="section">
+  <div class="section-header">
+    <h3>🔮 次日预判</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">方向</div>
+      <div class="{% if next_day.direction == '偏多' %}value up{% elif next_day.direction == '偏空' %}value down{% else %}value flat{% endif %}">{{ next_day.direction }}</div>
+      <div class="sub">置信度 {{ next_day.confidence }}</div>
+    </div>
+    <div class="data-card">
+      <div class="label">关键位置</div>
+      <div style="margin-top:8px;font-size:14px;">
+        支撑 <span class="up">{{ next_day.support }}</span>
+        压力 <span class="down">{{ next_day.resistance }}</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">{{ next_day.note }}</p>
+</section>
+{% endif %}
+
+<div class="footer">
+  <p>🧩 收盘标准版 · 生成时间 {{ generated_at }}</p>
+  <p>数据来源: 统一模型v2 | 报告版本 {{ report_version }}</p>
+</div>
+
+</body>
+</html>

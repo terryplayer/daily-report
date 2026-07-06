@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘前标准版 · {{ report_date }}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral, .flat { color: #d29922; }
+  .muted { color: #8b949e; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+  .overseas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 768px) { .overseas-grid { grid-template-columns: repeat(2, 1fr); } }
+  .support { color: #3fb950; }
+  .resist { color: #f85149; }
+  .stock-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .stock-row:last-child { border-bottom: none; }
+  .stock-row .code { color: #8b949e; font-size: 11px; }
+  .stock-row .name { flex: 1; }
+  .stock-name { font-weight: 600; }
+  .stock-code { color: #8b949e; font-size: 11px; }
+  .sector-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>🧩 盘前标准版</h1>
+<div class="meta">
+  <span class="meta-item">📅 <strong>{{ report_date }}</strong></span>
+  <span class="meta-item">🕐 <strong>{{ generated_at }}</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 完全用新流程引擎</span>
+</div>
+
+{# ===== 隔夜外盘 ===== #}
+<section class="section">
+  <div class="section-header">
+    <h3>🌍 隔夜外盘</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  {% if overseas_market %}
+  <div class="overseas-grid">
+    {% set idx_map = {'dow':'道琼斯','nasdaq':'纳斯达克','sp500':'标普500','a50_futures':'A50期货'} %}
+    {% set label_map = {'dow':'道琼斯','nasdaq':'纳斯达克','sp500':'标普500','a50_futures':'A50期货'} %}
+    {% for key, label in [('dow','道琼斯'),('nasdaq','纳斯达克'),('sp500','标普500'),('a50_futures','A50期货')] %}
+    {% if key in overseas_market %}
+    {% set idx = overseas_market[key] %}
+    <div class="data-card">
+      <div class="label">{{ label }}</div>
+      {% if idx.change is defined and idx.change != '—' and idx.change != 0 %}
+      {% if idx.change > 0 %}<div class="value up">+{{ idx.change }}%</div>
+      {% elif idx.change < 0 %}<div class="value down">{{ idx.change }}%</div>
+      {% else %}<div class="value flat">{{ idx.change }}%</div>{% endif %}
+      {% else %}
+      <div class="value muted">—</div>
+      {% endif %}
+      {% if idx.value and idx.value != '—' %}<div class="sub">{{ idx.value }}</div>{% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="no-data">外盘数据暂未更新</div>
+  {% endif %}
+</section>
+
+{# ===== 大盘预判 ===== #}
+{% if market_outlook %}
+<section class="section">
+  <div class="section-header">
+    <h3>📈 大盘预判</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">今日方向</div>
+      {% if market_outlook.direction == '偏多' %}
+      <div class="value up">{{ market_outlook.direction }}</div>
+      {% elif market_outlook.direction == '偏空' %}
+      <div class="value down">{{ market_outlook.direction }}</div>
+      {% else %}
+      <div class="value flat">{{ market_outlook.direction }}</div>
+      {% endif %}
+      <div class="sub">置信度 {{ market_outlook.confidence }}</div>
+      {% if market_outlook.support and market_outlook.support != '—' %}
+      <div style="margin-top:8px;font-size:12px;">
+        支撑 <span class="support">{{ market_outlook.support }}</span>
+        压力 <span class="resist">{{ market_outlook.resistance }}</span>
+      </div>
+      {% endif %}
+    </div>
+    <div class="data-card">
+      <div class="label">北向资金</div>
+      {% if northbound_flow is defined and northbound_flow is not none %}
+      {% if northbound_flow > 0 %}
+      <div class="value up">+{{ northbound_flow }}亿</div>
+      <div class="sub">净流入</div>
+      {% elif northbound_flow < 0 %}
+      <div class="value down">{{ northbound_flow }}亿</div>
+      <div class="sub">净流出</div>
+      {% else %}
+      <div class="value flat">0亿</div>
+      <div class="sub">净流出</div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  {% if market_outlook.reason and market_outlook.reason != '—' %}
+  <p style="font-size:12px;color:#8b949e;margin-top:6px;">📌 {{ market_outlook.reason }}</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ===== 估值信号 + 北向资金 mini ===== #}
+{% if valuation or north_signal %}
+<div class="grid" style="margin-bottom:8px;">
+  {% if valuation %}
+  <div class="data-card">
+    <div class="label">📊 估值信号</div>
+    {% if valuation.total_stocks and valuation.total_stocks > 0 %}
+    <div style="display:flex;gap:16px;margin-top:4px;">
+      <div><span style="color:#3fb950;font-size:16px;font-weight:700;">{{ valuation.undervalued }}</span><span style="font-size:11px;color:#8b949e;"> 低估</span></div>
+      <div><span style="color:#d29922;font-size:16px;font-weight:700;">{{ valuation.fair }}</span><span style="font-size:11px;color:#8b949e;"> 合理</span></div>
+      <div><span style="color:#f85149;font-size:16px;font-weight:700;">{{ valuation.overvalued }}</span><span style="font-size:11px;color:#8b949e;"> 高估</span></div>
+    </div>
+    <div class="sub">PE/PB历史分位数 · 共{{ valuation.total_stocks }}只</div>
+    {% else %}
+    <div class="sub muted">估值数据暂未更新</div>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% if north_signal %}
+  <div class="data-card">
+    <div class="label">💰 北向资金</div>
+    {% if north_signal.cumulative_north and north_signal.cumulative_north != '—' %}
+    <div style="margin-top:4px;">
+      <span style="font-size:16px;font-weight:700;">{{ north_signal.cumulative_north }}</span>
+      <span style="font-size:11px;color:#8b949e;margin-left:6px;">昨净</span>
+    </div>
+    <div style="font-size:11px;">
+      短期:<span style="color:#d29922"> {{ north_signal.short_term_trend }}</span>
+      · 中期:<span style="color:#3fb950"> {{ north_signal.medium_term_trend }}</span>
+      · 信号:<span>{{ north_signal.signal_label }}</span>
+    </div>
+    {% else %}
+    <div class="sub muted">北向数据暂未更新</div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{# ===== 统一模型评分矩阵 ===== #}
+{% if unified_matrix and unified_matrix.sectors %}
+<section class="section">
+  <div class="section-header">
+    <h3>📊 统一模型评分矩阵</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>板块</th><th>RS</th><th>动量</th><th>卡尔曼</th><th>BBW</th><th>多因子</th><th>综合</th><th>配置建议</th></tr>
+    </thead>
+    <tbody>
+    {% for s in unified_matrix.sectors %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td class="{% if s.rs >= 60 %}up{% elif s.rs >= 40 %}flat{% else %}down{% endif %}">{{ s.rs }}</td>
+        <td class="{% if s.momentum >= 60 %}up{% elif s.momentum >= 40 %}flat{% else %}down{% endif %}">{{ s.momentum }}</td>
+        <td class="up">{{ s.kalman }}</td>
+        <td class="down">{{ s.bbw }}</td>
+        <td class="{% if s.multi_factor >= 60 %}up{% elif s.multi_factor >= 40 %}flat{% else %}down{% endif %}">{{ s.multi_factor }}</td>
+        <td class="{% if s.total >= 60 %}up{% elif s.total >= 40 %}flat{% else %}down{% endif %}" style="font-weight:700">{{ s.total }}</td>
+        <td>
+          {% if s.suggestion == '增配' %}<span class="tag tag-up">{{ s.suggestion }}</span>
+          {% elif s.suggestion == '减配' %}<span class="tag tag-down">{{ s.suggestion }}</span>
+          {% else %}<span class="tag tag-neutral">{{ s.suggestion }}</span>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="alert alert-muted" style="margin-top:8px;padding:8px 12px;font-size:12px;">
+    <strong>简评：</strong>{{ unified_matrix.summary }}
+  </div>
+</section>
+{% endif %}
+
+{# ===== 今日关注 ===== #}
+<section class="section">
+  <div class="section-header">
+    <h3>⏰ 今日关注</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  {% if today_focus and today_focus|length > 0 %}
+  <table>
+    <thead><tr><th>时间</th><th>事件</th><th>影响</th></tr></thead>
+    <tbody>
+    {% for evt in today_focus %}
+      <tr>
+        <td>{{ evt.time }}</td>
+        <td>{{ evt.name }}{% if evt.sector and evt.sector != '—' %} <span class="tag tag-info">{{ evt.sector }}</span>{% endif %}</td>
+        <td>{{ evt.impact }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="no-data">— 今日暂无重点关注事件</div>
+  {% endif %}
+</section>
+
+{# ===== 板块轮动 ===== #}
+{% if sector_rotation %}
+<section class="section">
+  <div class="section-header">
+    <h3>🧭 板块轮动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  {% if sector_rotation.top or sector_rotation.bottom %}
+  <div class="grid">
+    {% if sector_rotation.top %}
+    <div class="data-card">
+      <div class="label">🏆 领涨</div>
+      {% for s in sector_rotation.top %}
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(63,185,80,0.15);color:#3fb950;">{{ s.name }}</span>
+        <span style="color:{% if s.change.startswith("+") or s.change > '0' %}#f85149{% else %}#3fb950{% endif %};">{{ s.change }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="data-card">
+      <div class="label">🏆 领涨</div>
+      <div class="no-data" style="padding:8px;">暂无领涨板块</div>
+    </div>
+    {% endif %}
+    {% if sector_rotation.bottom %}
+    <div class="data-card">
+      <div class="label">📉 领跌</div>
+      {% for s in sector_rotation.bottom %}
+      <div class="stock-row">
+        <span class="sector-tag" style="background:rgba(63,185,80,0.15);color:#3fb950;">{{ s.name }}</span>
+        <span style="color:#3fb950;">{{ s.change }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="data-card">
+      <div class="label">📉 领跌</div>
+      <div class="no-data" style="padding:8px;">暂无领跌板块</div>
+    </div>
+    {% endif %}
+  </div>
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">📌 {{ sector_rotation.summary }}</p>
+  {% else %}
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">🏆 领涨</div>
+      <div class="no-data" style="padding:8px;">暂无领涨板块</div>
+    </div>
+    <div class="data-card">
+      <div class="label">📉 领跌</div>
+      <div class="no-data" style="padding:8px;">暂无领跌板块</div>
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ===== 持仓股票盘前观察 ===== #}
+{% if holdings %}
+{% set ns = namespace(count=0) %}
+{% for sector_name, stocks in holdings.items() %}
+  {% set ns.count = ns.count + stocks|length %}
+{% endfor %}
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓股票盘前观察 <span style="color:#8b949e;font-size:12px;font-weight:400;">（{{ ns.count }}只）</span></h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>板块</th><th>股票</th><th>评级</th><th>评分</th><th>信号</th><th>操作建议</th></tr>
+    </thead>
+    <tbody>
+    {% for sector_name, stocks in holdings.items() %}
+    {% if stocks and stocks|length > 0 %}
+    <tr style="background:#1c2333;"><td colspan="6" style="font-weight:600;color:#58a6ff;">{{ sector_name }}</td></tr>
+    {% for h in stocks %}
+    <tr>
+      <td></td>
+      <td><span class="stock-name">{{ h.name }}</span>{% if h.code %} <span class="stock-code">{{ h.code }}</span>{% endif %}</td>
+      <td>
+        {% set rating_lower = h.rating|lower if h.rating is string else '' %}
+        {% if rating_lower in ('a', 'a+', 'a-') %}<span class="tag tag-up">{{ h.rating }}</span>
+        {% elif rating_lower in ('b', 'b+', 'b-') %}<span class="tag tag-neutral">{{ h.rating }}</span>
+        {% elif rating_lower in ('c', 'c+', 'c-') %}<span class="tag tag-down">{{ h.rating }}</span>
+        {% elif rating_lower in ('d', 'd+', 'd-') %}<span class="tag tag-down">{{ h.rating }}</span>
+        {% else %}<span class="tag tag-neutral">{{ h.rating }}</span>{% endif %}
+      </td>
+      {% set sc = h.score|float if h.score else 0 %}
+      <td class="{% if sc >= 60 %}up{% elif sc >= 40 %}flat{% else %}down{% endif %}">{{ h.score }}</td>
+      <td>
+        {% set sig = h.signal|lower if h.signal else '' %}
+        {% if sig in ('偏多', '看多', '买入') %}<span class="tag tag-up">{{ h.signal }}</span>
+        {% elif sig in ('偏空', '看空', '卖出') %}<span class="tag tag-down">{{ h.signal }}</span>
+        {% else %}<span class="tag tag-neutral">{{ h.signal }}</span>{% endif %}
+      </td>
+      <td>
+        {% set act = h.action|lower if h.action else '' %}
+        {% if act in ('增持', '增配', '买入') %}<span class="tag tag-up" style="font-weight:700">{{ h.action }}</span>
+        {% elif act in ('减持', '减配', '减仓', '卖出', '止损') %}<span class="tag tag-down" style="font-weight:700">{{ h.action }}</span>
+        {% elif act in ('持有', '观察') %}<span class="tag tag-neutral" style="font-weight:700">{{ h.action }}</span>
+        {% else %}<span style="font-weight:700">{{ h.action or '—' }}</span>{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 盘前操作策略 ===== #}
+{% if strategy %}
+<section class="section">
+  <div class="section-header">
+    <h3>⚔️ 操作策略</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">总体建议</div>
+      {% set so = strategy.overall|lower if strategy.overall else '' %}
+      {% if '偏多' in so or '看多' in so or '做多' in so %}<div class="value up">{{ strategy.overall }}</div>
+      {% elif '偏空' in so or '看空' in so or '做空' in so %}<div class="value down">{{ strategy.overall }}</div>
+      {% else %}<div class="value flat">{{ strategy.overall }}</div>{% endif %}
+      <div class="sub">{{ strategy.reason }}</div>
+    </div>
+    <div class="data-card">
+      <div class="label">仓位控制</div>
+      <div class="value">{{ strategy.position }}</div>
+      <div class="sub">建议仓位</div>
+    </div>
+  </div>
+  {% if strategy.details %}
+  <div style="margin-top:8px;">
+    <h4 style="font-size:13px;color:#f0883e;margin-bottom:6px;">具体建议</h4>
+    {% for d in strategy.details %}
+    <div style="padding:4px 0;font-size:13px;">· {{ d }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ===== 预警信号 ===== #}
+<section class="section">
+  <div class="section-header">
+    <h3>⚠️ 预警信号</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  {% if alerts and alerts|length > 0 %}
+  <div class="grid">
+    {% for a in alerts %}
+    <div class="alert {% if a.level == 'danger' %}alert-danger{% elif a.level == 'warning' %}alert-warning{% else %}alert-info{% endif %}">
+      <strong>{{ a.type }}</strong><br>
+      {{ a.message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="no-data">— 暂无预警信号</div>
+  {% endif %}
+</section>
+
+<div class="footer">
+  <p>🧩 盘前标准版 · 生成时间 {{ generated_at }}</p>
+  <p>数据来源: 统一模型v2 | 报告版本 {{ report_version }}</p>
+</div>
+
+</body>
+</html>

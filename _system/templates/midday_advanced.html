@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>午间进阶版 · {{ report_date }}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; margin-top: 36px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral, .flat { color: #d29922; }
+  .muted { color: #8b949e; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4, .index-grid { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+  .index-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 768px) { .index-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<h1>🧩 午间进阶版</h1>
+<div class="meta">
+  <span class="meta-item">📅 <strong>{{ report_date }}</strong></span>
+  <span class="meta-item">🕐 <strong>{{ generated_at }}</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 完全用新流程引擎</span>
+</div>
+
+{# ===== 指数概况 ===== #}
+{% if index_summary %}
+<section class="section">
+  <div class="section-header">
+    <h3>📊 指数概况</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <div class="index-grid">
+    {% for idx_name in ['上证指数','深证成指','创业板指','科创50'] %}
+    {% if idx_name in index_summary %}
+    {% set idx = index_summary[idx_name] %}
+    <div class="data-card">
+      <div class="label">{{ idx_name }}</div>
+      {% if idx.change is defined and idx.change != '—' and idx.change is not none %}
+      {% if idx.change > 0 %}<div class="value up">{{ idx.change }}%</div>
+      {% elif idx.change < 0 %}<div class="value down">{{ idx.change }}%</div>
+      {% else %}<div class="value flat">{{ idx.change }}%</div>{% endif %}
+      {% endif %}
+      {% if idx.value and idx.value != '—' %}<div class="sub">{{ idx.value }}</div>{% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% if index_summary.turnover and index_summary.turnover != '—' %}
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">半日成交 {{ index_summary.turnover }} 亿</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ===== 板块热度 ===== #}
+{% if sector_heat and sector_heat.sectors %}
+<section class="section">
+  <div class="section-header">
+    <h3>🔥 板块热度</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>半日涨跌</th><th>热度</th><th>领涨股</th></tr></thead>
+    <tbody>
+    {% for s in sector_heat.sectors %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td class="{% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}flat{% endif %}">{% if s.change > 0 %}+{% endif %}{{ s.change }}%</td>
+        <td>
+          <div class="strength-bar">
+            <div class="strength-bar-fill {% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}neutral{% endif %}" style="width:{{ s.heat }}%"></div>
+          </div>
+        </td>
+        <td>{{ s.leader }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 偏差矩阵 ===== #}
+{% if deviation_matrix and deviation_matrix.sectors %}
+<section class="section">
+  <div class="section-header">
+    <h3>📐 偏差矩阵</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>盘前预测</th><th>午间涨跌</th><th>实际信号</th><th>偏差</th><th>状态</th></tr></thead>
+    <tbody>
+    {% for s in deviation_matrix.sectors %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td>{{ s.predicted }}</td>
+        <td class="{% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}flat{% endif %}">{% if s.change > 0 %}+{% endif %}{{ s.change }}%</td>
+        <td><span class="{% if s.actual_signal == '↑' %}up{% elif s.actual_signal == '↓' %}down{% else %}flat{% endif %}">{{ s.actual_signal }}</span></td>
+        <td class="muted">{{ s.deviation }}</td>
+        <td>
+          {% if s.status == '符合预期' %}<span class="tag tag-up" style="background:#0d2a17;color:#3fb950;">{{ s.status }}</span>
+          {% elif s.status == '偏差较大' %}<span class="tag tag-down" style="background:#2d0a0a;color:#f85149;">{{ s.status }}</span>
+          {% else %}<span class="tag tag-neutral">{{ s.status }}</span>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 板块异动 ===== #}
+{% if sector_moves and sector_moves.moves %}
+<section class="section">
+  <div class="section-header">
+    <h3>⚡ 板块异动</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>时间</th><th>板块</th><th>方向</th><th>说明</th></tr></thead>
+    <tbody>
+    {% for m in sector_moves.moves %}
+      <tr>
+        <td>{{ m.time }}</td>
+        <td><strong>{{ m.sector }}</strong></td>
+        <td>{% if m.direction == '拉升' %}<span class="up">{{ m.direction }}</span>{% elif m.direction == '跳水' %}<span class="down">{{ m.direction }}</span>{% else %}<span class="flat">{{ m.direction }}</span>{% endif %}</td>
+        <td>{{ m.reason }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 持仓动态 ===== #}
+{% if holdings_dynamic and holdings_dynamic.stocks %}
+<section class="section">
+  <div class="section-header">
+    <h3>📋 持仓动态</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>名称</th><th>代码</th><th>半日涨跌</th><th>评分</th><th>盘前信号</th><th>午间信号</th><th>操作</th></tr></thead>
+    <tbody>
+    {% for s in holdings_dynamic.stocks %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td><code>{{ s.code }}</code></td>
+        <td class="{% if s.change > 0 %}up{% elif s.change < 0 %}down{% else %}flat{% endif %}">{% if s.change > 0 %}+{% endif %}{{ s.change }}%</td>
+        <td>{{ s.score }}</td>
+        <td><span class="{% if s.premarket_signal == '偏多' %}up{% elif s.premarket_signal == '偏空' %}down{% else %}flat{% endif %}">{{ s.premarket_signal }}</span></td>
+        <td><span class="{% if s.midday_signal == '偏多' %}up{% elif s.midday_signal == '偏空' %}down{% else %}flat{% endif %}">{{ s.midday_signal }}</span></td>
+        <td>{% if s.action == '持有' %}<span class="tag tag-up">{{ s.action }}</span>{% elif s.action == '观察' %}<span class="tag tag-neutral">{{ s.action }}</span>{% else %}<span class="tag tag-info">{{ s.action }}</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+{# ===== 资金流向热力 ===== #}
+{% if moneyflow and moneyflow.sectors %}
+<section class="section">
+  <div class="section-header">
+    <h3>💰 资金流向热力</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>主力净流入</th><th>强度</th><th>领涨股</th></tr></thead>
+    <tbody>
+    {% for s in moneyflow.sectors %}
+      <tr>
+        <td><strong>{{ s.name }}</strong></td>
+        <td class="{% if s.flow > 0 %}up{% elif s.flow < 0 %}down{% else %}flat{% endif %}">{{ s.flow_text }}</td>
+        <td>
+          <div class="strength-bar">
+            <div class="strength-bar-fill {% if s.flow > 0 %}up{% elif s.flow < 0 %}down{% else %}neutral{% endif %}" style="width:{{ s.strength }}%"></div>
+          </div>
+        </td>
+        <td>{{ s.top_stock }}{% if s.top_stock_chg %} <span class="muted">{{ s.top_stock_chg }}</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">
+    流入先锋: {{ moneyflow.top_sector }} ({{ moneyflow.top_sector_flow }}) · {{ moneyflow.coverage }}
+  </p>
+</section>
+{% endif %}
+
+{# ===== 涨停板分析 ===== #}
+{% if limit_up and limit_up.count is defined %}
+<section class="section">
+  <div class="section-header">
+    <h3>🚀 涨停板分析</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <div class="data-card">
+    <div class="label">涨停家数</div>
+    <div class="value up">{{ limit_up.count }}</div>
+    <div class="sub">{{ limit_up.coverage }}</div>
+  </div>
+  {% if limit_up.stocks and limit_up.stocks|length > 0 %}
+  <table>
+    <thead><tr><th>代码</th><th>名称</th></tr></thead>
+    <tbody>
+    {% for s in limit_up.stocks %}
+      <tr><td><code>{{ s.code }}</code></td><td>{{ s.name }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+{% endif %}
+
+<div class="footer">
+  <p>🧩 午间进阶版 · 生成时间 {{ generated_at }}</p>
+  <p>数据来源: 统一模型v2 + 东方财富资金流 | 报告版本 {{ report_version }}</p>
+</div>
+
+</body>
+</html>
