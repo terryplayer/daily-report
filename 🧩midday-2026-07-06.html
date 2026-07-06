@@ -1,141 +1,54 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📋 盘前简报 | 2026-07-06</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🌤 午间动态监测 | 2026-07-06 周一</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
-.container { max-width: 860px; margin: 0 auto; }
-.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
-.header h1 { font-size: 18px; color: #58a6ff; }
-.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
-.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
-.section h2 { font-size: 14px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
-.section h3 { font-size: 13px; margin: 10px 0 6px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
-th { color: #8b949e; font-weight: 500; font-size: 12px; }
-.up { color: #f85149; }
-.down { color: #3fb950; }
-.flat { color: #d9a52e; }
-.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
-.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
-.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
-.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
-.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
-.tag-score-b { background: rgba(88,166,255,0.18); color: #58a6ff; }
-.tag-score-c { background: rgba(139,148,158,0.18); color: #8b949e; }
-.tag-score-d { background: rgba(63,185,80,0.18); color: #3fb950; }
-.footer { text-align: center; color: #8b949e; font-size: 11px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
-.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
-.event-item:last-child { border-bottom: none; }
-.stock-card { padding: 10px 12px; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; }
-.stock-name { font-size: 14px; font-weight: 600; }
-.stock-code { color: #8b949e; font-size: 11px; }
-.stock-price { font-size: 16px; font-weight: 700; margin: 4px 0; }
-.stock-range { font-size: 12px; }
-.stock-detail { color: #8b949e; font-size: 12px; margin-top: 2px; }
-.sector-title { font-size: 14px; font-weight: 600; color: #58a6ff; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
-.sector-title:first-of-type { margin-top: 0; }
-.badge { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
-.signal { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px 2px 0 0; }
-.signal-add { background: rgba(248,81,73,0.18); color: #f85149; }
-.signal-hold { background: rgba(88,166,255,0.15); color: #58a6ff; }
-.signal-cut { background: rgba(63,185,80,0.15); color: #3fb950; }
-.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
-.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
-.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
-.badge-silver { background: rgba(139,148,158,0.12); color: #8b949e; }
-.score-bar { height: 4px; border-radius: 2px; margin-top: 4px; }
-.score-bar-bg { background: #21262d; border-radius: 2px; height: 4px; width: 100%; margin-top: 4px; }
-.score-bar-fill { height: 4px; border-radius: 2px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
-.pos { color: #f85149; }
-.neg { color: #3fb950; }
-
-/* 分段色块（板块评分用） */
-.sc-aplus{color:#f85149;font-weight:700}.sc-a{color:#d9a52e;font-weight:700}
-.sc-b{color:#8b949e;font-weight:600}.sc-c{color:#58a6ff;font-weight:600}.sc-d{color:#3fb950;font-weight:600}
-
-/* 随机森林预测方向 */
-.tag-up{color:#f85149;font-weight:600}.tag-down{color:#3fb950;font-weight:600}
-/* 压力位/支撑位 */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d1117;color:#e6edf3;padding:20px;line-height:1.6}
+.container{max-width:860px;margin:0 auto}
+h1{font-size:18px;color:#56d4dd;border-bottom:2px solid #56d4dd;padding-bottom:8px;margin-bottom:10px}
+h2{font-size:14px;color:#56d4dd;margin:12px 0 6px;border-bottom:1px solid #30363d;padding-bottom:4px}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px;font-size:13px}
+h3{font-size:13px;font-weight:600;color:#56d4dd;margin:10px 0 4px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px}
+th{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
+td{padding:4px 8px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#21262d}
+.col-name{width:16%}.col-code{width:10%}.col-rate{width:6%}.col-mom{width:6%}.col-price{width:9%}.col-chg{width:8%}.col-resist{width:9%}.col-support{width:9%}.col-opt{width:27%}
+.up{color:#f85149}.down{color:#3fb950}.flat{color:#d9a52e}
 .resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
-
-/* 横幅 + 列宽 + 表头 + 标签 */
-.banner{background:#58a6ff;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
-.col-code{width:12%}
-.col-mom{width:7%}
-.col-name{width:18%}
-.col-opt{width:32%}
-.col-price{width:10%}
-.col-rate{width:7%}
-.col-resist{width:10%}
-.col-support{width:10%}
-.sector-hdr{background:#1c2333;font-weight:600;color:#58a6ff;font-size:12px;border-bottom:2px solid #30363d}
-.table-header{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
-.tag-focus{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(217,165,46,0.15);color:#d9a52e;font-weight:700;line-height:1.4}
+.footer{text-align:center;color:#8b949e;font-size:11px;margin-top:16px;padding-top:12px;border-top:1px solid #21262d}
+.rate{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;min-width:22px;text-align:center}
+.rate-aplus{background:rgba(248,81,73,0.2);color:#f85149}
+.rate-a{background:rgba(217,165,46,0.2);color:#d9a52e}
+.rate-bplus{background:rgba(230,195,132,0.2);color:#e6c384}
+.rate-b{background:rgba(88,166,255,0.2);color:#58a6ff}
+.rate-c{background:rgba(139,148,158,0.2);color:#8b949e}
+.rate-d{background:rgba(63,185,80,0.2);color:#3fb950}
+.tag-up{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(248,81,73,0.15);color:#f85149}
+.tag-down{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(63,185,80,0.15);color:#3fb950}
 .tag-hold{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(88,166,255,0.15);color:#58a6ff}
-.tag-rec{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(88,166,255,0.15);color:#58a6ff;font-weight:700;line-height:1.4}
+.tag-focus{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(248,81,73,0.15);color:#f85149;font-weight:700;line-height:1.4}
+.tag-rec{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(86,212,221,0.15);color:#56d4dd;font-weight:700;line-height:1.4}
+.banner{background:#56d4dd;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
+</style></head><body><div class="container">
+<div class="banner">🌤 2026-07-06 周一 · 午间动态监测</div>
+<h1>🌤 午间动态监测 · 2026-07-06 周一</h1>
+<div style="font-size:12px;color:#8b949e;margin-top:-4px;margin-bottom:12px">生成时间：13:51 CST | ⚡ 今日交易中</div>
 
-/* 评级分段色 */
-.rate{display:inline-block;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:700;min-width:22px;text-align:center}
-.rate-aplus{color:#f85149;font-weight:700}.rate-a{color:#d9a52e;font-weight:700}
-.rate-bplus{color:#e6c384;font-weight:600}.rate-b{color:#8b949e;font-weight:600}
-.rate-c{color:#58a6ff;font-weight:600}.rate-d{color:#3fb950;font-weight:600}
-</style>
-</head>
-<body>
-<div class="container">
-
-<div class="header">
-<h1>📋 盘前简报 | 2026-07-06 周一</h1>
-<div class="date">生成时间：13:51 CST | ⚡ 今日交易中</div>
+<!-- ====== 1. 上午盘面回顾 ====== -->
+<div class="section">
+<h2>📊 上午盘面回顾</h2>
+<p style="color:#8b949e">暂无盘面数据</p>
 </div>
 
+<!-- ====== 2. 午间异动提醒 ====== -->
 <div class="section">
-<h2>🌍 隔夜外围市场</h2>
-<table><tr><th>指数</th><th>最新价</th><th>涨跌幅</th></tr>
-<tr><td>道琼斯</td><td>—</td><td class="flat">—</td></tr>
-<tr><td>纳斯达克</td><td>—</td><td class="flat">—</td></tr>
-<tr><td>标普500</td><td>—</td><td class="flat">—</td></tr>
-<tr><td>A50期货</td><td>—</td><td class="flat">—</td></tr>
-</table>
-<p style="margin-top:8px;font-size:13px">隔夜外盘数据暂未更新</p>
+<h2>⚡ 午间异动提醒（涨跌幅≥5%）</h2>
+<p style="color:#8b949e">暂无异动数据</p>
 </div>
 
+<!-- ====== 3. 持仓股票午间表现 ====== -->
 <div class="section">
-<h2>📊 A股大盘预判</h2>
-<p><strong>方向：</strong>震荡 · <strong>置信度：</strong>50%</p>
-<p><strong>支撑/阻力：</strong>3987.32 / 3988.69</p>
-<p style="margin-top:6px;font-size:12px;color:#8b949e">—</p>
-<p style="margin-top:4px">北向资金：<span class="down">+0亿</span></p>
-</div>
-
-<div class="section">
-<h2>📅 今日关注</h2>
-<p style="color:#8b949e">暂无重点关注</p>
-</div>
-
-<div class="section">
-<h2>🧭 板块提示与行业轮动</h2>
-<table>
-<tr><th>板块</th><th>RS</th><th>动量</th><th>多因子</th><th>评分</th></tr>
-<tr><td>化工/材料</td><td>63.4</td><td>50.6</td><td>16.1</td><td><span class="rate rate-b">B</span></td></tr>
-<tr><td>能源/公用</td><td>49.1</td><td>48.1</td><td>13.3</td><td><span class="rate rate-c">C</span></td></tr>
-<tr><td>科技/半导体</td><td>55.5</td><td>47.3</td><td>13.9</td><td><span class="rate rate-c">C</span></td></tr>
-<tr><td>通信/电子</td><td>49.2</td><td>46.5</td><td>16.7</td><td><span class="rate rate-c">C</span></td></tr>
-<tr><td>AI/数字应用</td><td>36.1</td><td>33.3</td><td>16.1</td><td><span class="rate rate-c">C</span></td></tr>
-</table>
-<p style="margin-top:6px;font-size:12px;color:#8b949e">化工/材料(48.6分)领先</p>
-</div>
-
-<div class="section">
-<h2>📋 持仓股票盘前观察</h2>
+<h2>📋 持仓股票午间表现</h2>
 <div class="sector-title">💻 科技/半导体</div>
 <table><tr><th class="col-code">代码</th><th class="col-name">名称</th><th class="col-price">价格</th><th class="col-rate">涨跌幅</th><th class="col-opt">操作建议</th></tr>
 <tr><td class="col-code">688549</td><td class="col-name">中巨芯-U</td><td class="col-price">25.05</td><td class="up">+10.55%</td><td class="col-opt">—</td></tr>
@@ -221,24 +134,12 @@ th { color: #8b949e; font-weight: 500; font-size: 12px; }
 </table>
 </div>
 
+<!-- ====== 4. 盘前预判 vs 午间实际 ====== -->
 <div class="section">
-<h2>⚔️ 操作策略</h2>
-<p><strong>总体策略：</strong>震荡操作</p>
-<p><strong>仓位建议：</strong>4-6成</p>
-<p style="margin-top:6px;font-size:12px;color:#8b949e">大盘震荡，精选个股</p>
-<ul>
-<li style="font-size:13px;margin:4px 0">化工/材料：持有(48.6分)</li>
-<li style="font-size:13px;margin:4px 0">能源/公用：持有(44.8分)</li>
-<li style="font-size:13px;margin:4px 0">科技/半导体：持有(43.7分)</li>
-</ul>
+<h2>📐 盘前预判 vs 午间实际</h2>
+<table><tr><th>项目</th><th>预判</th><th>实际</th><th>偏差</th></tr>
+</table>
 </div>
 
-<div class="footer">
-小十三 🌀 · 盘前简报 · 2026-07-06 周一<br>
-数据来源：Tushare · 多因子评估系统 · 随机森林<br>
-数据仅供参考，不构成投资建议 · 市场有风险，投资需谨慎
-</div>
-
-</div>
-</body>
-</html>
+<div class="footer">🌀 午间监测 · 统一模型 v1 · 2026-07-06 周一</div>
+</div></body></html>
