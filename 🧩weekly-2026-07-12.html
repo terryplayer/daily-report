@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周报标准版 · 2026-07-12</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral, .flat { color: #d29922; }
+  .muted { color: #8b949e; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+  .verify-table th { background: #161b22; }
+</style>
+<style>h1 { color: #f778ba; }</style>
+</head>
+<body>
+
+<h1>📈 周报标准版</h1>
+
+<div class="meta">
+  <span class="meta-item">📅 <strong>2026-07-12</strong></span>
+  <span class="meta-item">🕐 <strong>12:51 CST</strong></span>
+</div>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📈 本周大盘回顾</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid" style="margin-bottom:12px;">
+    <div class="data-card">
+      <div class="label">上证收盘</div>
+      <div class="value">3990.2353</div>
+      <div class="sub">最新收盘价</div>
+    </div>
+    <div class="data-card">
+      <div class="label">周涨跌幅</div>
+      <div class="value down">-0.07%</div>
+      <div class="sub">本周累计</div>
+    </div>
+  </div>
+  
+  <table>
+    <thead><tr><th>日期</th><th>收盘</th><th>涨跌幅</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td>20260610</td>
+        <td>3993.23</td>
+        <td class="down">-0.42%</td>
+      </tr>
+    
+      <tr>
+        <td>20260707</td>
+        <td>4041.1241</td>
+        <td class="flat">-0.0%</td>
+      </tr>
+    
+      <tr>
+        <td>20260708</td>
+        <td>3989.8225</td>
+        <td class="down">-0.01%</td>
+      </tr>
+    
+      <tr>
+        <td>20260709</td>
+        <td>3969.5784</td>
+        <td class="down">-0.03%</td>
+      </tr>
+    
+      <tr>
+        <td>20260710</td>
+        <td>4031.3684</td>
+        <td class="down">-0.13%</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 周板块轮动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>RS值</th><th>综合评分</th><th>方向</th><th>建议</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>AI/数字应用</strong></td>
+        <td class="down">25.7</td>
+        <td class="flat">57.9</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>科技/半导体</strong></td>
+        <td class="up">65.5</td>
+        <td class="flat">49.6</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>通信/电子</strong></td>
+        <td class="flat">40.2</td>
+        <td class="flat">47.9</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>能源/公用</strong></td>
+        <td class="flat">42.9</td>
+        <td class="flat">47.2</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>化工/材料</strong></td>
+        <td class="flat">45.5</td>
+        <td class="flat">42.0</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🎯 预测验证 · 周度</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+
+  
+  <h4 style="color:#58a6ff;margin:12px 0 6px;">📍 大盘方向 · 周度</h4>
+  <div class="grid" style="margin-bottom:8px;">
+    <div class="data-card">
+      <div class="label">本周准确率</div>
+      <div class="value up">20.0%</div>
+      <div class="sub">1/5 天</div>
+    </div>
+    <div class="data-card">
+      <div class="label">简评</div>
+      <div style="font-size:13px;margin-top:4px;color:#8b949e;">1/5天正确</div>
+    </div>
+  </div>
+  
+  
+
+  
+  <p style="font-size:11px;color:#8b949e;margin-top:4px;">基于prediction_ledger周账本</p>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📰 周末信息</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    
+    <div class="data-card">
+      <div class="label">制造业PMI</div>
+      <div class="value">50.3</div>
+    </div>
+    
+    
+    <div class="data-card">
+      <div class="label">CPI同比</div>
+      <div class="value">1.0</div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔮 下周趋势</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  
+  <div class="alert alert-danger">
+    <strong>趋势判断：</strong>偏空
+  </div>
+  
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">宏观周期</div>
+      <div class="value flat">{'cycle': '中性', 'phase': 'Neutral', 'description': '趋势不明朗，均衡配置', 'signal': '中性', 'gdp_trend': '→', 'cpi_trend': '→', 'pmi_trend': '→', 'allocation': {'股票': 35, '债券': 25, '商品': 20, '现金': 20}, 'recommended_sectors': [], 'calculated_at': '2026-07-12 12:51', 'data_source': 'Tushare'}</div>
+    </div>
+  </div>
+  
+</section>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>💡 持仓建议（105只）</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>名称</th><th>代码</th><th>板块</th><th>周涨跌</th><th>综合评分</th><th>评级</th><th>建议</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>华电辽能</strong></td>
+        <td>600396</td>
+        <td>能源/公用事业</td>
+        <td class="down">-32.5%</td>
+        <td class="up">69.9</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中鼎股份</strong></td>
+        <td>000887</td>
+        <td>化工/材料</td>
+        <td class="down">-2.68%</td>
+        <td class="up">68.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>易点天下</strong></td>
+        <td>301171</td>
+        <td>AI/数字经济</td>
+        <td class="down">-17.76%</td>
+        <td class="up">67.2</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>电科蓝天</strong></td>
+        <td>603019</td>
+        <td>科技/半导体</td>
+        <td class="up">+29.99%</td>
+        <td class="up">66.5</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>亿田智能</strong></td>
+        <td>300911</td>
+        <td>其他</td>
+        <td class="up">+0.54%</td>
+        <td class="up">64.9</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>电科蓝天</strong></td>
+        <td>688818</td>
+        <td>科技/半导体</td>
+        <td class="up">+19.71%</td>
+        <td class="up">64.9</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>五矿发展</strong></td>
+        <td>600058</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="up">64.8</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中百集团</strong></td>
+        <td>000759</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="up">64.2</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>拓维信息</strong></td>
+        <td>002261</td>
+        <td>科技/半导体</td>
+        <td class="up">+3.79%</td>
+        <td class="up">64.1</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>软通动力</strong></td>
+        <td>301236</td>
+        <td>科技/半导体</td>
+        <td class="down">-4.74%</td>
+        <td class="up">64.1</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>常山药业</strong></td>
+        <td>300255</td>
+        <td>其他</td>
+        <td class="down">-29.74%</td>
+        <td class="up">63.5</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>珂玛科技</strong></td>
+        <td>301611</td>
+        <td>通信/电子</td>
+        <td class="up">+36.3%</td>
+        <td class="up">63.4</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>格灵深瞳</strong></td>
+        <td>688207</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="up">63.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>东山精密</strong></td>
+        <td>002384</td>
+        <td>通信/电子</td>
+        <td class="up">+14.15%</td>
+        <td class="up">62.7</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中巨芯-U</strong></td>
+        <td>688549</td>
+        <td>科技/半导体</td>
+        <td class="up">+17.09%</td>
+        <td class="up">62.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蓝色光标</strong></td>
+        <td>300058</td>
+        <td>AI/数字经济</td>
+        <td class="down">-6.37%</td>
+        <td class="up">61.8</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>山子高科</strong></td>
+        <td>000981</td>
+        <td>其他</td>
+        <td class="down">-13.56%</td>
+        <td class="up">61.8</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>汇源通信</strong></td>
+        <td>000586</td>
+        <td>通信/电子</td>
+        <td class="down">-17.91%</td>
+        <td class="up">61.7</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中恒电气</strong></td>
+        <td>002364</td>
+        <td>能源/公用事业</td>
+        <td class="up">+9.6%</td>
+        <td class="up">60.6</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>上海建工</strong></td>
+        <td>600170</td>
+        <td>其他</td>
+        <td class="down">-5.79%</td>
+        <td class="up">60.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中科创达</strong></td>
+        <td>300496</td>
+        <td>AI/数字经济</td>
+        <td class="down">-3.99%</td>
+        <td class="up">60.0</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>荣科科技</strong></td>
+        <td>300290</td>
+        <td>AI/数字经济</td>
+        <td class="down">-54.24%</td>
+        <td class="flat">59.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>岩山科技</strong></td>
+        <td>002195</td>
+        <td>科技/半导体</td>
+        <td class="down">-9.82%</td>
+        <td class="flat">59.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天孚通信</strong></td>
+        <td>300394</td>
+        <td>通信/电子</td>
+        <td class="down">-34.05%</td>
+        <td class="flat">58.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>贵州茅台</strong></td>
+        <td>600519</td>
+        <td>其他</td>
+        <td class="down">-5.56%</td>
+        <td class="flat">57.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>欧莱新材</strong></td>
+        <td>688530</td>
+        <td>科技/半导体</td>
+        <td class="up">+37.26%</td>
+        <td class="flat">57.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>宏桥控股</strong></td>
+        <td>002379</td>
+        <td>化工/材料</td>
+        <td class="down">-15.69%</td>
+        <td class="flat">57.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>法尔胜</strong></td>
+        <td>000890</td>
+        <td>其他</td>
+        <td class="down">-27.36%</td>
+        <td class="flat">56.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长川科技</strong></td>
+        <td>300604</td>
+        <td>科技/半导体</td>
+        <td class="up">+55.38%</td>
+        <td class="flat">56.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>新易盛</strong></td>
+        <td>300502</td>
+        <td>通信/电子</td>
+        <td class="down">-32.29%</td>
+        <td class="flat">56.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>迪安诊断</strong></td>
+        <td>300244</td>
+        <td>其他</td>
+        <td class="up">+22.96%</td>
+        <td class="flat">56.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>龙腾光电</strong></td>
+        <td>688055</td>
+        <td>科技/半导体</td>
+        <td class="down">-0.85%</td>
+        <td class="flat">56.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长电科技</strong></td>
+        <td>600584</td>
+        <td>科技/半导体</td>
+        <td class="up">+36.54%</td>
+        <td class="flat">55.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>隆基绿能</strong></td>
+        <td>601012</td>
+        <td>能源/公用事业</td>
+        <td class="down">-13.99%</td>
+        <td class="flat">55.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>航天彩虹</strong></td>
+        <td>002389</td>
+        <td>其他</td>
+        <td class="up">+1.1%</td>
+        <td class="flat">55.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>京城股份</strong></td>
+        <td>600860</td>
+        <td>其他</td>
+        <td class="down">-7.03%</td>
+        <td class="flat">54.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蜀道装备</strong></td>
+        <td>300540</td>
+        <td>其他</td>
+        <td class="up">+66.57%</td>
+        <td class="flat">54.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>宏景科技</strong></td>
+        <td>301396</td>
+        <td>科技/半导体</td>
+        <td class="up">+48.66%</td>
+        <td class="flat">53.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>山东玻纤</strong></td>
+        <td>605006</td>
+        <td>化工/材料</td>
+        <td class="down">-20.5%</td>
+        <td class="flat">53.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>盛屯矿业</strong></td>
+        <td>600711</td>
+        <td>化工/材料</td>
+        <td class="down">-4.87%</td>
+        <td class="flat">50.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>完美世界</strong></td>
+        <td>002624</td>
+        <td>AI/数字经济</td>
+        <td class="down">-18.36%</td>
+        <td class="flat">49.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>领益智造</strong></td>
+        <td>002600</td>
+        <td>科技/半导体</td>
+        <td class="up">+9.06%</td>
+        <td class="flat">49.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>行云科技</strong></td>
+        <td>300209</td>
+        <td>AI/数字经济</td>
+        <td class="flat">0%</td>
+        <td class="flat">49.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>瑞华泰</strong></td>
+        <td>688323</td>
+        <td>科技/半导体</td>
+        <td class="down">-5.74%</td>
+        <td class="flat">49.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天通股份</strong></td>
+        <td>600330</td>
+        <td>化工/材料</td>
+        <td class="down">-17.81%</td>
+        <td class="flat">49.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>澜起科技</strong></td>
+        <td>688008</td>
+        <td>科技/半导体</td>
+        <td class="up">+16.04%</td>
+        <td class="flat">49.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>帝奥微</strong></td>
+        <td>688381</td>
+        <td>科技/半导体</td>
+        <td class="up">+1.9%</td>
+        <td class="flat">48.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>汉缆股份</strong></td>
+        <td>002498</td>
+        <td>能源/公用事业</td>
+        <td class="down">-16.83%</td>
+        <td class="flat">47.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>博瑞医药</strong></td>
+        <td>688166</td>
+        <td>其他</td>
+        <td class="down">-27.43%</td>
+        <td class="flat">46.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>襄阳轴承</strong></td>
+        <td>000678</td>
+        <td>其他</td>
+        <td class="down">-25.57%</td>
+        <td class="flat">46.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>圣阳股份</strong></td>
+        <td>002580</td>
+        <td>化工/材料</td>
+        <td class="down">-11.21%</td>
+        <td class="flat">46.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>兆驰股份</strong></td>
+        <td>002429</td>
+        <td>通信/电子</td>
+        <td class="down">-4.63%</td>
+        <td class="flat">46.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>沃尔核材</strong></td>
+        <td>002130</td>
+        <td>化工/材料</td>
+        <td class="down">-8.94%</td>
+        <td class="flat">45.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>恒润股份</strong></td>
+        <td>603985</td>
+        <td>其他</td>
+        <td class="down">-3.08%</td>
+        <td class="flat">45.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>深圳华强</strong></td>
+        <td>000062</td>
+        <td>其他</td>
+        <td class="up">+0.19%</td>
+        <td class="flat">45.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>格林美</strong></td>
+        <td>002340</td>
+        <td>化工/材料</td>
+        <td class="down">-6.84%</td>
+        <td class="flat">44.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>康盛股份</strong></td>
+        <td>002418</td>
+        <td>能源/公用事业</td>
+        <td class="down">-14.35%</td>
+        <td class="flat">44.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>彤程新材</strong></td>
+        <td>603650</td>
+        <td>化工/材料</td>
+        <td class="flat">0%</td>
+        <td class="flat">44.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中国西电</strong></td>
+        <td>601179</td>
+        <td>能源/公用事业</td>
+        <td class="down">-1.61%</td>
+        <td class="flat">44.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>生益科技</strong></td>
+        <td>600183</td>
+        <td>通信/电子</td>
+        <td class="flat">0%</td>
+        <td class="flat">43.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>隆扬电子</strong></td>
+        <td>301389</td>
+        <td>科技/半导体</td>
+        <td class="down">-16.42%</td>
+        <td class="flat">43.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>拓普集团</strong></td>
+        <td>601689</td>
+        <td>能源/公用事业</td>
+        <td class="flat">0%</td>
+        <td class="flat">41.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>硕贝德</strong></td>
+        <td>300322</td>
+        <td>通信/电子</td>
+        <td class="down">-21.01%</td>
+        <td class="flat">41.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>淳中科技</strong></td>
+        <td>603516</td>
+        <td>通信/电子</td>
+        <td class="down">-7.99%</td>
+        <td class="flat">40.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>水发燃气</strong></td>
+        <td>603318</td>
+        <td>能源/公用事业</td>
+        <td class="down">-13.18%</td>
+        <td class="down">39.8</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>富瀚微</strong></td>
+        <td>300613</td>
+        <td>科技/半导体</td>
+        <td class="up">+17.45%</td>
+        <td class="down">39.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中天科技</strong></td>
+        <td>600522</td>
+        <td>主板</td>
+        <td class="flat">0%</td>
+        <td class="down">39.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>华友钴业</strong></td>
+        <td>603799</td>
+        <td>化工/材料</td>
+        <td class="down">-11.96%</td>
+        <td class="down">39.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>协创数据</strong></td>
+        <td>300857</td>
+        <td>科技/半导体</td>
+        <td class="up">+25.08%</td>
+        <td class="down">38.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>铜冠铜箔</strong></td>
+        <td>301217</td>
+        <td>化工/材料</td>
+        <td class="up">+7.57%</td>
+        <td class="down">38.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>云南锗业</strong></td>
+        <td>002428</td>
+        <td>化工/材料</td>
+        <td class="flat">0%</td>
+        <td class="down">38.5</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>湖南白银</strong></td>
+        <td>002716</td>
+        <td>化工/材料</td>
+        <td class="down">-6.92%</td>
+        <td class="down">38.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>和顺科技</strong></td>
+        <td>301237</td>
+        <td>化工/材料</td>
+        <td class="up">+10.19%</td>
+        <td class="down">38.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>潍柴动力</strong></td>
+        <td>000338</td>
+        <td>能源/公用事业</td>
+        <td class="flat">0%</td>
+        <td class="down">37.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>三川智慧</strong></td>
+        <td>300066</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">37.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>飞凯材料</strong></td>
+        <td>300398</td>
+        <td>化工/材料</td>
+        <td class="up">+4.35%</td>
+        <td class="down">37.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>鲁西化工</strong></td>
+        <td>000830</td>
+        <td>化工/材料</td>
+        <td class="down">-4.79%</td>
+        <td class="down">37.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>利通电子</strong></td>
+        <td>603629</td>
+        <td>科技/半导体</td>
+        <td class="down">-19.39%</td>
+        <td class="down">37.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长海股份</strong></td>
+        <td>300196</td>
+        <td>化工/材料</td>
+        <td class="down">-15.71%</td>
+        <td class="down">37.0</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>大有能源</strong></td>
+        <td>600403</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">37.0</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>探路者</strong></td>
+        <td>300005</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">36.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>莲花控股</strong></td>
+        <td>600186</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">36.8</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>川金诺</strong></td>
+        <td>300505</td>
+        <td>化工/材料</td>
+        <td class="flat">0%</td>
+        <td class="down">36.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>华特气体</strong></td>
+        <td>688268</td>
+        <td>科技/半导体</td>
+        <td class="up">+2.38%</td>
+        <td class="down">36.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>南大光电</strong></td>
+        <td>300346</td>
+        <td>科技/半导体</td>
+        <td class="flat">0%</td>
+        <td class="down">36.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蓝思科技</strong></td>
+        <td>300433</td>
+        <td>通信/电子</td>
+        <td class="up">+3.63%</td>
+        <td class="down">35.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>富信科技</strong></td>
+        <td>688662</td>
+        <td>科技/半导体</td>
+        <td class="down">-3.28%</td>
+        <td class="down">35.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>昊志机电</strong></td>
+        <td>300503</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">35.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>菲利华</strong></td>
+        <td>300395</td>
+        <td>化工/材料</td>
+        <td class="down">-14.97%</td>
+        <td class="down">35.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>商络电子</strong></td>
+        <td>300975</td>
+        <td>通信/电子</td>
+        <td class="down">-10.26%</td>
+        <td class="down">34.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>创世纪</strong></td>
+        <td>300083</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">34.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>特锐德</strong></td>
+        <td>300001</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">34.8</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中远海能</strong></td>
+        <td>600026</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">34.6</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>亨通股份</strong></td>
+        <td>600226</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">34.6</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>德福科技</strong></td>
+        <td>301511</td>
+        <td>化工/材料</td>
+        <td class="down">-15.01%</td>
+        <td class="down">34.5</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>国际复材</strong></td>
+        <td>301526</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">34.5</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>诺德股份</strong></td>
+        <td>600110</td>
+        <td>化工/材料</td>
+        <td class="up">+5.08%</td>
+        <td class="down">34.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>方邦股份</strong></td>
+        <td>688020</td>
+        <td>科技/半导体</td>
+        <td class="up">+20.65%</td>
+        <td class="down">34.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>三环集团</strong></td>
+        <td>300408</td>
+        <td>创业板/科技</td>
+        <td class="flat">0%</td>
+        <td class="down">33.8</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>ST派瑞</strong></td>
+        <td>300831</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">33.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>多氟多</strong></td>
+        <td>002407</td>
+        <td>化工/材料</td>
+        <td class="up">+18.38%</td>
+        <td class="down">32.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>兴森科技</strong></td>
+        <td>002436</td>
+        <td>其他</td>
+        <td class="flat">0%</td>
+        <td class="down">32.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>阳光电源</strong></td>
+        <td>300274</td>
+        <td>能源/公用事业</td>
+        <td class="flat">0%</td>
+        <td class="down">31.6</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>江海股份</strong></td>
+        <td>002484</td>
+        <td>通信/电子</td>
+        <td class="down">-1.03%</td>
+        <td class="down">30.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天华新能</strong></td>
+        <td>300390</td>
+        <td>化工/材料</td>
+        <td class="down">-25.0%</td>
+        <td class="down">29.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 股票报告 | 2026-07-12</p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+</body>
+</html>
