@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 盘前简报 | 2026-07-13</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { border-bottom: 2px solid #58a6ff; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 18px; color: #58a6ff; }
+.header .date { color: #8b949e; font-size: 13px; margin-top: 4px; }
+.section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.section h2 { font-size: 14px; color: #58a6ff; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.section h3 { font-size: 13px; margin: 10px 0 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+th { color: #8b949e; font-weight: 500; font-size: 12px; }
+.up { color: #f85149; }
+.down { color: #3fb950; }
+.flat { color: #d9a52e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-aplus { background: rgba(248,81,73,0.15); color: #f85149; }
+.tag-a { background: rgba(210,153,34,0.15); color: #d9a52e; }
+.tag-b { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tag-c { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tag-d { background: rgba(63,185,80,0.15); color: #3fb950; }
+.tag-score-b { background: rgba(88,166,255,0.18); color: #58a6ff; }
+.tag-score-c { background: rgba(139,148,158,0.18); color: #8b949e; }
+.tag-score-d { background: rgba(63,185,80,0.18); color: #3fb950; }
+.footer { text-align: center; color: #8b949e; font-size: 11px; padding: 20px 0; border-top: 1px solid #21262d; margin-top: 24px; }
+.event-item { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-item:last-child { border-bottom: none; }
+.stock-card { padding: 10px 12px; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; }
+.stock-name { font-size: 14px; font-weight: 600; }
+.stock-code { color: #8b949e; font-size: 11px; }
+.stock-price { font-size: 16px; font-weight: 700; margin: 4px 0; }
+.stock-range { font-size: 12px; }
+.stock-detail { color: #8b949e; font-size: 12px; margin-top: 2px; }
+.sector-title { font-size: 14px; font-weight: 600; color: #58a6ff; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #21262d; }
+.sector-title:first-of-type { margin-top: 0; }
+.badge { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
+.signal { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px 2px 0 0; }
+.signal-add { background: rgba(248,81,73,0.18); color: #f85149; }
+.signal-hold { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.signal-cut { background: rgba(63,185,80,0.15); color: #3fb950; }
+.badge-red { background: rgba(248,81,73,0.12); color: #f85149; }
+.badge-green { background: rgba(63,185,80,0.12); color: #3fb950; }
+.badge-yellow { background: rgba(210,153,34,0.12); color: #d9a52e; }
+.badge-silver { background: rgba(139,148,158,0.12); color: #8b949e; }
+.score-bar { height: 4px; border-radius: 2px; margin-top: 4px; }
+.score-bar-bg { background: #21262d; border-radius: 2px; height: 4px; width: 100%; margin-top: 4px; }
+.score-bar-fill { height: 4px; border-radius: 2px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+.pos { color: #f85149; }
+.neg { color: #3fb950; }
+
+/* 分段色块（板块评分用） */
+.sc-aplus{color:#f85149;font-weight:700}.sc-a{color:#d9a52e;font-weight:700}
+.sc-b{color:#8b949e;font-weight:600}.sc-c{color:#58a6ff;font-weight:600}.sc-d{color:#3fb950;font-weight:600}
+
+/* 随机森林预测方向 */
+.tag-up{color:#f85149;font-weight:600}.tag-down{color:#3fb950;font-weight:600}
+/* 压力位/支撑位 */
+.resist{color:#f85149;font-weight:600}.support{color:#3fb950;font-weight:600}
+
+/* 横幅 + 列宽 + 表头 + 标签 */
+.banner{background:#58a6ff;color:#fff;text-align:center;padding:4px;border-radius:4px;font-size:11px;margin-bottom:8px}
+.col-code{width:12%}
+.col-mom{width:7%}
+.col-name{width:18%}
+.col-opt{width:32%}
+.col-price{width:10%}
+.col-rate{width:7%}
+.col-resist{width:10%}
+.col-support{width:10%}
+.sector-hdr{background:#1c2333;font-weight:600;color:#58a6ff;font-size:12px;border-bottom:2px solid #30363d}
+.table-header{background:#1c2333;color:#8b949e;padding:5px 8px;text-align:left;font-weight:500;font-size:11px;border-bottom:1px solid #30363d;white-space:nowrap}
+.tag-focus{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(217,165,46,0.15);color:#d9a52e;font-weight:700;line-height:1.4}
+.tag-hold{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(88,166,255,0.15);color:#58a6ff}
+.tag-rec{display:inline-block;padding:0 4px;border-radius:3px;font-size:12px;background:rgba(88,166,255,0.15);color:#58a6ff;font-weight:700;line-height:1.4}
+
+/* 评级分段色 */
+.rate{display:inline-block;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:700;min-width:22px;text-align:center}
+.rate-aplus{color:#f85149;font-weight:700}.rate-a{color:#d9a52e;font-weight:700}
+.rate-bplus{color:#e6c384;font-weight:600}.rate-b{color:#8b949e;font-weight:600}
+.rate-c{color:#58a6ff;font-weight:600}.rate-d{color:#3fb950;font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>📋 盘前简报 | 2026-07-13 周一</h1>
+<div class="date">生成时间：2026-07-13 09:00 | ⚡ 今日交易中</div>
+</div>
+
+<div class="section">
+<h2>🌍 隔夜外围市场</h2>
+<div class="grid-2">
+<div><strong>道琼斯</strong><br>52637.01 <span class="up">+0.29%</span></div>
+<div><strong>纳斯达克</strong><br>26281.61 <span class="up">+0.29%</span></div>
+<div><strong>标普500</strong><br><span class="flat">N/A</span></div>
+<div><strong>A50期货</strong><br><span class="flat">N/A</span></div>
+</div>
+<p style="color:#8b949e;font-size:12px;margin-top:8px;">隔夜外盘温和上涨，A50及标普数据缺失</p>
+</div>
+
+<div class="section">
+<h2>📊 A股大盘预判</h2>
+<p><strong>方向：</strong>平开震荡偏强，幅度有限，关注量能配合 <span class="tag tag-b">中性</span></p>
+<p><strong>支撑位：</strong><span class="down">3200</span> ｜ <strong>压力位：</strong><span class="up">3280</span></p>
+<p style="color:#8b949e;font-size:12px;margin-top:8px;">外盘温和上涨但A50/北向数据缺失，RS评级全面中性，今日偏向观望等待方向确认</p>
+</div>
+
+<div class="section">
+<h2>📅 今日关注</h2>
+<div class="event-item">🔸 科技/半导体龙头突破信号</div>
+<div class="event-item">🔸 量能与周末消息面催化</div>
+
+</div>
+
+<div class="section">
+<h2>🧭 板块提示与行业轮动</h2>
+<table><tr><th>板块</th><th>方向</th></tr>
+<tr><td>科技/半导体</td><td><span class="badge badge-yellow">中性</span></td></tr>
+<tr><td>通信/电子</td><td><span class="badge badge-yellow">中性</span></td></tr>
+<tr><td>AI/数字经济</td><td><span class="badge badge-red">中性偏多</span></td></tr>
+<tr><td>化工/材料</td><td><span class="badge badge-yellow">中性</span></td></tr>
+<tr><td>能源/公用事业</td><td><span class="badge badge-yellow">中性</span></td></tr>
+</table>
+<p style="color:#8b949e;font-size:12px;margin-top:8px;">综合评估：外盘传导偏正面但力度有限，核心指标缺失，多看少动</p>
+</div>
+
+<div class="section">
+<h2>📋 持仓股票盘前观察</h2>
+<div style="color:#8b949e;font-size:12px;">
+<p>持仓共105只，分布于6个板块。今日RS评级显示全面中性（评分B档），市场暂无明显方向信号。</p>
+<p>⚡ 重点关注科技/半导体（23只）和化工/材料（23只）两大核心板块开盘信号。</p>
+</div>
+</div>
+
+<div class="section">
+<h2>⚔️ 操作策略</h2>
+<div style="color:#e6edf3;font-size:13px;">
+<p><strong>📌 综合操作建议</strong></p>
+<ul style="margin:8px 0 0 20px;color:#8b949e;">
+<li>开盘前30分钟观望，不急于操作</li>
+<li>关注科技/半导体是否有龙头突破</li>
+<li>如量能配合突破3280压力位可适当加仓</li>
+<li>如缩量回踩可关注化工防御品种</li>
+<li><span class="down">支撑3200</span>跌破则降低仓位</li>
+</ul>
+</div>
+</div>
+
+<div class="footer">
+小十三 🌀 · 盘前简报 · 2026-07-13 周一<br>
+数据来源：Tushare · 多因子评估系统 · 随机森林<br>
+数据仅供参考，不构成投资建议 · 市场有风险，投资需谨慎
+</div>
+
+</div>
+</body>
+</html>
