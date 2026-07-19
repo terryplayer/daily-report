@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周报进阶版 · 2026-07-19</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+  }
+  h1 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #f0883e; margin-top: 36px; border-left: 4px solid #f0883e; padding-left: 12px; font-size: 20px; }
+  h3 { color: #79c0ff; margin-top: 28px; font-size: 17px; }
+  h4 { color: #d2a8ff; margin-top: 20px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #161b22; color: #58a6ff; font-weight: 600; }
+  tr:nth-child(even) { background: #161b22; }
+  tr:hover { background: #1c2333; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
+  .section { margin: 24px 0; padding: 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-header h3 { margin: 0; font-size: 16px; }
+  .section-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-standard { background: #1f6feb; color: #fff; }
+  .badge-advanced { background: #a371f7; color: #fff; }
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .alert-info { background: #0c2d4a; border: 1px solid #58a6ff; }
+  .alert-success { background: #0d2a17; border: 1px solid #3fb950; }
+  .alert-warning { background: #3d1f00; border: 1px solid #d29922; }
+  .alert-danger { background: #2d0a0a; border: 1px solid #f85149; }
+  .alert-muted { background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+  .up, .bullish { color: #f85149; }
+  .down, .bearish { color: #3fb950; }
+  .neutral, .flat { color: #d29922; }
+  .muted { color: #8b949e; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-up { background: #2d0a0a; color: #f85149; }
+  .tag-down { background: #0d2a17; color: #3fb950; }
+  .tag-neutral { background: #3d1f00; color: #d29922; }
+  .tag-info { background: #0c2d4a; color: #58a6ff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .data-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+  .data-card .label { font-size: 12px; color: #8b949e; }
+  .data-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .data-card .sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+  .strength-bar { height: 6px; border-radius: 3px; background: #21262d; margin: 4px 0; overflow: hidden; }
+  .strength-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .strength-bar-fill.up { background: #f85149; }
+  .strength-bar-fill.down { background: #3fb950; }
+  .strength-bar-fill.neutral { background: #d29922; }
+  .meta { color: #8b949e; font-size: 13px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .meta-item strong { color: #c9d1d9; }
+  .footer { margin-top: 48px; padding: 16px; background: #161b22; border-radius: 8px; text-align: center; }
+  .footer p { color: #8b949e; font-size: 12px; margin: 4px 0; }
+  @media (max-width: 768px) {
+    .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+  .no-data { color: #8b949e; font-style: italic; text-align: center; padding: 24px; }
+  .verify-table th { background: #161b22; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 768px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+<style>h1 { color: #f778ba; }</style>
+</head>
+<body>
+
+<h1>📈 周报进阶版</h1>
+
+<div class="meta">
+  <span class="meta-item">📅 <strong>2026-07-19</strong></span>
+  <span class="meta-item">🕐 <strong>13:20 CST</strong></span>
+  <span class="meta-item" style="background:rgba(163,113,247,0.15);color:#a371f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">🧩 新流程引擎·进阶</span>
+</div>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📈 本周大盘回顾</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid" style="margin-bottom:12px;">
+    <div class="data-card">
+      <div class="label">上证收盘</div>
+      <div class="value">3990.2353</div>
+      <div class="sub">最新收盘价</div>
+    </div>
+    <div class="data-card">
+      <div class="label">周涨跌幅</div>
+      <div class="value down">-0.08%</div>
+      <div class="sub">本周累计</div>
+    </div>
+  </div>
+  
+  <table>
+    <thead><tr><th>日期</th><th>收盘</th><th>涨跌幅</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td>20260713</td>
+        <td>3993.3264</td>
+        <td class="down">-0.07%</td>
+      </tr>
+    
+      <tr>
+        <td>20260714</td>
+        <td>3913.4169</td>
+        <td class="down">-0.01%</td>
+      </tr>
+    
+      <tr>
+        <td>20260715</td>
+        <td>3966.8591</td>
+        <td class="down">-0.01%</td>
+      </tr>
+    
+      <tr>
+        <td>20260716</td>
+        <td>3953.4295</td>
+        <td class="down">-0.05%</td>
+      </tr>
+    
+      <tr>
+        <td>20260717</td>
+        <td>3879.8268</td>
+        <td class="down">-0.07%</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 周板块轮动</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>板块</th><th>RS值</th><th>综合评分</th><th>方向</th><th>建议</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>AI/数字应用</strong></td>
+        <td class="up">80.5</td>
+        <td class="flat">54.1</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>能源/公用</strong></td>
+        <td class="up">68.6</td>
+        <td class="flat">49.9</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>化工/材料</strong></td>
+        <td class="up">57.1</td>
+        <td class="flat">49.6</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>通信/电子</strong></td>
+        <td class="up">52.8</td>
+        <td class="flat">45.3</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+      <tr>
+        <td><strong>科技/半导体</strong></td>
+        <td class="flat">42.1</td>
+        <td class="flat">43.4</td>
+        <td class="flat">→</td>
+        <td class="up">持有</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🎯 预测验证 · 周度</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  <h4 style="color:#58a6ff;margin:12px 0 6px;">📍 大盘方向 · 周度</h4>
+  <div class="grid" style="margin-bottom:8px;">
+    <div class="data-card">
+      <div class="label">本周准确率</div>
+      <div class="value up">80.0%</div>
+      <div class="sub">4/5 天</div>
+    </div>
+    <div class="data-card">
+      <div class="label">简评</div>
+      <div style="font-size:13px;margin-top:4px;color:#8b949e;">4/5天正确</div>
+    </div>
+  </div>
+  
+  
+  
+  <p style="font-size:11px;color:#8b949e;margin-top:4px;">基于prediction_ledger周账本</p>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>📰 周末信息</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <div class="grid">
+    
+    <div class="data-card">
+      <div class="label">制造业PMI</div>
+      <div class="value">50.3</div>
+    </div>
+    
+    
+    <div class="data-card">
+      <div class="label">CPI同比</div>
+      <div class="value">1.0</div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔮 下周趋势</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  
+  
+  <div class="alert alert-danger">
+    <strong>趋势判断：</strong>偏空
+  </div>
+  
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">宏观周期</div>
+      <div class="value flat">中性</div>
+      <div class="sub">趋势不明朗，均衡配置</div>
+    </div>
+    
+    <div class="data-card">
+      <div class="label">配置建议</div>
+      <div style="margin-top:4px;font-size:13px;">
+        <span class="up">股票 35%</span>
+        <span class="muted"> · </span>
+        <span class="flat">债券 25%</span>
+        <span class="muted"> · </span>
+        <span class="down">商品 20%</span>
+        <span class="muted"> · </span>
+        <span class="neutral">现金 20%</span>
+      </div>
+    </div>
+    
+  </div>
+  
+</section>
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>💡 持仓建议（105只）</h3>
+    <span class="section-badge badge-standard">标准</span>
+  </div>
+  <table>
+    <thead><tr><th>名称</th><th>代码</th><th>板块</th><th>周涨跌</th><th>综合评分</th><th>评级</th><th>建议</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>宏桥控股</strong></td>
+        <td>002379</td>
+        <td>化工/材料</td>
+        <td class="up">+13.77%</td>
+        <td class="up">72.0</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>常山药业</strong></td>
+        <td>300255</td>
+        <td>其他</td>
+        <td class="up">+25.34%</td>
+        <td class="up">71.8</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>铜冠铜箔</strong></td>
+        <td>301217</td>
+        <td>化工/材料</td>
+        <td class="up">+7.77%</td>
+        <td class="up">67.8</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>贵州茅台</strong></td>
+        <td>600519</td>
+        <td>其他</td>
+        <td class="up">+3.47%</td>
+        <td class="up">67.0</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>博瑞医药</strong></td>
+        <td>688166</td>
+        <td>其他</td>
+        <td class="up">+28.95%</td>
+        <td class="up">66.9</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>上海建工</strong></td>
+        <td>600170</td>
+        <td>其他</td>
+        <td class="up">+2.7%</td>
+        <td class="up">66.6</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中百集团</strong></td>
+        <td>000759</td>
+        <td>其他</td>
+        <td class="up">+13.68%</td>
+        <td class="up">65.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>荣科科技</strong></td>
+        <td>300290</td>
+        <td>AI/数字经济</td>
+        <td class="down">-0.95%</td>
+        <td class="up">63.3</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中科创达</strong></td>
+        <td>300496</td>
+        <td>AI/数字经济</td>
+        <td class="up">+0.63%</td>
+        <td class="up">62.6</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中巨芯-U</strong></td>
+        <td>688549</td>
+        <td>科技/半导体</td>
+        <td class="down">-8.39%</td>
+        <td class="up">62.1</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>水发燃气</strong></td>
+        <td>603318</td>
+        <td>能源/公用事业</td>
+        <td class="down">-0.94%</td>
+        <td class="up">61.6</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>鲁西化工</strong></td>
+        <td>000830</td>
+        <td>化工/材料</td>
+        <td class="up">+3.15%</td>
+        <td class="up">61.2</td>
+        <td class="flat">B</td>
+        <td><span class="tag tag-up">持有</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>汇源通信</strong></td>
+        <td>000586</td>
+        <td>通信/电子</td>
+        <td class="down">-5.16%</td>
+        <td class="flat">59.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>华电辽能</strong></td>
+        <td>600396</td>
+        <td>能源/公用事业</td>
+        <td class="up">+0.34%</td>
+        <td class="flat">58.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>襄阳轴承</strong></td>
+        <td>000678</td>
+        <td>其他</td>
+        <td class="down">-0.88%</td>
+        <td class="flat">58.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>隆基绿能</strong></td>
+        <td>601012</td>
+        <td>能源/公用事业</td>
+        <td class="up">+1.03%</td>
+        <td class="flat">58.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>东山精密</strong></td>
+        <td>002384</td>
+        <td>通信/电子</td>
+        <td class="up">+2.21%</td>
+        <td class="flat">57.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>华友钴业</strong></td>
+        <td>603799</td>
+        <td>化工/材料</td>
+        <td class="down">-6.21%</td>
+        <td class="flat">57.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>格林美</strong></td>
+        <td>002340</td>
+        <td>化工/材料</td>
+        <td class="down">-1.1%</td>
+        <td class="flat">57.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>完美世界</strong></td>
+        <td>002624</td>
+        <td>AI/数字经济</td>
+        <td class="up">+0.67%</td>
+        <td class="flat">57.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>亿田智能</strong></td>
+        <td>300911</td>
+        <td>其他</td>
+        <td class="down">-3.18%</td>
+        <td class="flat">55.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>特锐德</strong></td>
+        <td>300001</td>
+        <td>其他</td>
+        <td class="down">-0.74%</td>
+        <td class="flat">54.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>瑞华泰</strong></td>
+        <td>688323</td>
+        <td>科技/半导体</td>
+        <td class="down">-15.81%</td>
+        <td class="flat">53.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>法尔胜</strong></td>
+        <td>000890</td>
+        <td>其他</td>
+        <td class="down">-4.84%</td>
+        <td class="flat">53.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>京城股份</strong></td>
+        <td>600860</td>
+        <td>其他</td>
+        <td class="down">-1.55%</td>
+        <td class="flat">53.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>易点天下</strong></td>
+        <td>301171</td>
+        <td>AI/数字经济</td>
+        <td class="down">-7.54%</td>
+        <td class="flat">53.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>和顺科技</strong></td>
+        <td>301237</td>
+        <td>化工/材料</td>
+        <td class="down">-8.49%</td>
+        <td class="flat">53.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>大有能源</strong></td>
+        <td>600403</td>
+        <td>其他</td>
+        <td class="up">+3.23%</td>
+        <td class="flat">53.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>岩山科技</strong></td>
+        <td>002195</td>
+        <td>科技/半导体</td>
+        <td class="down">-3.7%</td>
+        <td class="flat">52.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>盛屯矿业</strong></td>
+        <td>600711</td>
+        <td>化工/材料</td>
+        <td class="down">-6.22%</td>
+        <td class="flat">52.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>沃尔核材</strong></td>
+        <td>002130</td>
+        <td>化工/材料</td>
+        <td class="down">-6.67%</td>
+        <td class="flat">52.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>康盛股份</strong></td>
+        <td>002418</td>
+        <td>能源/公用事业</td>
+        <td class="down">-3.28%</td>
+        <td class="flat">51.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>汉缆股份</strong></td>
+        <td>002498</td>
+        <td>能源/公用事业</td>
+        <td class="down">-5.79%</td>
+        <td class="flat">51.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>生益科技</strong></td>
+        <td>600183</td>
+        <td>通信/电子</td>
+        <td class="down">-1.61%</td>
+        <td class="flat">50.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>山子高科</strong></td>
+        <td>000981</td>
+        <td>其他</td>
+        <td class="down">-5.47%</td>
+        <td class="flat">50.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>三川智慧</strong></td>
+        <td>300066</td>
+        <td>其他</td>
+        <td class="down">-4.45%</td>
+        <td class="flat">50.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天华新能</strong></td>
+        <td>300390</td>
+        <td>化工/材料</td>
+        <td class="down">-10.99%</td>
+        <td class="flat">49.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>航天彩虹</strong></td>
+        <td>002389</td>
+        <td>其他</td>
+        <td class="down">-2.65%</td>
+        <td class="flat">49.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>新易盛</strong></td>
+        <td>300502</td>
+        <td>通信/电子</td>
+        <td class="down">-5.78%</td>
+        <td class="flat">49.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蓝思科技</strong></td>
+        <td>300433</td>
+        <td>通信/电子</td>
+        <td class="down">-13.38%</td>
+        <td class="flat">48.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>软通动力</strong></td>
+        <td>301236</td>
+        <td>科技/半导体</td>
+        <td class="down">-9.11%</td>
+        <td class="flat">48.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>德福科技</strong></td>
+        <td>301511</td>
+        <td>化工/材料</td>
+        <td class="down">-6.91%</td>
+        <td class="flat">48.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长海股份</strong></td>
+        <td>300196</td>
+        <td>化工/材料</td>
+        <td class="down">-10.19%</td>
+        <td class="flat">48.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中国西电</strong></td>
+        <td>601179</td>
+        <td>能源/公用事业</td>
+        <td class="down">-6.05%</td>
+        <td class="flat">48.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>利通电子</strong></td>
+        <td>603629</td>
+        <td>科技/半导体</td>
+        <td class="down">-16.05%</td>
+        <td class="flat">47.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蓝色光标</strong></td>
+        <td>300058</td>
+        <td>AI/数字经济</td>
+        <td class="down">-5.01%</td>
+        <td class="flat">47.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>隆扬电子</strong></td>
+        <td>301389</td>
+        <td>科技/半导体</td>
+        <td class="down">-10.33%</td>
+        <td class="flat">47.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>创世纪</strong></td>
+        <td>300083</td>
+        <td>其他</td>
+        <td class="down">-5.25%</td>
+        <td class="flat">47.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>圣阳股份</strong></td>
+        <td>002580</td>
+        <td>化工/材料</td>
+        <td class="down">-9.56%</td>
+        <td class="flat">47.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中远海能</strong></td>
+        <td>600026</td>
+        <td>其他</td>
+        <td class="down">-7.49%</td>
+        <td class="flat">47.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>阳光电源</strong></td>
+        <td>300274</td>
+        <td>能源/公用事业</td>
+        <td class="down">-5.92%</td>
+        <td class="flat">47.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天通股份</strong></td>
+        <td>600330</td>
+        <td>化工/材料</td>
+        <td class="down">-10.65%</td>
+        <td class="flat">47.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>山东玻纤</strong></td>
+        <td>605006</td>
+        <td>化工/材料</td>
+        <td class="down">-10.7%</td>
+        <td class="flat">47.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>龙腾光电</strong></td>
+        <td>688055</td>
+        <td>科技/半导体</td>
+        <td class="down">-12.07%</td>
+        <td class="flat">47.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>多氟多</strong></td>
+        <td>002407</td>
+        <td>化工/材料</td>
+        <td class="down">-15.54%</td>
+        <td class="flat">46.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>领益智造</strong></td>
+        <td>002600</td>
+        <td>科技/半导体</td>
+        <td class="down">-16.35%</td>
+        <td class="flat">46.7</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>宏景科技</strong></td>
+        <td>301396</td>
+        <td>科技/半导体</td>
+        <td class="down">-18.07%</td>
+        <td class="flat">46.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>湖南白银</strong></td>
+        <td>002716</td>
+        <td>化工/材料</td>
+        <td class="down">-6.11%</td>
+        <td class="flat">46.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中鼎股份</strong></td>
+        <td>000887</td>
+        <td>化工/材料</td>
+        <td class="down">-13.5%</td>
+        <td class="flat">45.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>拓普集团</strong></td>
+        <td>601689</td>
+        <td>能源/公用事业</td>
+        <td class="down">-6.08%</td>
+        <td class="flat">45.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>潍柴动力</strong></td>
+        <td>000338</td>
+        <td>能源/公用事业</td>
+        <td class="down">-7.52%</td>
+        <td class="flat">45.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>川金诺</strong></td>
+        <td>300505</td>
+        <td>化工/材料</td>
+        <td class="down">-7.44%</td>
+        <td class="flat">45.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>国际复材</strong></td>
+        <td>301526</td>
+        <td>其他</td>
+        <td class="down">-6.98%</td>
+        <td class="flat">44.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>诺德股份</strong></td>
+        <td>600110</td>
+        <td>化工/材料</td>
+        <td class="down">-13.78%</td>
+        <td class="flat">44.1</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>格灵深瞳</strong></td>
+        <td>688207</td>
+        <td>其他</td>
+        <td class="down">-8.75%</td>
+        <td class="flat">43.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>江海股份</strong></td>
+        <td>002484</td>
+        <td>通信/电子</td>
+        <td class="down">-6.47%</td>
+        <td class="flat">43.4</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>淳中科技</strong></td>
+        <td>603516</td>
+        <td>通信/电子</td>
+        <td class="down">-10.98%</td>
+        <td class="flat">43.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>兆驰股份</strong></td>
+        <td>002429</td>
+        <td>通信/电子</td>
+        <td class="down">-16.56%</td>
+        <td class="flat">43.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>电科蓝天</strong></td>
+        <td>603019</td>
+        <td>科技/半导体</td>
+        <td class="down">-17.19%</td>
+        <td class="flat">42.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>三环集团</strong></td>
+        <td>300408</td>
+        <td>创业板/科技</td>
+        <td class="down">-11.44%</td>
+        <td class="flat">42.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>方邦股份</strong></td>
+        <td>688020</td>
+        <td>科技/半导体</td>
+        <td class="down">-15.46%</td>
+        <td class="flat">42.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>欧莱新材</strong></td>
+        <td>688530</td>
+        <td>科技/半导体</td>
+        <td class="down">-22.02%</td>
+        <td class="flat">41.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>硕贝德</strong></td>
+        <td>300322</td>
+        <td>通信/电子</td>
+        <td class="down">-10.88%</td>
+        <td class="flat">41.8</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长电科技</strong></td>
+        <td>600584</td>
+        <td>科技/半导体</td>
+        <td class="down">-13.69%</td>
+        <td class="flat">41.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>长川科技</strong></td>
+        <td>300604</td>
+        <td>科技/半导体</td>
+        <td class="down">-14.29%</td>
+        <td class="flat">41.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>彤程新材</strong></td>
+        <td>603650</td>
+        <td>化工/材料</td>
+        <td class="down">-15.22%</td>
+        <td class="flat">41.2</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>华特气体</strong></td>
+        <td>688268</td>
+        <td>科技/半导体</td>
+        <td class="down">-18.6%</td>
+        <td class="flat">41.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>帝奥微</strong></td>
+        <td>688381</td>
+        <td>科技/半导体</td>
+        <td class="down">-21.91%</td>
+        <td class="flat">40.9</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>拓维信息</strong></td>
+        <td>002261</td>
+        <td>科技/半导体</td>
+        <td class="down">-17.03%</td>
+        <td class="flat">40.6</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>ST派瑞</strong></td>
+        <td>300831</td>
+        <td>其他</td>
+        <td class="down">-13.27%</td>
+        <td class="flat">40.5</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>兴森科技</strong></td>
+        <td>002436</td>
+        <td>其他</td>
+        <td class="down">-11.53%</td>
+        <td class="flat">40.3</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>商络电子</strong></td>
+        <td>300975</td>
+        <td>通信/电子</td>
+        <td class="down">-19.84%</td>
+        <td class="flat">40.0</td>
+        <td class="down">C</td>
+        <td><span class="tag tag-neutral">观察</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>行云科技</strong></td>
+        <td>300209</td>
+        <td>AI/数字经济</td>
+        <td class="down">-11.58%</td>
+        <td class="down">39.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>富信科技</strong></td>
+        <td>688662</td>
+        <td>科技/半导体</td>
+        <td class="down">-17.05%</td>
+        <td class="down">39.8</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>迪安诊断</strong></td>
+        <td>300244</td>
+        <td>其他</td>
+        <td class="down">-9.69%</td>
+        <td class="down">38.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>南大光电</strong></td>
+        <td>300346</td>
+        <td>科技/半导体</td>
+        <td class="down">-18.19%</td>
+        <td class="down">38.6</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>昊志机电</strong></td>
+        <td>300503</td>
+        <td>其他</td>
+        <td class="down">-14.28%</td>
+        <td class="down">38.5</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>云南锗业</strong></td>
+        <td>002428</td>
+        <td>化工/材料</td>
+        <td class="down">-16.82%</td>
+        <td class="down">36.5</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>飞凯材料</strong></td>
+        <td>300398</td>
+        <td>化工/材料</td>
+        <td class="down">-17.94%</td>
+        <td class="down">36.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>协创数据</strong></td>
+        <td>300857</td>
+        <td>科技/半导体</td>
+        <td class="down">-19.05%</td>
+        <td class="down">36.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>电科蓝天</strong></td>
+        <td>688818</td>
+        <td>科技/半导体</td>
+        <td class="down">-24.66%</td>
+        <td class="down">36.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>深圳华强</strong></td>
+        <td>000062</td>
+        <td>其他</td>
+        <td class="down">-19.71%</td>
+        <td class="down">36.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>菲利华</strong></td>
+        <td>300395</td>
+        <td>化工/材料</td>
+        <td class="down">-14.01%</td>
+        <td class="down">35.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>亨通股份</strong></td>
+        <td>600226</td>
+        <td>其他</td>
+        <td class="down">-18.28%</td>
+        <td class="down">35.9</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中天科技</strong></td>
+        <td>600522</td>
+        <td>主板</td>
+        <td class="down">-18.56%</td>
+        <td class="down">35.3</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>五矿发展</strong></td>
+        <td>600058</td>
+        <td>其他</td>
+        <td class="down">-20.61%</td>
+        <td class="down">35.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>天孚通信</strong></td>
+        <td>300394</td>
+        <td>通信/电子</td>
+        <td class="down">-18.49%</td>
+        <td class="down">34.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>恒润股份</strong></td>
+        <td>603985</td>
+        <td>其他</td>
+        <td class="down">-18.56%</td>
+        <td class="down">34.7</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>蜀道装备</strong></td>
+        <td>300540</td>
+        <td>其他</td>
+        <td class="down">-20.2%</td>
+        <td class="down">34.4</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>莲花控股</strong></td>
+        <td>600186</td>
+        <td>其他</td>
+        <td class="down">-19.19%</td>
+        <td class="down">34.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>富瀚微</strong></td>
+        <td>300613</td>
+        <td>科技/半导体</td>
+        <td class="down">-20.48%</td>
+        <td class="down">33.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>探路者</strong></td>
+        <td>300005</td>
+        <td>其他</td>
+        <td class="down">-21.53%</td>
+        <td class="down">32.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>珂玛科技</strong></td>
+        <td>301611</td>
+        <td>通信/电子</td>
+        <td class="down">-24.81%</td>
+        <td class="down">31.1</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>中恒电气</strong></td>
+        <td>002364</td>
+        <td>能源/公用事业</td>
+        <td class="down">-18.91%</td>
+        <td class="down">30.2</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+      <tr>
+        <td><strong>澜起科技</strong></td>
+        <td>688008</td>
+        <td>科技/半导体</td>
+        <td class="down">-27.37%</td>
+        <td class="down">28.6</td>
+        <td class="down">D</td>
+        <td><span class="tag tag-down">减仓</span></td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🧭 四象限总评 · 周度</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <div class="summary-grid" style="margin-bottom:12px;">
+    
+    <div class="data-card" style="border-color:#3fb950;">
+      <div class="label">Q1 强势区</div>
+      <div class="value" style="color:#3fb950;">0/6</div>
+      <div class="sub">—</div>
+    </div>
+    
+    <div class="data-card" style="border-color:#d29922;">
+      <div class="label">Q2 观望区</div>
+      <div class="value" style="color:#d29922;">0/6</div>
+      <div class="sub">—</div>
+    </div>
+    
+    <div class="data-card" style="border-color:#f85149;">
+      <div class="label">Q3 弱势区</div>
+      <div class="value" style="color:#f85149;">6/6</div>
+      <div class="sub">科技/半导体 · 通信/电子 · AI/数字应用 · 消费 · 能源/公用 · …</div>
+    </div>
+    
+    <div class="data-card" style="border-color:#58a6ff;">
+      <div class="label">Q4 反转区</div>
+      <div class="value" style="color:#58a6ff;">0/6</div>
+      <div class="sub">—</div>
+    </div>
+    
+  </div>
+  <div class="grid">
+    <div class="data-card">
+      <div class="label">融合方向</div>
+      <div class="value down">偏空</div>
+      <div class="sub">四象限综合</div>
+    </div>
+    <div class="data-card">
+      <div class="label">强弱比</div>
+      <div class="value">0/6</div>
+      <div class="sub">Q1+Q2 / 总数</div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🤖 ML周度</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <div class="grid" style="margin-bottom:8px;">
+    
+    <div class="data-card">
+      <div class="label">RF随机森林</div>
+      <div class="value up">100.0%</div>
+      <div class="sub">周度准确率</div>
+    </div>
+    
+    <div class="data-card">
+      <div class="label">Ridge回归</div>
+      <div class="value up">100.0%</div>
+      <div class="sub">周度准确率</div>
+    </div>
+    
+  </div>
+  
+  <div class="grid" style="margin-bottom:8px;">
+    <div class="data-card">
+      <div class="label">🏆 最佳</div>
+      <div class="value" style="color:#3fb950;">RF随机森林</div>
+      <div class="sub">100.0%</div>
+    </div>
+    <div class="data-card">
+      <div class="label">📉 最差</div>
+      <div class="value" style="color:#f85149;">RF随机森林</div>
+      <div class="sub">100.0%</div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:#8b949e;">差距: 100% vs 100%</p>
+  
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🏗️ 板块结构</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>分组</th><th>成员</th><th>特征</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>4个聚类</strong></td>
+        <td>15 + 30 + 12 + 23</td>
+        <td style="font-size:12px;color:#8b949e;">基于技术指标+动量 内聚度=11394</td>
+      </tr>
+    
+      <tr>
+        <td><strong>簇1</strong></td>
+        <td>15只股票</td>
+        <td style="font-size:12px;color:#8b949e;">15只成分股</td>
+      </tr>
+    
+      <tr>
+        <td><strong>簇2</strong></td>
+        <td>30只股票</td>
+        <td style="font-size:12px;color:#8b949e;">30只成分股</td>
+      </tr>
+    
+      <tr>
+        <td><strong>簇3</strong></td>
+        <td>12只股票</td>
+        <td style="font-size:12px;color:#8b949e;">12只成分股</td>
+      </tr>
+    
+      <tr>
+        <td><strong>簇4</strong></td>
+        <td>23只股票</td>
+        <td style="font-size:12px;color:#8b949e;">23只成分股</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#8b949e;margin-top:4px;">聚类数: 4 · 配对组: 0</p>
+</section>
+
+
+
+
+<section class="section">
+  <div class="section-header">
+    <h3>🔄 模型进化复盘</h3>
+    <span class="section-badge badge-advanced">进阶</span>
+  </div>
+  <table>
+    <thead><tr><th>模型</th><th>类型</th><th>版本</th><th>训练日期</th><th>准确率/状态</th><th>评估</th><th>变化</th><th>建议</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><strong>ARIMA</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>DCF估值</strong></td>
+        <td>🔬 分析模型</td>
+        <td>—</td>
+        <td style="font-size:12px;color:#8b949e;">暂未导入</td>
+        <td><span class="flat">暂未导入</span></td>
+        <td style="font-size:12px;">暂未导入</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">待上线</td>
+      </tr>
+    
+      <tr>
+        <td><strong>Fama-French</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>Hurst指数</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>K-means聚类</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>PCA主成分</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>RS排名</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>Ridge回归</strong></td>
+        <td>🤖 ML模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">2026-06-17</td>
+        <td><span class="up">100.0%</span></td>
+        <td style="font-size:12px;">截面参考信号，需积累时序数据</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">需积累更多交易日数据后再评估</td>
+      </tr>
+    
+      <tr>
+        <td><strong>STL分解</strong></td>
+        <td>🔬 分析模型</td>
+        <td>2.0</td>
+        <td style="font-size:12px;color:#8b949e;">2026-06-28</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>STL分解(简易)</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">2026-05-20</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>动量趋势+BBW</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>协整配对</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>卡尔曼偏离</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>历史相似度</strong></td>
+        <td>📐 规则模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">FAISS索引自动构建，无需人工干预</td>
+      </tr>
+    
+      <tr>
+        <td><strong>四象限定位</strong></td>
+        <td>📐 规则模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">阈值可回测优化</td>
+      </tr>
+    
+      <tr>
+        <td><strong>宏观数据采集</strong></td>
+        <td>📡 数据采集</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">自动采集，无需干预</td>
+      </tr>
+    
+      <tr>
+        <td><strong>技术指标</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>板块轮动</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>波动预警</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>统一模型v2</strong></td>
+        <td>📐 规则模型</td>
+        <td>2.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">权重可回测优化</td>
+      </tr>
+    
+      <tr>
+        <td><strong>美林时钟</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">2026-06-28</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+      <tr>
+        <td><strong>自适应权重</strong></td>
+        <td>📐 规则模型</td>
+        <td>—</td>
+        <td style="font-size:12px;color:#8b949e;">暂未导入</td>
+        <td><span class="flat">暂未导入</span></td>
+        <td style="font-size:12px;">暂未导入</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">待上线</td>
+      </tr>
+    
+      <tr>
+        <td><strong>随机森林v2</strong></td>
+        <td>🤖 ML模型</td>
+        <td>2.0</td>
+        <td style="font-size:12px;color:#8b949e;">2026-06-05</td>
+        <td><span class="up">100.0%</span></td>
+        <td style="font-size:12px;">良好</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">维持当前参数，定期重训</td>
+      </tr>
+    
+      <tr>
+        <td><strong>马尔可夫链</strong></td>
+        <td>🔬 分析模型</td>
+        <td>1.0</td>
+        <td style="font-size:12px;color:#8b949e;">无需训练</td>
+        <td><span class="flat">正常运行</span></td>
+        <td style="font-size:12px;">正常运行</td>
+        <td>✓</td>
+        <td style="font-size:12px;color:#8b949e;">固定算法，无需调整</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+
+<div class="footer">
+  <p>🧩 混动系统 · 周报进阶版 | 2026-07-19</p>
+  <p>数据来源: 统一模型v2 + 四象限 + 随机森林 + 协整配对</p>
+  <p>免责声明：本报告由量化模型自动生成，仅供参考，不构成投资建议。</p>
+</div>
+
+</body>
+</html>
